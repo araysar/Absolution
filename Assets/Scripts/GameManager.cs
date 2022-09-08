@@ -5,18 +5,39 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public static GameManager instance;
+    public bool onPause = false;
+
+
+    private void Awake()
     {
-        
+        if(instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.T))
+        if(Input.GetKeyDown(KeyCode.P))
         {
             SceneManager.LoadScene(0);
         }
+    }
+
+    public void RestartGame()
+    {
+        StartCoroutine(RestartCoroutine());
+    }
+
+    private IEnumerator RestartCoroutine()
+    {
+        yield return new WaitForSeconds(2);
+        SceneManager.LoadScene(0);
     }
 }

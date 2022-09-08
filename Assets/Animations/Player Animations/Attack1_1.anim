@@ -20,13 +20,17 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: -9044082841728467823, guid: f61c9bd5752ec7f438907e038ed09c10, type: 3}
+      value: {fileID: -7655447928943621601, guid: af236a23ca270d1478d43d8987f67dd7, type: 3}
+    - time: 0.033333335
+      value: {fileID: 104611279807361243, guid: af236a23ca270d1478d43d8987f67dd7, type: 3}
     - time: 0.06666667
-      value: {fileID: 5538430191999545661, guid: f61c9bd5752ec7f438907e038ed09c10, type: 3}
-    - time: 0.13333334
-      value: {fileID: 2344188397125456739, guid: f61c9bd5752ec7f438907e038ed09c10, type: 3}
+      value: {fileID: 104611279807361243, guid: af236a23ca270d1478d43d8987f67dd7, type: 3}
+    - time: 0.1
+      value: {fileID: -5319792522205808560, guid: af236a23ca270d1478d43d8987f67dd7, type: 3}
+    - time: 0.2
+      value: {fileID: 104611279807361243, guid: af236a23ca270d1478d43d8987f67dd7, type: 3}
     - time: 0.26666668
-      value: {fileID: -9044082841728467823, guid: f61c9bd5752ec7f438907e038ed09c10, type: 3}
+      value: {fileID: -7655447928943621601, guid: af236a23ca270d1478d43d8987f67dd7, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -46,10 +50,12 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: -9044082841728467823, guid: f61c9bd5752ec7f438907e038ed09c10, type: 3}
-    - {fileID: 5538430191999545661, guid: f61c9bd5752ec7f438907e038ed09c10, type: 3}
-    - {fileID: 2344188397125456739, guid: f61c9bd5752ec7f438907e038ed09c10, type: 3}
-    - {fileID: -9044082841728467823, guid: f61c9bd5752ec7f438907e038ed09c10, type: 3}
+    - {fileID: -7655447928943621601, guid: af236a23ca270d1478d43d8987f67dd7, type: 3}
+    - {fileID: 104611279807361243, guid: af236a23ca270d1478d43d8987f67dd7, type: 3}
+    - {fileID: 104611279807361243, guid: af236a23ca270d1478d43d8987f67dd7, type: 3}
+    - {fileID: -5319792522205808560, guid: af236a23ca270d1478d43d8987f67dd7, type: 3}
+    - {fileID: 104611279807361243, guid: af236a23ca270d1478d43d8987f67dd7, type: 3}
+    - {fileID: -7655447928943621601, guid: af236a23ca270d1478d43d8987f67dd7, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
@@ -82,7 +88,7 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.13333334
+  - time: 0.1
     functionName: CheckAttackHitBox
     data: 
     objectReferenceParameter: {fileID: 0}
