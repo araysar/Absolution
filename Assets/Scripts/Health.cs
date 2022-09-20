@@ -7,40 +7,59 @@ public class Health : MonoBehaviour, IDamageable
     [Header("Life")]
     public float maxHP = 10;
     public float currentHP;
+    public float defense = 0;
     [SerializeField] private GameObject damagedEffect;
     [SerializeField] private GameObject deathEffect;
+    [SerializeField] private bool invulnerability = false;
+    private bool recovering = false;
 
     [Space, Header("UI")]
     public Image lifeBar;
 
-    [Space, Header("Invulnerability")]
-    [SerializeField] private bool invulnerability = false;
+    [Space, Header("Flash")]
     [SerializeField] private float flashTimes = 3;
-    [SerializeField] private float flashDuration = 0.2f;
+    [SerializeField] private float flash1Duration = 0.2f;
+    [SerializeField] private Material paintableMaterial;
     [SerializeField] private Color flashColor = Color.red;
-    [HideInInspector] public Coroutine invulnerableCoroutine;
+    private SpriteRenderer myRenderer;
+    private Coroutine flashCoroutine;
+
 
     private void Start()
     {
+        if (!invulnerability) flashTimes = 1;
+        myRenderer = GetComponent<SpriteRenderer>();
         currentHP = maxHP;
     }
 
     public void TakeDamage(float dmg)
     {
-        if (invulnerableCoroutine != null) return;
+        if (recovering) return;
 
-        currentHP -= dmg;
-        if (currentHP < 0) currentHP = 0;
-        damagedEffect.SetActive(false);
-        damagedEffect.SetActive(true);
-        if (lifeBar != null) RefreshLifeBar();
-
-        if (currentHP <= 0) Death();
-
-        if (invulnerability)
+        float totalDamage = dmg - defense;
+        if(totalDamage > 0)
         {
-            invulnerableCoroutine = StartCoroutine(Invulnerable());
+            currentHP -= totalDamage;
+            if (currentHP < 0) currentHP = 0;
+            if(damagedEffect != null)
+            {
+                damagedEffect.SetActive(false);
+                damagedEffect.SetActive(true);
+            }
+            
+            if (lifeBar != null) RefreshLifeBar();
+
+            if (currentHP <= 0) Death();
+
+            if (flashCoroutine != null) return;
+
+            flashCoroutine = StartCoroutine(Flashing());
         }
+        else
+        {
+            //no me hace daño
+        }
+        
     }
         
     public void RefreshLifeBar()
@@ -52,46 +71,41 @@ public class Health : MonoBehaviour, IDamageable
     {
         if(deathEffect != null) deathEffect.SetActive(true);
 
-        if(GetComponent<SpriteRenderer>() != null)
+        if (GetComponent<Collider2D>() != null)
         {
-            GetComponent<SpriteRenderer>().enabled = false;
-            if(GetComponent<Collider2D>() != null)
-            {
-                GetComponent<Collider2D>().enabled = false;
-            }
-            if(GetComponent<Rigidbody2D>() != null)
-            {
-                GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
-            }
-
-            if(GetComponent<Character_Movement>() != null)
-            {
-                GameManager.instance.RestartGame();
-            }
+            GetComponent<Collider2D>().enabled = false;
         }
-        else
+        if (GetComponent<Rigidbody2D>() != null)
         {
-            Destroy(gameObject);
-        }   
+            GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+        }
+        if (GetComponent<Character_Movement>() != null)
+        {
+            GameManager.instance.RestartGame();
+        }
+
+            GetComponent<SpriteRenderer>().enabled = false;
     }
 
-    private IEnumerator Invulnerable()
+    private IEnumerator Flashing()
     {
-        SpriteRenderer renderer = GetComponent<SpriteRenderer>();
-        Color rendererColor = renderer.color;
+        if (invulnerability) recovering = true;
         int count = 0;
+
+        Material myMaterial = myRenderer.material;
+        Color myColor = myRenderer.color;
+
         while(count < flashTimes)
         {
-            renderer.color = flashColor;
-            yield return new WaitForSeconds(flashDuration);
-            renderer.color = rendererColor;
-            yield return new WaitForSeconds(flashDuration);
+            myRenderer.material = paintableMaterial;
+            myRenderer.color = flashColor;
+            yield return new WaitForSeconds(flash1Duration);
+            myRenderer.material = myMaterial;
+            myRenderer.color = myColor;
+            yield return new WaitForSeconds(flash1Duration);
             count++;
         }
-
-        renderer.color = rendererColor;
-        invulnerableCoroutine = null;
+        if (invulnerability) recovering = false;
+        flashCoroutine = null;
     }
-
-    
 }

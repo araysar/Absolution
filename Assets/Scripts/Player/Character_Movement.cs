@@ -12,9 +12,8 @@ public class Character_Movement : MonoBehaviour
     [Header("Move")]
     public float speed = 3;
     [HideInInspector] public Rigidbody2D rb;
-    private bool isFacingRight = true;
+    public bool isFacingRight = true;
     private bool isMoving;
-    private float inputMovement;
     private bool canMove = true;
     private bool canFlip = true;
 
@@ -30,6 +29,7 @@ public class Character_Movement : MonoBehaviour
     [SerializeField] private LayerMask groundMask;
     public bool isGrounded;
     public bool isFalling;
+    public bool isJumping;
 
     [Space, Header("Wall")]
     [SerializeField] private Transform wallCheck;
@@ -86,16 +86,18 @@ public class Character_Movement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(myHealth.currentHP > 0)
+        if(!GameManager.instance.onPause)
         {
-            Movement();
-            CheckSurroundings();
+            if (myHealth.currentHP > 0)
+            {
+                Movement();
+                CheckSurroundings();
+            }
         }
     }
 
     private void Inputs()
     {
-        inputMovement = Input.GetAxisRaw("Horizontal");
 
         if (Input.GetButtonDown("Jump"))
         {
@@ -169,6 +171,7 @@ public class Character_Movement : MonoBehaviour
         myAnim.SetBool("isMoving", isMoving);
         myAnim.SetBool("isGrounded", isGrounded);
         myAnim.SetBool("isFalling", isFalling);
+        myAnim.SetBool("isJumping", isJumping);
         myAnim.SetBool("isWallSliding", isWallSliding);
         myAnim.SetBool("isUlting", isUlting);
         myAnim.SetBool("isCharging", isCharging);
@@ -203,8 +206,8 @@ public class Character_Movement : MonoBehaviour
     {
         if(!isWallSliding)
         {
-            if (inputMovement < 0 && isFacingRight) Flip();
-            else if (inputMovement > 0 && !isFacingRight) Flip();
+            if (Input.GetAxisRaw("Horizontal") < 0 && isFacingRight) Flip();
+            else if (Input.GetAxisRaw("Horizontal") > 0 && !isFacingRight) Flip();
         }
 
         if (Mathf.Abs(rb.velocity.x) >= 0.01f) isMoving = true;
@@ -218,21 +221,29 @@ public class Character_Movement : MonoBehaviour
         {
             if (canMove)
             {
-                rb.velocity = new Vector2((inputMovement * speed) * Time.deltaTime, rb.velocity.y);
-                if (!isGrounded && rb.velocity.y < 0)
+                rb.velocity = new Vector2((Input.GetAxisRaw("Horizontal") * speed) * Time.deltaTime, rb.velocity.y);
+                if (!isGrounded && rb.velocity.y >= 0.1f)
                 {
-                    isFalling = true;
+                    isJumping = false;
+                    myAnim.SetBool("isJumping", isJumping);
+                    isJumping = true;
+                    myAnim.SetBool("isJumping", isJumping);
                     if (currentJumps == maxJumps)
                     {
                         currentJumps = maxJumps - 1;
                     }
                 }
-                else
+                else if(rb.velocity.y > -0.1f && rb.velocity.y < 0.1f)
                 {
+                    isJumping = false;
                     isFalling = false;
                 }
+                else if(rb.velocity.y < -0.1f)
+                {
+                    isFalling = true;
+                }
 
-                if (isWallSliding)
+                    if (isWallSliding)
                 {
                     if (rb.velocity.y < -wallSlideSpeed)
                     {
@@ -255,9 +266,10 @@ public class Character_Movement : MonoBehaviour
         if (canJump && currentJumps > 0 && !isDashing)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-            myAnim.SetTrigger("jump");
+            isFalling = false;
             if (currentJumps != maxJumps)
             {
+                myAnim.Play("Jump", 0, 0f);
                 doubleJumpEffect.Play();
             }
 
@@ -301,7 +313,7 @@ public class Character_Movement : MonoBehaviour
 
     private void CheckIfWallSliding()
     {
-        if(isTouchingWall && !isGrounded && rb.velocity.y < 0 && inputMovement != 0)
+        if(isTouchingWall && !isGrounded && rb.velocity.y < 0 && Input.GetAxisRaw("Horizontal") != 0)
         {
             isWallSliding = true;
         }

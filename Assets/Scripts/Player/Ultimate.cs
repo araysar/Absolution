@@ -13,6 +13,7 @@ public class Ultimate: MonoBehaviour
 
     [SerializeField] private GameObject chargeEffect;
     [SerializeField] private GameObject skillEffect;
+    [SerializeField] private string inputName = "Ultimate1";
 
     [SerializeField] private TMP_Text uiText;
     [SerializeField] private Image uiImage;
@@ -43,6 +44,11 @@ public class Ultimate: MonoBehaviour
                 uiImage.gameObject.SetActive(false);
             }
         }
+
+        if(Input.GetButtonDown(inputName))
+        {
+            ActivateUltimate();
+        }
     }
 
     public void ActivateUltimate()
@@ -62,7 +68,8 @@ public class Ultimate: MonoBehaviour
     private IEnumerator UsingUltimate()
     {
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
-        GetComponent<Collider2D>().enabled = false;
+        float playerDefense = GetComponent<Health>().defense;
+        GetComponent<Health>().defense = 9999;
         charMove.disableInputs = true;
         charMove.isCharging = true;
         rb.velocity = Vector2.zero;
@@ -86,7 +93,7 @@ public class Ultimate: MonoBehaviour
         charMove.disableInputs = false;
         skillEffect.SetActive(false);
         rb.gravityScale = gravity;
-        GetComponent<Collider2D>().enabled = true;
+        GetComponent<Health>().defense = playerDefense;
     }
 
 

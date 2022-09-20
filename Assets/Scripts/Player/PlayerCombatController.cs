@@ -69,13 +69,6 @@ public class PlayerCombatController : MonoBehaviour
         }
     }
 
-    private void FinishAttack()
-    {
-        isAttacking = false;
-        isFirstAttack = !isFirstAttack;
-        myAnim.SetBool("isAttacking", isAttacking);
-        myAnim.SetBool("attack1", false);
-    }
 
     private void OnDrawGizmos()
     {

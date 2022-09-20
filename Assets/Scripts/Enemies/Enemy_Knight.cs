@@ -14,6 +14,7 @@ public class Enemy_Knight : MonoBehaviour
     [Space, Header("Attack")]
     public float damage;
     public float timeAfterHit = 1;
+    [SerializeField] private GameObject rageEffect;
 
     [Space, Header("Check")]
     public float wallCheckDistance = 1;
@@ -23,7 +24,9 @@ public class Enemy_Knight : MonoBehaviour
     public bool isTouchingWall = false;
     public bool isChasing = false;
     private Vector2 lastPlayerPosition = Vector2.zero;
+    [SerializeField] private Transform wallCheck;
     [SerializeField] private Transform groundCheck;
+    [SerializeField] private Transform ultimateCheck;
     [SerializeField] private LayerMask playerMask;
     [SerializeField] private LayerMask groundMask;
 
@@ -47,26 +50,32 @@ public class Enemy_Knight : MonoBehaviour
 
     void Update()
     {
-        if (myHealth.currentHP > 0)
+        if(!GameManager.instance.onPause)
         {
-            CheckSurroundings();
-            AnimationController();
-            OnSight();
-            if(lastPlayerPosition == Vector2.zero)
+            if (myHealth.currentHP > 0)
             {
-                isChasing = false;
+                CheckSurroundings();
+                AnimationController();
+                OnSight();
+                if (lastPlayerPosition == Vector2.zero)
+                {
+                    isChasing = false;
+                }
+                else
+                {
+                    if ((lastPlayerPosition - (Vector2)transform.position).magnitude < 0.1f)
+                    {
+                        isChasing = false;
+                        lastPlayerPosition = Vector2.zero;
+                    }
+                }
+                currentDistance += Time.deltaTime;
             }
             else
             {
-                if((lastPlayerPosition - (Vector2)transform.position).magnitude < 0.1f )
-                {
-                    isChasing = false;
-                    lastPlayerPosition = Vector2.zero;
-                }
+                if (rageEffect.activeInHierarchy) rageEffect.SetActive(false);
             }
-            currentDistance += Time.deltaTime;
-
-            Debug.Log(lastPlayerPosition);
+                
         }
     }
 
@@ -108,7 +117,7 @@ public class Enemy_Knight : MonoBehaviour
                     {
                         isChasing = false;
                         lastPlayerPosition = Vector2.zero;
-                        GetComponent<Renderer>().material.color = Color.white;
+                        rageEffect.SetActive(false);
                     }
                 }
 
@@ -138,7 +147,7 @@ public class Enemy_Knight : MonoBehaviour
     private void CheckSurroundings()
     {
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundMask);
-        isTouchingWall = Physics2D.Raycast(transform.position, transform.right, wallCheckDistance, groundMask);
+        isTouchingWall = Physics2D.Raycast(wallCheck.position, transform.right, wallCheckDistance, groundMask);
 
     }
 
@@ -154,7 +163,8 @@ public class Enemy_Knight : MonoBehaviour
             }
             else
             {
-                GetComponent<Renderer>().material.color = Color.red;
+                if (!rageEffect.activeInHierarchy) rageEffect.SetActive(true);
+
                 lastPlayerPosition = target.transform.position;
                 isChasing = true; 
                 return true;
@@ -176,7 +186,7 @@ public class Enemy_Knight : MonoBehaviour
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(groundCheck.position, 0.1f);
-        Gizmos.DrawLine(transform.position, new Vector2(isFacingRight ? transform.position.x + wallCheckDistance : transform.position.x - wallCheckDistance, transform.position.y));
+        Gizmos.DrawLine(wallCheck.position, new Vector2(isFacingRight ? wallCheck.position.x + wallCheckDistance : wallCheck.position.x - wallCheckDistance, wallCheck.position.y));
 
         Gizmos.color = Color.green;
         Vector2 transform2 = new Vector2(transform.position.x, transform.position.y - 0.1f);

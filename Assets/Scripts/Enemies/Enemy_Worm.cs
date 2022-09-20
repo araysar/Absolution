@@ -5,9 +5,6 @@ public class Enemy_Worm : MonoBehaviour
 {
     public float damage;
     public float speed;
-    public float timeDash;
-    public float maxDistance = 2;
-    private float currentDistance = 0;
     public float timeAfterHit = 1;
     private bool recoveringFromHit = false;
 
@@ -17,7 +14,6 @@ public class Enemy_Worm : MonoBehaviour
     public bool isTouchingWall = false;
 
     [SerializeField] private Transform groundCheck;
-    [SerializeField] private LayerMask playerMask;
     [SerializeField] private LayerMask groundMask;
 
     private Animator myAnim;
@@ -40,11 +36,14 @@ public class Enemy_Worm : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(myHealth.currentHP > 0)
+        if(!GameManager.instance.onPause)
         {
-            CheckSurroundings();
-            currentDistance += Time.deltaTime;
+            if (myHealth.currentHP > 0)
+            {
+                CheckSurroundings();
+            }
         }
+        
     }
 
     private void FixedUpdate()
@@ -53,22 +52,14 @@ public class Enemy_Worm : MonoBehaviour
         {
             if (!recoveringFromHit)
             {
-                    if (currentDistance < maxDistance)
-                    {
-                        if (isGrounded && !isTouchingWall)
-                        {
-                            myRb.velocity = new Vector2((isFacingRight ? (1 * speed) : (-1 * speed)) * Time.deltaTime, myRb.velocity.y);
-                        }
-                        else if (!isGrounded || isTouchingWall)
-                        {
-                            Flip();
-                        }
-                    }
-                    else
-                    {
-                        Flip();
-                    }
-                
+                if (isGrounded && !isTouchingWall)
+                {
+                    myRb.velocity = new Vector2((isFacingRight ? (1 * speed) : (-1 * speed)) * Time.deltaTime, myRb.velocity.y);
+                }
+                else if (!isGrounded || isTouchingWall)
+                {
+                    Flip();
+                }
             }
             else
             {
@@ -79,7 +70,6 @@ public class Enemy_Worm : MonoBehaviour
 
     private void Flip()
     {
-        currentDistance = 0;
         isFacingRight = !isFacingRight;
         transform.Rotate(0, 180, 0);
 
