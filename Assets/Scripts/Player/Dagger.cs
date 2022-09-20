@@ -36,6 +36,7 @@ public class Dagger : MonoBehaviour
         {
             Impact();
             collision.GetComponent<IDamageable>().TakeDamage(damage);
+            myPool.AddToPool(gameObject);
         }
     }
 

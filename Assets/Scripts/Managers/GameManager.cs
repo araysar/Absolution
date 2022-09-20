@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour
 
     public void UnPause()
     {
-        onPause = true;
+        onPause = false;
         Time.timeScale = 1;
     }
 

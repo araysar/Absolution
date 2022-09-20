@@ -47,4 +47,9 @@ public class SoundManager : MonoBehaviour
                 break;
         }
     }
+
+    public AudioClip CurrentSong()
+    {
+        return musicAudioSource.clip;
+    }
 }
