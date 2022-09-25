@@ -9,7 +9,9 @@ public class Enemy_Knight : MonoBehaviour
     public float chasingSpeed;
     public float maxDistance = 2;
     private float currentDistance = 0;
-    private bool recoveringFromHit = false;
+    [SerializeField] private bool isResting = false;
+    private float currentRestingTime = 0;
+    private float maxRestingTime = 2;
 
     [Space, Header("Attack")]
     public float damage;
@@ -26,7 +28,6 @@ public class Enemy_Knight : MonoBehaviour
     private Vector2 lastPlayerPosition = Vector2.zero;
     [SerializeField] private Transform wallCheck;
     [SerializeField] private Transform groundCheck;
-    [SerializeField] private Transform ultimateCheck;
     [SerializeField] private LayerMask playerMask;
     [SerializeField] private LayerMask groundMask;
 
@@ -40,10 +41,19 @@ public class Enemy_Knight : MonoBehaviour
         myAnim = GetComponent<Animator>();
         myHealth = GetComponent<Health>();
 
-        int alf = Random.Range(0, 2);
-        if (alf > 0)
+        if (isFacingRight)
         {
-            Flip();
+            currentDistance = 0;
+            isChasing = false;
+            isFacingRight = true;
+            transform.Rotate(0, 0, 0);
+        }
+        else
+        {
+            currentDistance = 0;
+            isChasing = false;
+            isFacingRight = false;
+            transform.Rotate(0, 180, 0);
         }
 
     }
@@ -56,20 +66,39 @@ public class Enemy_Knight : MonoBehaviour
             {
                 CheckSurroundings();
                 AnimationController();
+
                 OnSight();
-                if (lastPlayerPosition == Vector2.zero)
+
+                if (lastPlayerPosition == Vector2.zero && isChasing)
                 {
                     isChasing = false;
+                    currentDistance -= maxDistance / 2;
                 }
                 else
                 {
                     if ((lastPlayerPosition - (Vector2)transform.position).magnitude < 0.1f)
                     {
+                        currentDistance -= maxDistance / 2;
                         isChasing = false;
                         lastPlayerPosition = Vector2.zero;
                     }
                 }
-                currentDistance += Time.deltaTime;
+
+                if(isResting)
+                {
+                    currentRestingTime += Time.deltaTime;
+
+                    if (currentRestingTime > maxRestingTime)
+                    {
+                        currentDistance = 0;
+                        currentRestingTime = 0;
+                        isResting = false;
+                    }
+                }
+                else
+                {
+                    currentDistance += Time.deltaTime;
+                }
             }
             else
             {
@@ -83,7 +112,7 @@ public class Enemy_Knight : MonoBehaviour
     {
         if (myHealth.currentHP > 0)
         {
-            if (!recoveringFromHit)
+            if (!isResting)
             {
                 if (!isChasing)
                 {
@@ -100,7 +129,8 @@ public class Enemy_Knight : MonoBehaviour
                     }
                     else
                     {
-                        Flip();
+                        myRb.velocity = new Vector2(0, myRb.velocity.y);
+                        isResting = true;
                     }
                 }
                 else
@@ -116,13 +146,15 @@ public class Enemy_Knight : MonoBehaviour
                     if(isFacingRight?(lastPlayerPosition.x - transform.position.x) < 0.1f : (lastPlayerPosition.x - transform.position.x) > 0.1f)
                     {
                         isChasing = false;
+                        currentDistance -= maxDistance / 2;
                         lastPlayerPosition = Vector2.zero;
                         rageEffect.SetActive(false);
+
                     }
                 }
 
             }
-            else
+            else if (isResting)
             {
                 myRb.velocity = new Vector2(0, myRb.velocity.y);
             }
@@ -131,7 +163,6 @@ public class Enemy_Knight : MonoBehaviour
 
     private void Flip()
     {
-        currentDistance = 0;
         isChasing = false;
         isFacingRight = !isFacingRight;
         transform.Rotate(0, 180, 0);
@@ -141,6 +172,15 @@ public class Enemy_Knight : MonoBehaviour
     private void AnimationController()
     {
         myAnim.SetBool("isChasing", isChasing);
+        if(myRb.velocity.x != 0)
+        {
+            myAnim.SetBool("isMoving", true);
+        }
+        else
+        {
+            myAnim.SetBool("isMoving", false);
+        }
+        
     }
 
 
@@ -174,12 +214,6 @@ public class Enemy_Knight : MonoBehaviour
         {
             return false;
         }
-    }
-    IEnumerator AfterHit()
-    {
-        recoveringFromHit = true;
-        yield return new WaitForSeconds(timeAfterHit);
-        recoveringFromHit = false;
     }
 
     private void OnDrawGizmos()

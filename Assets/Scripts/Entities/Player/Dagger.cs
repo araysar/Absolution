@@ -1,13 +1,13 @@
 using System.Collections;
 using UnityEngine;
 
-public class Dagger : MonoBehaviour
+public class Dagger : Projectile
 {
-    [HideInInspector] public Action_Shoot myPool;
     [SerializeField] private Animator myAnim;
     private Rigidbody2D myRb;
     private Character_Movement myChar;
-    public GameObject impactEffect;
+    [SerializeField] private GameObject impactEffect;
+    [SerializeField] private GameObject blockedImpactEffect;
     public bool isRolling = true;
     public float damage = 5;
     public float speed = 3;
@@ -34,15 +34,28 @@ public class Dagger : MonoBehaviour
         }
         else if (collision.GetComponent<IDamageable>() != null && collision.tag != "Player")
         {
-            Impact();
+            Impact(false);
             collision.GetComponent<IDamageable>().TakeDamage(damage);
             myPool.AddToPool(gameObject);
         }
     }
 
 
-    private void Impact()
+    public override void Impact(bool isBlocked)
     {
-        if(impactEffect != null) Instantiate(impactEffect, transform.position, Quaternion.identity);
+        if (!isBlocked)
+        {
+            if (impactEffect != null)
+            {
+                Instantiate(impactEffect, transform.position, Quaternion.identity);
+            }
+        }
+        else
+        {
+            if(blockedImpactEffect != null)
+            {
+                Instantiate(blockedImpactEffect, transform.position, Quaternion.identity);
+            }
+        }
     }
 }

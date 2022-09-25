@@ -10,16 +10,25 @@ public class Action_Shoot : MonoBehaviour
     private Animator myAnim;
     private Character_Movement myChar;
     [SerializeField] private string animatorBoolName = "attack1";
-    [SerializeField] private string inputName = "Fire1";
     private Queue<GameObject> availableObjects = new Queue<GameObject>();
     public bool canShoot = true;
     [HideInInspector] public bool isShooting = false;
     GameObject pool;
     private bool isAttacking = false;
+    public AttackType currentAttack;
+    private bool hydroBallActivated = false;
+    private bool phoenixFireFuryActivated = false;
+
+    public enum AttackType
+    {
+        HydroBall,
+        PhoenixFireFury,
+        
+    }
 
     private void Start()
     {
-        pool = new GameObject("Daggers");
+        pool = new GameObject("Projectile Pool");
         myAnim = GetComponent<Animator>();
         myChar = GetComponent<Character_Movement>();
         GrowPool(startingBullets);
@@ -27,25 +36,38 @@ public class Action_Shoot : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetButtonDown(inputName))
+        if(!isAttacking)
         {
-            ShootDagger();
+            if (Input.GetButtonDown("Fire1"))
+            {
+                ShootDagger();
+            }
+            else if (Input.GetButtonDown("Fire2"))
+            {
+                switch (currentAttack)
+                {
+                    default:
+                        break;
+                }
+            }
         }
+
         AnimationControl();
     }
+
      private void AnimationControl()
     {
         myAnim.SetBool("canAttack", isAttacking);
-        myAnim.SetBool(animatorBoolName, isAttacking);
         myAnim.SetBool("isAttacking", isAttacking);
     }
 
-    private void GrowPool(int daggers)
+    #region Normal Dagger
+    public void GrowPool(int daggers)
     {
         for (int i = 0; i < daggers; i++)
         {
             var instanceToAdd = Instantiate(myBullet);
-            instanceToAdd.GetComponent<Dagger>().myPool = this;
+            instanceToAdd.GetComponent<Projectile>().myPool = this;
             instanceToAdd.transform.SetParent(pool.transform);
             AddToPool(instanceToAdd);
         }
@@ -74,7 +96,10 @@ public class Action_Shoot : MonoBehaviour
         if (isAttacking) return;
 
         isAttacking = true;
+        GetFromPool();
     }
+
+    #endregion
 
     public void FinishShooting()
     {
