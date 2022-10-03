@@ -73,7 +73,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -519103173
-  m_SortingLayer: 2
+  m_SortingLayer: 4
   m_SortingOrder: 11
   m_Sprite: {fileID: 21300000, guid: 49f898d4dac9c4249bf3238ab11e8983, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -123,6 +123,7 @@ MonoBehaviour:
   myAnim: {fileID: -1313529266197173721}
   impactEffect: {fileID: 0}
   blockedImpactEffect: {fileID: 3416543320713666645, guid: 8a132a7eef578394ea911270581e4eec, type: 3}
+  soundLaunch: {fileID: 8300000, guid: 37eb70f5f6c6d5444b9200f0c1e58a98, type: 3}
   isRolling: 0
   damage: 10
   speed: 13

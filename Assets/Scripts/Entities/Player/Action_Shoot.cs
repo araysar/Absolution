@@ -19,6 +19,9 @@ public class Action_Shoot : MonoBehaviour
     private bool hydroBallActivated = false;
     private bool phoenixFireFuryActivated = false;
 
+    [Header("SFX")]
+    [SerializeField] private AudioClip daggerLaunch;
+
     public enum AttackType
     {
         HydroBall,
@@ -36,23 +39,26 @@ public class Action_Shoot : MonoBehaviour
 
     private void Update()
     {
-        if(!isAttacking)
+        if(!GameManager.instance.onPause)
         {
-            if (Input.GetButtonDown("Fire1"))
+            if (!isAttacking)
             {
-                ShootDagger();
-            }
-            else if (Input.GetButtonDown("Fire2"))
-            {
-                switch (currentAttack)
+                if (Input.GetButtonDown("Fire1"))
                 {
-                    default:
-                        break;
+                    ShootDagger();
+                }
+                else if (Input.GetButtonDown("Fire2"))
+                {
+                    switch (currentAttack)
+                    {
+                        default:
+                            break;
+                    }
                 }
             }
-        }
 
-        AnimationControl();
+            AnimationControl();
+        }
     }
 
      private void AnimationControl()
@@ -84,6 +90,7 @@ public class Action_Shoot : MonoBehaviour
     {
         var instance = availableObjects.Dequeue();
         instance.SetActive(true);
+        SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, daggerLaunch);
         instance.transform.position = shootingPoint.position;
     }
 

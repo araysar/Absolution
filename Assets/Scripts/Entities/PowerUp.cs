@@ -5,42 +5,47 @@ using UnityEngine;
 public class PowerUp : MonoBehaviour
 {
     public Character_Movement.PowerUp myPower;
-    private Coroutine coroutineGetSkill;
+    private Character_Movement myChar;
+    private bool isGrabed = false;
     [SerializeField] private GameObject uiMessage;
-    [SerializeField] private float timeUntilFade;
     private Animator myAnim;
 
     private void Start()
     {
-        myAnim = uiMessage.GetComponent<Animator>();
+        myAnim = GetComponent<Animator>();
         myAnim.SetBool("exit", false);
-        if (FindObjectOfType<Character_Movement>().myUpgrades.Contains(myPower))
+        myChar = FindObjectOfType<Character_Movement>();
+        myChar.myUpgrades.Add(myPower);
+
+        if (myChar.myUpgrades.Contains(myPower))
         {
+            isGrabed = true;
             gameObject.SetActive(false);
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.GetComponent<Character_Movement>() != null)
+        if(collision.GetComponent<Character_Movement>() != null && !isGrabed)
         {
-            if (coroutineGetSkill != null) return;
+            if(!isGrabed) isGrabed = true;
 
-            coroutineGetSkill = StartCoroutine(GetSkillCoroutine());
+            GameManager.instance.Pause();
+            uiMessage.SetActive(true);
+            myAnim.SetBool("enter", true);
         }
     }
 
-    private IEnumerator GetSkillCoroutine()
+    public void BTN_Exit()
     {
-        GameManager.instance.Pause();
-        uiMessage.SetActive(true);
-        yield return new WaitForSecondsRealtime(timeUntilFade);
+        myAnim.SetBool("enter", false);
         myAnim.SetBool("exit", true);
     }
 
     public void ExitAnimation()
     {
         GameManager.instance.UnPause();
+        myChar.myUpgrades.Add(myPower);
         uiMessage.SetActive(false);
         gameObject.SetActive(false);
     }

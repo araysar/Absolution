@@ -8,6 +8,7 @@ public class Dagger : Projectile
     private Character_Movement myChar;
     [SerializeField] private GameObject impactEffect;
     [SerializeField] private GameObject blockedImpactEffect;
+    [SerializeField] private AudioClip soundLaunch;
     public bool isRolling = true;
     public float damage = 5;
     public float speed = 3;

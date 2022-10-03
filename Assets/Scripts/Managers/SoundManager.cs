@@ -4,16 +4,18 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
-    [SerializeField] private AudioSource sfxAudioSource, musicAudioSource, voiceAudioSource, ambienceAudioSource;
+    [SerializeField] private AudioSource sfxAudioSource, musicAudioSource, unscalledAudioSource;
 
     public static SoundManager instance;
+
+    public float sfxVolume = 0.2f;
+    public float musicVolume = 0.2f;
 
     public enum SoundChannel
     {
         SFX,
         Music,
-        Voice,
-        Ambience,
+        Unscalled,
     };
 
     private void Awake()
@@ -27,6 +29,10 @@ public class SoundManager : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(this);
         }
+
+        sfxAudioSource.volume = sfxVolume;
+        musicAudioSource.volume = musicVolume;
+        unscalledAudioSource = sfxAudioSource;
     }
     public void PlaySound(SoundManager.SoundChannel channel, AudioClip clip)
     {
@@ -39,11 +45,8 @@ public class SoundManager : MonoBehaviour
                 musicAudioSource.clip = clip;
                 musicAudioSource.Play();
                 break;
-            case SoundChannel.Voice:
-                voiceAudioSource.PlayOneShot(clip);
-                break;
-            case SoundChannel.Ambience:
-                ambienceAudioSource.PlayOneShot(clip);
+            case SoundChannel.Unscalled:
+                unscalledAudioSource.PlayOneShot(clip);
                 break;
         }
     }
@@ -51,5 +54,17 @@ public class SoundManager : MonoBehaviour
     public AudioClip CurrentSong()
     {
         return musicAudioSource.clip;
+    }
+
+    public void PauseChannels()
+    {
+        sfxAudioSource.volume = sfxVolume / 4;
+        musicAudioSource.volume = musicVolume / 4;
+    }
+
+    public void UnPauseChannels()
+    {
+        sfxAudioSource.volume = sfxVolume;
+        musicAudioSource.volume = musicVolume;
     }
 }

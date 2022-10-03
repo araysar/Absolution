@@ -38,11 +38,13 @@ public class GameManager : MonoBehaviour
     {
         onPause = true;
         Time.timeScale = 0;
+        SoundManager.instance.PauseChannels();
     }
 
     public void UnPause()
     {
         onPause = false;
+        SoundManager.instance.UnPauseChannels();
         Time.timeScale = 1;
     }
 
