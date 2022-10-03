@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -34,6 +35,7 @@ public class Character_Movement : MonoBehaviour
     [Space, Header("Wall")]
     [SerializeField] private Transform wallCheck;
     public bool isTouchingWall;
+    private RaycastHit2D spikesRaycast;
     [SerializeField] private float wallSlideSpeed;
     [SerializeField] private float wallCheckDistance;
     public bool isWallSliding;
@@ -50,6 +52,25 @@ public class Character_Movement : MonoBehaviour
     public float dashCooldown;
     public int dashCharges = 1;
     public bool canDash = false;
+
+
+
+
+    [Space, Header("Power Ups")]
+    public List<PowerUp> myUpgrades = new List<PowerUp>();
+
+    public enum PowerUp
+    {
+        DoubleJump,
+        Dash,
+        Fire,
+        Ice,
+        Water,
+        Ulti1,
+        Ulti2,
+    };
+
+   
 
     //Animation
     private float gravityScale;
@@ -106,11 +127,14 @@ public class Character_Movement : MonoBehaviour
 
         if (Input.GetButtonDown("Dash"))
         {
-            if(canDash)
+            if(myUpgrades.Contains(PowerUp.Dash))
             {
-                if (Time.time >= (lastDash + dashCooldown) && dashCharges > 0)
+                if (canDash)
                 {
-                    AttemptToDash();
+                    if (Time.time >= (lastDash + dashCooldown) && dashCharges > 0)
+                    {
+                        AttemptToDash();
+                    }
                 }
             }
         }
@@ -309,11 +333,12 @@ public class Character_Movement : MonoBehaviour
     {
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundMask);
         isTouchingWall = Physics2D.Raycast(wallCheck.position, transform.right, wallCheckDistance, groundMask);
+        spikesRaycast = Physics2D.Raycast(wallCheck.position, transform.right, wallCheckDistance, groundMask);
     }
 
     private void CheckIfWallSliding()
     {
-        if(isTouchingWall && !isGrounded && rb.velocity.y < 0 && Input.GetAxisRaw("Horizontal") != 0)
+        if(isTouchingWall && !isGrounded && rb.velocity.y < 0 && Input.GetAxisRaw("Horizontal") != 0 && spikesRaycast.collider.tag != "Spikes")
         {
             isWallSliding = true;
         }

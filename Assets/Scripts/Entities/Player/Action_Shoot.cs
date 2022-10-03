@@ -95,14 +95,15 @@ public class Action_Shoot : MonoBehaviour
 
         if (isAttacking) return;
 
+        myAnim.SetBool("attack1", true);
         isAttacking = true;
-        GetFromPool();
     }
 
     #endregion
 
     public void FinishShooting()
     {
+        myAnim.SetBool("attack1", false);
         isAttacking = false;
     }
 }

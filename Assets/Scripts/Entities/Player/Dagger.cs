@@ -23,7 +23,7 @@ public class Dagger : Projectile
     {
         myAnim.SetBool("isRolling", isRolling);
         myAnim.SetBool("isFacingRight", myChar.isFacingRight);
-        myRb.velocity = new Vector2(myChar.isFacingRight? 1 * speed : -1 * speed, 0);
+        myRb.velocity = new Vector2(myChar.isFacingRight && !myChar.isWallSliding? 1 * speed : -1 * speed, 0);
 
     }
     private void OnTriggerEnter2D(Collider2D collision)

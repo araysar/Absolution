@@ -71,10 +71,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 10
-  boxCollider: {fileID: 2840823089999565794}
-  myTargetLayer:
-    serializedVersion: 2
-    m_Bits: 64
+  bounds: {x: 0, y: 0}
+  myTargetLayer: 6
 --- !u!1 &4528228462444741168
 GameObject:
   m_ObjectHideFlags: 0
@@ -147,10 +145,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 25
-  boxCollider: {fileID: 132630467743478845}
-  myTargetLayer:
-    serializedVersion: 2
-    m_Bits: 64
+  bounds: {x: 0, y: 0}
+  myTargetLayer: 6
 --- !u!114 &1352932221819536998
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,6 +160,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockedEffect: {fileID: 0}
+  myHealth: {fileID: 3977316718226632048}
 --- !u!1 &4775062617257324859
 GameObject:
   m_ObjectHideFlags: 0
@@ -4992,7 +4989,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6095550004421427272}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.75, z: 0}
+  m_LocalPosition: {x: 0, y: 0.091, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7168281197526176745}
@@ -5105,7 +5102,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.20305339, y: -0.012857556}
+  m_Offset: {x: -0.20305339, y: -0.05}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -5116,7 +5113,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.0038002, y: 1.5257151}
+  m_Size: {x: 1.0038002, y: 1.45}
   m_EdgeRadius: 0
 --- !u!50 &7168281197526176740
 Rigidbody2D:

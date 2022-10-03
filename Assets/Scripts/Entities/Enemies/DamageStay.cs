@@ -6,25 +6,32 @@ using UnityEngine;
 public class DamageStay : MonoBehaviour
 {
     [SerializeField] private float damage = 10;
+    [SerializeField] private Vector2 bounds;
+    [SerializeField] private int myTargetLayer = 6;
     private Health myHealth;
-    [SerializeField] private BoxCollider2D boxCollider;
-    [SerializeField] private LayerMask myTargetLayer;
 
     private bool playerOnBounds = false;
+
+
     private void Start()
     {
-        boxCollider = GetComponent<BoxCollider2D>();
-        myHealth = GetComponent<Health>();
-    }
+        myHealth = GetComponentInParent<Health>();
+        if (myHealth == null)
+        {
+            myHealth = gameObject.AddComponent<Health>();
+            myHealth.currentHP = 100;
+        }
 
+
+    }
     private void Update()
     {
-        if(playerOnBounds)
+        if(playerOnBounds && myHealth.currentHP > 0)
         {
-            Collider2D[] allObjectives = Physics2D.OverlapBoxAll((Vector2)transform.position + boxCollider.offset, boxCollider.size, 0, myTargetLayer);
+            Collider2D[] allObjectives = Physics2D.OverlapBoxAll(transform.position, bounds, 0);
             foreach (var item in allObjectives)
             {
-                if(item.GetComponent<IDamageable>() != null)
+                if(item.GetComponent<IDamageable>() != null && item.gameObject.layer == myTargetLayer)
                 {
                     item.GetComponent<IDamageable>().TakeDamage(damage);
                 }
@@ -50,6 +57,6 @@ public class DamageStay : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireCube((Vector2)transform.position + boxCollider.offset, boxCollider.size);
+        Gizmos.DrawWireCube(transform.position, bounds);
     }
 }

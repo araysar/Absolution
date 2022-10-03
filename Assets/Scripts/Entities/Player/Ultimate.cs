@@ -8,7 +8,7 @@ public class Ultimate: MonoBehaviour
     public bool canUse = true;
     public float cooldownTime = 10;
     public float cooldownLive = 0;
-    public float chargingTime = 1.5f;
+    public float chargingTime = 1f;
     public float skillTime = 2.5f;
 
     [SerializeField] private GameObject chargeEffect;
