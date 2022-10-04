@@ -20,6 +20,7 @@ public class Ultimate: MonoBehaviour
     void Start()
     {
         myChar = GetComponentInParent<Character_Movement>();
+        RefreshStacks();
     }
 
     // Update is called once per frame
@@ -45,7 +46,14 @@ public class Ultimate: MonoBehaviour
             if(uiImage.gameObject.activeInHierarchy) uiImage.gameObject.SetActive(false);
             if(!readyText.activeInHierarchy) readyText.SetActive(true);
         }
-        uiImage.fillAmount = myChar.ulti1Stacks / myChar.ulti1Required;
+        else
+        {
+            if(!uiImage.gameObject.activeInHierarchy) uiImage.gameObject.SetActive(true);
+            if (readyText.activeInHierarchy) readyText.SetActive(false);
+            float alf = myChar.ulti1Stacks / myChar.ulti1Required;
+            uiImage.fillAmount = 1 - alf;
+        }
+        
     }
 
     public void ActivateUltimate()
@@ -65,6 +73,9 @@ public class Ultimate: MonoBehaviour
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         float playerDefense = GetComponent<Health>().defense;
         GetComponent<Health>().defense = 9999;
+        myChar.ulti1Stacks = 0;
+        RefreshStacks();
+        myChar.isJumping = false;
         myChar.disableInputs = true;
         myChar.isCharging = true;
         rb.velocity = Vector2.zero;

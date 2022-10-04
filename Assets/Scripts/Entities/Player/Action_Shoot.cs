@@ -9,18 +9,22 @@ public class Action_Shoot : MonoBehaviour
     [SerializeField] private Transform shootingPoint;
     private Animator myAnim;
     private Character_Movement myChar;
-    [SerializeField] private string animatorBoolName = "attack1";
     private Queue<GameObject> availableObjects = new Queue<GameObject>();
     public bool canShoot = true;
     [HideInInspector] public bool isShooting = false;
     GameObject pool;
     private bool isAttacking = false;
     public AttackType currentAttack;
-    private bool hydroBallActivated = false;
-    private bool phoenixFireFuryActivated = false;
+
+    [Header("PyroSphere")]
+    [SerializeField] private GameObject pyroPrefab;
+    private GameObject pyroSphere;
+    public bool pyroReady = true;
+
 
     [Header("SFX")]
-    [SerializeField] private AudioClip daggerLaunch;
+    [SerializeField] private AudioClip daggerLaunchSfx;
+    [SerializeField] private AudioClip pyroLaunchSfx;
 
     public enum AttackType
     {
@@ -29,12 +33,16 @@ public class Action_Shoot : MonoBehaviour
         
     }
 
-    private void Start()
+    private void Awake()
     {
         pool = new GameObject("Projectile Pool");
         myAnim = GetComponent<Animator>();
         myChar = GetComponent<Character_Movement>();
         GrowPool(startingBullets);
+
+        pyroSphere = Instantiate(pyroPrefab, shootingPoint.transform.position, Quaternion.identity);
+        pyroSphere.GetComponent<PyroSphere_Launch>().myShooter = this;
+        pyroSphere.SetActive(false);
     }
 
     private void Update()
@@ -51,6 +59,11 @@ public class Action_Shoot : MonoBehaviour
                 {
                     switch (currentAttack)
                     {
+                        case AttackType.FrozenDaggers:
+                            break;
+                        case AttackType.PyroSphere:
+                            ShootPyroSphere();
+                            break;
                         default:
                             break;
                     }
@@ -61,7 +74,7 @@ public class Action_Shoot : MonoBehaviour
         }
     }
 
-     private void AnimationControl()
+    private void AnimationControl()
     {
         myAnim.SetBool("canAttack", isAttacking);
         myAnim.SetBool("isAttacking", isAttacking);
@@ -90,7 +103,7 @@ public class Action_Shoot : MonoBehaviour
     {
         var instance = availableObjects.Dequeue();
         instance.SetActive(true);
-        SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, daggerLaunch);
+        SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, daggerLaunchSfx);
         instance.transform.position = shootingPoint.position;
     }
 
@@ -105,6 +118,30 @@ public class Action_Shoot : MonoBehaviour
         myChar.StopDash();
         myAnim.SetBool("attack1", true);
         isAttacking = true;
+    }
+
+    #endregion
+
+    #region PyroSphere
+
+    private void ShootPyroSphere()
+    {
+        if (!canShoot) return;
+
+        if (!pyroReady) return;
+
+        if (isAttacking) return;
+
+        myChar.StopDash();
+        pyroReady = false;
+        myAnim.SetBool("attackFire", true);
+        isAttacking = true;
+    }
+
+    public void LaunchPyroSphere()
+    {
+        pyroSphere.SetActive(true);
+        pyroSphere.transform.position = shootingPoint.transform.position;
     }
 
     #endregion

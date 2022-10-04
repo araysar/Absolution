@@ -15,7 +15,6 @@ public class PowerUp : MonoBehaviour
         myAnim = GetComponent<Animator>();
         myAnim.SetBool("exit", false);
         myChar = FindObjectOfType<Character_Movement>();
-        myChar.myUpgrades.Add(myPower);
 
         if (myChar.myUpgrades.Contains(myPower))
         {
@@ -46,6 +45,7 @@ public class PowerUp : MonoBehaviour
     {
         GameManager.instance.UnPause();
         myChar.myUpgrades.Add(myPower);
+        myChar.PowerUpGrab(myPower);
         uiMessage.SetActive(false);
         gameObject.SetActive(false);
     }

@@ -56,10 +56,15 @@ public class Character_Movement : MonoBehaviour
 
     [Header("Ultimate")]
     public float ulti1Stacks;
-    public float ulti2Stacks;
     public float ulti1Required;
-    public float ulti2Required;
     public Ultimate ulti1;
+    public float ulti2Stacks;
+    public float ulti2Required;
+
+    [Header("Power Ups Activate")]
+    [SerializeField] private GameObject uiDash;
+    [SerializeField] private GameObject uiUltimate1;
+    [SerializeField] private GameObject uiFire;
 
     public enum PowerUp
     {
@@ -83,7 +88,7 @@ public class Character_Movement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         myAnim = GetComponent<Animator>();
         myHealth = GetComponent<Health>();
-        ulti1 = GetComponentInChildren<Ultimate>();
+        ulti1 = GetComponent<Ultimate>();
         currentJumps = maxJumps;
         gravityScale = rb.gravityScale;
     }
@@ -204,7 +209,7 @@ public class Character_Movement : MonoBehaviour
     {
         myAnim.SetBool("isMoving", isMoving);
         myAnim.SetBool("isGrounded", isGrounded);
-        myAnim.SetBool("isFalling", isFalling);
+        myAnim.SetFloat("velocity.y", rb.velocity.y);
         myAnim.SetBool("isJumping", isJumping);
         myAnim.SetBool("isWallSliding", isWallSliding);
         myAnim.SetBool("isUlting", isUlting);
@@ -301,10 +306,11 @@ public class Character_Movement : MonoBehaviour
         if (canJump && currentJumps > 0 && !isDashing)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            myAnim.Play("Idle", 0, 0f);
             isFalling = false;
             if (currentJumps != maxJumps)
             {
-                myAnim.Play("Jump", 0, 0f);
+                myAnim.Play("Idle", 0, 0f);
                 doubleJumpEffect.Play();
             }
 
@@ -364,6 +370,32 @@ public class Character_Movement : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
         Gizmos.DrawLine(wallCheck.position, new Vector3(isFacingRight? wallCheck.position.x + wallCheckDistance: wallCheck.position.x - wallCheckDistance, wallCheck.position.y, wallCheck.position.z));
+    }
+    #endregion
+
+    #region 
+    public void PowerUpGrab(PowerUp powerUp)
+    {
+        switch (powerUp)
+        {
+            case PowerUp.DoubleJump:
+                break;
+            case PowerUp.Dash:
+                uiDash.SetActive(true);
+                break;
+            case PowerUp.Fire:
+                uiFire.SetActive(true);
+                break;
+            case PowerUp.Ice:
+                break;
+            case PowerUp.Water:
+                break;
+            case PowerUp.Ulti1:
+                uiUltimate1.SetActive(true);
+                break;
+            case PowerUp.Ulti2:
+                break;
+        }
     }
     #endregion
 }

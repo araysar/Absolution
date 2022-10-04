@@ -6,9 +6,6 @@ Shader "PowerUp-Shader"
 	{
 		[HideInInspector] _AlphaCutoff("Alpha Cutoff ", Range(0, 1)) = 0.5
 		[HideInInspector] _EmissionColor("Emission Color", Color) = (1,1,1,1)
-		[ASEBegin]_Color0("Color 0", Color) = (1,1,1,0)
-		[ASEEnd]_TextureSample0("Texture Sample 0", 2D) = "white" {}
-		[HideInInspector] _texcoord( "", 2D ) = "white" {}
 
 	}
 
@@ -57,15 +54,9 @@ Shader "PowerUp-Shader"
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/ShaderGraphFunctions.hlsl"
 
-			#define ASE_NEEDS_FRAG_COLOR
+			
 
-
-			sampler2D _TextureSample0;
-			CBUFFER_START( UnityPerMaterial )
-			float4 _TextureSample0_ST;
-			float4 _Color0;
-			CBUFFER_END
-
+			
 
 			struct VertexInput
 			{
@@ -131,9 +122,8 @@ Shader "PowerUp-Shader"
 				UNITY_SETUP_INSTANCE_ID( IN );
 				UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX( IN );
 
-				float2 uv_TextureSample0 = IN.texCoord0.xy * _TextureSample0_ST.xy + _TextureSample0_ST.zw;
 				
-				float4 Color = ( tex2D( _TextureSample0, uv_TextureSample0 ) * IN.color * _Color0 );
+				float4 Color = float4( 1, 1, 1, 1 );
 
 				#if ETC1_EXTERNAL_ALPHA
 					float4 alpha = SAMPLE_TEXTURE2D( _AlphaTex, sampler_AlphaTex, IN.texCoord0.xy );
@@ -154,21 +144,7 @@ Shader "PowerUp-Shader"
 }
 /*ASEBEGIN
 Version=18900
-8;502;1213;481;633.1205;424.8642;1.363988;True;False
-Node;AmplifyShaderEditor.SamplerNode;83;103.9399,-327.1592;Inherit;True;Property;_TextureSample0;Texture Sample 0;2;0;Create;True;0;0;0;False;0;False;-1;af8c4a7fe6b05ef4f8306cabb925ec3c;af8c4a7fe6b05ef4f8306cabb925ec3c;True;0;False;white;Auto;False;Object;-1;Auto;Texture2D;8;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;6;FLOAT;0;False;7;SAMPLERSTATE;;False;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
-Node;AmplifyShaderEditor.VertexColorNode;93;248.6763,53.39713;Inherit;False;0;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
-Node;AmplifyShaderEditor.ColorNode;59;185.8707,-132.028;Inherit;False;Property;_Color0;Color 0;1;0;Create;True;0;0;0;False;0;False;1,1,1,0;0,0,0,0;True;0;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
-Node;AmplifyShaderEditor.RangedFloatNode;54;-911.5793,195.6816;Inherit;False;Property;_Thickness;Thickness;0;0;Create;True;0;0;0;False;0;False;0.2;0;0;0;0;1;FLOAT;0
-Node;AmplifyShaderEditor.DynamicAppendNode;52;-758.5793,240.6816;Inherit;False;FLOAT2;4;0;FLOAT;0;False;1;FLOAT;0;False;2;FLOAT;0;False;3;FLOAT;0;False;1;FLOAT2;0
-Node;AmplifyShaderEditor.TextureCoordinatesNode;47;-605.3705,230.9561;Inherit;False;0;-1;2;3;2;SAMPLER2D;;False;0;FLOAT2;1,1;False;1;FLOAT2;0,0;False;5;FLOAT2;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
-Node;AmplifyShaderEditor.TextureCoordinatesNode;81;-130.3145,41.42104;Inherit;False;0;-1;2;3;2;SAMPLER2D;;False;0;FLOAT2;1,1;False;1;FLOAT2;0,0;False;5;FLOAT2;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
-Node;AmplifyShaderEditor.SimpleMultiplyOpNode;84;466.3664,-131.9475;Inherit;False;3;3;0;COLOR;0,0,0,0;False;1;COLOR;0,0,0,0;False;2;COLOR;0,0,0,0;False;1;COLOR;0
+8;593;1213;390;2075.653;378.9957;2.81442;True;False
 Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;94;629.544,-135.7866;Float;False;True;-1;2;UnityEditor.ShaderGraph.PBRMasterGUI;0;13;PowerUp-Shader;cf964e524c8e69742b1d21fbe2ebcc4a;True;Unlit;0;0;Unlit;3;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;2;False;-1;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;3;RenderPipeline=UniversalPipeline;RenderType=Transparent=RenderType;Queue=Transparent=Queue=0;True;0;0;False;True;2;5;False;-1;10;False;-1;3;1;False;-1;10;False;-1;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;True;True;True;True;0;False;-1;False;False;False;False;False;False;False;True;False;255;False;-1;255;False;-1;255;False;-1;7;False;-1;1;False;-1;1;False;-1;1;False;-1;7;False;-1;1;False;-1;1;False;-1;1;False;-1;False;True;2;False;-1;True;3;False;-1;True;True;0;False;-1;0;False;-1;True;0;False;0;Hidden/InternalErrorShader;0;0;Standard;1;Vertex Position;1;0;1;True;False;;False;0
-WireConnection;52;0;54;0
-WireConnection;47;1;52;0
-WireConnection;84;0;83;0
-WireConnection;84;1;93;0
-WireConnection;84;2;59;0
-WireConnection;94;1;84;0
 ASEEND*/
-//CHKSM=E789C91872FCDE667CCCB4D873BBD0F1604DD278
+//CHKSM=6C76A3ACF6FF97E249A8E98E21D623240D51FC69

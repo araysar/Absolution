@@ -32,9 +32,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - _AlphaCutoff: 0.5
     - _DistorsionDir: 0.05
     - _EdgeLength: 2
-    - _EmissionPower: 3
+    - _EmissionPower: 2
     - _MaxClamp: 1
     - _Metallic: 0.206
     - _MoveIntensity: 1
@@ -56,13 +57,14 @@ Material:
     - _WorldPosition1: 0.5
     - __dirty: 0
     m_Colors:
-    - _Albedo: {r: 0.6195762, g: 0.28924885, b: 0.9433962, a: 0}
+    - _Albedo: {r: 0, g: 0.6829071, b: 1, a: 0}
     - _DistorsionDir: {r: 1, g: 1, b: 0, a: 0}
     - _EmissionColor: {r: 0.34349406, g: 0.74097747, b: 0.7830188, a: 0}
-    - _EmissionColor1: {r: 0.34349406, g: 0.74097747, b: 0.7830188, a: 0}
+    - _EmissionColor1: {r: 0, g: 0.90178585, b: 1, a: 0}
     - _EmissionColor2: {r: 0.7264151, g: 0.6614648, b: 0.14048593, a: 0}
     - _MoveDir: {r: 0, g: 1, b: 34, a: 0}
     - _MoveDir1: {r: 1, g: 0, b: 0.2, a: 0}
     - _TwirlCenter: {r: 1, g: 1, b: 0, a: 0}
     - _TwirlCenter1: {r: 0.5, g: 0.5, b: 0, a: 0}
     - _VertexOffset: {r: 0.1, g: 0.1, b: 0.1, a: 0}
+  m_BuildTextureStacks: []

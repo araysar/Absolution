@@ -7,8 +7,7 @@ public class Dagger : Projectile
     private Rigidbody2D myRb;
     private Character_Movement myChar;
     [SerializeField] private GameObject impactEffect;
-    [SerializeField] private GameObject blockedImpactEffect;
-    [SerializeField] private AudioClip soundLaunch;
+    [SerializeField] private GameObject blockedImpactEffect; 
     public bool isRolling = true;
     public float damage = 5;
     public float speed = 3;
@@ -24,7 +23,7 @@ public class Dagger : Projectile
     {
         myAnim.SetBool("isRolling", isRolling);
         myAnim.SetBool("isFacingRight", myChar.isFacingRight);
-        myRb.velocity = new Vector2(myChar.isFacingRight && !myChar.isWallSliding? 1 * speed : -1 * speed, 0);
+        myRb.velocity = new Vector2(myChar.isFacingRight? 1 * speed : -1 * speed, 0);
 
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -41,6 +40,7 @@ public class Dagger : Projectile
             if (collision.GetComponent<Health>().currentHP <= 0)
             {
                 myChar.ulti1Stacks += collision.GetComponent<Health>().ulti1Stacks;
+                myChar.ulti1.RefreshStacks();
             }
             myPool.AddToPool(gameObject);
         }
