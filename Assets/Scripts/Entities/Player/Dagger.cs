@@ -37,10 +37,14 @@ public class Dagger : Projectile
         {
             Impact(false);
             collision.GetComponent<IDamageable>().TakeDamage(damage);
+
+            if (collision.GetComponent<Health>().currentHP <= 0)
+            {
+                myChar.ulti1Stacks += collision.GetComponent<Health>().ulti1Stacks;
+            }
             myPool.AddToPool(gameObject);
         }
     }
-
 
     public override void Impact(bool isBlocked)
     {

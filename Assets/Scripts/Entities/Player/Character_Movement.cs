@@ -9,6 +9,7 @@ public class Character_Movement : MonoBehaviour
     public bool isUlting = false;
     public bool isCharging = false;
     private Health myHealth;
+    public List<PowerUp> myUpgrades = new List<PowerUp>();
 
     [Header("Move")]
     public float speed = 3;
@@ -42,7 +43,7 @@ public class Character_Movement : MonoBehaviour
 
     [Space, Header("Dash")]
     [SerializeField] private PlayerAfterImagePool imagePool;
-    private bool isDashing;
+    [HideInInspector] public bool isDashing;
     private float dashTimeLeft;
     private float lastImageXPos;
     private float lastDash = -100f;
@@ -53,11 +54,12 @@ public class Character_Movement : MonoBehaviour
     public int dashCharges = 1;
     public bool canDash = false;
 
-
-
-
-    [Space, Header("Power Ups")]
-    public List<PowerUp> myUpgrades = new List<PowerUp>();
+    [Header("Ultimate")]
+    public float ulti1Stacks;
+    public float ulti2Stacks;
+    public float ulti1Required;
+    public float ulti2Required;
+    public Ultimate ulti1;
 
     public enum PowerUp
     {
@@ -81,6 +83,7 @@ public class Character_Movement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         myAnim = GetComponent<Animator>();
         myHealth = GetComponent<Health>();
+        ulti1 = GetComponentInChildren<Ultimate>();
         currentJumps = maxJumps;
         gravityScale = rb.gravityScale;
     }
@@ -173,19 +176,26 @@ public class Character_Movement : MonoBehaviour
 
             if(dashTimeLeft <= 0 || isTouchingWall)
             {
-                isDashing = false;
-                canMove = true;
-                canFlip = true;
-                rb.gravityScale = gravityScale;
+                StopDash();
             }
         }
         else
         {
             if(dashCharges == 0 && (isGrounded || isWallSliding))
             {
+                StopDash();
                 dashCharges = 1;
             }
         }
+    }
+
+    public void StopDash()
+    {
+        isDashing = false;
+        canMove = true;
+        lastDash = Time.time - dashCooldown;
+        canFlip = true;
+        rb.gravityScale = gravityScale;
     }
     #endregion
 
@@ -199,6 +209,7 @@ public class Character_Movement : MonoBehaviour
         myAnim.SetBool("isWallSliding", isWallSliding);
         myAnim.SetBool("isUlting", isUlting);
         myAnim.SetBool("isCharging", isCharging);
+        myAnim.SetBool("isDashing", isDashing);
     }
 
     private void Flip()

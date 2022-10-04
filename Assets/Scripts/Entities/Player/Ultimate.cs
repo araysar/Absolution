@@ -6,8 +6,6 @@ using UnityEngine.UI;
 public class Ultimate: MonoBehaviour
 {
     public bool canUse = true;
-    public float cooldownTime = 10;
-    public float cooldownLive = 0;
     public float chargingTime = 1f;
     public float skillTime = 2.5f;
 
@@ -15,82 +13,78 @@ public class Ultimate: MonoBehaviour
     [SerializeField] private GameObject skillEffect;
     [SerializeField] private string inputName = "Ultimate1";
 
-    [SerializeField] private TMP_Text uiText;
     [SerializeField] private Image uiImage;
+    [SerializeField] private GameObject readyText;
 
-    private Character_Movement charMove;
+    private Character_Movement myChar;
     void Start()
     {
-        charMove = GetComponentInParent<Character_Movement>();
+        myChar = GetComponentInParent<Character_Movement>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(cooldownLive > 0)
+        if(!GameManager.instance.onPause)
         {
-            if(!uiImage.gameObject.activeInHierarchy)
+            if(!myChar.disableInputs)
             {
-                uiImage.gameObject.SetActive(true);
-            }
-            cooldownLive -= Time.deltaTime;
-            uiText.text = Mathf.RoundToInt(cooldownLive).ToString();
-            uiImage.fillAmount = cooldownLive / cooldownTime;
-        }
-        else
-        {
-            if (uiImage.gameObject.activeInHierarchy)
-            {
-                uiImage.gameObject.SetActive(false);
+                if (Input.GetButtonDown(inputName))
+                {
+                    ActivateUltimate();
+                }
             }
         }
+    }
 
-        if(Input.GetButtonDown(inputName))
+    public void RefreshStacks()
+    {
+        if(myChar.ulti1Stacks >= myChar.ulti1Required)
         {
-            ActivateUltimate();
+            myChar.ulti1Stacks = myChar.ulti1Required;
+            if(uiImage.gameObject.activeInHierarchy) uiImage.gameObject.SetActive(false);
+            if(!readyText.activeInHierarchy) readyText.SetActive(true);
         }
+        uiImage.fillAmount = myChar.ulti1Stacks / myChar.ulti1Required;
     }
 
     public void ActivateUltimate()
     {
-        if(canUse)
+        if(canUse && myChar.ulti1Stacks >= myChar.ulti1Required)
         {
-            if (!charMove.disableInputs)
+            if (GetComponent<Animator>().GetBool("isAttacking") == false)
             {
-                if (cooldownLive <= 0 && GetComponent<Animator>().GetBool("isAttacking") == false)
-                {
-                    StartCoroutine(UsingUltimate());
-                }
+                StartCoroutine(UsingUltimate());
             }
         }
     }
 
     private IEnumerator UsingUltimate()
     {
+        myChar.StopDash();
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         float playerDefense = GetComponent<Health>().defense;
         GetComponent<Health>().defense = 9999;
-        charMove.disableInputs = true;
-        charMove.isCharging = true;
+        myChar.disableInputs = true;
+        myChar.isCharging = true;
         rb.velocity = Vector2.zero;
         float gravity = rb.gravityScale;
         rb.gravityScale = 0;
         chargeEffect.SetActive(true);
-        cooldownLive = cooldownTime;
-        charMove.ControlAnimations();
+        myChar.ControlAnimations();
 
         yield return new WaitForSeconds(chargingTime);
 
-        charMove.isCharging = false;
-        charMove.isUlting = true;
+        myChar.isCharging = false;
+        myChar.isUlting = true;
         skillEffect.SetActive(true);
         chargeEffect.SetActive(false);
-        charMove.ControlAnimations();
+        myChar.ControlAnimations();
 
         yield return new WaitForSeconds(skillTime);
 
-        charMove.isUlting = false;
-        charMove.disableInputs = false;
+        myChar.isUlting = false;
+        myChar.disableInputs = false;
         skillEffect.SetActive(false);
         rb.gravityScale = gravity;
         GetComponent<Health>().defense = playerDefense;

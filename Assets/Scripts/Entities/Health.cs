@@ -8,6 +8,7 @@ public class Health : MonoBehaviour, IDamageable
     public float maxHP = 10;
     public float currentHP;
     public float defense = 0;
+    public float ulti1Stacks = 5;
     [SerializeField] private GameObject damagedEffect;
     [SerializeField] private GameObject deathEffect;
     [SerializeField] private bool invulnerability = false;

@@ -24,8 +24,8 @@ public class Action_Shoot : MonoBehaviour
 
     public enum AttackType
     {
-        HydroBall,
-        PhoenixFireFury,
+        FrozenDaggers,
+        PyroSphere,
         
     }
 
@@ -102,15 +102,16 @@ public class Action_Shoot : MonoBehaviour
 
         if (isAttacking) return;
 
+        myChar.StopDash();
         myAnim.SetBool("attack1", true);
         isAttacking = true;
     }
 
     #endregion
 
-    public void FinishShooting()
+    public void FinishShooting(string animName)
     {
-        myAnim.SetBool("attack1", false);
+        myAnim.SetBool(animName, false);
         isAttacking = false;
     }
 }
