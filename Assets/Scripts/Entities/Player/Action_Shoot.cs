@@ -30,6 +30,7 @@ public class Action_Shoot : MonoBehaviour
     {
         FrozenDaggers,
         PyroSphere,
+
         
     }
 
@@ -127,6 +128,8 @@ public class Action_Shoot : MonoBehaviour
     private void ShootPyroSphere()
     {
         if (!canShoot) return;
+
+        if (!myChar.myUpgrades.Contains(Character_Movement.PowerUp.Fire)) return;
 
         if (!pyroReady) return;
 

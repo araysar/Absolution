@@ -765,8 +765,8 @@ SpriteRenderer:
   m_FlipY: 0
   m_DrawMode: 1
   m_Size: {x: 0.2, y: 0.2}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
+  m_AdaptiveModeThreshold: 0.051
+  m_SpriteTileMode: 1
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
@@ -784,6 +784,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myPower: 1
   uiMessage: {fileID: 4272143662530850781}
+  getSound: {fileID: 8300000, guid: 719defd4ab8a5c344af68f9005be8567, type: 3}
 --- !u!95 &4272143663201121191
 Animator:
   serializedVersion: 3

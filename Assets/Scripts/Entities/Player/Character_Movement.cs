@@ -9,7 +9,7 @@ public class Character_Movement : MonoBehaviour
     public bool isUlting = false;
     public bool isCharging = false;
     private Health myHealth;
-    public List<PowerUp> myUpgrades = new List<PowerUp>();
+    
 
     [Header("Move")]
     public float speed = 3;
@@ -62,6 +62,7 @@ public class Character_Movement : MonoBehaviour
     public float ulti2Required;
 
     [Header("Power Ups Activate")]
+    public List<PowerUp> myUpgrades = new List<PowerUp>();
     [SerializeField] private GameObject uiDash;
     [SerializeField] private GameObject uiUltimate1;
     [SerializeField] private GameObject uiFire;
@@ -91,6 +92,19 @@ public class Character_Movement : MonoBehaviour
         ulti1 = GetComponent<Ultimate>();
         currentJumps = maxJumps;
         gravityScale = rb.gravityScale;
+
+        if (StatsManager.currentHp == 0)
+        {
+            StatsManager.SaveStats(this);
+            print("saving");
+        }
+        else
+        {
+            StatsManager.CopyStats(this);
+            print("loading");
+        }
+
+        PowerUpGrab();
     }
 
     // Update is called once per frame
@@ -298,6 +312,19 @@ public class Character_Movement : MonoBehaviour
         }
     }
 
+    public void StopMovement()
+    {
+        disableInputs = true;
+        isMoving = false;
+        myAnim.SetBool("isMoving", isMoving);
+        myAnim.Play("Idle", 0);
+        rb.velocity = new Vector2(0, 0);
+    }
+    public void ResumeMovement()
+    {
+        disableInputs = false;
+    }
+
     #endregion
 
     #region Jump
@@ -305,10 +332,11 @@ public class Character_Movement : MonoBehaviour
     {
         if (canJump && currentJumps > 0 && !isDashing)
         {
+            if (!myUpgrades.Contains(PowerUp.DoubleJump)) currentJumps = 0;
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             myAnim.Play("Idle", 0, 0f);
             isFalling = false;
-            if (currentJumps != maxJumps)
+            if (currentJumps != maxJumps && myUpgrades.Contains(PowerUp.DoubleJump))
             {
                 myAnim.Play("Idle", 0, 0f);
                 doubleJumpEffect.Play();
@@ -374,27 +402,30 @@ public class Character_Movement : MonoBehaviour
     #endregion
 
     #region 
-    public void PowerUpGrab(PowerUp powerUp)
+    public void PowerUpGrab()
     {
-        switch (powerUp)
+        foreach (PowerUp item in myUpgrades)
         {
-            case PowerUp.DoubleJump:
-                break;
-            case PowerUp.Dash:
-                uiDash.SetActive(true);
-                break;
-            case PowerUp.Fire:
-                uiFire.SetActive(true);
-                break;
-            case PowerUp.Ice:
-                break;
-            case PowerUp.Water:
-                break;
-            case PowerUp.Ulti1:
-                uiUltimate1.SetActive(true);
-                break;
-            case PowerUp.Ulti2:
-                break;
+            switch (item)
+            {
+                case PowerUp.DoubleJump:
+                    break;
+                case PowerUp.Dash:
+                    uiDash.SetActive(true);
+                    break;
+                case PowerUp.Fire:
+                    uiFire.SetActive(true);
+                    break;
+                case PowerUp.Ice:
+                    break;
+                case PowerUp.Water:
+                    break;
+                case PowerUp.Ulti1:
+                    uiUltimate1.SetActive(true);
+                    break;
+                case PowerUp.Ulti2:
+                    break;
+            }
         }
     }
     #endregion

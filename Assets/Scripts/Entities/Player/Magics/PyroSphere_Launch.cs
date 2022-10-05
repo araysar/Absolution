@@ -10,6 +10,7 @@ public class PyroSphere_Launch : MonoBehaviour
     private Character_Movement myChar;
     [SerializeField] private GameObject explosion;
     [SerializeField] private GameObject myExplosion;
+    [SerializeField] private AudioClip explosionSound;
     public float speed = 1;
 
     private void Awake()
@@ -28,8 +29,9 @@ public class PyroSphere_Launch : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if ((collision.GetComponent<IDamageable>() != null && collision.tag != "Player") || collision.gameObject.layer == 3 || collision.gameObject.layer == 10)
+        if ((collision.GetComponent<IDamageable>() != null && collision.tag != "Player") || collision.gameObject.layer == 3 || collision.gameObject.layer == 10 || collision.gameObject.layer == 11)
         {
+            SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, explosionSound);
             myExplosion.SetActive(true);
             myExplosion.transform.position = transform.position;
             gameObject.SetActive(false);

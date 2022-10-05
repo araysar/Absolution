@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    public GameObject player;
+    public Character_Movement player;
     public bool onPause = false;
 
 
@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        player = GameObject.FindGameObjectWithTag("Player");
+        player = FindObjectOfType<Character_Movement>();
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 60;
     }
@@ -39,6 +39,12 @@ public class GameManager : MonoBehaviour
         onPause = true;
         Time.timeScale = 0;
         SoundManager.instance.PauseChannels();
+    }
+
+    public void ChangeScene(int sceneNumber)
+    {
+        StatsManager.SaveStats(player);
+        SceneManager.LoadScene(sceneNumber);
     }
 
     public void UnPause()

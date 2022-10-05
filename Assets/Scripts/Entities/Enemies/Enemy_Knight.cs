@@ -166,7 +166,7 @@ public class Enemy_Knight : MonoBehaviour
         isChasing = false;
         isFacingRight = !isFacingRight;
         transform.Rotate(0, 180, 0);
-
+        if (rageEffect.activeInHierarchy) rageEffect.SetActive(false);
     }
 
     private void AnimationController()

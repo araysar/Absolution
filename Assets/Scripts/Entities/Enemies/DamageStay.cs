@@ -8,26 +8,25 @@ public class DamageStay : MonoBehaviour
     [SerializeField] private float damage = 10;
     [SerializeField] private Vector2 bounds;
     [SerializeField] private int myTargetLayer = 6;
-    private Health myHealth;
-
     private bool playerOnBounds = false;
-
+    private Health myHealth;
 
     private void Start()
     {
         myHealth = GetComponentInParent<Health>();
-        if (myHealth == null)
-        {
-            myHealth = gameObject.AddComponent<Health>();
-            myHealth.currentHP = 100;
-        }
-
-
     }
     private void Update()
     {
-        if(playerOnBounds && myHealth.currentHP > 0)
+        if(playerOnBounds)
         {
+            if(myHealth != null)
+            {
+                if(myHealth.currentHP <= 0)
+                {
+                    return;
+                }
+            }
+
             Collider2D[] allObjectives = Physics2D.OverlapBoxAll(transform.position, bounds, 0);
             foreach (var item in allObjectives)
             {

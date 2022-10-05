@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 public class PyroSphere_Explosion : MonoBehaviour
 {
@@ -24,11 +23,16 @@ public class PyroSphere_Explosion : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.GetComponent<IDamageable>() != null)
+        if(collision.GetComponent<IDamageable>() != null && collision.tag != "Player")
         {
             if(!damagedEnemies.Contains(collision))
             {
                 collision.GetComponent<IDamageable>().TakeDamage(damage);
+                if(collision.GetComponent<Health>().currentHP <= 0)
+                {
+                    myChar.ulti1Stacks += collision.GetComponent<Health>().ulti1Stacks;
+                    myChar.ulti1.RefreshStacks();
+                }
                 damagedEnemies.Add(collision);
             }
         }
