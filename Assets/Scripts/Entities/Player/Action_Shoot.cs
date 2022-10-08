@@ -18,6 +18,7 @@ public class Action_Shoot : MonoBehaviour
 
     [Header("PyroSphere")]
     [SerializeField] private GameObject pyroPrefab;
+    public Animator pyroAnimator;
     private GameObject pyroSphere;
     public bool pyroReady = true;
 
@@ -70,7 +71,6 @@ public class Action_Shoot : MonoBehaviour
                     }
                 }
             }
-
             AnimationControl();
         }
     }
@@ -137,6 +137,7 @@ public class Action_Shoot : MonoBehaviour
 
         myChar.StopDash();
         pyroReady = false;
+        pyroAnimator.SetTrigger("notReady");
         myAnim.SetBool("attackFire", true);
         isAttacking = true;
     }

@@ -12,15 +12,29 @@ public class Ultimate: MonoBehaviour
     [SerializeField] private GameObject chargeEffect;
     [SerializeField] private GameObject skillEffect;
     [SerializeField] private string inputName = "Ultimate1";
+    [SerializeField] private Animator ultimateAnimator;
 
     [SerializeField] private Image uiImage;
+    [SerializeField] private Image uiWhiteImage;
     [SerializeField] private GameObject readyText;
+    public bool ultiReady = true;
 
     private Character_Movement myChar;
     void Start()
     {
         myChar = GetComponentInParent<Character_Movement>();
-        RefreshStacks();
+
+        if (myChar.ulti1Stacks >= myChar.ulti1Required)
+        {
+            myChar.ulti1Stacks = myChar.ulti1Required;
+            readyText.SetActive(true);
+        }
+        else
+        {
+            readyText.SetActive(false);
+        }
+        uiWhiteImage.fillAmount = myChar.ulti1Stacks / myChar.ulti1Required;
+        uiImage.fillAmount = myChar.ulti1Stacks / myChar.ulti1Required;
     }
 
     // Update is called once per frame
@@ -30,7 +44,7 @@ public class Ultimate: MonoBehaviour
         {
             if(!myChar.disableInputs)
             {
-                if (Input.GetButtonDown(inputName))
+                if (Input.GetButtonDown(inputName) && myChar.myUpgrades.Contains(Character_Movement.PowerUp.Ulti1))
                 {
                     ActivateUltimate();
                 }
@@ -40,25 +54,26 @@ public class Ultimate: MonoBehaviour
 
     public void RefreshStacks()
     {
-        if(myChar.ulti1Stacks >= myChar.ulti1Required)
+        if(myChar.ulti1Stacks >= myChar.ulti1Required && !ultiReady)
         {
             myChar.ulti1Stacks = myChar.ulti1Required;
-            if(uiImage.gameObject.activeInHierarchy) uiImage.gameObject.SetActive(false);
-            if(!readyText.activeInHierarchy) readyText.SetActive(true);
+            uiWhiteImage.fillAmount = 1;
+            uiImage.fillAmount = 1;
+            if (!ultiReady) ultiReady = true;
+            readyText.SetActive(true);
+            ultimateAnimator.SetTrigger("ready");
         }
-        else
+        else if(myChar.ulti1Stacks <= myChar.ulti1Required && !ultiReady)
         {
-            if(!uiImage.gameObject.activeInHierarchy) uiImage.gameObject.SetActive(true);
-            if (readyText.activeInHierarchy) readyText.SetActive(false);
-            float alf = myChar.ulti1Stacks / myChar.ulti1Required;
-            uiImage.fillAmount = 1 - alf;
+            uiImage.fillAmount = myChar.ulti1Stacks / myChar.ulti1Required;
+            uiWhiteImage.fillAmount = uiImage.fillAmount;
+            ultimateAnimator.SetTrigger("notReady");
         }
-        
     }
 
     public void ActivateUltimate()
     {
-        if(canUse && myChar.ulti1Stacks >= myChar.ulti1Required)
+        if(canUse && ultiReady)
         {
             if (GetComponent<Animator>().GetBool("isAttacking") == false)
             {
@@ -74,7 +89,6 @@ public class Ultimate: MonoBehaviour
         float playerDefense = GetComponent<Health>().defense;
         GetComponent<Health>().defense = 9999;
         myChar.ulti1Stacks = 0;
-        RefreshStacks();
         myChar.isJumping = false;
         myChar.disableInputs = true;
         myChar.isCharging = true;
@@ -82,6 +96,10 @@ public class Ultimate: MonoBehaviour
         float gravity = rb.gravityScale;
         rb.gravityScale = 0;
         chargeEffect.SetActive(true);
+        ultiReady = false;
+        RefreshStacks();
+        ultimateAnimator.SetTrigger("notReady");
+        readyText.SetActive(false);
         myChar.ControlAnimations();
 
         yield return new WaitForSeconds(chargingTime);

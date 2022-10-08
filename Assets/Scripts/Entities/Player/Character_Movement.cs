@@ -86,6 +86,8 @@ public class Character_Movement : MonoBehaviour
 
     void Awake()
     {
+        DontDestroyOnLoad(gameObject);
+
         rb = GetComponent<Rigidbody2D>();
         myAnim = GetComponent<Animator>();
         myHealth = GetComponent<Health>();
@@ -96,14 +98,14 @@ public class Character_Movement : MonoBehaviour
         if (StatsManager.currentHp == 0)
         {
             StatsManager.SaveStats(this);
-            print("saving");
         }
         else
         {
             StatsManager.CopyStats(this);
-            print("loading");
         }
 
+
+        myUpgrades.Add(PowerUp.Ulti1);
         PowerUpGrab();
     }
 
