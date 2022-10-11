@@ -8,8 +8,10 @@ public class Character_Movement : MonoBehaviour
     public bool disableInputs = false;
     public bool isUlting = false;
     public bool isCharging = false;
-    private Health myHealth;
-    
+    [HideInInspector] public Health myHealth;
+    [HideInInspector] public Energy myEnergy;
+
+
 
     [Header("Move")]
     public float speed = 3;
@@ -91,6 +93,7 @@ public class Character_Movement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         myAnim = GetComponent<Animator>();
         myHealth = GetComponent<Health>();
+        myEnergy = GetComponent<Energy>();
         ulti1 = GetComponent<Ultimate>();
         currentJumps = maxJumps;
         gravityScale = rb.gravityScale;

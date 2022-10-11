@@ -1,15 +1,15 @@
 using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
+using System;
 
 public class Action_Shoot : MonoBehaviour
 {
     [SerializeField] private GameObject myBullet;
-    [SerializeField] private int startingBullets = 3;
     [SerializeField] private Transform shootingPoint;
     private Animator myAnim;
     private Character_Movement myChar;
-    private Queue<GameObject> availableObjects = new Queue<GameObject>();
+    private List<GameObject> availableObjects = new List<GameObject>();
     public bool canShoot = true;
     [HideInInspector] public bool isShooting = false;
     GameObject pool;
@@ -21,6 +21,7 @@ public class Action_Shoot : MonoBehaviour
     public Animator pyroAnimator;
     private GameObject pyroSphere;
     public bool pyroReady = true;
+    [SerializeField] private float pyroEnergy = 30;
 
 
     [Header("SFX")]
@@ -40,7 +41,7 @@ public class Action_Shoot : MonoBehaviour
         pool = new GameObject("Projectile Pool");
         myAnim = GetComponent<Animator>();
         myChar = GetComponent<Character_Movement>();
-        GrowPool(startingBullets);
+        GrowPool(5);
 
         pyroSphere = Instantiate(pyroPrefab, shootingPoint.transform.position, Quaternion.identity);
         pyroSphere.GetComponent<PyroSphere_Launch>().myShooter = this;
@@ -97,15 +98,25 @@ public class Action_Shoot : MonoBehaviour
     public void AddToPool(GameObject instance)
     {
         instance.SetActive(false);
-        availableObjects.Enqueue(instance);
+        availableObjects.Add(instance);
     }
 
     public void GetFromPool()
     {
-        var instance = availableObjects.Dequeue();
-        instance.SetActive(true);
-        SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, daggerLaunchSfx);
-        instance.transform.position = shootingPoint.position;
+        if (availableObjects.Count > 0)
+        {
+            var instance = availableObjects[0];
+            availableObjects.RemoveAt(0);
+            instance.SetActive(true);
+            SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, daggerLaunchSfx);
+            instance.transform.position = shootingPoint.position;
+        }
+
+        else
+        {
+            GrowPool(1);
+            GetFromPool();
+        }
     }
 
     private void ShootDagger()
@@ -133,6 +144,8 @@ public class Action_Shoot : MonoBehaviour
 
         if (!pyroReady) return;
 
+        if (myChar.myEnergy.currentEnergy < pyroEnergy) return;
+
         if (isAttacking) return;
 
         myChar.StopDash();
@@ -145,6 +158,8 @@ public class Action_Shoot : MonoBehaviour
     public void LaunchPyroSphere()
     {
         pyroSphere.SetActive(true);
+        myChar.myEnergy.currentEnergy -= pyroEnergy;
+        myChar.myEnergy.RefreshEnergy(0);
         pyroSphere.transform.position = shootingPoint.transform.position;
     }
 

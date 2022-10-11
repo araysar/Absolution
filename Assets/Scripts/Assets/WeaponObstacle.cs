@@ -25,8 +25,6 @@ public class WeaponObstacle : MonoBehaviour
     {
         if (destroyEffect != null) Instantiate(destroyEffect, transform.position, Quaternion.identity);
 
-        GetComponent<SpriteRenderer>().enabled = false;
-        GetComponent<Collider2D>().enabled = false;
-        if (myDamage != null) myDamage.enabled = false;
+        gameObject.SetActive(false);
     }
 }

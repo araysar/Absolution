@@ -23,17 +23,30 @@ public class PyroSphere_Launch : MonoBehaviour
     void OnEnable()
     {
         myRb.velocity = new Vector2(myChar.isFacingRight ? 1 * speed : -1 * speed, 0);
+
+        if (myChar.isFacingRight)
+        {
+            transform.Rotate(0, 0, 0);
+        }
+        else transform.Rotate(0, 180f, 0);
     }
 
 
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if ((collision.GetComponent<IDamageable>() != null && collision.tag != "Player") || collision.gameObject.layer == 3 || collision.gameObject.layer == 10 || collision.gameObject.layer == 11)
+        if ((collision.GetComponent<IDamageable>() != null && collision.tag != "Player") || collision.gameObject.layer == 3 || collision.gameObject.layer == 11)
         {
             SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, explosionSound);
             myExplosion.SetActive(true);
             myExplosion.transform.position = transform.position;
+            gameObject.SetActive(false);
+        }
+
+        else if(collision.gameObject.layer == 10) //camera
+        {
+            myShooter.pyroReady = true;
+            myShooter.pyroAnimator.SetTrigger("ready");
             gameObject.SetActive(false);
         }
     }

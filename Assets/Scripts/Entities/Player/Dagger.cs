@@ -28,9 +28,18 @@ public class Dagger : Projectile
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == 3 || collision.gameObject.layer == 10)
+        if (collision.gameObject.layer == 10)
         {
             myPool.AddToPool(gameObject);
+        }
+        else if (collision.gameObject.layer == 3 || collision.GetComponent<BlockDamage>() != null || collision.gameObject.layer == 11)
+        {
+            if (blockedImpactEffect != null)
+            {
+                Instantiate(blockedImpactEffect, transform.position, Quaternion.identity);
+            }
+            myPool.AddToPool(gameObject);
+
         }
         else if (collision.GetComponent<IDamageable>() != null && collision.tag != "Player")
         {

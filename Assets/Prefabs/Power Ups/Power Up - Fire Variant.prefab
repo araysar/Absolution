@@ -7,61 +7,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4272143662097961459, guid: 8677281058bd4504eb9606071a17227f, type: 3}
-      propertyPath: m_text
-      value: Press RIGHT CLICK to launch a ball which explodes on contact, dealing
-        massive AoE damage
-      objectReference: {fileID: 0}
-    - target: {fileID: 4272143662339458511, guid: 8677281058bd4504eb9606071a17227f, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 251ef3252bb2f4d4f9fd49f4f8f3f375, type: 3}
-    - target: {fileID: 4272143662498952215, guid: 8677281058bd4504eb9606071a17227f, type: 3}
-      propertyPath: m_text
-      value: 'Pyro Sphere
-
-'
+    - target: {fileID: 4272143662530850781, guid: 8677281058bd4504eb9606071a17227f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4272143663201121177, guid: 8677281058bd4504eb9606071a17227f, type: 3}
       propertyPath: m_Name
       value: Power Up - Fire
       objectReference: {fileID: 0}
-    - target: {fileID: 4272143663201121178, guid: 8677281058bd4504eb9606071a17227f, type: 3}
-      propertyPath: myPower
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4272143663201121178, guid: 8677281058bd4504eb9606071a17227f, type: 3}
-      propertyPath: getSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 719defd4ab8a5c344af68f9005be8567, type: 3}
-    - target: {fileID: 4272143663201121179, guid: 8677281058bd4504eb9606071a17227f, type: 3}
-      propertyPath: m_Size.x
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4272143663201121179, guid: 8677281058bd4504eb9606071a17227f, type: 3}
-      propertyPath: m_Size.y
-      value: 0.2
-      objectReference: {fileID: 0}
     - target: {fileID: 4272143663201121179, guid: 8677281058bd4504eb9606071a17227f, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 251ef3252bb2f4d4f9fd49f4f8f3f375, type: 3}
-    - target: {fileID: 4272143663201121179, guid: 8677281058bd4504eb9606071a17227f, type: 3}
-      propertyPath: m_DrawMode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4272143663201121179, guid: 8677281058bd4504eb9606071a17227f, type: 3}
-      propertyPath: m_SpriteTileMode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4272143663201121179, guid: 8677281058bd4504eb9606071a17227f, type: 3}
-      propertyPath: m_MaskInteraction
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4272143663201121179, guid: 8677281058bd4504eb9606071a17227f, type: 3}
-      propertyPath: m_AdaptiveModeThreshold
-      value: 0.051
-      objectReference: {fileID: 0}
     - target: {fileID: 4272143663201121188, guid: 8677281058bd4504eb9606071a17227f, type: 3}
       propertyPath: m_RootOrder
       value: 0
