@@ -18,6 +18,7 @@ public class Health : MonoBehaviour, IDamageable
     public Image lifeBar;
 
     [Space, Header("Flash")]
+    [SerializeField] private bool isPlayer = false;
     [SerializeField] private float flashTimes = 3;
     [SerializeField] private float flash1Duration = 0.2f;
     [SerializeField] private Material paintableMaterial;
@@ -95,6 +96,10 @@ public class Health : MonoBehaviour, IDamageable
 
         Material myMaterial = myRenderer.material;
         Color myColor = myRenderer.color;
+        if(isPlayer)
+        {
+
+        }
 
         while(count < flashTimes)
         {

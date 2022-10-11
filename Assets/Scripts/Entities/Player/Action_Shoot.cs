@@ -159,7 +159,8 @@ public class Action_Shoot : MonoBehaviour
     {
         pyroSphere.SetActive(true);
         myChar.myEnergy.currentEnergy -= pyroEnergy;
-        myChar.myEnergy.RefreshEnergy(0);
+        myChar.myEnergy.ReloadEnergy();
+        SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, pyroLaunchSfx);
         pyroSphere.transform.position = shootingPoint.transform.position;
     }
 

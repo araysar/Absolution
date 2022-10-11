@@ -317,6 +317,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: death effect
       objectReference: {fileID: 0}
+    - target: {fileID: 388721792338471567, guid: 1db74b31c0024204db908346edb39621, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5636975416160879284, guid: 1db74b31c0024204db908346edb39621, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -359,6 +363,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5636975416160879284, guid: 1db74b31c0024204db908346edb39621, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6667789531027600258, guid: 1db74b31c0024204db908346edb39621, type: 3}
+      propertyPath: TrailModule.textureMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6667789531027600258, guid: 1db74b31c0024204db908346edb39621, type: 3}
+      propertyPath: TrailModule.dieWithParticles
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

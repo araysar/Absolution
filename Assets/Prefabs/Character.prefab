@@ -25984,6 +25984,7 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 8
+  doubleJumpSfx: {fileID: 0}
   isGrounded: 0
   isFalling: 0
   isJumping: 0
@@ -25999,6 +26000,8 @@ MonoBehaviour:
   distanceBetweenImages: 0.1
   dashCooldown: 0.5
   dashCharges: 1
+  energyDash: 15
+  dashSfx: {fileID: 0}
   canDash: 1
   ulti1Stacks: 20
   ulti1Required: 20
@@ -26075,6 +26078,7 @@ MonoBehaviour:
   deathEffect: {fileID: 5012458389926280109}
   invulnerability: 1
   lifeBar: {fileID: 5663418666238522314}
+  isPlayer: 0
   flashTimes: 3
   flash1Duration: 0.2
   paintableMaterial: {fileID: 2100000, guid: fec9d5aeebf1b4b41bcda79a7510ac53, type: 2}
@@ -26096,6 +26100,7 @@ MonoBehaviour:
   regenPerTick: 2.5
   delayRegenInSeconds: 0.5
   uiEnergy: {fileID: 2885179321919020668}
+  uiGameObject: {fileID: 0}
 --- !u!1 &3479042150096677959
 GameObject:
   m_ObjectHideFlags: 0

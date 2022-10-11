@@ -11,6 +11,7 @@ public class Energy : MonoBehaviour
     [SerializeField] private float regenPerTick = 5;
     public float delayRegenInSeconds = 1;
     public Image uiEnergy;
+    public GameObject[] uiGameObject;
     [HideInInspector] public Action EnergyRegen;
     private Coroutine regenCoroutine;
 
@@ -32,10 +33,9 @@ public class Energy : MonoBehaviour
         regenCoroutine = StartCoroutine(RegenerationTimer());
     }
 
-    public void RefreshEnergy(float amount)
+    public void ReloadEnergy()
     {
-        currentEnergy += amount;
-        if(currentEnergy > maxEnergy)
+        if (currentEnergy > maxEnergy)
         {
             currentEnergy = maxEnergy;
         }
@@ -45,7 +45,8 @@ public class Energy : MonoBehaviour
     private IEnumerator RegenerationTimer()
     {
         yield return new WaitForSeconds(delayRegenInSeconds);
-        RefreshEnergy(regenPerTick);
+        currentEnergy += regenPerTick;
+        ReloadEnergy();
         regenCoroutine = null;
     }
 }
