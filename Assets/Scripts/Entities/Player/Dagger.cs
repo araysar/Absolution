@@ -17,6 +17,7 @@ public class Dagger : Projectile
         myChar = FindObjectOfType<Character_Movement>();
         myAnim = GetComponent<Animator>();
         myRb = GetComponent<Rigidbody2D>();
+        DontDestroyOnLoad(gameObject);
     }
 
     private void OnEnable()
@@ -34,10 +35,7 @@ public class Dagger : Projectile
         }
         else if (collision.gameObject.layer == 3 || collision.GetComponent<BlockDamage>() != null || collision.gameObject.layer == 11)
         {
-            if (blockedImpactEffect != null)
-            {
-                Instantiate(blockedImpactEffect, transform.position, Quaternion.identity);
-            }
+            Impact(true);
             myPool.AddToPool(gameObject);
 
         }

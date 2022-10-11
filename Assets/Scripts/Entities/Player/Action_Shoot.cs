@@ -39,6 +39,7 @@ public class Action_Shoot : MonoBehaviour
     private void Awake()
     {
         pool = new GameObject("Projectile Pool");
+        DontDestroyOnLoad(pool);
         myAnim = GetComponent<Animator>();
         myChar = GetComponent<Character_Movement>();
         GrowPool(5);

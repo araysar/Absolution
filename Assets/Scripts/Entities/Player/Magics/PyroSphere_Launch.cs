@@ -19,6 +19,8 @@ public class PyroSphere_Launch : MonoBehaviour
         myRb = GetComponent<Rigidbody2D>();
         myExplosion = Instantiate(explosion);
         myExplosion.SetActive(false);
+
+        DontDestroyOnLoad(gameObject);
     }
     void OnEnable()
     {

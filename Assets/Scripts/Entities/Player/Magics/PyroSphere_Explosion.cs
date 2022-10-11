@@ -12,6 +12,7 @@ public class PyroSphere_Explosion : MonoBehaviour
     {
         myChar = FindObjectOfType<Character_Movement>();
         myShooter = myChar.GetComponent<Action_Shoot>();
+        DontDestroyOnLoad(gameObject);
     }
 
     public void OnParticleSystemStopped()
