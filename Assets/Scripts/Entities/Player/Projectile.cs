@@ -6,5 +6,5 @@ public abstract class Projectile : MonoBehaviour
 {
     [HideInInspector] public Action_Shoot myPool;
 
-    public abstract void Impact(bool isBlocked);
+    public abstract void Impact(Health.ArmorType armorType);
 }

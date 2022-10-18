@@ -1,7 +1,5 @@
 using System.Collections.Generic;
-using System.Collections;
 using UnityEngine;
-using System;
 
 public class Action_Shoot : MonoBehaviour
 {
@@ -53,7 +51,7 @@ public class Action_Shoot : MonoBehaviour
     {
         if(!GameManager.instance.onPause)
         {
-            if (!isAttacking)
+            if (!isAttacking && !myChar.disableInputs)
             {
                 if (Input.GetButtonDown("Fire1"))
                 {

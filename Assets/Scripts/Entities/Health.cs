@@ -10,60 +10,101 @@ public class Health : MonoBehaviour, IDamageable
     public float defense = 0;
     public float ulti1Stacks = 5;
     [SerializeField] private GameObject damagedEffect;
-    [SerializeField] private GameObject deathEffect;
     [SerializeField] private bool invulnerability = false;
     private bool recovering = false;
+    public GameObject respawnEffect;
+    public Animator myAnim;
+    [HideInInspector] public Vector2 initialPosition;
 
     [Space, Header("UI")]
     public Image lifeBar;
 
     [Space, Header("Flash")]
-    [SerializeField] private bool isPlayer = false;
     [SerializeField] private float flashTimes = 3;
     [SerializeField] private float flash1Duration = 0.2f;
     [SerializeField] private Material paintableMaterial;
+    [SerializeField] private Material commonMaterial;
     [SerializeField] private Color flashColor = Color.red;
-    private SpriteRenderer myRenderer;
+    [HideInInspector] public SpriteRenderer myRenderer;
     private Coroutine flashCoroutine;
+    public EntityType myType = EntityType.common;
+    public ArmorType myArmor = ArmorType.flesh;
+    public enum EntityType
+    {
+        common,
+        special,
+        boss,
+        player,
+    };
 
+    public enum ArmorType
+    {
+        flesh,
+        metal,
+        hero,
+        shield,
+        wall,
+    }
 
     private void Start()
     {
+        initialPosition = transform.position;
         if (!invulnerability) flashTimes = 1;
         myRenderer = GetComponent<SpriteRenderer>();
+        commonMaterial = myRenderer.material;
         currentHP = maxHP;
+
+        if(myType == EntityType.player)
+        {
+            GameManager.instance.PlayerRespawnEvent += RespawnPlayer;
+            GameManager.instance.PlayerDisableEvent += DisablePlayer;
+
+        }
+        else
+        {
+            GameManager.instance.HealAllEnemiesEvent += RespawnEnemy;
+        }
     }
 
     public void TakeDamage(float dmg)
     {
-        if (recovering) return;
+        if (recovering || currentHP <= 0) return;
 
         float totalDamage = dmg - defense;
-        if(totalDamage > 0)
+        if (totalDamage > 0)
         {
             currentHP -= totalDamage;
             if (currentHP < 0) currentHP = 0;
-            if(damagedEffect != null)
+            if (damagedEffect != null)
             {
                 damagedEffect.SetActive(false);
                 damagedEffect.SetActive(true);
             }
-            
+
             if (lifeBar != null) RefreshLifeBar();
 
-            if (currentHP <= 0) Death();
+            if(myAnim != null)
+            {
+                myAnim.SetTrigger("damaged");
+            }
 
-            if (flashCoroutine != null) return;
+            if (currentHP <= 0)
+            {
+                Death();
+            }
+            else
+            {
+                if (flashCoroutine != null) return;
 
-            flashCoroutine = StartCoroutine(Flashing());
+                flashCoroutine = StartCoroutine(Flashing());
+            }
         }
         else
         {
             //no me hace daño
         }
-        
     }
-        
+
     public void RefreshLifeBar()
     {
         lifeBar.fillAmount = currentHP / maxHP;
@@ -71,23 +112,24 @@ public class Health : MonoBehaviour, IDamageable
 
     public void Death()
     {
-        if(deathEffect != null) deathEffect.SetActive(true);
-
-        if (GetComponent<Collider2D>() != null)
+        StopAllCoroutines();
+        flashCoroutine = null;
+        recovering = false;
+        myRenderer.material = commonMaterial;
+        commonMaterial.color = Color.white;
+        GameManager.instance.DeathEffect(myType, gameObject);
+        switch (myType)
         {
-            GetComponent<Collider2D>().enabled = false;
+            case EntityType.player:
+                GameManager.instance.TransitionEvent(GameManager.EventType.PlayerDeathTransition);
+                break;
+            default:
+                GameManager.instance.EnemyRespawnEvent += RespawnEnemy;
+                gameObject.SetActive(false);
+                break;
         }
-        if (GetComponent<Rigidbody2D>() != null)
-        {
-            GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
-        }
-        if (GetComponent<Character_Movement>() != null)
-        {
-            GameManager.instance.RestartGame();
-        }
-
-            GetComponent<SpriteRenderer>().enabled = false;
     }
+
 
     private IEnumerator Flashing()
     {
@@ -96,10 +138,6 @@ public class Health : MonoBehaviour, IDamageable
 
         Material myMaterial = myRenderer.material;
         Color myColor = myRenderer.color;
-        if(isPlayer)
-        {
-
-        }
 
         while(count < flashTimes)
         {
@@ -114,4 +152,36 @@ public class Health : MonoBehaviour, IDamageable
         if (invulnerability) recovering = false;
         flashCoroutine = null;
     }
+
+    #region Respawn
+
+    private void RespawnEnemy()
+    {
+        gameObject.SetActive(true);
+        currentHP = maxHP;
+        transform.position = initialPosition;
+    }
+
+    private void RespawnPlayer()
+    {
+        myRenderer.enabled = true;
+        if(respawnEffect != null) respawnEffect.SetActive(true);
+        currentHP = maxHP;
+    }
+
+    private void DisablePlayer()
+    {
+        myRenderer.enabled = false;
+        GameManager.instance.DeathEffect(myType, gameObject);
+        currentHP = 0;
+    }
+
+    void OnDestroy()
+    {
+        if(myType != EntityType.player)
+        {
+            GameManager.instance.HealAllEnemiesEvent -= RespawnEnemy;
+        }
+    }
+    #endregion
 }

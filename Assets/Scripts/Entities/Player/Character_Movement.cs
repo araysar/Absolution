@@ -5,13 +5,14 @@ using UnityEngine;
 
 public class Character_Movement : MonoBehaviour
 {
+    public static Character_Movement instance;
+
+
     public bool disableInputs = false;
     public bool isUlting = false;
     public bool isCharging = false;
     [HideInInspector] public Health myHealth;
     [HideInInspector] public Energy myEnergy;
-
-
 
     [Header("Move")]
     public float speed = 3;
@@ -58,8 +59,18 @@ public class Character_Movement : MonoBehaviour
     public int dashCharges = 1;
     [SerializeField] private float energyDash = 15;
     [SerializeField] private AudioClip dashSfx;
-
     public bool canDash = false;
+
+    [Header("Dagger")]
+    public GameObject impactFleshEffect;
+    public AudioClip impactFleshSfx;
+    public GameObject impactMetalEffect;
+    public AudioClip impactMetalSfx;
+    public GameObject impactShieldEffect;
+    public AudioClip impactShieldSfx;
+    public GameObject blockedWallImpactEffect;
+    public AudioClip blockedWallImpactSfx;
+
 
     [Header("Ultimate")]
     public float ulti1Stacks;
@@ -74,6 +85,11 @@ public class Character_Movement : MonoBehaviour
     [SerializeField] private GameObject uiUltimate1;
     [SerializeField] private GameObject uiFire;
 
+    [Header("Save")]
+    private float saveUlti1Stacks;
+    private float saveCurrentHp;
+    private float saveCurrentEnergy;
+    public List<PowerUp> saveMyUpgrades = new List<PowerUp>();
     public enum PowerUp
     {
         DoubleJump,
@@ -85,15 +101,21 @@ public class Character_Movement : MonoBehaviour
         Ulti2,
     };
 
-   
-
     //Animation
     private float gravityScale;
     private Animator myAnim;
 
     void Awake()
     {
-        DontDestroyOnLoad(gameObject);
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
 
         rb = GetComponent<Rigidbody2D>();
         myAnim = GetComponent<Animator>();
@@ -103,21 +125,22 @@ public class Character_Movement : MonoBehaviour
         currentJumps = maxJumps;
         gravityScale = rb.gravityScale;
 
-        if (StatsManager.currentHp == 0)
-        {
-            StatsManager.SaveStats(this);
-        }
-        else
-        {
-            StatsManager.CopyStats(this);
-        }
-
-
         myUpgrades.Add(PowerUp.Ulti1);
         PowerUpGrab();
     }
 
-    // Update is called once per frame
+    private void Start()
+    {
+        GameManager.instance.PlayerDisableEvent += DisablePlayer;
+        GameManager.instance.PlayerRespawnEvent += RespawnPlayer;
+        GameManager.instance.PlayerDisableEvent += StopMovement;
+        GameManager.instance.StartEvent += ResumeMovement;
+        GameManager.instance.SaveDataEvent += SaveData;
+        GameManager.instance.LoadDataEvent += LoadData;
+        SaveData();
+    }
+
+
     void Update()
     {
         if (!GameManager.instance.onPause)
@@ -128,11 +151,22 @@ public class Character_Movement : MonoBehaviour
                 {
                     Inputs();
                     CheckMovementDirection();
-                    ControlAnimations();
                     CheckIfCanJump();
                     CheckIfWallSliding();
                     CheckDash();
                 }
+            }
+        }
+    }
+
+    void LateUpdate()
+    {
+        if (!GameManager.instance.onPause)
+        {
+            if (myHealth.currentHP > 0)
+            {
+                CheckSurroundings();
+                ControlAnimations();
             }
         }
     }
@@ -144,7 +178,6 @@ public class Character_Movement : MonoBehaviour
             if (myHealth.currentHP > 0)
             {
                 Movement();
-                CheckSurroundings();
             }
         }
     }
@@ -242,6 +275,7 @@ public class Character_Movement : MonoBehaviour
         myAnim.SetBool("isUlting", isUlting);
         myAnim.SetBool("isCharging", isCharging);
         myAnim.SetBool("isDashing", isDashing);
+        myAnim.SetBool("isFalling", isFalling);
     }
 
     private void Flip()
@@ -265,7 +299,6 @@ public class Character_Movement : MonoBehaviour
     {
         canFlip = false;
     }
-
     #endregion
 
     #region Movement
@@ -467,4 +500,65 @@ public class Character_Movement : MonoBehaviour
         }
     }
     #endregion
+
+    #region Respawn
+    private void DisablePlayer()
+    {
+        myHealth.currentHP = 0;
+        myHealth.myRenderer.enabled = false;
+        disableInputs = true;
+        GetComponent<Collider2D>().enabled = false;
+        rb.bodyType = RigidbodyType2D.Static;
+    }
+
+    private void RespawnPlayer()
+    {
+        LoadData();
+        myEnergy.ReloadEnergy();
+        myHealth.RefreshLifeBar();
+        myHealth.respawnEffect.SetActive(true);
+        GetComponent<Collider2D>().enabled = true;
+        rb.bodyType = RigidbodyType2D.Dynamic;
+        myHealth.myRenderer.enabled = true;
+        rb.velocity = Vector2.zero;
+        isMoving = false;
+        isGrounded = true;
+        isJumping = false;
+        isWallSliding = false;
+        isUlting = false;
+        isCharging = false;
+        isDashing = false;
+        isFalling = false;
+        ControlAnimations();
+        myAnim.Play("Idle", 0);
+    }
+    public void SaveData()
+    {
+        saveCurrentEnergy = myEnergy.currentEnergy;
+        saveCurrentHp = myHealth.currentHP;
+        saveUlti1Stacks = ulti1Stacks;
+        saveMyUpgrades = myUpgrades;
+        myHealth.initialPosition = transform.position;
+    }
+
+    public void LoadData()
+    {
+        myEnergy.currentEnergy = saveCurrentEnergy;
+        myHealth.currentHP = saveCurrentHp;
+        ulti1Stacks = saveUlti1Stacks;
+        myUpgrades = saveMyUpgrades;
+        transform.position = myHealth.initialPosition;
+        myHealth.RefreshLifeBar();
+        myEnergy.ReloadEnergy();
+        PowerUpGrab();
+    }
+    #endregion
+
+   public void OnTriggerEnteder2D(Collider collider)
+    {
+        if(collider.gameObject.tag == "CheckPoint")
+        {
+            SaveData();
+        }
+    }
 }

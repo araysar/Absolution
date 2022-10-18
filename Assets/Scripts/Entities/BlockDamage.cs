@@ -5,29 +5,21 @@ using UnityEngine;
 
 public class BlockDamage : MonoBehaviour
 {
-    [SerializeField] private GameObject blockedEffect;
     [SerializeField] private Health myHealth;
-
+    [SerializeField] private bool noHealth = false;
     private void Start()
     {
-        if (myHealth == null) GetComponentInParent<Health>();
+        if (myHealth == null)
+        {
+            GetComponentInParent<Health>();
+        }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Projectile collider = collision.GetComponent<Projectile>();
-        if (collider != null && myHealth.currentHP > 0)
+        if (collider != null && (myHealth.currentHP > 0 || noHealth))
         {
-            collider.Impact(true);
             collider.myPool.AddToPool(collision.gameObject);
-        }
-    }
-
-    private void Impact()
-    {
-        if(blockedEffect != null && myHealth.currentHP > 0)
-        {
-            blockedEffect.SetActive(false);
-            blockedEffect.SetActive(true);
         }
     }
 }

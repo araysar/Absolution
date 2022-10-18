@@ -22,15 +22,24 @@ public class PyroSphere_Launch : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
     }
+
+    private void Start()
+    {
+        GameManager.instance.DestroyEvent += Destroy;
+    }
+    void Destroy()
+    {
+        Destroy(gameObject);
+    }
     void OnEnable()
     {
         myRb.velocity = new Vector2(myChar.isFacingRight ? 1 * speed : -1 * speed, 0);
 
         if (myChar.isFacingRight)
         {
-            transform.Rotate(0, 0, 0);
+            transform.Rotate(0, 0, 0, Space.Self);
         }
-        else transform.Rotate(0, 180f, 0);
+        else transform.Rotate(0, 180f, 0, Space.Self);
     }
 
 

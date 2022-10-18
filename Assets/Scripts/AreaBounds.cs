@@ -12,10 +12,7 @@ public class AreaBounds : MonoBehaviour
         {
             if(changeMusic)
             {
-                if (SoundManager.instance.CurrentSong() != music)
-                {
-                    SoundManager.instance.PlaySound(SoundManager.SoundChannel.Music, music);
-                }
+                SoundManager.instance.PlaySound(SoundManager.SoundChannel.Music, music);
             }
         }
     }

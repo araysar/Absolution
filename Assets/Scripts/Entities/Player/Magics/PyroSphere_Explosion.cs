@@ -8,13 +8,20 @@ public class PyroSphere_Explosion : MonoBehaviour
     [HideInInspector] public Action_Shoot myShooter;
     List<Collider2D> damagedEnemies = new List<Collider2D>();
     [SerializeField] private float damage;
-    void Start()
+    void Awake()
     {
         myChar = FindObjectOfType<Character_Movement>();
         myShooter = myChar.GetComponent<Action_Shoot>();
         DontDestroyOnLoad(gameObject);
     }
-
+    private void Start()
+    {
+        GameManager.instance.DestroyEvent += Destroy;
+    }
+    void Destroy()
+    {
+        Destroy(gameObject);
+    }
     public void OnParticleSystemStopped()
     {
         myShooter.pyroReady = true;

@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using TMPro;
 using UnityEngine.UI;
 
 public class Ultimate: MonoBehaviour
@@ -17,6 +16,10 @@ public class Ultimate: MonoBehaviour
     [SerializeField] private Image uiImage;
     [SerializeField] private Image uiWhiteImage;
     [SerializeField] private GameObject readyText;
+
+    [SerializeField] private AudioClip chargeSfx;
+    [SerializeField] private AudioClip launchSfx;
+
     public bool ultiReady = true;
 
     private Character_Movement myChar;
@@ -101,9 +104,11 @@ public class Ultimate: MonoBehaviour
         ultimateAnimator.SetTrigger("notReady");
         readyText.SetActive(false);
         myChar.ControlAnimations();
+        if(chargeSfx != null) SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, chargeSfx);
 
         yield return new WaitForSeconds(chargingTime);
 
+        if (launchSfx != null) SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, launchSfx);
         myChar.isCharging = false;
         myChar.isUlting = true;
         skillEffect.SetActive(true);

@@ -6,8 +6,6 @@ public class Dagger : Projectile
     [SerializeField] private Animator myAnim;
     private Rigidbody2D myRb;
     private Character_Movement myChar;
-    [SerializeField] private GameObject impactEffect;
-    [SerializeField] private GameObject blockedImpactEffect; 
     public bool isRolling = true;
     public float damage = 5;
     public float speed = 3;
@@ -17,7 +15,12 @@ public class Dagger : Projectile
         myChar = FindObjectOfType<Character_Movement>();
         myAnim = GetComponent<Animator>();
         myRb = GetComponent<Rigidbody2D>();
+
         DontDestroyOnLoad(gameObject);
+    }
+    private void Start()
+    {
+        GameManager.instance.DestroyEvent += Destroy;
     }
 
     private void OnEnable()
@@ -27,21 +30,31 @@ public class Dagger : Projectile
         myRb.velocity = new Vector2(myChar.isFacingRight? 1 * speed : -1 * speed, 0);
 
     }
+
+    void Destroy()
+    {
+        Destroy(gameObject);
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.layer == 10)
         {
             myPool.AddToPool(gameObject);
         }
-        else if (collision.gameObject.layer == 3 || collision.GetComponent<BlockDamage>() != null || collision.gameObject.layer == 11)
+        else if (collision.gameObject.layer == 3 || collision.gameObject.layer == 11)
         {
-            Impact(true);
+            Impact(Health.ArmorType.wall);
             myPool.AddToPool(gameObject);
-
+        }
+        else if(collision.GetComponent<BlockDamage>() != null)
+        {
+            Impact(Health.ArmorType.shield);
         }
         else if (collision.GetComponent<IDamageable>() != null && collision.tag != "Player")
         {
-            Impact(false);
+            Impact(collision.GetComponent<Health>().myArmor);
+
             collision.GetComponent<IDamageable>().TakeDamage(damage);
 
             if (collision.GetComponent<Health>().currentHP <= 0)
@@ -53,21 +66,26 @@ public class Dagger : Projectile
         }
     }
 
-    public override void Impact(bool isBlocked)
+    public override void Impact(Health.ArmorType armorType)
     {
-        if (!isBlocked)
+        switch (armorType)
         {
-            if (impactEffect != null)
-            {
-                Instantiate(impactEffect, transform.position, Quaternion.identity);
-            }
-        }
-        else
-        {
-            if(blockedImpactEffect != null)
-            {
-                Instantiate(blockedImpactEffect, transform.position, Quaternion.identity);
-            }
+            case Health.ArmorType.flesh:
+                SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, Character_Movement.instance.impactFleshSfx);
+                break;
+            case Health.ArmorType.metal:
+                SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, Character_Movement.instance.impactMetalSfx);
+                break;
+            case Health.ArmorType.shield:
+                SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, Character_Movement.instance.impactShieldSfx);
+                Instantiate(myChar.blockedWallImpactEffect, transform.position, Quaternion.identity);
+                break;
+            case Health.ArmorType.wall:
+                SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, Character_Movement.instance.blockedWallImpactSfx);
+                Instantiate(myChar.blockedWallImpactEffect, transform.position, Quaternion.identity);
+                break;
+            default:
+                break;
         }
     }
 }
