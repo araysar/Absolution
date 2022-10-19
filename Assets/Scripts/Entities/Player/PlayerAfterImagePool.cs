@@ -22,6 +22,11 @@ public class PlayerAfterImagePool : MonoBehaviour
     {
         var instanceToAdd = Instantiate(afterImagePrefab);
         instanceToAdd.GetComponent<PlayerAfterImage>().imagePool = this;
+        if(pool == null)
+        {
+            pool = new GameObject();
+            pool.name = "AfterImages";
+        }
         instanceToAdd.transform.SetParent(pool.transform);
         AddToPool(instanceToAdd);
     }
@@ -39,6 +44,12 @@ public class PlayerAfterImagePool : MonoBehaviour
             GrowPool();
         }
         var instance = availableObjects.Dequeue();
+        if(instance == null)
+        {
+            availableObjects.Clear();
+            GrowPool();
+            instance = availableObjects.Dequeue();
+        }
         instance.SetActive(true);
         return instance;
     }

@@ -19,18 +19,8 @@ public class PyroSphere_Launch : MonoBehaviour
         myRb = GetComponent<Rigidbody2D>();
         myExplosion = Instantiate(explosion);
         myExplosion.SetActive(false);
-
-        DontDestroyOnLoad(gameObject);
     }
 
-    private void Start()
-    {
-        GameManager.instance.DestroyEvent += Destroy;
-    }
-    void Destroy()
-    {
-        Destroy(gameObject);
-    }
     void OnEnable()
     {
         myRb.velocity = new Vector2(myChar.isFacingRight ? 1 * speed : -1 * speed, 0);
@@ -42,13 +32,15 @@ public class PyroSphere_Launch : MonoBehaviour
         else transform.Rotate(0, 180f, 0, Space.Self);
     }
 
-
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if ((collision.GetComponent<IDamageable>() != null && collision.tag != "Player") || collision.gameObject.layer == 3 || collision.gameObject.layer == 11)
         {
             SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, explosionSound);
+            if(myExplosion == null)
+            {
+                myExplosion = Instantiate(explosion);
+            }
             myExplosion.SetActive(true);
             myExplosion.transform.position = transform.position;
             gameObject.SetActive(false);

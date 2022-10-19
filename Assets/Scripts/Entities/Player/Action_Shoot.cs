@@ -7,7 +7,7 @@ public class Action_Shoot : MonoBehaviour
     [SerializeField] private Transform shootingPoint;
     private Animator myAnim;
     private Character_Movement myChar;
-    private List<GameObject> availableObjects = new List<GameObject>();
+    private Queue<GameObject> availableObjects = new Queue<GameObject>();
     public bool canShoot = true;
     [HideInInspector] public bool isShooting = false;
     GameObject pool;
@@ -37,7 +37,6 @@ public class Action_Shoot : MonoBehaviour
     private void Awake()
     {
         pool = new GameObject("Projectile Pool");
-        DontDestroyOnLoad(pool);
         myAnim = GetComponent<Animator>();
         myChar = GetComponent<Character_Movement>();
         GrowPool(5);
@@ -84,6 +83,8 @@ public class Action_Shoot : MonoBehaviour
     #region Normal Dagger
     public void GrowPool(int daggers)
     {
+        if(pool == null) pool = new GameObject("Projectile Pool");
+
         for (int i = 0; i < daggers; i++)
         {
             var instanceToAdd = Instantiate(myBullet);
@@ -91,21 +92,24 @@ public class Action_Shoot : MonoBehaviour
             instanceToAdd.transform.SetParent(pool.transform);
             AddToPool(instanceToAdd);
         }
-        
     }
 
     public void AddToPool(GameObject instance)
     {
         instance.SetActive(false);
-        availableObjects.Add(instance);
+        availableObjects.Enqueue(instance);
     }
 
     public void GetFromPool()
     {
         if (availableObjects.Count > 0)
         {
-            var instance = availableObjects[0];
-            availableObjects.RemoveAt(0);
+            var instance = availableObjects.Dequeue();
+            if(instance == null)
+            {
+                GetFromPool();
+                return;
+            }
             instance.SetActive(true);
             SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, daggerLaunchSfx);
             instance.transform.position = shootingPoint.position;
@@ -121,8 +125,6 @@ public class Action_Shoot : MonoBehaviour
     private void ShootDagger()
     {
         if (!canShoot) return;
-
-        if (availableObjects.Count <= 0) return;
 
         if (isAttacking) return;
 
@@ -143,7 +145,7 @@ public class Action_Shoot : MonoBehaviour
 
         if (!pyroReady) return;
 
-        if (myChar.myEnergy.currentEnergy < pyroEnergy) return;
+        if (!myChar.myEnergy.CanUse(pyroEnergy)) return;
 
         if (isAttacking) return;
 
@@ -156,6 +158,11 @@ public class Action_Shoot : MonoBehaviour
 
     public void LaunchPyroSphere()
     {
+        if(pyroSphere == null)
+        {
+            pyroSphere = Instantiate(pyroPrefab, shootingPoint.transform.position, Quaternion.identity);
+            pyroSphere.GetComponent<PyroSphere_Launch>().myShooter = this;
+        }
         pyroSphere.SetActive(true);
         myChar.myEnergy.currentEnergy -= pyroEnergy;
         myChar.myEnergy.ReloadEnergy();

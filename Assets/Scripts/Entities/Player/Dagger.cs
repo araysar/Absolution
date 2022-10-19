@@ -16,11 +16,6 @@ public class Dagger : Projectile
         myAnim = GetComponent<Animator>();
         myRb = GetComponent<Rigidbody2D>();
 
-        DontDestroyOnLoad(gameObject);
-    }
-    private void Start()
-    {
-        GameManager.instance.DestroyEvent += Destroy;
     }
 
     private void OnEnable()
@@ -29,11 +24,6 @@ public class Dagger : Projectile
         myAnim.SetBool("isFacingRight", myChar.isFacingRight);
         myRb.velocity = new Vector2(myChar.isFacingRight? 1 * speed : -1 * speed, 0);
 
-    }
-
-    void Destroy()
-    {
-        Destroy(gameObject);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

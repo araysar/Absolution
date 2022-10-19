@@ -6,7 +6,15 @@ public class WeaponObstacle : MonoBehaviour
 
     [SerializeField] private GameObject destroyEffect;
     [SerializeField] private DamageStay myDamage;
+    private void Start()
+    {
+        GameManager.instance.EnemyRespawnEvent += Enable;
+    }
 
+    private void Enable()
+    {
+        gameObject.SetActive(true);
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         switch (attackType)

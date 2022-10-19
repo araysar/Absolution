@@ -17,10 +17,6 @@ public class PlayerAfterImage : MonoBehaviour
 
     public Color color;
 
-    private void Start()
-    {
-        DontDestroyOnLoad(gameObject);
-    }
     private void OnEnable()
     {
         sR = GetComponent<SpriteRenderer>();

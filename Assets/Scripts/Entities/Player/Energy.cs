@@ -14,9 +14,12 @@ public class Energy : MonoBehaviour
     public GameObject[] uiGameObject;
     [HideInInspector] public Action EnergyRegen;
     private Coroutine regenCoroutine;
+    [SerializeField] private Animator myAnim;
+    [SerializeField] private AudioSource mySound;
 
     void Start()
     {
+        mySound.volume = SoundManager.instance.sfxVolume;
         EnergyRegen = Regeneration;
     }
 
@@ -25,6 +28,19 @@ public class Energy : MonoBehaviour
         EnergyRegen();
     }
 
+    public bool CanUse(float cost)
+    {
+        if(cost <= currentEnergy)
+        {
+            return true;
+        }
+        else
+        {
+            myAnim.SetTrigger("noEnergy");
+            mySound.Play();
+            return false;
+        }
+    }
     public void Regeneration()
     {
         if (regenCoroutine != null) return;

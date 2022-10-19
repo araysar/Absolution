@@ -137,7 +137,7 @@ public class Character_Movement : MonoBehaviour
         GameManager.instance.StartEvent += ResumeMovement;
         GameManager.instance.SaveDataEvent += SaveData;
         GameManager.instance.LoadDataEvent += LoadData;
-        SaveData();
+        GameManager.instance.TriggerAction(GameManager.ExecuteAction.SaveData);
     }
 
 
@@ -196,7 +196,7 @@ public class Character_Movement : MonoBehaviour
             {
                 if (canDash)
                 {
-                    if (Time.time >= (lastDash + dashCooldown) && dashCharges > 0 && myEnergy.currentEnergy > energyDash)
+                    if (Time.time >= (lastDash + dashCooldown) && dashCharges > 0 && myEnergy.CanUse(energyDash))
                     {
                         AttemptToDash();
                     }
@@ -382,7 +382,7 @@ public class Character_Movement : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             myAnim.Play("Idle", 0, 0f);
             isFalling = false;
-            if (currentJumps != maxJumps && myUpgrades.Contains(PowerUp.DoubleJump))
+            if (currentJumps != maxJumps && myUpgrades.Contains(PowerUp.DoubleJump) && myEnergy.CanUse(energyDoubleJump))
             {
                 myEnergy.currentEnergy -= energyDoubleJump;
                 myEnergy.ReloadEnergy();
@@ -457,7 +457,6 @@ public class Character_Movement : MonoBehaviour
     #region 
     public void PowerUpGrab()
     {
-
         foreach (PowerUp item in myUpgrades)
         {
             switch (item)
@@ -467,7 +466,6 @@ public class Character_Movement : MonoBehaviour
                     {
                         myEnergy.uiGameObject[i].SetActive(true);
                     }
-
                     maxJumps++;
                     break;
                 case PowerUp.Dash:
@@ -555,11 +553,12 @@ public class Character_Movement : MonoBehaviour
     }
     #endregion
 
-   public void OnTriggerEnteder2D(Collider collider)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collider.gameObject.tag == "CheckPoint")
+        if (collision.gameObject.tag == "CheckPoint")
         {
-            SaveData();
+            GameManager.instance.TriggerAction(GameManager.ExecuteAction.SaveData);
+            collision.gameObject.SetActive(false);
         }
     }
 }
