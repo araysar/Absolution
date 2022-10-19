@@ -875,11 +875,6 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
---- !u!95 &217528879 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 6333780969245736735, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
-  m_PrefabInstance: {fileID: 3284561372434351562}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &220044583
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -29343,14 +29338,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 177577872, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
-      propertyPath: myAnim
-      value: 
-      objectReference: {fileID: 217528879}
-    - target: {fileID: 177577872, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
-      propertyPath: myType
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 706677131, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -29367,14 +29354,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1897431516, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
-      propertyPath: chargeSfx
-      value: 
-      objectReference: {fileID: 8300000, guid: 1cbe52a1e924a2e4c88eb6f48d04f43b, type: 3}
-    - target: {fileID: 1897431516, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
-      propertyPath: launchSfx
-      value: 
-      objectReference: {fileID: 8300000, guid: 27fecb3f188739f41b0a2444d7ef9661, type: 3}
     - target: {fileID: 538693597665865373, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -29395,34 +29374,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Character
       objectReference: {fileID: 0}
-    - target: {fileID: 3284561371220175779, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
-      propertyPath: jumpForce
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 3284561371220175779, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
-      propertyPath: impactFleshSfx
-      value: 
-      objectReference: {fileID: 8300000, guid: eb7a449a2a43321419deb08ac9d83d2d, type: 3}
-    - target: {fileID: 3284561371220175779, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
-      propertyPath: impactMetalSfx
-      value: 
-      objectReference: {fileID: 8300000, guid: d032b931746232043bbf89dadbb89cb1, type: 3}
-    - target: {fileID: 3284561371220175779, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
-      propertyPath: impactShieldSfx
-      value: 
-      objectReference: {fileID: 8300000, guid: b1003b37412fdc740ac5b7610f5a5e3f, type: 3}
-    - target: {fileID: 3284561371220175779, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
-      propertyPath: impactShieldEffect
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3284561371220175779, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
-      propertyPath: blockedWallImpactSfx
-      value: 
-      objectReference: {fileID: 8300000, guid: e680a8854db6ca24cbc77cd56254d247, type: 3}
-    - target: {fileID: 3284561371220175779, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
-      propertyPath: blockedWallImpactEffect
-      value: 
-      objectReference: {fileID: 3416543320713666645, guid: 8a132a7eef578394ea911270581e4eec, type: 3}
     - target: {fileID: 3284561371220175783, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -29466,22 +29417,6 @@ PrefabInstance:
     - target: {fileID: 3284561371220175783, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3647580896632792794, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
-      propertyPath: pyroEnergy
-      value: 35
-      objectReference: {fileID: 0}
-    - target: {fileID: 5012458389926280082, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
-      propertyPath: speed.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5012458389926280082, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
-      propertyPath: speed.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5012458389926280109, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7567428277371267615, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
       propertyPath: m_AnchorMax.y

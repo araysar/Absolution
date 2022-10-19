@@ -276,6 +276,7 @@ public class Character_Movement : MonoBehaviour
         myAnim.SetBool("isCharging", isCharging);
         myAnim.SetBool("isDashing", isDashing);
         myAnim.SetBool("isFalling", isFalling);
+        myAnim.SetFloat("life", myHealth.currentHP / myHealth.maxHP);
     }
 
     private void Flip()

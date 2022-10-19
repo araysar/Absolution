@@ -14,10 +14,13 @@ public class Health : MonoBehaviour, IDamageable
     private bool recovering = false;
     public GameObject respawnEffect;
     public Animator myAnim;
+    public Animator myUIAnim;
     [HideInInspector] public Vector2 initialPosition;
 
     [Space, Header("UI")]
     public Image lifeBar;
+    [SerializeField] private Color fullLifeBarColor = Color.green;
+    [SerializeField] private Color lowLifeBarColor = Color.red;
 
     [Space, Header("Flash")]
     [SerializeField] private float flashTimes = 3;
@@ -85,7 +88,7 @@ public class Health : MonoBehaviour, IDamageable
 
             if(myAnim != null)
             {
-                myAnim.SetTrigger("damaged");
+                myAnim.SetBool("damaged", true);
             }
 
             if (currentHP <= 0)
@@ -108,8 +111,24 @@ public class Health : MonoBehaviour, IDamageable
     public void RefreshLifeBar()
     {
         lifeBar.fillAmount = currentHP / maxHP;
+        lifeBar.color = Color.Lerp(lowLifeBarColor, fullLifeBarColor, lifeBar.fillAmount);
+        if(myUIAnim != null)
+        {
+            if(currentHP / maxHP <= 0.225f)
+            {
+                myUIAnim.SetBool("onDanger", true);
+            }
+            else
+            {
+                myUIAnim.SetBool("onDanger", false);
+            }
+        }
     }
 
+    public void EndDamaged()
+    {
+        myAnim.SetBool("damaged", false);
+    }
     public void Death()
     {
         StopAllCoroutines();
