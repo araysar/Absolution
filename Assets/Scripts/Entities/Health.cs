@@ -13,6 +13,7 @@ public class Health : MonoBehaviour, IDamageable
     [SerializeField] private bool invulnerability = false;
     private bool recovering = false;
     public GameObject respawnEffect;
+    [SerializeField] private GameObject deathEffect;
     public Animator myAnim;
     public Animator myUIAnim;
     [HideInInspector] public Vector2 initialPosition;
@@ -136,7 +137,9 @@ public class Health : MonoBehaviour, IDamageable
         recovering = false;
         myRenderer.material = commonMaterial;
         commonMaterial.color = Color.white;
-        GameManager.instance.DeathEffect(myType, gameObject);
+        if (deathEffect == null) GameManager.instance.DeathEffect(myType, gameObject);
+        else Instantiate(deathEffect, transform.position, Quaternion.identity);
+
         switch (myType)
         {
             case EntityType.player:
