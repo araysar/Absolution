@@ -32,7 +32,7 @@ public class Dagger : Projectile
         {
             myPool.AddToPool(gameObject);
         }
-        else if (collision.gameObject.layer == 3 || collision.gameObject.layer == 11)
+        else if ((collision.gameObject.layer == 3 || collision.gameObject.layer == 11) && !collision.GetComponent<Health>())
         {
             Impact(Health.ArmorType.wall);
             myPool.AddToPool(gameObject);

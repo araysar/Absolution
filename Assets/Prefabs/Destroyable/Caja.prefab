@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 898897232131574736}
   - component: {fileID: 898897232131574741}
   - component: {fileID: 898897232131574742}
-  m_Layer: 12
+  - component: {fileID: 2777008751910679260}
+  m_Layer: 3
   m_Name: Caja
-  m_TagString: Untagged
+  m_TagString: NoSlide
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -122,7 +123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6df1c950e865c34bad593b5d0a2fb6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 30
+  maxHP: 10
   currentHP: 0
   defense: 0
   ulti1Stacks: 5
@@ -142,5 +143,26 @@ MonoBehaviour:
   commonMaterial: {fileID: 0}
   flashColor: {r: 1, g: 1, b: 1, a: 1}
   myRenderer: {fileID: 0}
-  myType: 0
+  myType: 4
   myArmor: 0
+--- !u!50 &2777008751910679260
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 898897232131574737}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 5

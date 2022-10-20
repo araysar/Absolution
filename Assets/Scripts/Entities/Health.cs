@@ -39,6 +39,7 @@ public class Health : MonoBehaviour, IDamageable
         special,
         boss,
         player,
+        isDestroyableObject,
     };
 
     public enum ArmorType
@@ -58,15 +59,25 @@ public class Health : MonoBehaviour, IDamageable
         commonMaterial = myRenderer.material;
         currentHP = maxHP;
 
-        if(myType == EntityType.player)
+        switch (myType)
         {
-            GameManager.instance.PlayerRespawnEvent += RespawnPlayer;
-            GameManager.instance.PlayerDisableEvent += DisablePlayer;
-
-        }
-        else
-        {
-            GameManager.instance.HealAllEnemiesEvent += RespawnEnemy;
+            case EntityType.common:
+                GameManager.instance.HealAllEnemiesEvent += HealEnemy;
+                break;
+            case EntityType.special:
+                GameManager.instance.HealAllEnemiesEvent += HealEnemy;
+                break;
+            case EntityType.boss:
+                break;
+            case EntityType.player:
+                GameManager.instance.PlayerRespawnEvent += RespawnPlayer;
+                GameManager.instance.PlayerDisableEvent += DisablePlayer;
+                break;
+            case EntityType.isDestroyableObject:
+                GameManager.instance.AllwaysRespawnEvent += RespawnEnemy;
+                break;
+            default:
+                break;
         }
     }
 
@@ -180,10 +191,16 @@ public class Health : MonoBehaviour, IDamageable
     private void RespawnEnemy()
     {
         gameObject.SetActive(true);
+        GameManager.instance.HealAllEnemiesEvent += HealEnemy;
         currentHP = maxHP;
         transform.position = initialPosition;
     }
 
+    private void HealEnemy()
+    {
+        currentHP = maxHP;
+        transform.position = initialPosition;
+    }
     private void RespawnPlayer()
     {
         myRenderer.enabled = true;
@@ -200,9 +217,16 @@ public class Health : MonoBehaviour, IDamageable
 
     void OnDestroy()
     {
-        if(myType != EntityType.player)
+        switch (myType)
         {
-            GameManager.instance.HealAllEnemiesEvent -= RespawnEnemy;
+            case EntityType.player:
+                break;
+            case EntityType.isDestroyableObject:
+                GameManager.instance.AllwaysRespawnEvent -= RespawnEnemy;
+                break;
+            default:
+                GameManager.instance.HealAllEnemiesEvent -= HealEnemy;
+                break;
         }
     }
     #endregion

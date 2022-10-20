@@ -21,7 +21,6 @@ public class Character_Movement : MonoBehaviour
     private bool isMoving;
     private bool canMove = true;
     private bool canFlip = true;
-
     [Space, Header("Jump")]
     public float jumpForce = 5;
     [SerializeField] private Transform groundCheck;
@@ -33,7 +32,6 @@ public class Character_Movement : MonoBehaviour
     [SerializeField] private ParticleSystem doubleJumpEffect;
     [SerializeField] private float groundCheckRadius;
     [SerializeField] private LayerMask groundMask;
-    [SerializeField] private LayerMask destroyableMask;
     [SerializeField] private AudioClip doubleJumpSfx;
     public bool isGrounded;
     public bool isFalling;
@@ -42,7 +40,7 @@ public class Character_Movement : MonoBehaviour
     [Space, Header("Wall")]
     [SerializeField] private Transform wallCheck;
     public bool isTouchingWall;
-    private RaycastHit2D spikesRaycast;
+    private RaycastHit2D noSlideRaycast;
     [SerializeField] private float wallSlideSpeed;
     [SerializeField] private float wallCheckDistance;
     public bool isWallSliding;
@@ -324,6 +322,7 @@ public class Character_Movement : MonoBehaviour
             if (canMove)
             {
                 rb.velocity = new Vector2((Input.GetAxisRaw("Horizontal") * speed) * Time.deltaTime, rb.velocity.y);
+
                 if (!isGrounded && rb.velocity.y >= 0.1f)
                 {
                     isJumping = false;
@@ -418,7 +417,6 @@ public class Character_Movement : MonoBehaviour
             canJump = true;
             
         }
-
     }
 
     private IEnumerator JumpTimer()
@@ -428,27 +426,19 @@ public class Character_Movement : MonoBehaviour
         canJump = true;
     }
 
+    #endregion
+
+    #region Checks
     private void CheckSurroundings()
     {
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundMask);
         isTouchingWall = Physics2D.Raycast(wallCheck.position, transform.right, wallCheckDistance, groundMask);
-        spikesRaycast = Physics2D.Raycast(wallCheck.position, transform.right, wallCheckDistance, groundMask);
-        if(!isGrounded)
-        {
-            if(rb.velocity.y < 0)
-            {
-                Collider2D destroyable = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, destroyableMask);
-                if (destroyable == true)
-                {
-                    destroyable.GetComponent<Health>().Death();
-                }
-            }
-        }
+        noSlideRaycast = Physics2D.Raycast(wallCheck.position, transform.right, wallCheckDistance, groundMask);
     }
 
     private void CheckIfWallSliding()
     {
-        if(isTouchingWall && !isGrounded && rb.velocity.y < 0 && Input.GetAxisRaw("Horizontal") != 0 && spikesRaycast.collider.tag != "Spikes")
+        if (isTouchingWall && !isGrounded && rb.velocity.y < 0 && Input.GetAxisRaw("Horizontal") != 0 && noSlideRaycast.collider.tag != "NoSlide")
         {
             isWallSliding = true;
         }
@@ -462,11 +452,11 @@ public class Character_Movement : MonoBehaviour
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
-        Gizmos.DrawLine(wallCheck.position, new Vector3(isFacingRight? wallCheck.position.x + wallCheckDistance: wallCheck.position.x - wallCheckDistance, wallCheck.position.y, wallCheck.position.z));
+        Gizmos.DrawLine(wallCheck.position, new Vector3(isFacingRight ? wallCheck.position.x + wallCheckDistance : wallCheck.position.x - wallCheckDistance, wallCheck.position.y, wallCheck.position.z));
     }
     #endregion
 
-    #region 
+    #region  Power UP
     public void PowerUpGrab()
     {
         foreach (PowerUp item in myUpgrades)
@@ -478,7 +468,7 @@ public class Character_Movement : MonoBehaviour
                     {
                         myEnergy.uiGameObject[i].SetActive(true);
                     }
-                    maxJumps++;
+                    maxJumps = 2;
                     break;
                 case PowerUp.Dash:
                     for (int i = 0; i < myEnergy.uiGameObject.Length; i++)
@@ -545,8 +535,8 @@ public class Character_Movement : MonoBehaviour
     }
     public void SaveData()
     {
-        saveCurrentEnergy = myEnergy.currentEnergy;
-        saveCurrentHp = myHealth.currentHP;
+        saveCurrentEnergy = myEnergy.maxEnergy;
+        saveCurrentHp = myHealth.maxHP;
         saveUlti1Stacks = ulti1Stacks;
         saveMyUpgrades = myUpgrades;
         myHealth.initialPosition = transform.position;

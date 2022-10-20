@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 3511343664607500674}
   - component: {fileID: 3511343664607500675}
   - component: {fileID: 3511343664607500676}
-  m_Layer: 12
+  m_Layer: 3
   m_Name: BarrilDestruible
-  m_TagString: Untagged
+  m_TagString: NoSlide
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -96,7 +96,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6df1c950e865c34bad593b5d0a2fb6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 50
+  maxHP: 30
   currentHP: 0
   defense: 0
   ulti1Stacks: 5
@@ -116,7 +116,7 @@ MonoBehaviour:
   commonMaterial: {fileID: 0}
   flashColor: {r: 1, g: 1, b: 1, a: 1}
   myRenderer: {fileID: 0}
-  myType: 0
+  myType: 4
   myArmor: 0
 --- !u!61 &3511343664607500676
 BoxCollider2D:

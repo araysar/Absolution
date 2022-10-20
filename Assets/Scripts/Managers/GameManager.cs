@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float timeToTransition = 3;
 
     public event Action EnemyRespawnEvent = delegate { };
+    public event Action AllwaysRespawnEvent = delegate { };
     public event Action HealAllEnemiesEvent = delegate { };
     public event Action PlayerDisableEvent = delegate { };
     public event Action PlayerRespawnEvent = delegate { };
@@ -46,6 +47,7 @@ public class GameManager : MonoBehaviour
         LoadData,
         DestroyEvent,
         StartEvent,
+        AllwaysRespawnEvent,
         
     };
 
@@ -129,6 +131,7 @@ public class GameManager : MonoBehaviour
                 break;
             case ExecuteAction.SaveData:
                 SaveDataEvent();
+                EnemyRespawnEvent = delegate { };
                 break;
             case ExecuteAction.LoadData:
                 LoadDataEvent();
@@ -138,6 +141,9 @@ public class GameManager : MonoBehaviour
                 break;
             case ExecuteAction.StartEvent:
                 StartEvent();
+                break;
+            case ExecuteAction.AllwaysRespawnEvent:
+                AllwaysRespawnEvent();
                 break;
         }
 
