@@ -33,6 +33,7 @@ public class Character_Movement : MonoBehaviour
     [SerializeField] private ParticleSystem doubleJumpEffect;
     [SerializeField] private float groundCheckRadius;
     [SerializeField] private LayerMask groundMask;
+    [SerializeField] private LayerMask destroyableMask;
     [SerializeField] private AudioClip doubleJumpSfx;
     public bool isGrounded;
     public bool isFalling;
@@ -432,6 +433,17 @@ public class Character_Movement : MonoBehaviour
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundMask);
         isTouchingWall = Physics2D.Raycast(wallCheck.position, transform.right, wallCheckDistance, groundMask);
         spikesRaycast = Physics2D.Raycast(wallCheck.position, transform.right, wallCheckDistance, groundMask);
+        if(!isGrounded)
+        {
+            if(rb.velocity.y < 0)
+            {
+                Collider2D destroyable = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, destroyableMask);
+                if (destroyable == true)
+                {
+                    destroyable.GetComponent<Health>().Death();
+                }
+            }
+        }
     }
 
     private void CheckIfWallSliding()
