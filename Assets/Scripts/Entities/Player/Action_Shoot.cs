@@ -10,8 +10,8 @@ public class Action_Shoot : MonoBehaviour
     private Queue<GameObject> availableObjects = new Queue<GameObject>();
     public bool canShoot = true;
     [HideInInspector] public bool isShooting = false;
+    [HideInInspector] public bool isAttacking = false;
     GameObject pool;
-    private bool isAttacking = false;
     public AttackType currentAttack;
 
     [Header("PyroSphere")]
@@ -129,8 +129,8 @@ public class Action_Shoot : MonoBehaviour
         if (isAttacking) return;
 
         myChar.StopDash();
-        myAnim.SetBool("attack1", true);
         isAttacking = true;
+        myAnim.SetBool("attack1", true);
     }
 
     #endregion
@@ -172,9 +172,11 @@ public class Action_Shoot : MonoBehaviour
 
     #endregion
 
-    public void FinishShooting(string animName)
+    public void FinishShooting()
     {
-        myAnim.SetBool(animName, false);
+
+        myAnim.SetBool("attack1", false);
+        myAnim.SetBool("attackFire", false);
         isAttacking = false;
     }
 }

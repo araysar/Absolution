@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3511343664607500674}
   - component: {fileID: 3511343664607500675}
   - component: {fileID: 3511343664607500676}
+  - component: {fileID: 4277043380977932460}
   m_Layer: 3
   m_Name: BarrilDestruible
   m_TagString: NoSlide
@@ -144,3 +145,24 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.2656572, y: 1.436}
   m_EdgeRadius: 0
+--- !u!50 &4277043380977932460
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3511343664607500672}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 5

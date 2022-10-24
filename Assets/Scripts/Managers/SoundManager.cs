@@ -34,6 +34,11 @@ public class SoundManager : MonoBehaviour
         musicAudioSource.volume = musicVolume;
         unscalledAudioSource = sfxAudioSource;
     }
+
+    private void Start()
+    {
+        GameManager.instance.DestroyEvent += Destroy;
+    }
     public void PlaySound(SoundManager.SoundChannel channel, AudioClip clip)
     {
         switch (channel)
@@ -66,5 +71,10 @@ public class SoundManager : MonoBehaviour
     {
         sfxAudioSource.volume = sfxVolume;
         musicAudioSource.volume = musicVolume;
+    }
+
+    private void Destroy()
+    {
+        Destroy(gameObject);
     }
 }

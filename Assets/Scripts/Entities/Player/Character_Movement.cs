@@ -13,6 +13,7 @@ public class Character_Movement : MonoBehaviour
     public bool isCharging = false;
     [HideInInspector] public Health myHealth;
     [HideInInspector] public Energy myEnergy;
+    [HideInInspector] public Action_Shoot myShooter;
 
     [Header("Move")]
     public float speed = 3;
@@ -115,7 +116,7 @@ public class Character_Movement : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
+        myShooter = GetComponent<Action_Shoot>();
         rb = GetComponent<Rigidbody2D>();
         myAnim = GetComponent<Animator>();
         myHealth = GetComponent<Health>();
@@ -123,7 +124,6 @@ public class Character_Movement : MonoBehaviour
         ulti1 = GetComponent<Ultimate>();
         currentJumps = maxJumps;
         gravityScale = rb.gravityScale;
-
         myUpgrades.Add(PowerUp.Ulti1);
         PowerUpGrab();
     }
@@ -133,9 +133,12 @@ public class Character_Movement : MonoBehaviour
         GameManager.instance.PlayerDisableEvent += DisablePlayer;
         GameManager.instance.PlayerRespawnEvent += RespawnPlayer;
         GameManager.instance.PlayerDisableEvent += StopMovement;
+        GameManager.instance.StopMovementEvent += StopMovement;
+        GameManager.instance.ResumeMovementEvent += ResumeMovement;
         GameManager.instance.StartEvent += ResumeMovement;
         GameManager.instance.SaveDataEvent += SaveData;
         GameManager.instance.LoadDataEvent += LoadData;
+        GameManager.instance.DestroyEvent += Destroy;
         GameManager.instance.TriggerAction(GameManager.ExecuteAction.SaveData);
     }
 
@@ -201,6 +204,12 @@ public class Character_Movement : MonoBehaviour
                     }
                 }
             }
+        }
+
+        if (Input.GetButtonDown("Ultimate1"))
+        {
+            if (myUpgrades.Contains(Character_Movement.PowerUp.Ulti1) && ulti1Stacks == ulti1Required)
+                ulti1.ActivateUltimate();
         }
     }
     
@@ -280,12 +289,17 @@ public class Character_Movement : MonoBehaviour
 
     private void Flip()
     {
-        if (canFlip)
+        if(canFlip)
         {
-            if (!isWallSliding)
+            if (!isFacingRight)
             {
-                isFacingRight = !isFacingRight;
-                transform.Rotate(0, 180, 0);
+                transform.rotation = new Quaternion(0, 0, 0, 0);
+                isFacingRight = true;
+            }
+            else
+            {
+                transform.rotation = new Quaternion(0, 180, 0, 0);
+                isFacingRight = false;
             }
         }
     }
@@ -361,11 +375,13 @@ public class Character_Movement : MonoBehaviour
 
     public void StopMovement()
     {
+        StopDash();
+        isJumping = false;
         disableInputs = true;
         isMoving = false;
-        myAnim.SetBool("isMoving", isMoving);
-        myAnim.Play("Idle", 0);
         rb.velocity = new Vector2(0, 0);
+        ControlAnimations();
+        myAnim.Play("Idle", 0);
     }
     public void ResumeMovement()
     {
@@ -380,13 +396,13 @@ public class Character_Movement : MonoBehaviour
         if (canJump && currentJumps > 0 && !isDashing)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-            myAnim.Play("Idle", 0, 0f);
+            if(myAnim.GetBool("isJumping") || myAnim.GetBool("isFalling")) myAnim.Play("Idle", 0, 0f);
             isFalling = false;
             if (currentJumps != maxJumps && myUpgrades.Contains(PowerUp.DoubleJump) && myEnergy.CanUse(energyDoubleJump))
             {
                 myEnergy.currentEnergy -= energyDoubleJump;
                 myEnergy.ReloadEnergy();
-                myAnim.Play("Idle", 0, 0f);
+                if (myAnim.GetBool("isJumping") || myAnim.GetBool("isFalling")) myAnim.Play("Idle", 0, 0f);
                 SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, doubleJumpSfx);
                 doubleJumpEffect.Play();
             }
@@ -468,7 +484,10 @@ public class Character_Movement : MonoBehaviour
                     {
                         myEnergy.uiGameObject[i].SetActive(true);
                     }
-                    maxJumps = 2;
+                    if(maxJumps < 2)
+                    {
+                        maxJumps = 2;
+                    }
                     break;
                 case PowerUp.Dash:
                     for (int i = 0; i < myEnergy.uiGameObject.Length; i++)
@@ -554,6 +573,11 @@ public class Character_Movement : MonoBehaviour
         PowerUpGrab();
     }
     #endregion
+
+    private void Destroy()
+    {
+        Destroy(gameObject);
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

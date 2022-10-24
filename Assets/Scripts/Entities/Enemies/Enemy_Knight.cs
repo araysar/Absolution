@@ -16,7 +16,6 @@ public class Enemy_Knight : MonoBehaviour
     [Space, Header("Attack")]
     public float damage;
     public float timeAfterHit = 1;
-    [SerializeField] private GameObject rageEffect;
 
     [Space, Header("Check")]
     public float wallCheckDistance = 1;
@@ -25,6 +24,7 @@ public class Enemy_Knight : MonoBehaviour
     public bool isGrounded = true;
     public bool isTouchingWall = false;
     public bool isChasing = false;
+    private bool canMove = true;
     private Vector2 lastPlayerPosition = Vector2.zero;
     [SerializeField] private Transform wallCheck;
     [SerializeField] private Transform groundCheck;
@@ -40,22 +40,21 @@ public class Enemy_Knight : MonoBehaviour
         myRb = GetComponent<Rigidbody2D>();
         myAnim = GetComponent<Animator>();
         myHealth = GetComponent<Health>();
+        GameManager.instance.ResumeMovementEvent += ResumeMovement;
+        GameManager.instance.StopMovementEvent += StopMovement;
+        currentDistance = 0;
+        isChasing = false;
+    }
+    public void StopMovement()
+    {
+        myAnim.SetFloat("speed", 0);
+        canMove = false;
+    }
 
-        if (isFacingRight)
-        {
-            currentDistance = 0;
-            isChasing = false;
-            isFacingRight = true;
-            transform.Rotate(0, 0, 0);
-        }
-        else
-        {
-            currentDistance = 0;
-            isChasing = false;
-            isFacingRight = false;
-            transform.Rotate(0, 180, 0);
-        }
-
+    public void ResumeMovement()
+    {
+        myAnim.SetFloat("speed", 1);
+        canMove = true;
     }
 
     void Update()
@@ -100,11 +99,6 @@ public class Enemy_Knight : MonoBehaviour
                     currentDistance += Time.deltaTime;
                 }
             }
-            else
-            {
-                if (rageEffect.activeInHierarchy) rageEffect.SetActive(false);
-            }
-                
         }
     }
 
@@ -112,7 +106,7 @@ public class Enemy_Knight : MonoBehaviour
     {
         if (myHealth.currentHP > 0)
         {
-            if (!isResting)
+            if (!isResting || isChasing)
             {
                 if (!isChasing)
                 {
@@ -139,17 +133,12 @@ public class Enemy_Knight : MonoBehaviour
                     {
                         myRb.velocity = new Vector2((isFacingRight ? (1 * chasingSpeed) : (-1 * chasingSpeed)) * Time.fixedDeltaTime, myRb.velocity.y);
                     }
-                    else if (!isGrounded || isTouchingWall)
-                    {
-                        Flip();
-                    }
+
                     if(isFacingRight?(lastPlayerPosition.x - transform.position.x) < 0.1f : (lastPlayerPosition.x - transform.position.x) > 0.1f)
                     {
                         isChasing = false;
                         currentDistance -= maxDistance / 2;
                         lastPlayerPosition = Vector2.zero;
-                        rageEffect.SetActive(false);
-
                     }
                 }
 
@@ -163,10 +152,16 @@ public class Enemy_Knight : MonoBehaviour
 
     private void Flip()
     {
-        isChasing = false;
-        isFacingRight = !isFacingRight;
-        transform.Rotate(0, 180, 0);
-        if (rageEffect.activeInHierarchy) rageEffect.SetActive(false);
+        if (!isFacingRight)
+        {
+            transform.rotation = new Quaternion(0, 0, 0, 0);
+            isFacingRight = true;
+        }
+        else
+        {
+            transform.rotation = new Quaternion(0, 180, 0, 0);
+            isFacingRight = false;
+        }
     }
 
     private void AnimationController()
@@ -180,7 +175,6 @@ public class Enemy_Knight : MonoBehaviour
         {
             myAnim.SetBool("isMoving", false);
         }
-        
     }
 
 
@@ -203,8 +197,6 @@ public class Enemy_Knight : MonoBehaviour
             }
             else
             {
-                if (!rageEffect.activeInHierarchy) rageEffect.SetActive(true);
-
                 lastPlayerPosition = target.transform.position;
                 isChasing = true; 
                 return true;

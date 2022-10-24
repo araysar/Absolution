@@ -5021,7 +5021,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6095550004421427272}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.091, z: 0}
+  m_LocalPosition: {x: 0, y: -0.444, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7168281197526176745}
@@ -5183,7 +5183,6 @@ MonoBehaviour:
   isResting: 0
   damage: 10
   timeAfterHit: 1
-  rageEffect: {fileID: 4775062617257324859}
   wallCheckDistance: 0.8
   playerCheckDistance: 4.5
   isFacingRight: 1

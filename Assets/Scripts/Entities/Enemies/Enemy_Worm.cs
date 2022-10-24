@@ -12,6 +12,7 @@ public class Enemy_Worm : MonoBehaviour
     public bool isFacingRight = true;
     public bool isGrounded = true;
     public bool isTouchingWall = false;
+    private bool canMove = true;
 
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundMask;
@@ -19,36 +20,30 @@ public class Enemy_Worm : MonoBehaviour
     private Animator myAnim;
     private Health myHealth;
     private Rigidbody2D myRb;
+
     void Start()
     {
         myRb = GetComponent<Rigidbody2D>();
         myAnim = GetComponent<Animator>();
         myHealth = GetComponent<Health>();
-
-        int alf = Random.Range(0, 2);
-        if(alf > 0)
-        {
-            Flip();
-        }
-
+        GameManager.instance.ResumeMovementEvent += ResumeMovement;
+        GameManager.instance.StopMovementEvent += StopMovement;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if(!GameManager.instance.onPause)
         {
-            if (myHealth.currentHP > 0)
+            if (myHealth.currentHP > 0 && canMove)
             {
                 CheckSurroundings();
             }
         }
-        
     }
 
     private void FixedUpdate()
     {
-        if(myHealth.currentHP > 0)
+        if(myHealth.currentHP > 0 && canMove)
         {
             if (!recoveringFromHit)
             {
@@ -70,16 +65,35 @@ public class Enemy_Worm : MonoBehaviour
 
     private void Flip()
     {
-        isFacingRight = !isFacingRight;
-        transform.Rotate(0, 180, 0);
-
+        if(!isFacingRight)
+        {
+            transform.rotation = new Quaternion(0, 0, 0, 0);
+            isFacingRight = true;
+        }
+        else
+        {
+            transform.rotation = new Quaternion(0, 180, 0, 0);
+            isFacingRight = false;
+        }
     }
 
+    public void StopMovement()
+    {
+        myRb.velocity = Vector2.zero;
+        myAnim.SetFloat("speed", 0);
+        canMove = false;
+    }
+
+    public void ResumeMovement()
+    {
+        myAnim.SetFloat("speed", 1);
+        canMove = true;
+    }
 
     private void CheckSurroundings()
     {
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundMask);
-        isTouchingWall = Physics2D.Raycast(transform.position, transform.right, wallCheckDistance, groundMask);
+        isTouchingWall = Physics2D.Raycast(transform.position, !isFacingRight? transform.right : transform.right, wallCheckDistance, groundMask);
     }
 
     IEnumerator AfterHit()
@@ -89,6 +103,10 @@ public class Enemy_Worm : MonoBehaviour
         recoveringFromHit = false;
     }
 
+    private void OnDestroy()
+    {
+        
+    }
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;

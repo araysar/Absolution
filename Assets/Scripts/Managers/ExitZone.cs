@@ -11,7 +11,7 @@ public class ExitZone : MonoBehaviour
             GameManager.instance.nextPosition = nextPosition;
             GameManager.instance.nextScene = nextScene;
             Character_Movement.instance.StopMovement();
-            GameManager.instance.TransitionEvent(GameManager.EventType.DoorTransition);
+            GameManager.instance.TransitionEvent(GameManager.EventType.DoorTransition, 0);
         }
     }
 }

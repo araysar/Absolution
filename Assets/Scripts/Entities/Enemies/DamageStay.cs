@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,7 @@ public class DamageStay : MonoBehaviour
     [SerializeField] private int myTargetLayer = 6;
     private bool playerOnBounds = false;
     private Health myHealth;
+    private Action PlayerOnBounds = delegate { };
 
     private void Start()
     {
@@ -16,11 +18,16 @@ public class DamageStay : MonoBehaviour
     }
     private void Update()
     {
-        if(playerOnBounds)
+        PlayerOnBounds();
+    }
+
+    private void OnBounds()
+    {
+        if(!GameManager.instance.onPause)
         {
-            if(myHealth != null)
+            if (myHealth != null)
             {
-                if(myHealth.currentHP <= 0)
+                if (myHealth.currentHP <= 0)
                 {
                     return;
                 }
@@ -29,7 +36,7 @@ public class DamageStay : MonoBehaviour
             Collider2D[] allObjectives = Physics2D.OverlapBoxAll(transform.position, bounds, 0);
             foreach (var item in allObjectives)
             {
-                if(item.GetComponent<IDamageable>() != null && item.gameObject.layer == myTargetLayer)
+                if (item.GetComponent<IDamageable>() != null && item.gameObject.layer == myTargetLayer)
                 {
                     item.GetComponent<IDamageable>().TakeDamage(damage);
                 }
@@ -41,7 +48,7 @@ public class DamageStay : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            playerOnBounds = true;
+            PlayerOnBounds = OnBounds;
         }
     }
 
@@ -49,7 +56,7 @@ public class DamageStay : MonoBehaviour
     {
         if(collision.gameObject.tag == "Player")
         {
-            playerOnBounds = false;
+            PlayerOnBounds = delegate { };
         }
     }
 

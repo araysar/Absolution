@@ -141,6 +141,7 @@ public class Health : MonoBehaviour, IDamageable
     {
         myAnim.SetBool("damaged", false);
     }
+
     public void Death()
     {
         StopAllCoroutines();
@@ -154,7 +155,7 @@ public class Health : MonoBehaviour, IDamageable
         switch (myType)
         {
             case EntityType.player:
-                GameManager.instance.TransitionEvent(GameManager.EventType.PlayerDeathTransition);
+                GameManager.instance.TransitionEvent(GameManager.EventType.PlayerDeathTransition, 2.5f);
                 break;
             default:
                 GameManager.instance.EnemyRespawnEvent += RespawnEnemy;

@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     public Character_Movement player;
     private Animator myAnim;
     public bool onPause = false;
-    [SerializeField] private float timeToTransition = 3;
+    private float gravity;
 
     public event Action EnemyRespawnEvent = delegate { };
     public event Action AllwaysRespawnEvent = delegate { };
@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour
     public event Action LoadDataEvent = delegate { };
     public event Action DestroyEvent = delegate { };
     public event Action StartEvent = delegate { };
+    public event Action StopMovementEvent = delegate { };
+    public event Action ResumeMovementEvent = delegate { };
 
     [Header("Death")]
     [SerializeField] private GameObject commonEnemyDeathEffect;
@@ -48,16 +50,17 @@ public class GameManager : MonoBehaviour
         DestroyEvent,
         StartEvent,
         AllwaysRespawnEvent,
-        
+        StopMovementEvent,
+        ResumeMovementEvent,
     };
 
     private void Awake()
     {
-
         if (instance == null)
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
+            GameManager.instance.DestroyEvent += Destroy;
         }
         else
         {
@@ -66,6 +69,9 @@ public class GameManager : MonoBehaviour
         player = FindObjectOfType<Character_Movement>();
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 60;
+        gravity = Physics2D.gravity.y;
+        StopMovementEvent += NoGravity;
+        ResumeMovementEvent += RecoverGravity;
         myAnim = GetComponent<Animator>();
 
     }
@@ -74,7 +80,7 @@ public class GameManager : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.P))
         {
-            TransitionEvent(EventType.PlayerDeathTransition);
+
         }
     }
 
@@ -98,12 +104,28 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
     }
 
+    public void NoGravity()
+    {
+        Physics2D.gravity = new Vector2(0, 0);
+    }
 
-    public void TransitionEvent(EventType eventType)
+    public void RecoverGravity()
+    {
+        Physics2D.gravity = new Vector2(0, gravity);
+    }
+
+    public void TransitionEvent(EventType eventType, float time)
+    {
+        StartCoroutine(TransitionTime(eventType, time));
+    }
+
+    private IEnumerator TransitionTime(EventType eventType, float time)
     {
         switch (eventType)
         {
             case EventType.PlayerDeathTransition:
+                TriggerAction(ExecuteAction.PlayerDisableEvent);
+                yield return new WaitForSeconds(time);
                 myAnim.SetTrigger("playerTransition");
                 break;
             case EventType.DoorTransition:
@@ -111,7 +133,6 @@ public class GameManager : MonoBehaviour
                 break;
         }
     }
-
     public void TriggerAction(ExecuteAction actions)
     {
         switch (actions)
@@ -145,6 +166,12 @@ public class GameManager : MonoBehaviour
             case ExecuteAction.AllwaysRespawnEvent:
                 AllwaysRespawnEvent();
                 break;
+            case ExecuteAction.StopMovementEvent:
+                StopMovementEvent();
+                break;
+            case ExecuteAction.ResumeMovementEvent:
+                ResumeMovementEvent();
+                break;
         }
 
     }
@@ -172,5 +199,9 @@ public class GameManager : MonoBehaviour
 
     }
 
+    private void Destroy()
+    {
+        Destroy(gameObject);
+    }
     #endregion
 }
