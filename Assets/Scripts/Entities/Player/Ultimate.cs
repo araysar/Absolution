@@ -18,6 +18,7 @@ public class Ultimate: MonoBehaviour
 
     [SerializeField] private AudioClip chargeSfx;
     [SerializeField] private AudioClip launchSfx;
+    [SerializeField] private AudioClip castVoice;
 
     public bool ultiReady = true;
 
@@ -87,6 +88,7 @@ public class Ultimate: MonoBehaviour
         ultimateAnimator.SetTrigger("notReady");
         readyText.SetActive(false);
         if (chargeSfx != null) SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, chargeSfx);
+        if (castVoice != null) SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, castVoice);
     }
     private void UsingUltimate()
     {

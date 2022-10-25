@@ -149,13 +149,31 @@ public class Health : MonoBehaviour, IDamageable
         recovering = false;
         myRenderer.material = commonMaterial;
         commonMaterial.color = Color.white;
-        if (deathEffect == null) GameManager.instance.DeathEffect(myType, gameObject);
+        if (deathEffect == null)
+        {
+            switch (myType)
+            {
+                case Health.EntityType.common:
+                    GameManager.instance.ParticleEffect(GameManager.ParticleType.CommonEnemyDeathEffect, gameObject);
+                    break;
+                case Health.EntityType.special:
+                    break;
+                case Health.EntityType.boss:
+                    break;
+                case Health.EntityType.player:
+                    GameManager.instance.ParticleEffect(GameManager.ParticleType.PlayerDeathEffect, gameObject);
+                    break;
+                default:
+                    GameManager.instance.ParticleEffect(GameManager.ParticleType.CommonEnemyDeathEffect, gameObject);
+                    break;
+            }
+        }
         else Instantiate(deathEffect, transform.position, Quaternion.identity);
 
         switch (myType)
         {
             case EntityType.player:
-                GameManager.instance.TransitionEvent(GameManager.EventType.PlayerDeathTransition, 2.5f);
+                GameManager.instance.Transition(GameManager.EventType.PlayerDeathTransition, 2.5f);
                 break;
             default:
                 GameManager.instance.EnemyRespawnEvent += RespawnEnemy;
@@ -212,7 +230,7 @@ public class Health : MonoBehaviour, IDamageable
     private void DisablePlayer()
     {
         myRenderer.enabled = false;
-        GameManager.instance.DeathEffect(myType, gameObject);
+        GameManager.instance.ParticleEffect(GameManager.ParticleType.PlayerDeathEffect, gameObject);
         currentHP = 0;
     }
 

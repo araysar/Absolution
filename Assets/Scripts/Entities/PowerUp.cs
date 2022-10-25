@@ -3,19 +3,17 @@ using UnityEngine;
 public class PowerUp : MonoBehaviour
 {
     public Character_Movement.PowerUp myPower;
-    private Character_Movement myChar;
     private bool isGrabed = false;
     [SerializeField] private GameObject uiMessage;
     [SerializeField] private AudioClip getSound;
-    private Animator myAnim;
+    [SerializeField] private Animator myAnim;
 
     private void Start()
     {
         myAnim = GetComponent<Animator>();
         myAnim.SetBool("exit", false);
-        myChar = FindObjectOfType<Character_Movement>();
-
-        if (myChar.myUpgrades.Contains(myPower))
+        myAnim.SetBool("enter", false);
+        if (Character_Movement.instance.myUpgrades.Contains(myPower))
         {
             isGrabed = true;
             gameObject.SetActive(false);
@@ -35,6 +33,14 @@ public class PowerUp : MonoBehaviour
         }
     }
 
+    public void Respawn()
+    {
+        isGrabed = false;
+        gameObject.SetActive(true);
+        myAnim.SetBool("exit", false);
+        myAnim.SetBool("enter", false);
+    }
+
     public void BTN_Exit()
     {
         myAnim.SetBool("enter", false);
@@ -44,8 +50,9 @@ public class PowerUp : MonoBehaviour
     public void ExitAnimation()
     {
         GameManager.instance.UnPause();
-        myChar.myUpgrades.Add(myPower);
-        myChar.PowerUpGrab();
+        Character_Movement.instance.myUpgrades.Add(myPower);
+        Character_Movement.instance.PowerUpGrab();
+        GameManager.instance.EnemyRespawnEvent += Respawn;
         uiMessage.SetActive(false);
         gameObject.SetActive(false);
     }

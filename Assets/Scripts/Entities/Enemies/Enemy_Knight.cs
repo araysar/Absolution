@@ -48,6 +48,7 @@ public class Enemy_Knight : MonoBehaviour
     public void StopMovement()
     {
         myAnim.SetFloat("speed", 0);
+        myRb.velocity = Vector2.zero;
         canMove = false;
     }
 
@@ -61,7 +62,7 @@ public class Enemy_Knight : MonoBehaviour
     {
         if(!GameManager.instance.onPause)
         {
-            if (myHealth.currentHP > 0)
+            if (myHealth.currentHP > 0 && canMove)
             {
                 CheckSurroundings();
                 AnimationController();
@@ -104,7 +105,7 @@ public class Enemy_Knight : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (myHealth.currentHP > 0)
+        if (myHealth.currentHP > 0 && canMove)
         {
             if (!isResting || isChasing)
             {

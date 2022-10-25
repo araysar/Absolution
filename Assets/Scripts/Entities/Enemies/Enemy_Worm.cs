@@ -103,10 +103,6 @@ public class Enemy_Worm : MonoBehaviour
         recoveringFromHit = false;
     }
 
-    private void OnDestroy()
-    {
-        
-    }
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;

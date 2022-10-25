@@ -19,8 +19,18 @@ public class PyroSphere_Launch : MonoBehaviour
         myRb = GetComponent<Rigidbody2D>();
         myExplosion = Instantiate(explosion);
         myExplosion.SetActive(false);
+        DontDestroyOnLoad(gameObject);
+
+    }
+    private void Start()
+    {
+        GameManager.instance.DestroyEvent += Destroy;
     }
 
+    private void Destroy()
+    {
+        Destroy(gameObject);
+    }
     void OnEnable()
     {
         myRb.velocity = new Vector2(myChar.isFacingRight ? 1 * speed : -1 * speed, 0);

@@ -124,7 +124,7 @@ public class Character_Movement : MonoBehaviour
         ulti1 = GetComponent<Ultimate>();
         currentJumps = maxJumps;
         gravityScale = rb.gravityScale;
-        myUpgrades.Add(PowerUp.Ulti1);
+        myUpgrades.Add(PowerUp.Dash);
         PowerUpGrab();
     }
 
@@ -133,8 +133,8 @@ public class Character_Movement : MonoBehaviour
         GameManager.instance.PlayerDisableEvent += DisablePlayer;
         GameManager.instance.PlayerRespawnEvent += RespawnPlayer;
         GameManager.instance.PlayerDisableEvent += StopMovement;
-        GameManager.instance.StopMovementEvent += StopMovement;
-        GameManager.instance.ResumeMovementEvent += ResumeMovement;
+        GameManager.instance.StopPlayerMovementEvent += StopMovement;
+        GameManager.instance.ResumePlayerMovementEvent += ResumeMovement;
         GameManager.instance.StartEvent += ResumeMovement;
         GameManager.instance.SaveDataEvent += SaveData;
         GameManager.instance.LoadDataEvent += LoadData;
@@ -208,7 +208,7 @@ public class Character_Movement : MonoBehaviour
 
         if (Input.GetButtonDown("Ultimate1"))
         {
-            if (myUpgrades.Contains(Character_Movement.PowerUp.Ulti1) && ulti1Stacks == ulti1Required)
+            if (myUpgrades.Contains(PowerUp.Ulti1) && ulti1Stacks == ulti1Required)
                 ulti1.ActivateUltimate();
         }
     }
@@ -377,6 +377,7 @@ public class Character_Movement : MonoBehaviour
     {
         StopDash();
         isJumping = false;
+        isFalling = false;
         disableInputs = true;
         isMoving = false;
         rb.velocity = new Vector2(0, 0);
@@ -519,6 +520,50 @@ public class Character_Movement : MonoBehaviour
             }
         }
     }
+
+    public void PowerUpErase()
+    {
+        foreach (PowerUp item in myUpgrades)
+        {
+            switch (item)
+            {
+                case PowerUp.DoubleJump:
+                    for (int i = 0; i < myEnergy.uiGameObject.Length; i++)
+                    {
+                        myEnergy.uiGameObject[i].SetActive(false);
+                    }
+                    maxJumps = 1;
+                    break;
+                case PowerUp.Dash:
+                    for (int i = 0; i < myEnergy.uiGameObject.Length; i++)
+                    {
+                        myEnergy.uiGameObject[i].SetActive(false);
+                    }
+                    uiDash.SetActive(false);
+                    break;
+                case PowerUp.Fire:
+                    for (int i = 0; i < myEnergy.uiGameObject.Length; i++)
+                    {
+                        myEnergy.uiGameObject[i].SetActive(false);
+                    }
+                    uiFire.SetActive(false);
+                    break;
+                case PowerUp.Ice:
+                    for (int i = 0; i < myEnergy.uiGameObject.Length; i++)
+                    {
+                        myEnergy.uiGameObject[i].SetActive(false);
+                    }
+                    break;
+                case PowerUp.Water:
+                    break;
+                case PowerUp.Ulti1:
+                    uiUltimate1.SetActive(false);
+                    break;
+                case PowerUp.Ulti2:
+                    break;
+            }
+        }
+    }
     #endregion
 
     #region Respawn
@@ -534,8 +579,6 @@ public class Character_Movement : MonoBehaviour
     private void RespawnPlayer()
     {
         LoadData();
-        myEnergy.ReloadEnergy();
-        myHealth.RefreshLifeBar();
         myHealth.respawnEffect.SetActive(true);
         GetComponent<Collider2D>().enabled = true;
         rb.bodyType = RigidbodyType2D.Dynamic;
@@ -557,7 +600,7 @@ public class Character_Movement : MonoBehaviour
         saveCurrentEnergy = myEnergy.maxEnergy;
         saveCurrentHp = myHealth.maxHP;
         saveUlti1Stacks = ulti1Stacks;
-        saveMyUpgrades = myUpgrades;
+        saveMyUpgrades = new List<PowerUp>(myUpgrades);
         myHealth.initialPosition = transform.position;
     }
 
@@ -566,11 +609,12 @@ public class Character_Movement : MonoBehaviour
         myEnergy.currentEnergy = saveCurrentEnergy;
         myHealth.currentHP = saveCurrentHp;
         ulti1Stacks = saveUlti1Stacks;
-        myUpgrades = saveMyUpgrades;
+        PowerUpErase();
+        myUpgrades = new List<PowerUp>(saveMyUpgrades);
+        PowerUpGrab();
         transform.position = myHealth.initialPosition;
         myHealth.RefreshLifeBar();
         myEnergy.ReloadEnergy();
-        PowerUpGrab();
     }
     #endregion
 

@@ -22,10 +22,14 @@ public class GameManager : MonoBehaviour
     public event Action StartEvent = delegate { };
     public event Action StopMovementEvent = delegate { };
     public event Action ResumeMovementEvent = delegate { };
+    public event Action StopPlayerMovementEvent = delegate { };
+    public event Action ResumePlayerMovementEvent = delegate { };
+    public event Action TransitionEvent = delegate { };
 
-    [Header("Death")]
+    [Header("Particles")]
     [SerializeField] private GameObject commonEnemyDeathEffect;
     [SerializeField] private GameObject playerDeathEffect;
+    [SerializeField] private GameObject screamParticleEffect;
 
     [Header("NextZone")]
     [HideInInspector] public int nextScene = 1;
@@ -37,6 +41,14 @@ public class GameManager : MonoBehaviour
     {
         PlayerDeathTransition,
         DoorTransition,
+        FadeTransition,
+    };
+
+    public enum ParticleType
+    {
+        CommonEnemyDeathEffect,
+        PlayerDeathEffect,
+        ScreamParticleEffect,
     };
 
     public enum ExecuteAction
@@ -72,6 +84,7 @@ public class GameManager : MonoBehaviour
         gravity = Physics2D.gravity.y;
         StopMovementEvent += NoGravity;
         ResumeMovementEvent += RecoverGravity;
+        StartEvent += RecoverGravity;
         myAnim = GetComponent<Animator>();
 
     }
@@ -114,7 +127,7 @@ public class GameManager : MonoBehaviour
         Physics2D.gravity = new Vector2(0, gravity);
     }
 
-    public void TransitionEvent(EventType eventType, float time)
+    public void Transition(EventType eventType, float time)
     {
         StartCoroutine(TransitionTime(eventType, time));
     }
@@ -129,7 +142,14 @@ public class GameManager : MonoBehaviour
                 myAnim.SetTrigger("playerTransition");
                 break;
             case EventType.DoorTransition:
+                StopMovementEvent();
+                StopMovementEvent = delegate { };
+                StopPlayerMovementEvent();
                 myAnim.SetTrigger("doorTransition");
+                break;
+            case EventType.FadeTransition:
+                player.StopMovement();
+                myAnim.SetTrigger("endTransition");
                 break;
         }
     }
@@ -167,36 +187,48 @@ public class GameManager : MonoBehaviour
                 AllwaysRespawnEvent();
                 break;
             case ExecuteAction.StopMovementEvent:
+                StopPlayerMovementEvent();
                 StopMovementEvent();
                 break;
             case ExecuteAction.ResumeMovementEvent:
+                ResumePlayerMovementEvent();
                 ResumeMovementEvent();
                 break;
         }
 
     }
 
-    #region Death Effects
+    #region Particle Effects
 
-    public void DeathEffect(Health.EntityType myType, GameObject myObject)
+    public void ParticleEffect(ParticleType myType, GameObject myObject)
     {
         switch (myType)
         {
-            case Health.EntityType.common:
+            case ParticleType.CommonEnemyDeathEffect:
                 Instantiate(commonEnemyDeathEffect, myObject.transform.position, Quaternion.identity);
                 break;
-            case Health.EntityType.special:
-                break;
-            case Health.EntityType.boss:
-                break;
-            case Health.EntityType.player:
+            case ParticleType.PlayerDeathEffect:
                 Instantiate(playerDeathEffect, myObject.transform.position, Quaternion.identity);
+                break;
+            case ParticleType.ScreamParticleEffect:
+                Instantiate(screamParticleEffect, myObject.transform.position, Quaternion.identity);
                 break;
             default:
                 Instantiate(commonEnemyDeathEffect, myObject.transform.position, Quaternion.identity);
                 break;
         }
 
+    }
+
+    public void Sound(AudioClip myClip)
+    {
+        SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, myClip);
+    }
+
+    public void Scream()
+    {
+        TransitionEvent();
+        TransitionEvent = delegate { };
     }
 
     private void Destroy()
