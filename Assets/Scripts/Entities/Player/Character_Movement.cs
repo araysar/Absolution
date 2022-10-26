@@ -124,7 +124,6 @@ public class Character_Movement : MonoBehaviour
         ulti1 = GetComponent<Ultimate>();
         currentJumps = maxJumps;
         gravityScale = rb.gravityScale;
-        myUpgrades.Add(PowerUp.Dash);
         PowerUpGrab();
     }
 
