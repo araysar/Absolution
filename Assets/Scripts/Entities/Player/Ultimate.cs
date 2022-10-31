@@ -15,10 +15,12 @@ public class Ultimate: MonoBehaviour
     [SerializeField] private Image uiImage;
     [SerializeField] private Image uiWhiteImage;
     [SerializeField] private GameObject readyText;
+    [SerializeField] private GameObject readyVfx;
 
     [SerializeField] private AudioClip chargeSfx;
     [SerializeField] private AudioClip launchSfx;
     [SerializeField] private AudioClip castVoice;
+    [SerializeField] private AudioClip launchVoice;
 
     public bool ultiReady = true;
 
@@ -93,6 +95,7 @@ public class Ultimate: MonoBehaviour
     private void UsingUltimate()
     {
         if (launchSfx != null) SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, launchSfx);
+        if (castVoice != null) SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, launchVoice);
         myChar.isCharging = false;
         myChar.isUlting = true;
         myChar.ControlAnimations();

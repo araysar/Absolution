@@ -10,9 +10,11 @@ public class Health : MonoBehaviour, IDamageable
     public float defense = 0;
     public float ulti1Stacks = 5;
     [SerializeField] private GameObject damagedEffect;
+    [SerializeField] private AudioClip damagedSfx;
     [SerializeField] private bool invulnerability = false;
     private bool recovering = false;
     public GameObject respawnEffect;
+    [SerializeField] private AudioClip deathSfx;
     [SerializeField] private GameObject deathEffect;
     public Animator myAnim;
     public Animator myUIAnim;
@@ -24,7 +26,7 @@ public class Health : MonoBehaviour, IDamageable
     [SerializeField] private Color lowLifeBarColor = Color.red;
 
     [Space, Header("Flash")]
-    [SerializeField] private float flashTimes = 3;
+    [SerializeField] private float flashTimes = 0;
     [SerializeField] private float flash1Duration = 0.2f;
     [SerializeField] private Material paintableMaterial;
     [SerializeField] private Material commonMaterial;
@@ -102,15 +104,13 @@ public class Health : MonoBehaviour, IDamageable
             {
                 myAnim.SetBool("damaged", true);
             }
-
-            if (currentHP <= 0)
+            if (deathSfx != null && currentHP <= 0) SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, deathSfx);
+            if (flashCoroutine == null)
             {
-                Death();
-            }
-            else
-            {
-                if (flashCoroutine != null) return;
-
+                if(currentHP > 0)
+                {
+                    if (damagedSfx != null) SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, damagedSfx);
+                }
                 flashCoroutine = StartCoroutine(Flashing());
             }
         }
@@ -126,7 +126,7 @@ public class Health : MonoBehaviour, IDamageable
         lifeBar.color = Color.Lerp(lowLifeBarColor, fullLifeBarColor, lifeBar.fillAmount);
         if(myUIAnim != null)
         {
-            if(currentHP / maxHP <= 0.225f)
+            if(currentHP / maxHP <= 0.225f && currentHP > 0)
             {
                 myUIAnim.SetBool("onDanger", true);
             }
@@ -186,23 +186,47 @@ public class Health : MonoBehaviour, IDamageable
     private IEnumerator Flashing()
     {
         if (invulnerability) recovering = true;
-        int count = 0;
+        
+        int count = 1;
 
         Material myMaterial = myRenderer.material;
         Color myColor = myRenderer.color;
 
-        while(count < flashTimes)
+        if(flashTimes > 0)
         {
             myRenderer.material = paintableMaterial;
-            myRenderer.color = flashColor;
+            myRenderer.color = Color.white;
             yield return new WaitForSeconds(flash1Duration);
             myRenderer.material = myMaterial;
             myRenderer.color = myColor;
-            yield return new WaitForSeconds(flash1Duration);
-            count++;
         }
-        if (invulnerability) recovering = false;
-        flashCoroutine = null;
+
+        if (currentHP <= 0)
+        {
+            if (invulnerability) recovering = false;
+            flashCoroutine = null;
+            Death();
+            yield break;
+        }
+        else
+        {
+            if(flashTimes > count)
+            {
+                yield return new WaitForSeconds(flash1Duration);
+                while (count < flashTimes)
+                {
+                    myRenderer.material = paintableMaterial;
+                    myRenderer.color = flashColor;
+                    yield return new WaitForSeconds(flash1Duration);
+                    myRenderer.material = myMaterial;
+                    myRenderer.color = myColor;
+                    count++;
+                }
+            }
+            
+            if (invulnerability) recovering = false;
+            flashCoroutine = null;
+        }
     }
 
     #region Respawn

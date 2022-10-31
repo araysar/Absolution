@@ -30,6 +30,7 @@ public class Enemy_Knight : MonoBehaviour
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask playerMask;
     [SerializeField] private LayerMask groundMask;
+    [SerializeField] private AudioClip chargeSfx;
 
     [Space, Header("Components")]
     private Animator myAnim;
@@ -199,7 +200,11 @@ public class Enemy_Knight : MonoBehaviour
             else
             {
                 lastPlayerPosition = target.transform.position;
-                isChasing = true; 
+                if(!isChasing)
+                {
+                    isChasing = true;
+                    SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, chargeSfx);
+                }
                 return true;
             }
         }

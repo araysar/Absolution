@@ -5,6 +5,7 @@ public class WeaponObstacle : MonoBehaviour
     public Action_Shoot.AttackType attackType;
 
     [SerializeField] private GameObject destroyEffect;
+    [SerializeField] private AudioClip destroySfx;
     [SerializeField] private DamageStay myDamage;
     private void Start()
     {
@@ -32,6 +33,7 @@ public class WeaponObstacle : MonoBehaviour
     public void Destroy()
     {
         if (destroyEffect != null) Instantiate(destroyEffect, transform.position, Quaternion.identity);
+        if (destroySfx != null) SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, destroySfx);
 
         gameObject.SetActive(false);
     }

@@ -3490,8 +3490,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69e4642f353161f45a18e8570ada197d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextScene: 1
-  nextPosition: {x: -77.5, y: -6}
+  nextScene: 2
+  nextPosition: {x: -79, y: -5.5}
 --- !u!61 &488028118
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -66714,7 +66714,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextScene: 2
-  nextPosition: {x: -86, y: -16.5}
+  nextPosition: {x: -86, y: -17}
 --- !u!61 &719297737
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -89045,6 +89045,18 @@ PrefabInstance:
     - target: {fileID: 3284561371220175778, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
       propertyPath: m_Name
       value: Character
+      objectReference: {fileID: 0}
+    - target: {fileID: 3284561371220175779, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
+      propertyPath: myUpgrades.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3284561371220175779, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
+      propertyPath: myUpgrades.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3284561371220175779, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
+      propertyPath: myUpgrades.Array.data[1]
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3284561371220175783, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
       propertyPath: m_RootOrder

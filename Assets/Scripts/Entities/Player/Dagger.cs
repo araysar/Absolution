@@ -63,9 +63,6 @@ public class Dagger : Projectile
     {
         switch (armorType)
         {
-            case Health.ArmorType.flesh:
-                SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, Character_Movement.instance.impactFleshSfx);
-                break;
             case Health.ArmorType.metal:
                 SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, Character_Movement.instance.impactMetalSfx);
                 break;

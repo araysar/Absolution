@@ -33,10 +33,12 @@ public class Character_Movement : MonoBehaviour
     [SerializeField] private ParticleSystem doubleJumpEffect;
     [SerializeField] private float groundCheckRadius;
     [SerializeField] private LayerMask groundMask;
+    [SerializeField] private AudioClip voiceJumpSfx;
     [SerializeField] private AudioClip doubleJumpSfx;
-    public bool isGrounded;
-    public bool isFalling;
-    public bool isJumping;
+    [SerializeField] private AudioClip landingSfx;
+    public bool isGrounded = true;
+    public bool isFalling = false;
+    public bool isJumping = false;
 
     [Space, Header("Wall")]
     [SerializeField] private Transform wallCheck;
@@ -356,7 +358,6 @@ public class Character_Movement : MonoBehaviour
                 {
                     isFalling = true;
                 }
-
                 if (isWallSliding)
                 {
                     if (rb.velocity.y < -wallSlideSpeed)
@@ -398,6 +399,7 @@ public class Character_Movement : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             if(myAnim.GetBool("isJumping") || myAnim.GetBool("isFalling")) myAnim.Play("Idle", 0, 0f);
             isFalling = false;
+            SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, voiceJumpSfx);
             if (currentJumps != maxJumps && myUpgrades.Contains(PowerUp.DoubleJump) && myEnergy.CanUse(energyDoubleJump))
             {
                 myEnergy.currentEnergy -= energyDoubleJump;
@@ -431,7 +433,6 @@ public class Character_Movement : MonoBehaviour
         else if(currentJumps > 0)
         {
             canJump = true;
-            
         }
     }
 
@@ -447,7 +448,12 @@ public class Character_Movement : MonoBehaviour
     #region Checks
     private void CheckSurroundings()
     {
+        bool wasGrounded = isGrounded;
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundMask);
+        if(isGrounded == true && wasGrounded == false)
+        {
+            SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, landingSfx);
+        }
         isTouchingWall = Physics2D.Raycast(wallCheck.position, transform.right, wallCheckDistance, groundMask);
         noSlideRaycast = Physics2D.Raycast(wallCheck.position, transform.right, wallCheckDistance, groundMask);
     }
@@ -596,7 +602,7 @@ public class Character_Movement : MonoBehaviour
     }
     public void SaveData()
     {
-        saveCurrentEnergy = myEnergy.maxEnergy;
+        saveCurrentEnergy = myEnergy.currentEnergy;
         saveCurrentHp = myHealth.maxHP;
         saveUlti1Stacks = ulti1Stacks;
         saveMyUpgrades = new List<PowerUp>(myUpgrades);

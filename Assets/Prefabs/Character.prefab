@@ -15171,7 +15171,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.11999512, y: 0}
+  m_AnchoredPosition: {x: 0.12011719, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &9039987793507397316
@@ -31163,8 +31163,10 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 8
-  doubleJumpSfx: {fileID: 8300000, guid: c89a48d956fa76344b7c5e65cceb7672, type: 3}
-  isGrounded: 0
+  voiceJumpSfx: {fileID: 8300000, guid: ed324ca0e5c74994bb22d3f9d2ecb491, type: 3}
+  doubleJumpSfx: {fileID: 8300000, guid: daead1b98a23d1a4fa0b0b3d998bf8bf, type: 3}
+  landingSfx: {fileID: 8300000, guid: 44b1104c954e1f04d8d4b7cd87ec261f, type: 3}
+  isGrounded: 1
   isFalling: 0
   isJumping: 0
   wallCheck: {fileID: 7435843892667991056}
@@ -31195,7 +31197,7 @@ MonoBehaviour:
   ulti1: {fileID: 1897431516}
   ulti2Stacks: 0
   ulti2Required: 0
-  myUpgrades: 
+  myUpgrades: 050000000000000002000000
   uiDash: {fileID: 855846216626910511}
   uiUltimate1: {fileID: 706677130}
   uiFire: {fileID: 2239338129428199565}
@@ -31244,9 +31246,11 @@ MonoBehaviour:
   uiImage: {fileID: 206180998}
   uiWhiteImage: {fileID: 5716895074188314809}
   readyText: {fileID: 383900257}
+  readyVfx: {fileID: 0}
   chargeSfx: {fileID: 8300000, guid: 1cbe52a1e924a2e4c88eb6f48d04f43b, type: 3}
   launchSfx: {fileID: 8300000, guid: 27fecb3f188739f41b0a2444d7ef9661, type: 3}
-  castVoice: {fileID: 0}
+  castVoice: {fileID: 8300000, guid: 6a53439c46b02524f9169c9c0c7dfcc7, type: 3}
+  launchVoice: {fileID: 8300000, guid: 266591676ce30b2429b1a8e863b3ae65, type: 3}
   ultiReady: 1
 --- !u!114 &177577872
 MonoBehaviour:
@@ -31265,8 +31269,10 @@ MonoBehaviour:
   defense: 0
   ulti1Stacks: 5
   damagedEffect: {fileID: 0}
+  damagedSfx: {fileID: 8300000, guid: 6c0a76954af6b734b80ae953ddfbacc2, type: 3}
   invulnerability: 1
   respawnEffect: {fileID: 5012458389926280109}
+  deathSfx: {fileID: 8300000, guid: 0fb9c1820278c0a4d92c5ce5eb61bf63, type: 3}
   deathEffect: {fileID: 0}
   myAnim: {fileID: 6333780969245736735}
   myUIAnim: {fileID: 7388979991941334492}

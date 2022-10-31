@@ -72,7 +72,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1062032335
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 4952a7c0168d5c94092f72ca9da832cc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -128,8 +128,10 @@ MonoBehaviour:
   defense: 0
   ulti1Stacks: 5
   damagedEffect: {fileID: 0}
+  damagedSfx: {fileID: 8300000, guid: e0565a7fee5c4bf46ab308d1f57217f8, type: 3}
   invulnerability: 0
   respawnEffect: {fileID: 0}
+  deathSfx: {fileID: 8300000, guid: e0565a7fee5c4bf46ab308d1f57217f8, type: 3}
   deathEffect: {fileID: 8321525319306009222, guid: fb460b5f92c0fee429e6a2b4f529d212, type: 3}
   myAnim: {fileID: 0}
   myUIAnim: {fileID: 0}
@@ -137,7 +139,7 @@ MonoBehaviour:
   lifeBar: {fileID: 0}
   fullLifeBarColor: {r: 0, g: 1, b: 0, a: 1}
   lowLifeBarColor: {r: 1, g: 0, b: 0, a: 1}
-  flashTimes: 3
+  flashTimes: 1
   flash1Duration: 0.1
   paintableMaterial: {fileID: 2100000, guid: dfd3b895dd3408b42a6c1e8f32260bf8, type: 2}
   commonMaterial: {fileID: 0}
