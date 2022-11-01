@@ -136,6 +136,7 @@ public class Character_Movement : MonoBehaviour
         GameManager.instance.PlayerDisableEvent += StopMovement;
         GameManager.instance.StopPlayerMovementEvent += StopMovement;
         GameManager.instance.ResumePlayerMovementEvent += ResumeMovement;
+        GameManager.instance.ResumePlayerMovementEvent += EnableFlip;
         GameManager.instance.SaveDataEvent += SaveData;
         GameManager.instance.LoadDataEvent += LoadData;
         GameManager.instance.DestroyEvent += Destroy;
