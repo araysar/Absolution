@@ -19,7 +19,6 @@ public class GameManager : MonoBehaviour
     public event Action SaveDataEvent = delegate { };
     public event Action LoadDataEvent = delegate { };
     public event Action DestroyEvent = delegate { };
-    public event Action StartEvent = delegate { };
     public event Action StopMovementEvent = delegate { };
     public event Action ResumeMovementEvent = delegate { };
     public event Action StopPlayerMovementEvent = delegate { };
@@ -60,10 +59,11 @@ public class GameManager : MonoBehaviour
         SaveData,
         LoadData,
         DestroyEvent,
-        StartEvent,
         AllwaysRespawnEvent,
         StopMovementEvent,
         ResumeMovementEvent,
+        ResumePlayerMovementEvent,
+        StopPlayerMovementEvent,
     };
 
     private void Awake()
@@ -84,7 +84,6 @@ public class GameManager : MonoBehaviour
         gravity = Physics2D.gravity.y;
         StopMovementEvent += NoGravity;
         ResumeMovementEvent += RecoverGravity;
-        StartEvent += RecoverGravity;
         myAnim = GetComponent<Animator>();
 
     }
@@ -144,6 +143,9 @@ public class GameManager : MonoBehaviour
             case EventType.DoorTransition:
                 StopMovementEvent();
                 StopMovementEvent = delegate { };
+                ResumeMovementEvent = delegate { };
+                StopMovementEvent += NoGravity;
+                ResumeMovementEvent += RecoverGravity;
                 StopPlayerMovementEvent();
                 myAnim.SetTrigger("doorTransition");
                 break;
@@ -161,7 +163,7 @@ public class GameManager : MonoBehaviour
                 EnemyRespawnEvent();
                 EnemyRespawnEvent = delegate { };
                 break;
-            case ExecuteAction.HealAllEnemiesEvent: 
+            case ExecuteAction.HealAllEnemiesEvent:
                 HealAllEnemiesEvent();
                 break;
             case ExecuteAction.PlayerDisableEvent:
@@ -180,9 +182,6 @@ public class GameManager : MonoBehaviour
             case ExecuteAction.DestroyEvent:
                 DestroyEvent();
                 break;
-            case ExecuteAction.StartEvent:
-                StartEvent();
-                break;
             case ExecuteAction.AllwaysRespawnEvent:
                 AllwaysRespawnEvent();
                 break;
@@ -193,6 +192,12 @@ public class GameManager : MonoBehaviour
             case ExecuteAction.ResumeMovementEvent:
                 ResumePlayerMovementEvent();
                 ResumeMovementEvent();
+                break;
+            case ExecuteAction.ResumePlayerMovementEvent:
+                ResumePlayerMovementEvent();
+                break;
+            case ExecuteAction.StopPlayerMovementEvent:
+                StopPlayerMovementEvent();
                 break;
         }
 

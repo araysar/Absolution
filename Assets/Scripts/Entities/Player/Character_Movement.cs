@@ -136,7 +136,6 @@ public class Character_Movement : MonoBehaviour
         GameManager.instance.PlayerDisableEvent += StopMovement;
         GameManager.instance.StopPlayerMovementEvent += StopMovement;
         GameManager.instance.ResumePlayerMovementEvent += ResumeMovement;
-        GameManager.instance.StartEvent += ResumeMovement;
         GameManager.instance.SaveDataEvent += SaveData;
         GameManager.instance.LoadDataEvent += LoadData;
         GameManager.instance.DestroyEvent += Destroy;
@@ -620,6 +619,7 @@ public class Character_Movement : MonoBehaviour
         transform.position = myHealth.initialPosition;
         myHealth.RefreshLifeBar();
         myEnergy.ReloadEnergy();
+        ulti1.RefreshStacks();
     }
     #endregion
 

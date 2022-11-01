@@ -8,7 +8,7 @@ public class RandomGames : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha9))
+        if (Input.GetKeyDown(KeyCode.P))
         {
             print(games[Random.Range(0, games.Length)]);
         }
