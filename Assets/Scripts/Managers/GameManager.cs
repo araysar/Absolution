@@ -34,6 +34,8 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public int nextScene = 1;
     [HideInInspector] public Vector2 nextPosition = Vector2.zero;
 
+    [Header("Save")]
+    [SerializeField] private Animator saveAnimator;
 
 
     public enum EventType
@@ -84,6 +86,7 @@ public class GameManager : MonoBehaviour
         gravity = Physics2D.gravity.y;
         StopMovementEvent += NoGravity;
         ResumeMovementEvent += RecoverGravity;
+        SaveDataEvent += SavingAnimation;
         myAnim = GetComponent<Animator>();
 
     }
@@ -94,6 +97,11 @@ public class GameManager : MonoBehaviour
         {
 
         }
+    }
+
+    public void SavingAnimation()
+    {
+        saveAnimator.SetTrigger("saving");
     }
 
     public void Pause()
