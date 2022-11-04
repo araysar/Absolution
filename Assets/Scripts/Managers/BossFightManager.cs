@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class BossFightManager : MonoBehaviour
 {
-    private Collider2D collider;
     [SerializeField] private TriggerBossDoor myTrigger;
     [SerializeField] private GameObject myCamera;
 
@@ -17,6 +16,6 @@ public class BossFightManager : MonoBehaviour
 
     public void TriggerBattle()
     {
-
+        
     }
 }
