@@ -70,6 +70,7 @@ public class Health : MonoBehaviour, IDamageable
                 GameManager.instance.HealAllEnemiesEvent += HealEnemy;
                 break;
             case EntityType.boss:
+                GameManager.instance.ResetBossBattleEvent += HealEnemy;
                 break;
             case EntityType.player:
                 GameManager.instance.PlayerRespawnEvent += RespawnPlayer;

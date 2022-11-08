@@ -8,7 +8,7 @@ public class TriggerBossDoor : MonoBehaviour
 
     private void Start()
     {
-        myManager.ResetFightActionEvent += ResetPosition;
+        GameManager.instance.ResetBossBattleEvent += ResetPosition;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

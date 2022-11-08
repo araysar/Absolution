@@ -24,6 +24,8 @@ public class GameManager : MonoBehaviour
     public event Action StopPlayerMovementEvent = delegate { };
     public event Action ResumePlayerMovementEvent = delegate { };
     public event Action TransitionEvent = delegate { };
+    public event Action EnterBossDoorEvent = delegate { };
+    public event Action ResetBossBattleEvent = delegate { };
     public event Action EndGameEvent = delegate { };
 
     [Header("Particles")]
@@ -67,6 +69,8 @@ public class GameManager : MonoBehaviour
         ResumeMovementEvent,
         ResumePlayerMovementEvent,
         StopPlayerMovementEvent,
+        EnterBossDoor,
+        ResetBossBattle,
         EndGame,
     };
 
@@ -117,6 +121,7 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene(nextScene);
         Character_Movement.instance.gameObject.transform.position = nextPosition;
+        if (nextScene == 4) TriggerAction(ExecuteAction.PlayerDisableEvent);
     }
 
     public void UnPause()
@@ -155,6 +160,7 @@ public class GameManager : MonoBehaviour
                 StopMovementEvent();
                 StopMovementEvent = delegate { };
                 ResumeMovementEvent = delegate { };
+                ResetBossBattleEvent = delegate { };
                 StopMovementEvent += NoGravity;
                 ResumeMovementEvent += RecoverGravity;
                 StopPlayerMovementEvent();
@@ -212,6 +218,12 @@ public class GameManager : MonoBehaviour
                 break;
             case ExecuteAction.EndGame:
                 EndGameEvent();
+                break;
+            case ExecuteAction.ResetBossBattle:
+                ResetBossBattleEvent();
+                break;
+            case ExecuteAction.EnterBossDoor:
+                EnterBossDoorEvent();
                 break;
         }
 

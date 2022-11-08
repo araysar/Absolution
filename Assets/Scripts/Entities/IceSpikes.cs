@@ -13,7 +13,6 @@ public class IceSpikes : MonoBehaviour
     private Rigidbody2D myRb;
     public Animator myAnim;
     [HideInInspector] public Vector2 initialPosition;
-    [SerializeField] private AudioSource icicleSfx;
 
 
     void Start()

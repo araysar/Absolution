@@ -29,12 +29,14 @@ public class Boss_Ice : Boss
     {
         myManager.StartFightEvent += StartingFight;
         myVoice = gameObject.AddComponent<AudioSource>();
+
+        GameManager.instance.AllwaysRespawnEvent += Respawn;
     }
 
 
     void Update()
     {
-        if(isFighting && canMove)
+        if(isFighting && canMove && Character_Movement.instance.myHealth.currentHP > 0)
         {
             if (myHealth.currentHP > 0 && canAttack)
             {
@@ -77,7 +79,6 @@ public class Boss_Ice : Boss
 
     public void IceSpikesAttack()
     {
-
         foreach (var item in roofSpikes)
         {
             item.transform.position = item.initialPosition;
@@ -85,6 +86,7 @@ public class Boss_Ice : Boss
             item.transform.localScale = Vector2.zero;
             item.myAnim.SetTrigger("Spawn");
         }
+        myAnim.SetTrigger("exit");
     }
 
     public void TopAttack()
@@ -123,10 +125,11 @@ public class Boss_Ice : Boss
     
     public override void Respawn()
     {
-        isResting = true;
+        isResting = false;
         canAttack = false;
         isFighting = false;
-        canMove = true;
+        canMove = false;
+        myHealth.currentHP = myHealth.maxHP;
     }
 
     public override void StopMovement()
