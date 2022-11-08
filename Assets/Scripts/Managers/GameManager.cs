@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
     public event Action StopPlayerMovementEvent = delegate { };
     public event Action ResumePlayerMovementEvent = delegate { };
     public event Action TransitionEvent = delegate { };
+    public event Action EndGameEvent = delegate { };
 
     [Header("Particles")]
     [SerializeField] private GameObject commonEnemyDeathEffect;
@@ -66,6 +67,7 @@ public class GameManager : MonoBehaviour
         ResumeMovementEvent,
         ResumePlayerMovementEvent,
         StopPlayerMovementEvent,
+        EndGame,
     };
 
     private void Awake()
@@ -149,6 +151,7 @@ public class GameManager : MonoBehaviour
                 myAnim.SetTrigger("playerTransition");
                 break;
             case EventType.DoorTransition:
+                yield return new WaitForSeconds(time);
                 StopMovementEvent();
                 StopMovementEvent = delegate { };
                 ResumeMovementEvent = delegate { };
@@ -206,6 +209,9 @@ public class GameManager : MonoBehaviour
                 break;
             case ExecuteAction.StopPlayerMovementEvent:
                 StopPlayerMovementEvent();
+                break;
+            case ExecuteAction.EndGame:
+                EndGameEvent();
                 break;
         }
 

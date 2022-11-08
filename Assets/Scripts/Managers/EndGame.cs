@@ -12,6 +12,7 @@ public class EndGame : MonoBehaviour
 
     public void RestartGame()
     {
+        GameManager.instance.TriggerAction(GameManager.ExecuteAction.DestroyEvent);
         SceneManager.LoadScene(0);
     }
 

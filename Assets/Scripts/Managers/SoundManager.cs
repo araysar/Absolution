@@ -56,6 +56,11 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+    public void StopSong()
+    {
+        musicAudioSource.Stop();
+    }
+
     public AudioClip CurrentSong()
     {
         return musicAudioSource.clip;

@@ -7,6 +7,9 @@ public class BossFightManager : MonoBehaviour
 {
     [SerializeField] private TriggerBossDoor myTrigger;
     [SerializeField] private GameObject myCamera;
+    [SerializeField] private GameObject bossDamageBounds;
+    [SerializeField] private GameObject playerDamageBounds;
+    [SerializeField] private AudioClip myMusic;
 
     [SerializeField] private CinemachineBlendDefinition.Style myTransitionEffect;
     [SerializeField] private float myCameraTransitionDuration;
@@ -21,8 +24,16 @@ public class BossFightManager : MonoBehaviour
     {
         myCameraBrain = FindObjectOfType<CinemachineBrain>();
         ResetFightActionEvent += myTrigger.ResetPosition;
+        EnteringBossDoorEvent += SoundManager.instance.StopSong;
         EnteringBossDoorEvent += Character_Movement.instance.StopMovement;
+        StartFightEvent += ChangeMusic;
         StartFightEvent += Character_Movement.instance.ResumeMovement;
+        playerDamageBounds = GameObject.Find("PlayerDamageBounds");
+    }
+
+    private void ChangeMusic()
+    {
+        SoundManager.instance.PlaySound(SoundManager.SoundChannel.Music, myMusic);
     }
 
     public void EnteringBossDoor()
@@ -33,6 +44,8 @@ public class BossFightManager : MonoBehaviour
     private IEnumerator EnteringTimer()
     {
         EnteringBossDoorEvent();
+        playerDamageBounds.SetActive(false);
+        bossDamageBounds.SetActive(true);
         yield return new WaitForSeconds(1);
         myCameraBrain.m_DefaultBlend.m_Style = myTransitionEffect;
         myCameraBrain.m_DefaultBlend.m_Time = myCameraTransitionDuration;
@@ -51,6 +64,7 @@ public class BossFightManager : MonoBehaviour
     public void ResetBattle()
     {
         myCameraBrain.m_DefaultBlend.m_Style = CinemachineBlendDefinition.Style.Cut;
+        playerDamageBounds.SetActive(true);
         myCamera.SetActive(false);
     }
 }

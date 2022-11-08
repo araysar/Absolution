@@ -159,6 +159,7 @@ public class Health : MonoBehaviour, IDamageable
                 case Health.EntityType.special:
                     break;
                 case Health.EntityType.boss:
+                    GameManager.instance.ParticleEffect(GameManager.ParticleType.PlayerDeathEffect, gameObject);
                     break;
                 case Health.EntityType.player:
                     GameManager.instance.ParticleEffect(GameManager.ParticleType.PlayerDeathEffect, gameObject);
@@ -174,6 +175,12 @@ public class Health : MonoBehaviour, IDamageable
         {
             case EntityType.player:
                 GameManager.instance.Transition(GameManager.EventType.PlayerDeathTransition, 2.5f);
+                break;
+            case EntityType.boss:
+                GameManager.instance.nextPosition = transform.position;
+                GameManager.instance.nextScene = 4;
+                GameManager.instance.Transition(GameManager.EventType.DoorTransition, 2);
+                gameObject.SetActive(false);
                 break;
             default:
                 GameManager.instance.EnemyRespawnEvent += RespawnEnemy;
