@@ -47,6 +47,7 @@ public class Character_Movement : MonoBehaviour
     [SerializeField] private float wallSlideSpeed;
     [SerializeField] private float wallCheckDistance;
     public bool isWallSliding;
+    private Coroutine jumpTimer;
 
     [Space, Header("Dash")]
     [SerializeField] private PlayerAfterImagePool imagePool;
@@ -415,15 +416,25 @@ public class Character_Movement : MonoBehaviour
         }
     }
 
+    private IEnumerator WallJumpTimer()
+    {
+        yield return new WaitForSeconds(0.1f);
+        currentJumps--;
+        jumpTimer = null;
+    }
     private void CheckIfCanJump()
     {
         if (isGrounded && rb.velocity.y <= 0.1f || (isWallSliding && rb.velocity.y <= 0))
         {
             currentJumps = maxJumps;
+            jumpTimer = null;
         }
         else if(!isGrounded && rb.velocity.y <= 0.1f && !isWallSliding && currentJumps == maxJumps)
         {
-            currentJumps--;
+            if(jumpTimer == null)
+            {
+                jumpTimer = StartCoroutine(WallJumpTimer());
+            }
         }
 
         if (currentJumps <= 0)
