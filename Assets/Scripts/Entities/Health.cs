@@ -19,6 +19,7 @@ public class Health : MonoBehaviour, IDamageable
     public Animator myAnim;
     public Animator myUIAnim;
     [HideInInspector] public Vector2 initialPosition;
+    public SpriteRenderer weakPoint;
 
     [Space, Header("UI")]
     public Image lifeBar;
@@ -123,8 +124,17 @@ public class Health : MonoBehaviour, IDamageable
 
     public void RefreshLifeBar()
     {
-        lifeBar.fillAmount = currentHP / maxHP;
-        lifeBar.color = Color.Lerp(lowLifeBarColor, fullLifeBarColor, lifeBar.fillAmount);
+        if(lifeBar != null)
+        {
+            lifeBar.fillAmount = currentHP / maxHP;
+            lifeBar.color = Color.Lerp(lowLifeBarColor, fullLifeBarColor, lifeBar.fillAmount);
+        }
+       
+        if(weakPoint != null)
+        {
+            weakPoint.color = Color.Lerp(lowLifeBarColor, fullLifeBarColor, lifeBar.fillAmount);
+        }
+        
         if(myUIAnim != null)
         {
             if(currentHP / maxHP <= 0.225f && currentHP > 0)
