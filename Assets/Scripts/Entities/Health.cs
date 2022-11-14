@@ -20,6 +20,8 @@ public class Health : MonoBehaviour, IDamageable
     public Animator myUIAnim;
     [HideInInspector] public Vector2 initialPosition;
     public SpriteRenderer weakPoint;
+    [SerializeField] private Color fullLifeColor;
+    [SerializeField] private Color lowLifeColor;
 
     [Space, Header("UI")]
     public Image lifeBar;
@@ -100,7 +102,7 @@ public class Health : MonoBehaviour, IDamageable
                 damagedEffect.SetActive(true);
             }
 
-            if (lifeBar != null) RefreshLifeBar();
+            if (lifeBar != null || weakPoint != null) RefreshLifeBar();
 
             if(myAnim != null)
             {
@@ -127,12 +129,12 @@ public class Health : MonoBehaviour, IDamageable
         if(lifeBar != null)
         {
             lifeBar.fillAmount = currentHP / maxHP;
-            lifeBar.color = Color.Lerp(lowLifeBarColor, fullLifeBarColor, lifeBar.fillAmount);
+            lifeBar.color = Color.Lerp(lowLifeBarColor, fullLifeBarColor, currentHP / maxHP);
         }
        
         if(weakPoint != null)
         {
-            weakPoint.color = Color.Lerp(lowLifeBarColor, fullLifeBarColor, lifeBar.fillAmount);
+            weakPoint.color = Color.Lerp(lowLifeColor, fullLifeColor, currentHP / maxHP );
         }
         
         if(myUIAnim != null)
@@ -207,16 +209,28 @@ public class Health : MonoBehaviour, IDamageable
         
         int count = 1;
 
-        Material myMaterial = myRenderer.material;
-        Color myColor = myRenderer.color;
+        Material myMaterial = weakPoint != null ? weakPoint.material : myRenderer.material;
+        Color myColor = weakPoint != null ? weakPoint.color : myRenderer.color;
 
-        if(flashTimes > 0)
+
+        if (flashTimes > 0)
         {
-            myRenderer.material = paintableMaterial;
-            myRenderer.color = Color.white;
-            yield return new WaitForSeconds(flash1Duration);
-            myRenderer.material = myMaterial;
-            myRenderer.color = myColor;
+            if(weakPoint == null)
+            {
+                myRenderer.material = paintableMaterial;
+                myRenderer.color = Color.white;
+                yield return new WaitForSeconds(flash1Duration);
+                myRenderer.material = myMaterial;
+                myRenderer.color = myColor;
+            }
+            else
+            {
+                weakPoint.material = paintableMaterial;
+                weakPoint.color = Color.white;
+                yield return new WaitForSeconds(flash1Duration);
+                weakPoint.material = myMaterial;
+                weakPoint.color = myColor;
+            }
         }
 
         if (currentHP <= 0)

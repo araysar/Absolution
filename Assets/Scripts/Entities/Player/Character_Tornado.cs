@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Character_Tornado : MonoBehaviour
@@ -10,7 +8,8 @@ public class Character_Tornado : MonoBehaviour
     {
         if(collision.GetComponent<IDamageable>() != null && collision.gameObject.tag != "Player")
         {
-            collision.GetComponent<IDamageable>().TakeDamage(damagePerSecond / 60);
+            collision.GetComponent<IDamageable>().TakeDamage(
+            collision.GetComponent<Health>().myType == Health.EntityType.boss? (damagePerSecond / 2) / 60 : damagePerSecond / 60);
         }
     }
 }

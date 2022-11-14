@@ -11,7 +11,7 @@ public class Boss_Ice : Boss
     [SerializeField] private bool isFighting = false;
     [SerializeField] private bool canMove = true;
     [SerializeField] private bool enrage = false;
-    [SerializeField] private IceBossAttacks currentAttack = IceBossAttacks.TopAttack;
+    [SerializeField] private IceBossAttacks currentAttack = IceBossAttacks.TopTornado;
     [SerializeField] private List<IceSpikes> roofSpikes;
     [SerializeField] private List<IceSpikes> topSpikes;
     [SerializeField] private List<IceSpikes> botSpikes;
@@ -20,7 +20,7 @@ public class Boss_Ice : Boss
     public enum IceBossAttacks
     {
         IceSpikes,
-        TopAttack,
+        TopTornado,
         BotAttack,
         AoEAttack,
     };
@@ -31,6 +31,8 @@ public class Boss_Ice : Boss
         myVoice = gameObject.AddComponent<AudioSource>();
 
         GameManager.instance.AllwaysRespawnEvent += Respawn;
+        GameManager.instance.StopMovementEvent += StopMovement;
+        GameManager.instance.ResumeMovementEvent += ResumeMovement;
     }
 
 
@@ -46,16 +48,18 @@ public class Boss_Ice : Boss
                     case IceBossAttacks.IceSpikes:
                         myAnim.SetTrigger("iceSpikes");
                         break;
-                    case IceBossAttacks.TopAttack:
+                    case IceBossAttacks.TopTornado:
                         myAnim.SetTrigger("topAttack");
                         break;
                     case IceBossAttacks.BotAttack:
                         myAnim.SetTrigger("botAttack");
                         break;
                     case IceBossAttacks.AoEAttack:
-                        if(enrage) myAnim.SetTrigger("attackAoEAttack");
+                        if (enrage) myAnim.SetTrigger("attackAoEAttack");
+                        else SelectAttack();
                         break;
                     default:
+                        myAnim.SetTrigger("iceSpikes");
                         break;
                 }
             }
@@ -89,30 +93,46 @@ public class Boss_Ice : Boss
         myAnim.SetTrigger("exit");
     }
 
-    public void TopAttack()
+    public void TopTornado()
     {
-
+        foreach (var item in topSpikes)
+        {
+            item.transform.position = item.initialPosition;
+            item.gameObject.SetActive(true);
+            item.transform.localScale = Vector2.zero;
+            item.myAnim.SetTrigger("Spawn");
+        }
+        myAnim.SetTrigger("exit");
     }
 
     public void BotAttack()
     {
-
+        foreach (var item in botSpikes)
+        {
+            item.transform.position = item.initialPosition;
+            item.gameObject.SetActive(true);
+            item.transform.localScale = Vector2.zero;
+            item.myAnim.SetTrigger("Spawn");
+        }
+        myAnim.SetTrigger("exit");
     }
+
     public void AoEAttack()
     {
 
     }
+
     #endregion
     public override void SelectAttack()
     {
-        currentAttack = (IceBossAttacks)UnityEngine.Random.Range(0, enrage? Enum.GetValues(typeof(IceBossAttacks)).Length : 1);
+        currentAttack = (IceBossAttacks)UnityEngine.Random.Range(0, enrage? Enum.GetValues(typeof(IceBossAttacks)).Length : 3);
         canAttack = true;
     }
-    public override void FinishAttack()
+    public override void FinishAttack(float time)
     {
         isResting = true;
         canAttack = false;
-        currentTimer = delayAttacks;
+        currentTimer = delayAttacks + time;
     }
 
     public override void StartingFight()
@@ -130,6 +150,7 @@ public class Boss_Ice : Boss
         isFighting = false;
         canMove = false;
         myHealth.currentHP = myHealth.maxHP;
+        myHealth.RefreshLifeBar();
     }
 
     public override void StopMovement()

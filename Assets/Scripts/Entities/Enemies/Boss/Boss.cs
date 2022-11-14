@@ -20,7 +20,7 @@ public abstract class Boss : MonoBehaviour
     public abstract void StartingFight();
     public abstract void GenerateShield();
     public abstract void SelectAttack();
-    public abstract void FinishAttack();
+    public abstract void FinishAttack(float time);
     public abstract void Respawn();
     public abstract void StopMovement();
     public abstract void ResumeMovement();

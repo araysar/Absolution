@@ -418,7 +418,7 @@ public class Character_Movement : MonoBehaviour
 
     private IEnumerator WallJumpTimer()
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.15f);
         currentJumps--;
         jumpTimer = null;
     }
