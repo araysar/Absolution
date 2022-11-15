@@ -7,6 +7,23 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1725955059437682224, guid: aac59e23ba2137c42ae2e47e953cc03c, type: 3}
+      propertyPath: m_text
+      value: "Press E to use the ultimate attack. \nKilling or destroying things
+        generate charges"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1725955059437682224, guid: aac59e23ba2137c42ae2e47e953cc03c, type: 3}
+      propertyPath: m_margin.z
+      value: -118.020966
+      objectReference: {fileID: 0}
+    - target: {fileID: 1725955059437682224, guid: aac59e23ba2137c42ae2e47e953cc03c, type: 3}
+      propertyPath: m_fontStyle
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2132735290450270199, guid: aac59e23ba2137c42ae2e47e953cc03c, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 3413b2fdbc784294db215c4ac9b34ac1, type: 3}
     - target: {fileID: 5361151054448370395, guid: aac59e23ba2137c42ae2e47e953cc03c, type: 3}
       propertyPath: m_Color.b
       value: 1
@@ -79,9 +96,36 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5390834541980642884, guid: aac59e23ba2137c42ae2e47e953cc03c, type: 3}
+      propertyPath: m_text
+      value: 'Ultimate: Dark Force
+
+
+'
+      objectReference: {fileID: 0}
+    - target: {fileID: 5390834541980642884, guid: aac59e23ba2137c42ae2e47e953cc03c, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0.9471822
+      objectReference: {fileID: 0}
+    - target: {fileID: 5390834541980642884, guid: aac59e23ba2137c42ae2e47e953cc03c, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4294902002
+      objectReference: {fileID: 0}
+    - target: {fileID: 5390834541980642884, guid: aac59e23ba2137c42ae2e47e953cc03c, type: 3}
+      propertyPath: m_VerticalAlignment
+      value: 1024
+      objectReference: {fileID: 0}
+    - target: {fileID: 5390834541980642884, guid: aac59e23ba2137c42ae2e47e953cc03c, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6584006515721675491, guid: aac59e23ba2137c42ae2e47e953cc03c, type: 3}
       propertyPath: myPower
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8203816967036030183, guid: aac59e23ba2137c42ae2e47e953cc03c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aac59e23ba2137c42ae2e47e953cc03c, type: 3}
