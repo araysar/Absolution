@@ -194,6 +194,8 @@ public class Health : MonoBehaviour, IDamageable
                     SoundManager.instance.PlaySound(SoundManager.SoundChannel.Music, null);
                     SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, SoundManager.instance.winMusic);
                     break;
+                case EntityType.isDestroyableObject:
+                    break;
                 default:
                     if (deathEffect == null) GameManager.instance.ParticleEffect(GameManager.ParticleType.CommonEnemyDeathEffect, gameObject);
                     else Instantiate(deathEffect, transform.position, Quaternion.identity);
@@ -204,6 +206,8 @@ public class Health : MonoBehaviour, IDamageable
         else
         {
             Instantiate(deathEffect, transform.position, Quaternion.identity);
+            GameManager.instance.EnemyRespawnEvent += RespawnEnemy;
+            gameObject.SetActive(false);
         }
         
     }
