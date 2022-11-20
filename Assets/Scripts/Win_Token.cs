@@ -2,28 +2,16 @@ using UnityEngine;
 
 public class Win_Token : MonoBehaviour
 {
-    [SerializeField] private GameObject panelWin;
-    [SerializeField] private Vector2 initialPosition = new Vector2(1.5f, 0.5f);
-
-    private void OnTriggerEnter2D(Collider2D collision)
+    [SerializeField] private AudioClip myGrabSfx;
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Player")
         {
-            panelWin.SetActive(true); 
-            GameManager.instance.Pause();
-            GetComponent<SpriteRenderer>().enabled = false;
+            SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, myGrabSfx);
+            GameManager.instance.nextPosition = transform.position;
+            GameManager.instance.nextScene = 4;
+            GameManager.instance.Transition(GameManager.EventType.DoorTransition, 0);
+            gameObject.SetActive(false);
         }
-    }
-
-    public void Button_Restart()
-    {
-        GameManager.instance.UnPause();
-        GameObject.FindGameObjectWithTag("Player").gameObject.transform.position = initialPosition;
-        UnityEngine.SceneManagement.SceneManager.LoadScene(0);
-    }
-
-    public void Button_Exit()
-    {
-        Application.Quit();
     }
 }

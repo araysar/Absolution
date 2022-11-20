@@ -87,6 +87,8 @@ public class Character_Movement : MonoBehaviour
     [SerializeField] private GameObject uiDash;
     [SerializeField] private GameObject uiUltimate1;
     [SerializeField] private GameObject uiFire;
+    [SerializeField] private AudioClip newPowerUpSfx;
+    [SerializeField] private GameObject newPowerUpVfx;
 
     [Header("Save")]
     private float saveUlti1Stacks;
@@ -490,6 +492,14 @@ public class Character_Movement : MonoBehaviour
     #endregion
 
     #region  Power UP
+
+    public void NewPowerUpEffect()
+    {
+        SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, newPowerUpSfx);
+        newPowerUpVfx.SetActive(false);
+        newPowerUpVfx.SetActive(true);
+    }
+
     public void PowerUpGrab()
     {
         foreach (PowerUp item in myUpgrades)

@@ -38,6 +38,10 @@ public class Health : MonoBehaviour, IDamageable
     private Coroutine flashCoroutine;
     public EntityType myType = EntityType.common;
     public ArmorType myArmor = ArmorType.flesh;
+
+    [Space, Header("Drop")]
+    [SerializeField] private GameObject myDrop;
+
     public enum EntityType
     {
         common,
@@ -162,46 +166,56 @@ public class Health : MonoBehaviour, IDamageable
         recovering = false;
         myRenderer.material = commonMaterial;
         commonMaterial.color = Color.white;
-        if (deathEffect == null)
+
+        DeathEffect();
+    }
+
+    private void DeathEffect()
+    {
+        if(deathEffect == null)
         {
             switch (myType)
             {
                 case Health.EntityType.common:
-                    GameManager.instance.ParticleEffect(GameManager.ParticleType.CommonEnemyDeathEffect, gameObject);
+                    if(deathEffect == null) GameManager.instance.ParticleEffect(GameManager.ParticleType.CommonEnemyDeathEffect, gameObject);
+                    else Instantiate(deathEffect, transform.position, Quaternion.identity);
+                    GameManager.instance.EnemyRespawnEvent += RespawnEnemy;
                     break;
                 case Health.EntityType.special:
-                    break;
-                case Health.EntityType.boss:
-                    GameManager.instance.ParticleEffect(GameManager.ParticleType.PlayerDeathEffect, gameObject);
+                    GameManager.instance.EnemyRespawnEvent += RespawnEnemy;
                     break;
                 case Health.EntityType.player:
-                    GameManager.instance.ParticleEffect(GameManager.ParticleType.PlayerDeathEffect, gameObject);
+                    if (deathEffect == null) GameManager.instance.ParticleEffect(GameManager.ParticleType.PlayerDeathEffect, gameObject);
+                    else Instantiate(deathEffect, transform.position, Quaternion.identity);
+                    GameManager.instance.Transition(GameManager.EventType.PlayerDeathTransition, 2.5f);
+                    break;
+                case EntityType.boss:
+                    myAnim.SetTrigger("death");
+                    SoundManager.instance.PlaySound(SoundManager.SoundChannel.Music, null);
+                    SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, SoundManager.instance.winMusic);
                     break;
                 default:
-                    GameManager.instance.ParticleEffect(GameManager.ParticleType.CommonEnemyDeathEffect, gameObject);
+                    if (deathEffect == null) GameManager.instance.ParticleEffect(GameManager.ParticleType.CommonEnemyDeathEffect, gameObject);
+                    else Instantiate(deathEffect, transform.position, Quaternion.identity);
+                    GameManager.instance.EnemyRespawnEvent += RespawnEnemy;
                     break;
             }
         }
-        else Instantiate(deathEffect, transform.position, Quaternion.identity);
-
-        switch (myType)
+        else
         {
-            case EntityType.player:
-                GameManager.instance.Transition(GameManager.EventType.PlayerDeathTransition, 2.5f);
-                break;
-            case EntityType.boss:
-                GameManager.instance.nextPosition = transform.position;
-                GameManager.instance.nextScene = 4;
-                GameManager.instance.Transition(GameManager.EventType.DoorTransition, 2);
-                gameObject.SetActive(false);
-                break;
-            default:
-                GameManager.instance.EnemyRespawnEvent += RespawnEnemy;
-                gameObject.SetActive(false);
-                break;
+            Instantiate(deathEffect, transform.position, Quaternion.identity);
         }
+        
     }
 
+
+    private void BossDeathAnimation()
+    {
+        GameManager.instance.ParticleEffect(GameManager.ParticleType.BossDeathEffect, gameObject);
+        GameManager.instance.EnemyRespawnEvent += RespawnEnemy;
+        Instantiate(myDrop, transform.position, Quaternion.identity);
+        gameObject.SetActive(false);
+    }
 
     private IEnumerator Flashing()
     {

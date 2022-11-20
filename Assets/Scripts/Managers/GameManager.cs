@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject commonEnemyDeathEffect;
     [SerializeField] private GameObject playerDeathEffect;
     [SerializeField] private GameObject screamParticleEffect;
+    [SerializeField] private GameObject bossDeathEffect;
 
     [Header("NextZone")]
     [HideInInspector] public int nextScene = 1;
@@ -53,6 +54,7 @@ public class GameManager : MonoBehaviour
         CommonEnemyDeathEffect,
         PlayerDeathEffect,
         ScreamParticleEffect,
+        BossDeathEffect,
     };
 
     public enum ExecuteAction
@@ -240,6 +242,9 @@ public class GameManager : MonoBehaviour
                 break;
             case ParticleType.PlayerDeathEffect:
                 Instantiate(playerDeathEffect, myObject.transform.position, Quaternion.identity);
+                break;
+            case ParticleType.BossDeathEffect:
+                Instantiate(bossDeathEffect, myObject.transform.position, Quaternion.identity);
                 break;
             case ParticleType.ScreamParticleEffect:
                 Instantiate(screamParticleEffect, myObject.transform.position, Quaternion.identity);

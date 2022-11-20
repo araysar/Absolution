@@ -9,6 +9,9 @@ public class BossFightManager : MonoBehaviour
     [SerializeField] private GameObject myCamera;
     [SerializeField] private GameObject bossDamageBounds;
     [SerializeField] private AudioClip myMusic;
+    [SerializeField] private GameObject myBoss;
+    [SerializeField] private Coroutine myCoroutine;
+    
 
     [SerializeField] private CinemachineBlendDefinition.Style myTransitionEffect;
     [SerializeField] private float myCameraTransitionDuration;
@@ -38,7 +41,8 @@ public class BossFightManager : MonoBehaviour
 
     public void EnteringBossDoor()
     {
-        StartCoroutine(EnteringTimer());
+        if (myCoroutine != null) return;
+        myCoroutine = StartCoroutine(EnteringTimer());
     }
 
     private IEnumerator EnteringTimer()
@@ -51,13 +55,13 @@ public class BossFightManager : MonoBehaviour
         myCameraBrain.m_DefaultBlend.m_Time = myCameraTransitionDuration;
         myCamera.SetActive(true);
         yield return new WaitForSeconds(myCameraTransitionDuration);
-        //boss animation
+        myBoss.GetComponent<Animator>().SetTrigger("preparation");
         yield return new WaitForSeconds(myBossWarcryTime);
         TriggerBattle();
-
     }
     public void TriggerBattle()
     {
+        myCoroutine = null;
         StartFightEvent();
     }
 

@@ -53,6 +53,7 @@ public class PowerUp : MonoBehaviour
         Character_Movement.instance.myUpgrades.Add(myPower);
         Character_Movement.instance.PowerUpGrab();
         GameManager.instance.EnemyRespawnEvent += Respawn;
+        Character_Movement.instance.NewPowerUpEffect();
         uiMessage.SetActive(false);
         gameObject.SetActive(false);
     }

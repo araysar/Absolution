@@ -16,6 +16,9 @@ public class Boss_Ice : Boss
     [SerializeField] private List<IceSpikes> topSpikes;
     [SerializeField] private List<IceSpikes> botSpikes;
     [SerializeField] private AudioSource myVoice;
+    [SerializeField] private AudioClip myBossScream;
+    [SerializeField] private GameObject myScream;
+    [SerializeField] private GameObject myEyes;
 
     public enum IceBossAttacks
     {
@@ -149,19 +152,32 @@ public class Boss_Ice : Boss
         canAttack = false;
         isFighting = false;
         canMove = false;
+        myAnim.SetTrigger("exit");
         myHealth.currentHP = myHealth.maxHP;
         myHealth.RefreshLifeBar();
+    }
+
+    private void BossScream()
+    {
+        SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, myBossScream);
+        GameManager.instance.ParticleEffect(GameManager.ParticleType.ScreamParticleEffect, myScream);
     }
 
     public override void StopMovement()
     {
         canMove = false;
         myAnim.SetFloat("animatorSpeed", 0);
+        ParticleSystem ps = myEyes.GetComponent<ParticleSystem>();
+        var main = ps.main;
+        main.simulationSpeed = 0;
     }
 
     public override void ResumeMovement()
     {
         canMove = true;
         myAnim.SetFloat("animatorSpeed", 1);
+        ParticleSystem ps = myEyes.GetComponent<ParticleSystem>();
+        var main = ps.main;
+        main.simulationSpeed = 1;
     }
 }

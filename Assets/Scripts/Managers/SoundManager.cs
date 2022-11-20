@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
-    [SerializeField] private AudioSource sfxAudioSource, musicAudioSource, unscalledAudioSource;
+    public AudioSource sfxAudioSource, musicAudioSource, unscalledAudioSource;
 
     public static SoundManager instance;
+    public AudioClip winMusic;
 
     public float sfxVolume = 0.2f;
     public float musicVolume = 0.2f;
@@ -47,8 +48,10 @@ public class SoundManager : MonoBehaviour
                 sfxAudioSource.PlayOneShot(clip);
                 break;
             case SoundChannel.Music:
+
                 musicAudioSource.clip = clip;
-                musicAudioSource.Play();
+                if (clip == null) musicAudioSource.Stop();
+                else musicAudioSource.Play();
                 break;
             case SoundChannel.Unscalled:
                 unscalledAudioSource.PlayOneShot(clip);
