@@ -61,11 +61,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5361151055402556383, guid: aac59e23ba2137c42ae2e47e953cc03c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -17.887817
+      value: -28.559917
       objectReference: {fileID: 0}
     - target: {fileID: 5361151055402556383, guid: aac59e23ba2137c42ae2e47e953cc03c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -5.5970216
+      value: -7.0946364
       objectReference: {fileID: 0}
     - target: {fileID: 5361151055402556383, guid: aac59e23ba2137c42ae2e47e953cc03c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -125,6 +125,26 @@ PrefabInstance:
       propertyPath: myPower
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6584006515721675491, guid: aac59e23ba2137c42ae2e47e953cc03c, type: 3}
+      propertyPath: myColor.a
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6584006515721675491, guid: aac59e23ba2137c42ae2e47e953cc03c, type: 3}
+      propertyPath: myColor.b
+      value: 0.67058825
+      objectReference: {fileID: 0}
+    - target: {fileID: 6584006515721675491, guid: aac59e23ba2137c42ae2e47e953cc03c, type: 3}
+      propertyPath: myColor.g
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6584006515721675491, guid: aac59e23ba2137c42ae2e47e953cc03c, type: 3}
+      propertyPath: myColor.r
+      value: 0.3019608
+      objectReference: {fileID: 0}
+    - target: {fileID: 6584006515721675491, guid: aac59e23ba2137c42ae2e47e953cc03c, type: 3}
+      propertyPath: myGetSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 6ae35729875daa343a1a6075e521ea8b, type: 3}
     - target: {fileID: 8203816967036030183, guid: aac59e23ba2137c42ae2e47e953cc03c, type: 3}
       propertyPath: m_IsActive
       value: 0

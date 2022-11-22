@@ -7,6 +7,10 @@ public class PowerUp : MonoBehaviour
     [SerializeField] private GameObject uiMessage;
     [SerializeField] private AudioClip getSound;
     [SerializeField] private Animator myAnim;
+    private Transform playerTransform;
+    [SerializeField] private Color myColor;
+    [SerializeField] private AudioClip myGetSound;
+
 
     private void Start()
     {
@@ -53,7 +57,8 @@ public class PowerUp : MonoBehaviour
         Character_Movement.instance.myUpgrades.Add(myPower);
         Character_Movement.instance.PowerUpGrab();
         GameManager.instance.EnemyRespawnEvent += Respawn;
-        Character_Movement.instance.NewPowerUpEffect();
+        Character_Movement.instance.NewPowerUpEffect(myColor);
+        SoundManager.instance.PlaySound(SoundManager.SoundChannel.Unscalled, myGetSound);
         uiMessage.SetActive(false);
         gameObject.SetActive(false);
     }

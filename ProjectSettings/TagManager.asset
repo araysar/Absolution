@@ -8,6 +8,7 @@ TagManager:
   - CheckPoint
   - NoSlide
   - PlayerCameraBounds
+  - GroundCheck
   layers:
   - Default
   - TransparentFX
@@ -23,8 +24,8 @@ TagManager:
   - WeaponObstacle
   - Destroyable
   - BossBounds
-  - 
-  - 
+  - Collectable
+  - Trap
   - 
   - 
   - 

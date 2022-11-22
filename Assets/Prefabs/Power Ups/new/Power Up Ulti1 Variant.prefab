@@ -24,6 +24,22 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 3413b2fdbc784294db215c4ac9b34ac1, type: 3}
+    - target: {fileID: 3118209530948066079, guid: aac59e23ba2137c42ae2e47e953cc03c, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 3870143241622687645, guid: aac59e23ba2137c42ae2e47e953cc03c, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 4006500554763732251, guid: aac59e23ba2137c42ae2e47e953cc03c, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 5361151054448370392, guid: aac59e23ba2137c42ae2e47e953cc03c, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 5361151054448370395, guid: aac59e23ba2137c42ae2e47e953cc03c, type: 3}
       propertyPath: m_Color.b
       value: 1
@@ -39,6 +55,10 @@ PrefabInstance:
     - target: {fileID: 5361151055402556381, guid: aac59e23ba2137c42ae2e47e953cc03c, type: 3}
       propertyPath: m_Name
       value: Power Up Ulti1 Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 5361151055402556381, guid: aac59e23ba2137c42ae2e47e953cc03c, type: 3}
+      propertyPath: m_Layer
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 5361151055402556382, guid: aac59e23ba2137c42ae2e47e953cc03c, type: 3}
       propertyPath: m_Color.b
@@ -58,11 +78,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5361151055402556383, guid: aac59e23ba2137c42ae2e47e953cc03c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -18.709108
+      value: -123.05457
       objectReference: {fileID: 0}
     - target: {fileID: 5361151055402556383, guid: aac59e23ba2137c42ae2e47e953cc03c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -5.7619543
+      value: -16.076576
       objectReference: {fileID: 0}
     - target: {fileID: 5361151055402556383, guid: aac59e23ba2137c42ae2e47e953cc03c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -122,6 +142,38 @@ PrefabInstance:
     - target: {fileID: 6584006515721675491, guid: aac59e23ba2137c42ae2e47e953cc03c, type: 3}
       propertyPath: myPower
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6584006515721675491, guid: aac59e23ba2137c42ae2e47e953cc03c, type: 3}
+      propertyPath: myColor.a
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6584006515721675491, guid: aac59e23ba2137c42ae2e47e953cc03c, type: 3}
+      propertyPath: myColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6584006515721675491, guid: aac59e23ba2137c42ae2e47e953cc03c, type: 3}
+      propertyPath: myColor.r
+      value: 0.7019608
+      objectReference: {fileID: 0}
+    - target: {fileID: 6584006515721675491, guid: aac59e23ba2137c42ae2e47e953cc03c, type: 3}
+      propertyPath: myGetSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 7e8745c75f71c704498c668eec41e512, type: 3}
+    - target: {fileID: 6963769405766641371, guid: aac59e23ba2137c42ae2e47e953cc03c, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 7395206092652025928, guid: aac59e23ba2137c42ae2e47e953cc03c, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 7775403627755643762, guid: aac59e23ba2137c42ae2e47e953cc03c, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 8203816967036030183, guid: aac59e23ba2137c42ae2e47e953cc03c, type: 3}
+      propertyPath: m_Layer
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 8203816967036030183, guid: aac59e23ba2137c42ae2e47e953cc03c, type: 3}
       propertyPath: m_IsActive

@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class Health : MonoBehaviour, IDamageable
 {
@@ -22,6 +23,9 @@ public class Health : MonoBehaviour, IDamageable
     public SpriteRenderer weakPoint;
     [SerializeField] private Color fullLifeColor;
     [SerializeField] private Color lowLifeColor;
+    [SerializeField] private List<GameObject> disableAfterDeath;
+    [SerializeField] private GameObject healVfx;
+    [SerializeField] private AudioClip healSfx;
 
     [Space, Header("UI")]
     public Image lifeBar;
@@ -127,6 +131,15 @@ public class Health : MonoBehaviour, IDamageable
             //no me hace daño
         }
     }
+    public void Heal(float amount)
+    {
+        currentHP += amount;
+        if (currentHP > maxHP) currentHP = maxHP;
+        SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, healSfx);
+        RefreshLifeBar();
+        healVfx.SetActive(false);
+        healVfx.SetActive(true);
+    }    
 
     public void RefreshLifeBar()
     {
@@ -167,12 +180,21 @@ public class Health : MonoBehaviour, IDamageable
         myRenderer.material = commonMaterial;
         commonMaterial.color = Color.white;
 
+        if(disableAfterDeath.Count > 0)
+        {
+            foreach (var item in disableAfterDeath)
+            {
+                item.SetActive(false);
+            }
+        }
+
         DeathEffect();
     }
 
     private void DeathEffect()
     {
-        if(deathEffect == null)
+        if (myDrop != null && myType != EntityType.boss) Instantiate(myDrop, transform.position, Quaternion.identity);
+        if (deathEffect == null)
         {
             switch (myType)
             {
@@ -180,9 +202,11 @@ public class Health : MonoBehaviour, IDamageable
                     if(deathEffect == null) GameManager.instance.ParticleEffect(GameManager.ParticleType.CommonEnemyDeathEffect, gameObject);
                     else Instantiate(deathEffect, transform.position, Quaternion.identity);
                     GameManager.instance.EnemyRespawnEvent += RespawnEnemy;
+                    gameObject.SetActive(false);
                     break;
                 case Health.EntityType.special:
                     GameManager.instance.EnemyRespawnEvent += RespawnEnemy;
+                    gameObject.SetActive(false);
                     break;
                 case Health.EntityType.player:
                     if (deathEffect == null) GameManager.instance.ParticleEffect(GameManager.ParticleType.PlayerDeathEffect, gameObject);
@@ -200,6 +224,7 @@ public class Health : MonoBehaviour, IDamageable
                     if (deathEffect == null) GameManager.instance.ParticleEffect(GameManager.ParticleType.CommonEnemyDeathEffect, gameObject);
                     else Instantiate(deathEffect, transform.position, Quaternion.identity);
                     GameManager.instance.EnemyRespawnEvent += RespawnEnemy;
+                    gameObject.SetActive(false);
                     break;
             }
         }
@@ -209,7 +234,7 @@ public class Health : MonoBehaviour, IDamageable
             GameManager.instance.EnemyRespawnEvent += RespawnEnemy;
             gameObject.SetActive(false);
         }
-        
+
     }
 
 

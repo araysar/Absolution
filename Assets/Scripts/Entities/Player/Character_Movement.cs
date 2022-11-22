@@ -14,6 +14,7 @@ public class Character_Movement : MonoBehaviour
     [HideInInspector] public Health myHealth;
     [HideInInspector] public Energy myEnergy;
     [HideInInspector] public Action_Shoot myShooter;
+    public GameObject playerCameraBounds;
 
     [Header("Move")]
     public float speed = 3;
@@ -33,12 +34,16 @@ public class Character_Movement : MonoBehaviour
     [SerializeField] private ParticleSystem doubleJumpEffect;
     [SerializeField] private float groundCheckRadius;
     [SerializeField] private LayerMask groundMask;
+    [SerializeField] private LayerMask trapMask;
     [SerializeField] private AudioClip voiceJumpSfx;
     [SerializeField] private AudioClip doubleJumpSfx;
     [SerializeField] private AudioClip landingSfx;
+    [SerializeField] private AudioClip landingHighJumpSfx;
+    [SerializeField] private GameObject highLandingVfx;
     public bool isGrounded = true;
     public bool isFalling = false;
     public bool isJumping = false;
+    private float timeInAir = 0;
 
     [Space, Header("Wall")]
     [SerializeField] private Transform wallCheck;
@@ -87,7 +92,6 @@ public class Character_Movement : MonoBehaviour
     [SerializeField] private GameObject uiDash;
     [SerializeField] private GameObject uiUltimate1;
     [SerializeField] private GameObject uiFire;
-    [SerializeField] private AudioClip newPowerUpSfx;
     [SerializeField] private GameObject newPowerUpVfx;
 
     [Header("Save")]
@@ -222,6 +226,7 @@ public class Character_Movement : MonoBehaviour
     private void AttemptToDash()
     {
         myEnergy.currentEnergy -= energyDash;
+        myAnim.SetTrigger("exit");
         myEnergy.ReloadEnergy();
         SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, dashSfx);
         dashCharges--;
@@ -356,10 +361,12 @@ public class Character_Movement : MonoBehaviour
                 {
                     isJumping = false;
                     isFalling = false;
+                    timeInAir = 0;
                 }
                 else if(rb.velocity.y < -0.1f)
                 {
                     isFalling = true;
+                    timeInAir += Time.deltaTime;
                 }
                 if (isWallSliding)
                 {
@@ -399,6 +406,7 @@ public class Character_Movement : MonoBehaviour
     {
         if (canJump && currentJumps > 0 && !isDashing)
         {
+            myAnim.SetTrigger("exit");
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             if(myAnim.GetBool("isJumping") || myAnim.GetBool("isFalling")) myAnim.Play("Idle", 0, 0f);
             isFalling = false;
@@ -411,7 +419,7 @@ public class Character_Movement : MonoBehaviour
                 SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, doubleJumpSfx);
                 doubleJumpEffect.Play();
             }
-
+            timeInAir = 0;
             currentJumps--;
 
             StartCoroutine(JumpTimer());
@@ -462,13 +470,39 @@ public class Character_Movement : MonoBehaviour
     private void CheckSurroundings()
     {
         bool wasGrounded = isGrounded;
+        float alf = rb.velocity.y;
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundMask);
-        if(isGrounded == true && wasGrounded == false)
+
+        if (isGrounded == true && wasGrounded == false)
         {
-            SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, landingSfx);
+            if(timeInAir > 0.75f)
+            {
+                SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, landingHighJumpSfx);
+                Instantiate(highLandingVfx, groundCheck.position, Quaternion.identity);
+                myAnim.Play("Landing", 0, 0f);
+                StartCoroutine(ExitAnimationTimer(0.5f));
+                ControlAnimations();
+            }
+            else
+            {
+                SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, landingSfx);
+            }
         }
         isTouchingWall = Physics2D.Raycast(wallCheck.position, transform.right, wallCheckDistance, groundMask);
         noSlideRaycast = Physics2D.Raycast(wallCheck.position, transform.right, wallCheckDistance, groundMask);
+
+        Collider2D trap = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, trapMask);
+
+        if (trap != null)
+        {
+            trap.GetComponent<TrapBlock>().Activate();
+        }
+    }
+
+    IEnumerator ExitAnimationTimer(float time)
+    {
+        yield return new WaitForSeconds(time);
+        myAnim.SetTrigger("exit");
     }
 
     private void CheckIfWallSliding()
@@ -493,11 +527,13 @@ public class Character_Movement : MonoBehaviour
 
     #region  Power UP
 
-    public void NewPowerUpEffect()
+    public void NewPowerUpEffect(Color powerUpColor)
     {
-        SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, newPowerUpSfx);
         newPowerUpVfx.SetActive(false);
         newPowerUpVfx.SetActive(true);
+        ParticleSystem ps = newPowerUpVfx.GetComponent<ParticleSystem>();
+        var main = ps.main;
+        main.startColor = powerUpColor;
     }
 
     public void PowerUpGrab()

@@ -49,6 +49,7 @@ public class BossFightManager : MonoBehaviour
     {
         EnteringBossDoorEvent();
         GameManager.instance.TriggerAction(GameManager.ExecuteAction.EnterBossDoor);
+        Character_Movement.instance.playerCameraBounds.SetActive(false);
         bossDamageBounds.SetActive(true);
         yield return new WaitForSeconds(1);
         myCameraBrain.m_DefaultBlend.m_Style = myTransitionEffect;
@@ -68,6 +69,8 @@ public class BossFightManager : MonoBehaviour
     public void ResetBattle()
     {
         myCameraBrain.m_DefaultBlend.m_Style = CinemachineBlendDefinition.Style.Cut;
+        Character_Movement.instance.playerCameraBounds.SetActive(true);
+        bossDamageBounds.SetActive(false);
         myCamera.SetActive(false);
     }
 }
