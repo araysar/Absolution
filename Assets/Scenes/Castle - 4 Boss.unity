@@ -14007,6 +14007,14 @@ PrefabInstance:
       propertyPath: destroySfx
       value: 
       objectReference: {fileID: 8300000, guid: c97a0829e72e19f4998290fa6d6e4c86, type: 3}
+    - target: {fileID: 3413731001791374467, guid: e14c738b5dbc51a41a48d04eb6576b6a, type: 3}
+      propertyPath: maxHP
+      value: 600
+      objectReference: {fileID: 0}
+    - target: {fileID: 3413731001791374467, guid: e14c738b5dbc51a41a48d04eb6576b6a, type: 3}
+      propertyPath: currentHP
+      value: 600
+      objectReference: {fileID: 0}
     - target: {fileID: 3413731001791374473, guid: e14c738b5dbc51a41a48d04eb6576b6a, type: 3}
       propertyPath: m_Name
       value: Ice Boss (1)

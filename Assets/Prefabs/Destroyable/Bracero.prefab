@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 10
-  bounds: {x: 0.57, y: 0.3}
+  bounds: {x: 0.28, y: 0.3}
   myTargetLayer: 6
 --- !u!61 &5677412650567699360
 BoxCollider2D:
@@ -60,7 +60,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.006131105, y: 0.046597242}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -71,7 +71,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.27368498, y: 0.2222743}
+  m_Size: {x: 0.28, y: 0.3}
   m_EdgeRadius: 0
 --- !u!1 &8555368591124340192
 GameObject:
@@ -101,7 +101,7 @@ Transform:
   m_GameObject: {fileID: 8555368591124340192}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -120.44269, y: -17.463554, z: 0}
-  m_LocalScale: {x: 0.2852186, y: 0.3086147, z: 1}
+  m_LocalScale: {x: 0.26377016, y: 0.28525257, z: 1}
   m_Children:
   - {fileID: 6562824148486199619}
   - {fileID: 7179328683227016115}
@@ -174,7 +174,7 @@ MonoBehaviour:
   maxHP: 20
   currentHP: 0
   defense: 0
-  ulti1Stacks: 5
+  ulti1Stacks: 10
   damagedEffect: {fileID: 0}
   damagedSfx: {fileID: 8300000, guid: e0565a7fee5c4bf46ab308d1f57217f8, type: 3}
   invulnerability: 0
@@ -187,6 +187,9 @@ MonoBehaviour:
   weakPoint: {fileID: 0}
   fullLifeColor: {r: 0, g: 0, b: 0, a: 0}
   lowLifeColor: {r: 0, g: 0, b: 0, a: 0}
+  disableAfterDeath: []
+  healVfx: {fileID: 0}
+  healSfx: {fileID: 0}
   lifeBar: {fileID: 0}
   fullLifeBarColor: {r: 0, g: 1, b: 0, a: 1}
   lowLifeBarColor: {r: 1, g: 0, b: 0, a: 1}
@@ -198,6 +201,7 @@ MonoBehaviour:
   myRenderer: {fileID: 0}
   myType: 4
   myArmor: 0
+  myDrop: {fileID: 0}
 --- !u!60 &1747887209
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -307,6 +311,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: BraseroLight
       objectReference: {fileID: 0}
+    - target: {fileID: 6562824149444206231, guid: 3858cda825a9557499aac0339e3c7e38, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6562824149444206231, guid: 3858cda825a9557499aac0339e3c7e38, type: 3}
+      propertyPath: m_Color.g
+      value: 0.58835566
+      objectReference: {fileID: 0}
+    - target: {fileID: 6562824149444206231, guid: 3858cda825a9557499aac0339e3c7e38, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7491661d3d4213442a271a08a08a10a2, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3858cda825a9557499aac0339e3c7e38, type: 3}
 --- !u!4 &6562824148486199619 stripped

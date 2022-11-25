@@ -53,7 +53,7 @@ public class Dagger : Projectile
                 {
                     myChar.ulti1Stacks += collision.GetComponent<Health>().ulti1Stacks;
                 }
-                myChar.ulti1.RefreshStacks();
+                myChar.ulti1.RefreshStacks(true);
             }
             myPool.AddToPool(gameObject);
         }

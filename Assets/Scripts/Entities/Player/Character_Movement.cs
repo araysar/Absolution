@@ -677,7 +677,7 @@ public class Character_Movement : MonoBehaviour
         transform.position = myHealth.initialPosition;
         myHealth.RefreshLifeBar();
         myEnergy.ReloadEnergy();
-        ulti1.RefreshStacks();
+        ulti1.RefreshStacks(false);
     }
     #endregion
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,7 +9,8 @@ public class Ultimate: MonoBehaviour
     public float chargingTime = 1f;
     public float skillTime = 2.5f;
     private float defenseBeforeUltimate;
-
+    [SerializeField] private float regenerationDelay = 0.5f;
+    [SerializeField] private float regenerationPerTick = 1;
     [SerializeField] private string inputName = "Ultimate1";
     [SerializeField] private Animator ultimateAnimator;
 
@@ -21,6 +23,7 @@ public class Ultimate: MonoBehaviour
     [SerializeField] private AudioClip launchSfx;
     [SerializeField] private AudioClip castVoice;
     [SerializeField] private AudioClip launchVoice;
+    Coroutine regenerationAction;
 
     public bool ultiReady = true;
 
@@ -47,7 +50,15 @@ public class Ultimate: MonoBehaviour
         }
     }
 
-    public void RefreshStacks()
+    private void Update()
+    {
+        if (regenerationAction == null)
+        {
+            regenerationAction = StartCoroutine(Regeneration());
+        }
+    }
+
+    public void RefreshStacks(bool changeState)
     {
         if(myChar.ulti1Stacks >= myChar.ulti1Required && !ultiReady)
         {
@@ -65,7 +76,7 @@ public class Ultimate: MonoBehaviour
             readyText.SetActive(false);
             uiImage.fillAmount = myChar.ulti1Stacks / myChar.ulti1Required;
             uiWhiteImage.fillAmount = uiImage.fillAmount;
-            ultimateAnimator.SetTrigger("notReady");
+            if(changeState) ultimateAnimator.SetTrigger("notReady");
         }
     }
 
@@ -81,12 +92,24 @@ public class Ultimate: MonoBehaviour
         }
     }
 
+    IEnumerator Regeneration()
+    {
+        yield return new WaitForSeconds(regenerationDelay);
+        
+        if (!myChar.ulti1.ultiReady)
+        {
+            myChar.ulti1Stacks += regenerationPerTick;
+        }
+        myChar.ulti1.RefreshStacks(false);
+        regenerationAction = null;
+
+    }
     private void ChargingUltimate()
     {
         defenseBeforeUltimate = myChar.myHealth.defense;
         myChar.myHealth.defense = 9999;
         myChar.ulti1Stacks = 0;
-        RefreshStacks();
+        RefreshStacks(true);
         ultimateAnimator.SetTrigger("notReady");
         readyText.SetActive(false);
         if (chargeSfx != null) SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, chargeSfx);
