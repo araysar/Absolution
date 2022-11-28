@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class EndGame : MonoBehaviour
 {
+    [SerializeField] private string retryScene = "Castle - 1";
     public void ExitGame()
     {
         Application.Quit();
@@ -12,9 +13,6 @@ public class EndGame : MonoBehaviour
 
     public void RestartGame()
     {
-        GameManager.instance.TriggerAction(GameManager.ExecuteAction.DestroyEvent);
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(retryScene);
     }
-
-
 }

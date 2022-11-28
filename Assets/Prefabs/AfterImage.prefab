@@ -70,7 +70,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -519103173
-  m_SortingLayer: 2
+  m_SortingLayer: 5
   m_SortingOrder: 9
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -96,6 +96,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activeTime: 0.1
-  alphaSet: 0.5
+  alphaSet: 0.75
   imagePool: {fileID: 0}
-  color: {r: 0.58892316, g: 0.3820755, b: 1, a: 1}
+  color: {r: 0.9607843, g: 1, b: 0, a: 0.65882355}

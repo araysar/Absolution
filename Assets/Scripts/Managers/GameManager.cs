@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject bossDeathEffect;
 
     [Header("NextZone")]
-    [HideInInspector] public int nextScene = 1;
+    [HideInInspector] public string nextScene;
     [HideInInspector] public Vector2 nextPosition = Vector2.zero;
 
     [Header("Save")]
@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
     {
         PlayerDeathTransition,
         DoorTransition,
-        FadeTransition,
+        EndGameTransition,
     };
 
     public enum ParticleType
@@ -99,12 +99,9 @@ public class GameManager : MonoBehaviour
 
     }
 
-    void Update()
+    public void EndGameTransition()
     {
-        if(Input.GetKeyDown(KeyCode.P))
-        {
-
-        }
+        nextScene = "EndGame-Words";
     }
 
     public void SavingAnimation()
@@ -123,7 +120,6 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene(nextScene);
         Character_Movement.instance.gameObject.transform.position = nextPosition;
-        if (nextScene == 4) TriggerAction(ExecuteAction.PlayerDisableEvent);
     }
 
     public void UnPause()
@@ -168,8 +164,7 @@ public class GameManager : MonoBehaviour
                 StopPlayerMovementEvent();
                 myAnim.SetTrigger("doorTransition");
                 break;
-            case EventType.FadeTransition:
-                player.StopMovement();
+            case EventType.EndGameTransition:
                 myAnim.SetTrigger("endTransition");
                 break;
         }

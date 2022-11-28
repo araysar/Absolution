@@ -39,6 +39,7 @@ public class SoundManager : MonoBehaviour
     private void Start()
     {
         GameManager.instance.DestroyEvent += Destroy;
+        GameManager.instance.EndGameEvent += StopSong;
     }
     public void PlaySound(SoundManager.SoundChannel channel, AudioClip clip)
     {

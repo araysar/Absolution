@@ -1045,7 +1045,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69e4642f353161f45a18e8570ada197d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextScene: 2
+  nextScene: Castle - 3
   nextPosition: {x: -79, y: -6.5}
 --- !u!61 &488028118
 BoxCollider2D:
@@ -9891,7 +9891,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3284561371220175779, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
       propertyPath: myUpgrades.Array.data[2]
-      value: 5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3284561371220175779, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
       propertyPath: myUpgrades.Array.data[3]

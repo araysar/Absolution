@@ -43,6 +43,7 @@ public class Character_Movement : MonoBehaviour
     public bool isGrounded = true;
     public bool isFalling = false;
     public bool isJumping = false;
+    private bool isLanding = false;
     private float timeInAir = 0;
 
     [Space, Header("Wall")]
@@ -147,6 +148,8 @@ public class Character_Movement : MonoBehaviour
         GameManager.instance.SaveDataEvent += SaveData;
         GameManager.instance.LoadDataEvent += LoadData;
         GameManager.instance.DestroyEvent += Destroy;
+        GameManager.instance.EndGameEvent += DisableInputs;
+        GameManager.instance.EndGameEvent += Invulnerability;
         GameManager.instance.TriggerAction(GameManager.ExecuteAction.SaveData);
     }
 
@@ -155,17 +158,18 @@ public class Character_Movement : MonoBehaviour
     {
         if (!GameManager.instance.onPause)
         {
-            if(!disableInputs)
+            if (myHealth.currentHP > 0)
             {
-                if(myHealth.currentHP > 0)
+                if (!disableInputs)
                 {
                     Inputs();
-                    CheckMovementDirection();
-                    CheckIfCanJump();
-                    CheckIfWallSliding();
-                    CheckDash();
                 }
+                CheckMovementDirection();
+                CheckIfCanJump();
+                CheckIfWallSliding();
+                CheckDash();
             }
+            
         }
     }
 
@@ -298,7 +302,7 @@ public class Character_Movement : MonoBehaviour
 
     private void Flip()
     {
-        if(canFlip)
+        if(canFlip && !disableInputs)
         {
             if (!isFacingRight)
             {
@@ -340,46 +344,50 @@ public class Character_Movement : MonoBehaviour
 
     private void Movement()
     {
-        if(!disableInputs)
+        float input = Input.GetAxisRaw("Horizontal");
+        if (disableInputs)
         {
-            if (canMove)
-            {
-                rb.velocity = new Vector2((Input.GetAxisRaw("Horizontal") * speed) * Time.deltaTime, rb.velocity.y);
+            input = 0;
+        }
 
-                if (!isGrounded && rb.velocity.y >= 0.1f)
-                {
-                    isJumping = false;
-                    myAnim.SetBool("isJumping", isJumping);
-                    isJumping = true;
-                    myAnim.SetBool("isJumping", isJumping);
-                    if (currentJumps == maxJumps)
-                    {
-                        currentJumps = maxJumps - 1;
-                    }
-                }
-                else if(rb.velocity.y > -0.1f && rb.velocity.y < 0.1f)
-                {
-                    isJumping = false;
-                    isFalling = false;
-                    timeInAir = 0;
-                }
-                else if(rb.velocity.y < -0.1f)
-                {
-                    isFalling = true;
-                    timeInAir += Time.deltaTime;
-                }
-                if (isWallSliding)
-                {
-                    if (rb.velocity.y < -wallSlideSpeed)
-                    {
-                        rb.velocity = new Vector2(rb.velocity.x, -wallSlideSpeed);
-                    }
-                }
-            }
-            if (rb.velocity.y < -jumpForce)
+        if (canMove)
+        {
+            rb.velocity = new Vector2(input * speed * Time.deltaTime, rb.velocity.y);
+
+            if (!isGrounded && rb.velocity.y >= 0.1f)
             {
-                rb.velocity = new Vector2(rb.velocity.x, -jumpForce);
+                isJumping = false;
+                myAnim.SetBool("isJumping", isJumping);
+                isJumping = true;
+                myAnim.SetBool("isJumping", isJumping);
+                if (currentJumps == maxJumps)
+                {
+                    currentJumps = maxJumps - 1;
+                }
             }
+            else if (rb.velocity.y > -0.1f && rb.velocity.y < 0.1f)
+            {
+                isJumping = false;
+                isFalling = false;
+                timeInAir = 0;
+            }
+            else if (rb.velocity.y < -0.1f)
+            {
+                isFalling = true;
+                timeInAir += Time.deltaTime;
+            }
+            if (isWallSliding)
+            {
+                timeInAir = 0;
+                if (rb.velocity.y < -wallSlideSpeed)
+                {
+                    rb.velocity = new Vector2(rb.velocity.x, -wallSlideSpeed);
+                }
+            }
+        }
+        if (rb.velocity.y < -jumpForce)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, -jumpForce);
         }
     }
 
@@ -392,7 +400,13 @@ public class Character_Movement : MonoBehaviour
         isMoving = false;
         rb.velocity = new Vector2(0, 0);
         ControlAnimations();
-        myAnim.Play("Idle", 0);
+        myAnim.Play("idle", 0, 0);
+    }
+
+    public void DisableInputs()
+    {
+        StopDash();
+        disableInputs = true;
     }
     public void ResumeMovement()
     {
@@ -479,9 +493,9 @@ public class Character_Movement : MonoBehaviour
             {
                 SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, landingHighJumpSfx);
                 Instantiate(highLandingVfx, groundCheck.position, Quaternion.identity);
-                myAnim.Play("Landing", 0, 0f);
-                StartCoroutine(ExitAnimationTimer(0.5f));
-                ControlAnimations();
+                StopMovement();
+                myAnim.Play("Landing", 0);
+                myAnim.SetBool("isLanding", true);
             }
             else
             {
@@ -499,10 +513,9 @@ public class Character_Movement : MonoBehaviour
         }
     }
 
-    IEnumerator ExitAnimationTimer(float time)
+    private void ExitLanding()
     {
-        yield return new WaitForSeconds(time);
-        myAnim.SetTrigger("exit");
+        myAnim.SetBool("isLanding", false);
     }
 
     private void CheckIfWallSliding()
@@ -629,6 +642,17 @@ public class Character_Movement : MonoBehaviour
     #endregion
 
     #region Respawn
+
+    private void Invulnerability()
+    {
+        myHealth.defense = 9999;
+    }
+
+    private void Vulnerable()
+    {
+        myHealth.defense = 0;
+    }
+
     private void DisablePlayer()
     {
         myHealth.currentHP = 0;

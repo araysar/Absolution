@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ExitZone : MonoBehaviour
 {
-    [SerializeField] private int nextScene = 1;
+    [SerializeField] private string nextScene;
     [SerializeField] private Vector2 nextPosition;
     private void OnTriggerEnter2D(Collider2D collision)
     {
