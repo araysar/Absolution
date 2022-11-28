@@ -1304,7 +1304,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 309562306}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -700.8288, y: -751.8689, z: 163.70082}
+  m_LocalPosition: {x: -700.8295, y: -751.8689, z: 163.70082}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 626630681}
@@ -22331,9 +22331,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Neburi
-
-'
+  m_text: Gallowmere
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 08c35714148d0ff48a8ccd75e63c3061, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 08c35714148d0ff48a8ccd75e63c3061, type: 2}
@@ -22865,7 +22863,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bracero (1)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1607162378753597897, guid: c3fd59bde480997458a02a52d282707e, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: c3fd59bde480997458a02a52d282707e, type: 3}
 --- !u!1 &1519737806
 GameObject:
@@ -27740,7 +27739,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bracero
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1607162378753597897, guid: c3fd59bde480997458a02a52d282707e, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: c3fd59bde480997458a02a52d282707e, type: 3}
 --- !u!1 &1562939095
 GameObject:
@@ -28034,7 +28034,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Gyuki
+  m_text: 'Chompy
 
 
 '
@@ -28544,7 +28544,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1709031031}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 130.68184, y: 1.8500242, z: -10}
+  m_LocalPosition: {x: 130.6811, y: 1.8500242, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
