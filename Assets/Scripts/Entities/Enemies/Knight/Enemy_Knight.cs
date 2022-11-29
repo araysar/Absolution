@@ -136,7 +136,7 @@ public class Enemy_Knight : MonoBehaviour
                         myRb.velocity = new Vector2((isFacingRight ? (1 * chasingSpeed) : (-1 * chasingSpeed)) * Time.fixedDeltaTime, myRb.velocity.y);
                     }
 
-                    if(isFacingRight?(lastPlayerPosition.x - transform.position.x) < 0.1f : (lastPlayerPosition.x - transform.position.x) > 0.1f)
+                    if(isFacingRight?(lastPlayerPosition.x - transform.position.x) < 0.2f : (lastPlayerPosition.x - transform.position.x) > 0.2f)
                     {
                         isChasing = false;
                         currentDistance -= maxDistance / 2;
