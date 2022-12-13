@@ -7,7 +7,7 @@ public class Action_Shoot : MonoBehaviour
     [SerializeField] private Transform shootingPoint;
     private Animator myAnim;
     private Character_Movement myChar;
-    private Queue<GameObject> availableObjects = new Queue<GameObject>();
+    private List<GameObject> availableObjects = new List<GameObject>();
     public bool canShoot = true;
     [HideInInspector] public bool isShooting = false;
     [HideInInspector] public bool isAttacking = false;
@@ -39,7 +39,7 @@ public class Action_Shoot : MonoBehaviour
         pool = new GameObject("Projectile Pool");
         myAnim = GetComponent<Animator>();
         myChar = GetComponent<Character_Movement>();
-        GrowPool(5);
+        GrowPool(3);
 
         pyroSphere = Instantiate(pyroPrefab, shootingPoint.transform.position, Quaternion.identity);
         pyroSphere.GetComponent<PyroSphere_Launch>().myShooter = this;
@@ -83,13 +83,14 @@ public class Action_Shoot : MonoBehaviour
     #region Normal Dagger
     public void GrowPool(int daggers)
     {
-        if(pool == null) pool = new GameObject("Projectile Pool");
+        pool = new GameObject("Projectile Pool");
+        availableObjects = new List<GameObject>();
 
         for (int i = 0; i < daggers; i++)
         {
             var instanceToAdd = Instantiate(myBullet);
             instanceToAdd.GetComponent<Projectile>().myPool = this;
-            instanceToAdd.transform.SetParent(pool.transform);
+            instanceToAdd.transform.parent = pool.transform;
             AddToPool(instanceToAdd);
         }
     }
@@ -97,30 +98,23 @@ public class Action_Shoot : MonoBehaviour
     public void AddToPool(GameObject instance)
     {
         instance.SetActive(false);
-        availableObjects.Enqueue(instance);
+        availableObjects.Add(instance);
     }
 
-    public void GetFromPool()
+    public GameObject GetFromPool()
     {
-        if (availableObjects.Count > 0)
+        
+        for (int i = 0; i < availableObjects.Count; i++)
         {
-            var instance = availableObjects.Dequeue();
-            if(instance == null)
+            if(!availableObjects[i].activeSelf)
             {
-                GetFromPool();
-                return;
+                availableObjects[i].SetActive(true);
+                return availableObjects[i];
             }
-            instance.SetActive(true);
-            SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, daggerLaunchSfx);
-            instance.transform.position = shootingPoint.position;
         }
-
-        else
-        {
-            GrowPool(1);
-            GetFromPool();
-        }
+        return null;
     }
+
 
     private void ShootDagger()
     {
@@ -128,9 +122,18 @@ public class Action_Shoot : MonoBehaviour
 
         if (isAttacking) return;
 
-        myChar.StopDash();
-        isAttacking = true;
-        myAnim.SetBool("attack1", true);
+        if (pool == null) GrowPool(3);
+        GameObject instance = GetFromPool();
+        if (instance == null) return;
+
+        else
+        {
+            myChar.StopDash();
+            isAttacking = true;
+            myAnim.SetBool("attack1", true);
+            SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, daggerLaunchSfx);
+            instance.transform.position = shootingPoint.position;
+        }
     }
 
     #endregion
@@ -168,6 +171,12 @@ public class Action_Shoot : MonoBehaviour
         myChar.myEnergy.ReloadEnergy();
         SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, pyroLaunchSfx);
         pyroSphere.transform.position = shootingPoint.transform.position;
+    }
+    
+    public void RecoverPyroSphere()
+    {
+        pyroReady = true;
+        pyroAnimator.SetTrigger("ready");
     }
 
     #endregion
