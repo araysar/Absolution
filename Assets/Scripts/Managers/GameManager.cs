@@ -119,6 +119,8 @@ public class GameManager : MonoBehaviour
     public void ChangeScene()
     {
         SceneManager.LoadScene(nextScene);
+        Character_Movement.instance.myShooter.RecoverPyroSphere();
+        Character_Movement.instance.myShooter.GrowPool(3);
         Character_Movement.instance.gameObject.transform.position = nextPosition;
     }
 

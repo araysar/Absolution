@@ -23,6 +23,7 @@ public class Character_Movement : MonoBehaviour
     private bool isMoving;
     private bool canMove = true;
     private bool canFlip = true;
+
     [Space, Header("Jump")]
     public float jumpForce = 5;
     [SerializeField] private Transform groundCheck;
@@ -431,7 +432,7 @@ public class Character_Movement : MonoBehaviour
                 myEnergy.ReloadEnergy();
                 if (myAnim.GetBool("isJumping") || myAnim.GetBool("isFalling")) myAnim.Play("Idle", 0, 0f);
                 SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, doubleJumpSfx);
-                doubleJumpEffect.Play();
+                Instantiate(doubleJumpEffect, groundCheck.position, Quaternion.identity);
             }
             timeInAir = 0;
             currentJumps--;
@@ -678,6 +679,7 @@ public class Character_Movement : MonoBehaviour
         isCharging = false;
         isDashing = false;
         isFalling = false;
+        myShooter.RecoverPyroSphere();
         ControlAnimations();
         myAnim.Play("Idle", 0);
     }
@@ -698,6 +700,7 @@ public class Character_Movement : MonoBehaviour
         PowerUpErase();
         myUpgrades = new List<PowerUp>(saveMyUpgrades);
         PowerUpGrab();
+        myShooter.RecoverPyroSphere();
         transform.position = myHealth.initialPosition;
         myHealth.RefreshLifeBar();
         myEnergy.ReloadEnergy();

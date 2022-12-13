@@ -27,8 +27,7 @@ public class PyroSphere_Explosion : MonoBehaviour
     
     public void OnParticleSystemStopped()
     {
-        myShooter.pyroReady = true;
-        myShooter.pyroAnimator.SetTrigger("ready");
+        myShooter.RecoverPyroSphere();
         damagedEnemies.Clear();
         gameObject.SetActive(false);
     }
