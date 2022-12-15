@@ -45882,9 +45882,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1897431516, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
+      propertyPath: launchVoice
+      value: 
+      objectReference: {fileID: 8300000, guid: cf2d062d01aee87489fbcfc4ba4a74a1, type: 3}
     - target: {fileID: 3284561371220175778, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
       propertyPath: m_Name
       value: Character
+      objectReference: {fileID: 0}
+    - target: {fileID: 3284561371220175779, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
+      propertyPath: myUpgrades.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3284561371220175779, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
+      propertyPath: myUpgrades.Array.data[0]
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3284561371220175783, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
       propertyPath: m_RootOrder
