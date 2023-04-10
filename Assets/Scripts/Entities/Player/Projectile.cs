@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class Projectile : MonoBehaviour
 {
-    [HideInInspector] public Action_Shoot myPool;
+    [HideInInspector] public Character_Attack myPool;
 
     public abstract void Impact(Health.ArmorType armorType);
 }

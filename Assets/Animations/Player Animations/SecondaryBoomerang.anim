@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: AttackFire
+  m_Name: SecondaryBoomerang
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -107,13 +107,6 @@ AnimationClip:
   - time: 0.2
     functionName: EnableFlip
     data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 0.2
-    functionName: FinishShooting
-    data: attackFire
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0

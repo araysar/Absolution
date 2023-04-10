@@ -5,13 +5,13 @@ using UnityEngine;
 public class PyroSphere_Explosion : MonoBehaviour
 {
     [HideInInspector] public Character_Movement myChar;
-    [HideInInspector] public Action_Shoot myShooter;
+    [HideInInspector] public Character_Attack myShooter;
     List<Collider2D> damagedEnemies = new List<Collider2D>();
     [SerializeField] private float damage;
     void Awake()
     {
         myChar = FindObjectOfType<Character_Movement>();
-        myShooter = myChar.GetComponent<Action_Shoot>();
+        myShooter = myChar.GetComponent<Character_Attack>();
         DontDestroyOnLoad(gameObject);
     }
 
@@ -27,7 +27,7 @@ public class PyroSphere_Explosion : MonoBehaviour
     
     public void OnParticleSystemStopped()
     {
-        myShooter.RecoverPyroSphere();
+       // myShooter.RecoverPyroSphere();
         damagedEnemies.Clear();
         gameObject.SetActive(false);
     }

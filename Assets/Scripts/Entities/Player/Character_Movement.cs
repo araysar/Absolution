@@ -13,7 +13,7 @@ public class Character_Movement : MonoBehaviour
     public bool isCharging = false;
     [HideInInspector] public Health myHealth;
     [HideInInspector] public Energy myEnergy;
-    [HideInInspector] public Action_Shoot myShooter;
+    [HideInInspector] public Character_Attack myShooter;
     public GameObject playerCameraBounds;
 
     [Header("Move")]
@@ -44,7 +44,6 @@ public class Character_Movement : MonoBehaviour
     public bool isGrounded = true;
     public bool isFalling = false;
     public bool isJumping = false;
-    private bool isLanding = false;
     private float timeInAir = 0;
 
     [Space, Header("Wall")]
@@ -114,7 +113,7 @@ public class Character_Movement : MonoBehaviour
 
     //Animation
     private float gravityScale;
-    private Animator myAnim;
+    public Animator myAnim;
 
     void Awake()
     {
@@ -127,7 +126,7 @@ public class Character_Movement : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        myShooter = GetComponent<Action_Shoot>();
+        myShooter = GetComponent<Character_Attack>();
         rb = GetComponent<Rigidbody2D>();
         myAnim = GetComponent<Animator>();
         myHealth = GetComponent<Health>();
@@ -318,12 +317,12 @@ public class Character_Movement : MonoBehaviour
         }
     }
 
-    private void EnableFlip()
+    public void EnableFlip()
     {
         canFlip = true;
     }
 
-    private void DisableFlip()
+    public void DisableFlip()
     {
         canFlip = false;
     }
@@ -679,7 +678,6 @@ public class Character_Movement : MonoBehaviour
         isCharging = false;
         isDashing = false;
         isFalling = false;
-        myShooter.RecoverPyroSphere();
         ControlAnimations();
         myAnim.Play("Idle", 0);
     }
@@ -700,7 +698,6 @@ public class Character_Movement : MonoBehaviour
         PowerUpErase();
         myUpgrades = new List<PowerUp>(saveMyUpgrades);
         PowerUpGrab();
-        myShooter.RecoverPyroSphere();
         transform.position = myHealth.initialPosition;
         myHealth.RefreshLifeBar();
         myEnergy.ReloadEnergy();

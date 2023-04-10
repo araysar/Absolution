@@ -86,7 +86,6 @@ public class Ultimate: MonoBehaviour
         {
             myChar.isCharging = true;
             ultiReady = false;
-            myChar.myShooter.isAttacking = true;
             GameManager.instance.TriggerAction(GameManager.ExecuteAction.StopMovementEvent);
             myChar.ControlAnimations();
         }
@@ -126,7 +125,7 @@ public class Ultimate: MonoBehaviour
     private void EndUltimate()
     {
         myChar.isUlting = false;
-        myChar.myShooter.FinishShooting();
+
         myChar.myHealth.defense = defenseBeforeUltimate;
         GameManager.instance.TriggerAction(GameManager.ExecuteAction.ResumeMovementEvent);
     }

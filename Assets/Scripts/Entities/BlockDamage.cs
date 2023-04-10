@@ -19,7 +19,7 @@ public class BlockDamage : MonoBehaviour
         Projectile collider = collision.GetComponent<Projectile>();
         if (collider != null && (myHealth.currentHP > 0 || noHealth))
         {
-            collider.myPool.AddToPool(collision.gameObject);
+
         }
     }
 }

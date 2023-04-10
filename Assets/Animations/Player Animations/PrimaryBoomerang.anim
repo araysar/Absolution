@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Attack1_1
+  m_Name: PrimaryBoomerang
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -97,16 +97,16 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.2
-    functionName: EnableFlip
+  - time: 0.05
+    functionName: LaunchPyroSphere
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 0.2
-    functionName: FinishShooting
-    data: attack1
+    functionName: EnableFlip
+    data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0

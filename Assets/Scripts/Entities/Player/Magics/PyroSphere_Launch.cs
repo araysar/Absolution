@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PyroSphere_Launch : MonoBehaviour
 {
-    [HideInInspector] public Action_Shoot myShooter;
+    [HideInInspector] public Character_Attack myShooter;
     private Rigidbody2D myRb;
     private Character_Movement myChar;
     [SerializeField] private GameObject explosion;
@@ -58,8 +58,8 @@ public class PyroSphere_Launch : MonoBehaviour
 
         else if(collision.gameObject.layer == 10) //camera
         {
-            myShooter.pyroReady = true;
-            myShooter.pyroAnimator.SetTrigger("ready");
+            //myShooter.pyroReady = true;
+            //myShooter.pyroAnimator.SetTrigger("ready");
             gameObject.SetActive(false);
         }
     }

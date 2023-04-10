@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 6849535208250105903}
   - component: {fileID: 2694878523417146993}
   - component: {fileID: -1061346557218344288}
-  - component: {fileID: 3029695397543851873}
   - component: {fileID: 326960032164510063}
   - component: {fileID: -1313529266197173721}
+  - component: {fileID: -6964845787962105846}
   m_Layer: 9
   m_Name: Dagger
   m_TagString: Untagged
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -519103173
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 11
   m_Sprite: {fileID: 21300000, guid: 49f898d4dac9c4249bf3238ab11e8983, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -107,26 +107,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 6
---- !u!114 &3029695397543851873
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 93469018123781654}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51d061b47b0b26242a6a440baced6505, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  myPool: {fileID: 0}
-  myAnim: {fileID: -1313529266197173721}
-  impactEffect: {fileID: 0}
-  blockedImpactEffect: {fileID: 3416543320713666645, guid: 8a132a7eef578394ea911270581e4eec, type: 3}
-  soundLaunch: {fileID: 8300000, guid: 37eb70f5f6c6d5444b9200f0c1e58a98, type: 3}
-  isRolling: 0
-  damage: 10
-  speed: 13
 --- !u!70 &326960032164510063
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -162,3 +142,22 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &-6964845787962105846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 93469018123781654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39737f7fbaa492c4da70f9b7e8c82403, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  myAttack: {fileID: 0}
+  speed: 20
+  damage: 10
+  backTime: 0.75
+  isBacking: 0
+  isFacingRight: 1
