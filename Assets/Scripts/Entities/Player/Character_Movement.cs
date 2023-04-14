@@ -20,7 +20,7 @@ public class Character_Movement : MonoBehaviour
     public float speed = 3;
     [HideInInspector] public Rigidbody2D rb;
     public bool isFacingRight = true;
-    private bool isMoving;
+    public bool isMoving;
     private bool canMove = true;
     private bool canFlip = true;
 
@@ -556,34 +556,22 @@ public class Character_Movement : MonoBehaviour
             switch (item)
             {
                 case PowerUp.DoubleJump:
-                    for (int i = 0; i < myEnergy.uiGameObject.Length; i++)
-                    {
-                        myEnergy.uiGameObject[i].SetActive(true);
-                    }
                     if(maxJumps < 2)
                     {
                         maxJumps = 2;
                     }
                     break;
                 case PowerUp.Dash:
-                    for (int i = 0; i < myEnergy.uiGameObject.Length; i++)
-                    {
-                        myEnergy.uiGameObject[i].SetActive(true);
-                    }
+
                     uiDash.SetActive(true);
                     break;
+
                 case PowerUp.Fire:
-                    for (int i = 0; i < myEnergy.uiGameObject.Length; i++)
-                    {
-                        myEnergy.uiGameObject[i].SetActive(true);
-                    }
+
                     uiFire.SetActive(true);
                     break;
                 case PowerUp.Ice:
-                    for (int i = 0; i < myEnergy.uiGameObject.Length; i++)
-                    {
-                        myEnergy.uiGameObject[i].SetActive(true);
-                    }
+
                     break;
                 case PowerUp.Water:
                     break;
@@ -683,7 +671,6 @@ public class Character_Movement : MonoBehaviour
     }
     public void SaveData()
     {
-        saveCurrentEnergy = myEnergy.currentEnergy;
         saveCurrentHp = myHealth.maxHP;
         saveUlti1Stacks = ulti1Stacks;
         saveMyUpgrades = new List<PowerUp>(myUpgrades);
@@ -692,7 +679,6 @@ public class Character_Movement : MonoBehaviour
 
     public void LoadData()
     {
-        myEnergy.currentEnergy = saveCurrentEnergy;
         myHealth.currentHP = saveCurrentHp;
         ulti1Stacks = saveUlti1Stacks;
         PowerUpErase();

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 public class Health : MonoBehaviour, IDamageable
 {
     [Header("Life")]
+    public bool impactBomb = false;
     public float maxHP = 10;
     public float currentHP;
     public float defense = 0;

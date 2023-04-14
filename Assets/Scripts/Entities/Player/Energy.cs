@@ -23,11 +23,6 @@ public class Energy : MonoBehaviour
         EnergyRegen = Regeneration;
     }
 
-    void Update()
-    {
-        EnergyRegen();
-    }
-
     public bool CanUse(float cost)
     {
         if(cost <= currentEnergy)
