@@ -22,8 +22,8 @@ public class Bullet : MonoBehaviour
         body.SetActive(true);
         Flip();
         myCollider.enabled = true;
-        transform.Translate(new Vector2(myAttack.player.isFacingRight ? myAttack.primarySpeed * Time.deltaTime :
-            -myAttack.primarySpeed * Time.deltaTime, 0));
+        myRb.velocity = new Vector2((myAttack.player.isFacingRight? myAttack.primarySpeed: 
+            -myAttack.primarySpeed) * Time.deltaTime, 0);
     }
 
     public void Flip()
