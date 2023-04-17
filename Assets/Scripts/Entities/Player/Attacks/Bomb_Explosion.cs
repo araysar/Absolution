@@ -18,7 +18,7 @@ public class Bomb_Explosion : MonoBehaviour
     {
         IDamageable myTarget = collision.GetComponent<IDamageable>();
 
-        if(myTarget != null && collision.gameObject.layer != myBomb.player.gameObject.layer)
+        if(myTarget != null && collision.gameObject.layer != myBomb.myAttack.player.gameObject.layer)
         {
             if(!myTargets.Contains(myTarget))
             {

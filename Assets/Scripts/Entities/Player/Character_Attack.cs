@@ -55,7 +55,7 @@ public class Character_Attack : MonoBehaviour
         CreateCube();
         player = GetComponent<Character_Movement>();
         currentTime = timeToShuffle;
-        currentAttack = myAttacks[0];// myAttacks[Random.Range(0, myAttacks.Length)];
+        currentAttack = myAttacks[1];// myAttacks[Random.Range(0, myAttacks.Length)];
         uiImage.sprite = currentAttack.myImage;
     }
 
@@ -106,11 +106,12 @@ public class Character_Attack : MonoBehaviour
     public void AttackCube(bool value)
     {
         myCube.gameObject.SetActive(value);
+        myCube.transform.position = cubeTransform.position;
     }
 
     private void TimerUI()
     {
-       // timerText.text = Mathf.RoundToInt(currentTime).ToString();
+        timerText.text = Mathf.RoundToInt(currentTime).ToString();
     }
 
 }

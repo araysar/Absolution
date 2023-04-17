@@ -45890,11 +45890,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1664724813712062553, guid: a95fbddaa439c8b41ba341a90b31de4a, type: 3}
   m_PrefabInstance: {fileID: 2031448174}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &2035258337 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2663591587055736085, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
-  m_PrefabInstance: {fileID: 3284561372434351562}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2041121983
 GameObject:
   m_ObjectHideFlags: 0
@@ -46569,6 +46564,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2084073466, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
+      propertyPath: timeToAttack
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 538693597665865373, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -46585,29 +46584,9 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2033534419771758926, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3284561371220175776, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
-      propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 0.848
-      objectReference: {fileID: 0}
-    - target: {fileID: 3284561371220175776, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
-      propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 1.352
-      objectReference: {fileID: 0}
     - target: {fileID: 3284561371220175778, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
       propertyPath: m_Name
       value: Character
-      objectReference: {fileID: 0}
-    - target: {fileID: 3284561371220175779, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
-      propertyPath: myUpgrades.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3284561371220175779, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
-      propertyPath: myUpgrades.Array.data[0]
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3284561371220175783, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
       propertyPath: m_RootOrder
@@ -46653,14 +46632,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3647580896632792794, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
-      propertyPath: myCubePrefab
-      value: 
-      objectReference: {fileID: -1588686627454867838, guid: d749fb8fc9e460c428708d80b0678f91, type: 3}
-    - target: {fileID: 3647580896632792794, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
-      propertyPath: cubeTransform
-      value: 
-      objectReference: {fileID: 2035258337}
     - target: {fileID: 7567428277371267615, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

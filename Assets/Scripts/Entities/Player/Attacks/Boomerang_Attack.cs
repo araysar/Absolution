@@ -9,6 +9,7 @@ public class Boomerang_Attack : Attack_Type
     private Boomerang myBoomerang;
     public float primarySpeed;
     public float backTime = 0.75f;
+    public float timeToAttack = 0.25f;
 
     //[Header("Secondary Attack")]
 
@@ -37,6 +38,7 @@ public class Boomerang_Attack : Attack_Type
             myBoomerang = Instantiate(boomerangPrefab);
             Setup();
         }
+        StartCoroutine(PrimaryCooldown());
     }
 
     public override void SecondaryAttack()
@@ -47,26 +49,21 @@ public class Boomerang_Attack : Attack_Type
     private IEnumerator PrimaryCooldown()
     {
         player.myAnim.SetBool("isAttacking", true);
-        yield return new WaitForSeconds(0.3f);
         myAttack.AttackCube(false);
+        yield return new WaitForSeconds(timeToAttack / 2.5f);
         isAttacking = true;
         myBoomerang.gameObject.SetActive(true);
+        myBoomerang.Flip();
         myBoomerang.Timer();
         myBoomerang.isBacking = false;
-        myBoomerang.isFacingRight = player.isFacingRight;
-        myBoomerang.Flip();
-        myBoomerang.transform.position = player.transform.position;
+        myBoomerang.transform.position = transform.position;
         player.myAnim.SetTrigger("primaryBoomerang");
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(timeToAttack / 2);
         player.myAnim.SetBool("isAttacking", false);
     }
 
     public override void Setup()
     {
-        myBoomerang.speed = primarySpeed;
-        myBoomerang.damage = damage;
-        myBoomerang.backTime = backTime;
         myBoomerang.myAttack = this;
-        myBoomerang.player = player;
     }
 }

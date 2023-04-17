@@ -4,11 +4,7 @@ using UnityEngine;
 
 public class Boomerang : MonoBehaviour
 {
-    public Character_Movement player;
     public Boomerang_Attack myAttack;
-    public float speed;
-    public float damage;
-    public float backTime = 1;
     public bool isBacking = false;
     public bool isFacingRight = true;
     private List<IDamageable> myTargets = new List<IDamageable>();
@@ -17,12 +13,13 @@ public class Boomerang : MonoBehaviour
     {
         if(!isBacking)
         {
-            transform.Translate(new Vector2(isFacingRight ? speed * Time.deltaTime : -speed * Time.deltaTime, 0));
+            transform.Translate(new Vector2(isFacingRight? myAttack.primarySpeed * Time.deltaTime :
+                -myAttack.primarySpeed * Time.deltaTime, 0));
         }
         else
         {
-            transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
-            if((player.transform.position - transform.position).magnitude < 0.1f)
+            transform.position = Vector2.MoveTowards(transform.position, myAttack.transform.position, myAttack.primarySpeed * Time.deltaTime);
+            if((myAttack.transform.position - transform.position).magnitude < 0.1f)
             {
                 StopAllCoroutines();
                 myTargets.Clear();
@@ -39,21 +36,21 @@ public class Boomerang : MonoBehaviour
 
     public IEnumerator TimeToBack()
     {
-        yield return new WaitForSeconds(backTime);
+        yield return new WaitForSeconds(myAttack.backTime);
         myTargets.Clear();
         isBacking = true;
     }
 
     public void Flip()
     {
-        if (isFacingRight)
+        if (myAttack.player.isFacingRight)
         {
-            transform.rotation = new Quaternion(0, 0, 0, 0);
+            transform.rotation = new Quaternion(0, 180, 0, 0);
             isFacingRight = true;
         }
         else
         {
-            transform.rotation = new Quaternion(0, 180, 0, 0);
+            transform.rotation = new Quaternion(0, 0, 0, 0);
             isFacingRight = false;
         }
     }
@@ -61,11 +58,11 @@ public class Boomerang : MonoBehaviour
     private void OnTriggerStay2D(Collider2D collision)
     {
         IDamageable target = collision.GetComponent<IDamageable>();
-        if(target != null && collision.gameObject.layer != player.gameObject.layer)
+        if(target != null && collision.gameObject.layer != myAttack.player.gameObject.layer)
         {
             if(!myTargets.Contains(target))
             {
-                target.TakeDamage(damage);
+                target.TakeDamage(myAttack.damage);
                 myTargets.Add(target);
             }
         }

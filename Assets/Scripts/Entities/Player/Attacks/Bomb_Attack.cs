@@ -10,7 +10,7 @@ public class Bomb_Attack : Attack_Type
     public Vector2 addForce;
     public Vector2 addMovingForce;
     public float explodeTime = 1.25f;
-    public float cooldown = 1.25f;
+    public float timeToAttack;
 
     //[Header("Secondary Attack")]
 
@@ -37,14 +37,7 @@ public class Bomb_Attack : Attack_Type
             myBomb = Instantiate(bombPrefab);
             Setup();
         }
-        myAttack.AttackCube(false);
-        isAttacking = true;
-        myBomb.gameObject.SetActive(true);
-        myBomb.isFacingRight = player.isFacingRight;
-        myBomb.Flip();
-        myBomb.Preparation();
-        myBomb.transform.position = transform.position;
-        player.myAnim.SetTrigger("primaryBomb");
+        StartCoroutine(PrimaryCooldown());
     }
 
     public override void SecondaryAttack()
@@ -52,10 +45,23 @@ public class Bomb_Attack : Attack_Type
 
     }
 
+    private IEnumerator PrimaryCooldown()
+    {
+        myAttack.AttackCube(false);
+        isAttacking = true;
+        player.myAnim.SetBool("isAttacking", true);
+        player.myAnim.SetTrigger("primaryBomb");
+        yield return new WaitForSeconds(timeToAttack / 2);
+        myBomb.transform.position = transform.position;
+        myBomb.gameObject.SetActive(true);
+        myBomb.Flip();
+        myBomb.Preparation();
+        yield return new WaitForSeconds(timeToAttack / 2);
+        player.myAnim.SetBool("isAttacking", false);
+    }
     public override void Setup()
     {
         myBomb.myAttack = this;
-        myBomb.player = player;
         myBomb.gameObject.SetActive(false);
     }
 }

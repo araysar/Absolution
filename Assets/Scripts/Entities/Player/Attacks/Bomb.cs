@@ -4,13 +4,10 @@ using UnityEngine;
 
 public class Bomb : MonoBehaviour
 {
-    public Character_Movement player;
     public Bomb_Attack myAttack;
     public Rigidbody2D myRb;
     public Bomb_Explosion myExplosionPrefab;
     private Bomb_Explosion myExplosion;
-
-    public bool isFacingRight = true;
 
     private void Start()
     {
@@ -21,14 +18,14 @@ public class Bomb : MonoBehaviour
 
     public void Preparation()
     {
-        if(!player.isMoving)
+        if(!myAttack.player.isMoving)
         {
-            myRb.AddForce(isFacingRight? myAttack.addForce :
+            myRb.AddForce(myAttack.player.isFacingRight? myAttack.addForce :
                 new Vector2(-myAttack.addForce.x, myAttack.addForce.y), ForceMode2D.Impulse);
         }
         else
         {
-            myRb.AddForce(isFacingRight? myAttack.addMovingForce:
+            myRb.AddForce(myAttack.player.isFacingRight? myAttack.addMovingForce:
                 new Vector2(-myAttack.addMovingForce.x, myAttack.addMovingForce.y), ForceMode2D.Impulse);
         }
         StartCoroutine(TimeToExplode());
@@ -42,15 +39,13 @@ public class Bomb : MonoBehaviour
 
     public void Flip()
     {
-        if (isFacingRight)
+        if (myAttack.player.isFacingRight)
         {
             transform.rotation = new Quaternion(0, 0, 0, 0);
-            isFacingRight = true;
         }
         else
         {
             transform.rotation = new Quaternion(0, 180, 0, 0);
-            isFacingRight = false;
         }
     }
 
