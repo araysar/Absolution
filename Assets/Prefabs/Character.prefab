@@ -14981,7 +14981,7 @@ Transform:
   m_LocalScale: {x: 1.875, y: 1.875, z: 1.5}
   m_Children: []
   m_Father: {fileID: 1339754456}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &546582208
 MonoBehaviour:
@@ -14999,12 +14999,13 @@ MonoBehaviour:
   soundClips: []
   damage: 10
   isAttacking: 0
-  myImage: {fileID: 21300000, guid: 97ead98ba747b1543b20b70bbbadc7e6, type: 3}
+  myImage: {fileID: 21300000, guid: 1132e77a9bfaf4c40b4dad6f9815dc88, type: 3}
   myAttack: {fileID: 0}
   player: {fileID: 0}
   boomerangPrefab: {fileID: -6964845787962105846, guid: 70c8195c26144364ba8910d01731be0c, type: 3}
   primarySpeed: 10
   backTime: 0.5
+  timeToAttack: 0.25
 --- !u!1 &586474985
 GameObject:
   m_ObjectHideFlags: 0
@@ -15152,7 +15153,7 @@ Transform:
   - {fileID: 1460266424}
   - {fileID: 76385888}
   m_Father: {fileID: 1339754456}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &664230564
 MonoBehaviour:
@@ -15170,7 +15171,7 @@ MonoBehaviour:
   soundClips: []
   damage: 15
   isAttacking: 0
-  myImage: {fileID: 21300000, guid: 99e955a060ab566468e5bb2a2db5cdc8, type: 3}
+  myImage: {fileID: 21300000, guid: 211aa00055172f545a01ee8dea2e9278, type: 3}
   myAttack: {fileID: 0}
   player: {fileID: 0}
   radius: 0.8
@@ -20505,9 +20506,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 7859582818128361080}
   - {fileID: 664230563}
   - {fileID: 546582207}
-  - {fileID: 7859582818128361080}
   - {fileID: 2084073465}
   - {fileID: 1442397608}
   - {fileID: 2663591587055736085}
@@ -20561,7 +20562,7 @@ MonoBehaviour:
   soundClips: []
   damage: 10
   isAttacking: 0
-  myImage: {fileID: 21300000, guid: 760745b069ee30349bae4de16997956a, type: 3}
+  myImage: {fileID: 21300000, guid: 9cef0e96d3514b146824771ec6de44d1, type: 3}
   myAttack: {fileID: 0}
   player: {fileID: 0}
   bulletPrefab: {fileID: 4768580105158206522, guid: 449faa973c8060d4d8c95817b0d1abac, type: 3}
@@ -35225,14 +35226,14 @@ MonoBehaviour:
   soundClips: []
   damage: 20
   isAttacking: 0
-  myImage: {fileID: 21300000, guid: 8f690bbd08e2cb7479ad850974822db0, type: 3}
+  myImage: {fileID: 21300000, guid: b441c935328c71449b6225c1c59a9a73, type: 3}
   myAttack: {fileID: 0}
   player: {fileID: 0}
   bombPrefab: {fileID: 3373050241655272986, guid: c9aae52b09489274794359fe0d269747, type: 3}
   addForce: {x: 4, y: 3}
   addMovingForce: {x: 6, y: 4}
   explodeTime: 1.25
-  cooldown: 1.25
+  timeToAttack: 0
 --- !u!1 &2118394884
 GameObject:
   m_ObjectHideFlags: 0
@@ -45955,7 +45956,7 @@ MonoBehaviour:
   - {fileID: 664230564}
   - {fileID: 1442397609}
   currentAttack: {fileID: 0}
-  timeToShuffle: 20
+  timeToShuffle: 10
   currentTime: 0
   shuffleActivated: 1
   timerText: {fileID: 290143026}
@@ -46307,8 +46308,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 50, y: -58.125}
-  m_SizeDelta: {x: 75, y: 75}
+  m_AnchoredPosition: {x: 50, y: -60}
+  m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7698775093800690197
 CanvasRenderer:
@@ -46455,7 +46456,7 @@ RectTransform:
   m_Children:
   - {fileID: 1587061532992313993}
   m_Father: {fileID: 1339754456}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -46615,14 +46616,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.08170166, g: 0.2873725, b: 0.33962262, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: b4a0439047ca9614993938b5beb82297, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -46966,14 +46967,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8552b11dbf38b304b8a1f5992f99146e, type: 3}
---- !u!4 &5012458389926280081 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6583231465960820372, guid: 8552b11dbf38b304b8a1f5992f99146e, type: 3}
-  m_PrefabInstance: {fileID: 2221262504879699205}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &5012458389926280109 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6583231465960820392, guid: 8552b11dbf38b304b8a1f5992f99146e, type: 3}
+  m_PrefabInstance: {fileID: 2221262504879699205}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5012458389926280081 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6583231465960820372, guid: 8552b11dbf38b304b8a1f5992f99146e, type: 3}
   m_PrefabInstance: {fileID: 2221262504879699205}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3284561372222654571
@@ -47037,6 +47038,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c8761cfd185a68842b5a8379c53ac21c, type: 3}
+--- !u!4 &3776557218529332 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3285501170842404959, guid: c8761cfd185a68842b5a8379c53ac21c, type: 3}
+  m_PrefabInstance: {fileID: 3284561372222654571}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &3776557218529333 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3285501170842404958, guid: c8761cfd185a68842b5a8379c53ac21c, type: 3}
@@ -47048,11 +47054,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd03f7bc7ab66ae4ba68dfaf67a0b0f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &3776557218529332 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3285501170842404959, guid: c8761cfd185a68842b5a8379c53ac21c, type: 3}
-  m_PrefabInstance: {fileID: 3284561372222654571}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3284561372395081733
 PrefabInstance:
   m_ObjectHideFlags: 0
