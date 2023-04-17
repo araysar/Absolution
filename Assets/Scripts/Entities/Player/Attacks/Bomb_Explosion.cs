@@ -10,7 +10,7 @@ public class Bomb_Explosion : MonoBehaviour
     {
         myTargets.Clear();
         myBomb.myAttack.isAttacking = false;
-        myBomb.myAttack.myAttack.cube.SetActive(true);
+        myBomb.myAttack.myAttack.AttackCube(true);
         gameObject.SetActive(false);
     }
 

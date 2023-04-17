@@ -58,6 +58,7 @@ public class Bomb : MonoBehaviour
     {
         myExplosion.transform.position = transform.position;
         myExplosion.gameObject.SetActive(true);
+        myAttack.myAttack.myCube.transform.position = transform.position;
         gameObject.SetActive(false);
     }
 

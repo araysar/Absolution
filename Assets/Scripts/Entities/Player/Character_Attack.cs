@@ -10,7 +10,9 @@ public class Character_Attack : MonoBehaviour
     public bool canAttack = true;
 
     //Attack system
-    public GameObject cube;
+    public Cube myCubePrefab;
+    public Cube myCube;
+    public Transform cubeTransform;
     public Attack_Type[] myAttacks;
     public Attack_Type currentAttack;
     public float timeToShuffle = 30;
@@ -50,10 +52,21 @@ public class Character_Attack : MonoBehaviour
 
     private void Awake()
     {
+        CreateCube();
         player = GetComponent<Character_Movement>();
         currentTime = timeToShuffle;
         currentAttack = myAttacks[0];// myAttacks[Random.Range(0, myAttacks.Length)];
         uiImage.sprite = currentAttack.myImage;
+    }
+
+    public void CreateCube()
+    {
+        if(myCube == null)
+        {
+            myCube = Instantiate(myCubePrefab);
+            myCube.gameObject.transform.position = cubeTransform.position;
+            myCube.myDestination = cubeTransform;
+        }
     }
 
     private void Update()
@@ -92,7 +105,7 @@ public class Character_Attack : MonoBehaviour
 
     public void AttackCube(bool value)
     {
-        cube.SetActive(value);
+        myCube.gameObject.SetActive(value);
     }
 
     private void TimerUI()
