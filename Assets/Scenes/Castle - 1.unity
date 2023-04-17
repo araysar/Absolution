@@ -41361,6 +41361,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3511343664607500677, guid: e15ec5685c1ad234595c0a00efc210db, type: 3}
   m_PrefabInstance: {fileID: 1207640724}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1234423088 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1339754456, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
+  m_PrefabInstance: {fileID: 3284561372434351562}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1235037612
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -41695,6 +41700,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 56850207381818059, guid: 78b7410be52a61944b1d1e51ea763c34, type: 3}
   m_PrefabInstance: {fileID: 1946459138}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1277851097 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 664230564, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
+  m_PrefabInstance: {fileID: 3284561372434351562}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb73f0862fecdd8419955c37b4503bb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1291036749
 GameObject:
   m_ObjectHideFlags: 0
@@ -42705,6 +42721,59 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4857895199567552295, guid: f7f2e082e56640b49bcbd345ca7014bd, type: 3}
   m_PrefabInstance: {fileID: 282593583}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1442397607
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1442397608}
+  - component: {fileID: 1442397609}
+  m_Layer: 6
+  m_Name: Rifle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1442397608
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1442397607}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1234423088}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1442397609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1442397607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31999e77e7c6b3047a300a0420f65a92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponName: 
+  soundClips: []
+  damage: 10
+  isAttacking: 0
+  myImage: {fileID: 21300000, guid: 760745b069ee30349bae4de16997956a, type: 3}
+  myAttack: {fileID: 0}
+  player: {fileID: 0}
+  bulletPrefab: {fileID: 4768580105158206522, guid: 449faa973c8060d4d8c95817b0d1abac, type: 3}
+  primarySpeed: 5
+  cooldown: 0.5
 --- !u!1001 &1446435676
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -46564,6 +46633,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 453776562, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 8f690bbd08e2cb7479ad850974822db0, type: 3}
     - target: {fileID: 546582208, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
       propertyPath: myImage
       value: 
@@ -46640,6 +46713,170 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3647580896632792794, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
+      propertyPath: myAttacks.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3647580896632792794, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
+      propertyPath: myAttacks.Array.data[3]
+      value: 
+      objectReference: {fileID: 1442397609}
+    - target: {fileID: 3647580896632792794, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
+      propertyPath: myAttacks.Array.data[4]
+      value: 
+      objectReference: {fileID: 1277851097}
+    - target: {fileID: 3647580896632792794, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
+      propertyPath: myAttacks.Array.data[5]
+      value: 
+      objectReference: {fileID: 1277851097}
+    - target: {fileID: 3647580896632792794, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
+      propertyPath: myAttacks.Array.data[6]
+      value: 
+      objectReference: {fileID: 1277851097}
+    - target: {fileID: 3647580896632792794, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
+      propertyPath: myAttacks.Array.data[7]
+      value: 
+      objectReference: {fileID: 1277851097}
+    - target: {fileID: 3647580896632792794, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
+      propertyPath: myAttacks.Array.data[8]
+      value: 
+      objectReference: {fileID: 1277851097}
+    - target: {fileID: 3647580896632792794, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
+      propertyPath: myAttacks.Array.data[9]
+      value: 
+      objectReference: {fileID: 1277851097}
+    - target: {fileID: 3647580896632792794, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
+      propertyPath: myAttacks.Array.data[10]
+      value: 
+      objectReference: {fileID: 1277851097}
+    - target: {fileID: 3647580896632792794, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
+      propertyPath: myAttacks.Array.data[11]
+      value: 
+      objectReference: {fileID: 1277851097}
+    - target: {fileID: 3647580896632792794, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
+      propertyPath: myAttacks.Array.data[12]
+      value: 
+      objectReference: {fileID: 1277851097}
+    - target: {fileID: 3647580896632792794, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
+      propertyPath: myAttacks.Array.data[13]
+      value: 
+      objectReference: {fileID: 1277851097}
+    - target: {fileID: 3647580896632792794, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
+      propertyPath: myAttacks.Array.data[14]
+      value: 
+      objectReference: {fileID: 1277851097}
+    - target: {fileID: 3647580896632792794, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
+      propertyPath: myAttacks.Array.data[15]
+      value: 
+      objectReference: {fileID: 1277851097}
+    - target: {fileID: 3647580896632792794, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
+      propertyPath: myAttacks.Array.data[16]
+      value: 
+      objectReference: {fileID: 1277851097}
+    - target: {fileID: 3647580896632792794, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
+      propertyPath: myAttacks.Array.data[17]
+      value: 
+      objectReference: {fileID: 1277851097}
+    - target: {fileID: 3647580896632792794, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
+      propertyPath: myAttacks.Array.data[18]
+      value: 
+      objectReference: {fileID: 1277851097}
+    - target: {fileID: 3647580896632792794, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
+      propertyPath: myAttacks.Array.data[19]
+      value: 
+      objectReference: {fileID: 1277851097}
+    - target: {fileID: 3647580896632792794, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
+      propertyPath: myAttacks.Array.data[20]
+      value: 
+      objectReference: {fileID: 1277851097}
+    - target: {fileID: 3647580896632792794, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
+      propertyPath: myAttacks.Array.data[21]
+      value: 
+      objectReference: {fileID: 1277851097}
+    - target: {fileID: 3647580896632792794, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
+      propertyPath: myAttacks.Array.data[22]
+      value: 
+      objectReference: {fileID: 1277851097}
+    - target: {fileID: 3647580896632792794, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
+      propertyPath: myAttacks.Array.data[23]
+      value: 
+      objectReference: {fileID: 1277851097}
+    - target: {fileID: 3647580896632792794, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
+      propertyPath: myAttacks.Array.data[24]
+      value: 
+      objectReference: {fileID: 1277851097}
+    - target: {fileID: 3647580896632792794, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
+      propertyPath: myAttacks.Array.data[25]
+      value: 
+      objectReference: {fileID: 1277851097}
+    - target: {fileID: 3647580896632792794, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
+      propertyPath: myAttacks.Array.data[26]
+      value: 
+      objectReference: {fileID: 1277851097}
+    - target: {fileID: 3647580896632792794, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
+      propertyPath: myAttacks.Array.data[27]
+      value: 
+      objectReference: {fileID: 1277851097}
+    - target: {fileID: 3647580896632792794, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
+      propertyPath: myAttacks.Array.data[28]
+      value: 
+      objectReference: {fileID: 1277851097}
+    - target: {fileID: 3647580896632792794, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
+      propertyPath: myAttacks.Array.data[29]
+      value: 
+      objectReference: {fileID: 1277851097}
+    - target: {fileID: 3647580896632792794, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
+      propertyPath: myAttacks.Array.data[30]
+      value: 
+      objectReference: {fileID: 1277851097}
+    - target: {fileID: 3647580896632792794, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
+      propertyPath: myAttacks.Array.data[31]
+      value: 
+      objectReference: {fileID: 1277851097}
+    - target: {fileID: 3647580896632792794, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
+      propertyPath: myAttacks.Array.data[32]
+      value: 
+      objectReference: {fileID: 1277851097}
+    - target: {fileID: 3647580896632792794, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
+      propertyPath: myAttacks.Array.data[33]
+      value: 
+      objectReference: {fileID: 1277851097}
+    - target: {fileID: 3647580896632792794, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
+      propertyPath: myAttacks.Array.data[34]
+      value: 
+      objectReference: {fileID: 1277851097}
+    - target: {fileID: 3647580896632792794, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
+      propertyPath: myAttacks.Array.data[35]
+      value: 
+      objectReference: {fileID: 1277851097}
+    - target: {fileID: 3647580896632792794, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
+      propertyPath: myAttacks.Array.data[36]
+      value: 
+      objectReference: {fileID: 1277851097}
+    - target: {fileID: 3647580896632792794, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
+      propertyPath: myAttacks.Array.data[37]
+      value: 
+      objectReference: {fileID: 1277851097}
+    - target: {fileID: 3647580896632792794, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
+      propertyPath: myAttacks.Array.data[38]
+      value: 
+      objectReference: {fileID: 1277851097}
+    - target: {fileID: 3647580896632792794, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
+      propertyPath: myAttacks.Array.data[39]
+      value: 
+      objectReference: {fileID: 1277851097}
+    - target: {fileID: 3647580896632792794, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
+      propertyPath: myAttacks.Array.data[40]
+      value: 
+      objectReference: {fileID: 1277851097}
+    - target: {fileID: 3647580896632792794, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
+      propertyPath: myAttacks.Array.data[41]
+      value: 
+      objectReference: {fileID: 1277851097}
+    - target: {fileID: 3647580896632792794, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
+      propertyPath: myAttacks.Array.data[42]
+      value: 
+      objectReference: {fileID: 1277851097}
     - target: {fileID: 4494047361762076688, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

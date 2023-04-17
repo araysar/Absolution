@@ -37,6 +37,17 @@ public class Boomerang_Attack : Attack_Type
             myBoomerang = Instantiate(boomerangPrefab);
             Setup();
         }
+    }
+
+    public override void SecondaryAttack()
+    {
+
+    }
+
+    private IEnumerator PrimaryCooldown()
+    {
+        player.myAnim.SetBool("isAttacking", true);
+        yield return new WaitForSeconds(0.3f);
         myAttack.AttackCube(false);
         isAttacking = true;
         myBoomerang.gameObject.SetActive(true);
@@ -46,11 +57,8 @@ public class Boomerang_Attack : Attack_Type
         myBoomerang.Flip();
         myBoomerang.transform.position = player.transform.position;
         player.myAnim.SetTrigger("primaryBoomerang");
-    }
-
-    public override void SecondaryAttack()
-    {
-
+        yield return new WaitForSeconds(0.3f);
+        player.myAnim.SetBool("isAttacking", false);
     }
 
     public override void Setup()

@@ -52,7 +52,7 @@ public class Character_Attack : MonoBehaviour
     {
         player = GetComponent<Character_Movement>();
         currentTime = timeToShuffle;
-        currentAttack = myAttacks[0];
+        currentAttack = myAttacks[0];// myAttacks[Random.Range(0, myAttacks.Length)];
         uiImage.sprite = currentAttack.myImage;
     }
 
@@ -97,7 +97,7 @@ public class Character_Attack : MonoBehaviour
 
     private void TimerUI()
     {
-        timerText.text = Mathf.RoundToInt(currentTime).ToString();
+       // timerText.text = Mathf.RoundToInt(currentTime).ToString();
     }
 
 }

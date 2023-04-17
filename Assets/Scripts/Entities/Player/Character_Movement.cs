@@ -210,7 +210,7 @@ public class Character_Movement : MonoBehaviour
             {
                 if (canDash)
                 {
-                    if (Time.time >= (lastDash + dashCooldown) && dashCharges > 0 && myEnergy.CanUse(energyDash))
+                    if (Time.time >= (lastDash + dashCooldown) && dashCharges > 0)
                     {
                         AttemptToDash();
                     }
@@ -229,9 +229,7 @@ public class Character_Movement : MonoBehaviour
 
     private void AttemptToDash()
     {
-        myEnergy.currentEnergy -= energyDash;
         myAnim.SetTrigger("exit");
-        myEnergy.ReloadEnergy();
         SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, dashSfx);
         dashCharges--;
         isDashing = true;
@@ -425,10 +423,8 @@ public class Character_Movement : MonoBehaviour
             if(myAnim.GetBool("isJumping") || myAnim.GetBool("isFalling")) myAnim.Play("Idle", 0, 0f);
             isFalling = false;
             SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, voiceJumpSfx);
-            if (currentJumps != maxJumps && myUpgrades.Contains(PowerUp.DoubleJump) && myEnergy.CanUse(energyDoubleJump))
+            if (currentJumps != maxJumps && myUpgrades.Contains(PowerUp.DoubleJump))
             {
-                myEnergy.currentEnergy -= energyDoubleJump;
-                myEnergy.ReloadEnergy();
                 if (myAnim.GetBool("isJumping") || myAnim.GetBool("isFalling")) myAnim.Play("Idle", 0, 0f);
                 SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, doubleJumpSfx);
                 Instantiate(doubleJumpEffect, groundCheck.position, Quaternion.identity);
@@ -591,31 +587,14 @@ public class Character_Movement : MonoBehaviour
             switch (item)
             {
                 case PowerUp.DoubleJump:
-                    for (int i = 0; i < myEnergy.uiGameObject.Length; i++)
-                    {
-                        myEnergy.uiGameObject[i].SetActive(false);
-                    }
                     maxJumps = 1;
                     break;
                 case PowerUp.Dash:
-                    for (int i = 0; i < myEnergy.uiGameObject.Length; i++)
-                    {
-                        myEnergy.uiGameObject[i].SetActive(false);
-                    }
                     uiDash.SetActive(false);
                     break;
                 case PowerUp.Fire:
-                    for (int i = 0; i < myEnergy.uiGameObject.Length; i++)
-                    {
-                        myEnergy.uiGameObject[i].SetActive(false);
-                    }
-                    uiFire.SetActive(false);
                     break;
                 case PowerUp.Ice:
-                    for (int i = 0; i < myEnergy.uiGameObject.Length; i++)
-                    {
-                        myEnergy.uiGameObject[i].SetActive(false);
-                    }
                     break;
                 case PowerUp.Water:
                     break;

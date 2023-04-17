@@ -8,22 +8,18 @@ public class Bullet : MonoBehaviour
     public GameObject body;
     public GameObject myHitEffect;
     public AudioClip hitSFX;
-    private Collider2D myCollider;
-    private Rigidbody2D myRb;
+    [SerializeField] private Collider2D myCollider;
+    [SerializeField] private Rigidbody2D myRb;
 
-    private void Start()
-    {
-        myCollider = GetComponent<Collider2D>();
-        myRb = GetComponent<Rigidbody2D>();
-    } 
 
-    private void Iniciate()
+    public void Iniciate()
     {
         body.SetActive(true);
         Flip();
+        transform.position = myAttack.transform.position;
         myCollider.enabled = true;
         myRb.velocity = new Vector2((myAttack.player.isFacingRight? myAttack.primarySpeed: 
-            -myAttack.primarySpeed) * Time.deltaTime, 0);
+            -myAttack.primarySpeed), 0);
     }
 
     public void Flip()
@@ -41,7 +37,10 @@ public class Bullet : MonoBehaviour
     private void OnHit()
     {
         myHitEffect.SetActive(true);
+        myCollider.enabled = false;
+        myRb.velocity = Vector2.zero;
         body.SetActive(false);
+        if (hitSFX != null) SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, hitSFX);
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -56,6 +55,12 @@ public class Bullet : MonoBehaviour
         else if (collision.gameObject.layer == 3)
         {
             OnHit();
+        }
+        else if(collision.gameObject.layer == 10)
+        {
+            myCollider.enabled = false;
+            myRb.velocity = Vector2.zero;
+            body.SetActive(false);
         }
     }
 }

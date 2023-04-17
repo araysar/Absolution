@@ -8,6 +8,7 @@ public class Rifle_Attack : Attack_Type
     public Bullet bulletPrefab;
     private List<Bullet> myBullets = new List<Bullet>();
     public float primarySpeed;
+    public float timeToAttack = 0.5f;
 
     //[Header("Secondary Attack")]
 
@@ -29,8 +30,9 @@ public class Rifle_Attack : Attack_Type
 
     public override void PrimaryAttack()
     {
+
         isAttacking = true;
-        GetBullet().gameObject.SetActive(true);
+        StartCoroutine(PrimaryCooldown());
     }
 
     public override void SecondaryAttack()
@@ -43,9 +45,18 @@ public class Rifle_Attack : Attack_Type
         for (int i = 0; i < 5; i++)
         {
             Bullet newBullet = Instantiate(bulletPrefab);
+            newBullet.myAttack = this;
             newBullet.gameObject.SetActive(false);
             myBullets.Add(newBullet);
         }
+    }
+
+    private IEnumerator PrimaryCooldown()
+    {
+        yield return new WaitForSeconds(timeToAttack / 2);
+        GetBullet().Iniciate();
+        yield return new WaitForSeconds(timeToAttack / 2);
+        isAttacking = false;
     }
 
     public Bullet GetBullet()
