@@ -35185,7 +35185,7 @@ MonoBehaviour:
   addForce: {x: 4, y: 3}
   addMovingForce: {x: 6, y: 4}
   explodeTime: 1.25
-  timeToAttack: 0.25
+  timeToAttack: 0.3
 --- !u!1 &2118394884
 GameObject:
   m_ObjectHideFlags: 0
@@ -45793,7 +45793,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.10310149, y: 0.000012069941}
+  m_Offset: {x: -0.15, y: 0.000012069941}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -45899,6 +45899,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canAttack: 1
+  firstWeapon: 0
   myCubePrefab: {fileID: -1588686627454867838, guid: d749fb8fc9e460c428708d80b0678f91, type: 3}
   myCube: {fileID: 0}
   cubeTransform: {fileID: 2663591587055736085}
