@@ -30,8 +30,8 @@ public class Rifle_Attack : Attack_Type
 
     public override void PrimaryAttack()
     {
-
         isAttacking = true;
+        player.myAnim.SetBool("isAttacking", true);
         StartCoroutine(PrimaryCooldown());
     }
 
@@ -53,9 +53,12 @@ public class Rifle_Attack : Attack_Type
 
     private IEnumerator PrimaryCooldown()
     {
-        yield return new WaitForSeconds(timeToAttack / 2);
+        player.myAnim.SetTrigger("primaryRifle");
+        myAttack.AttackCube(false);
         GetBullet().Iniciate();
-        yield return new WaitForSeconds(timeToAttack / 2);
+        yield return new WaitForSeconds(timeToAttack);
+        player.myAnim.SetBool("isAttacking", false);
+        myAttack.AttackCube(true);
         isAttacking = false;
     }
 

@@ -6,17 +6,21 @@ public class Cube : MonoBehaviour
 {
     public bool arrive = true;
     public Transform myDestination;
+    private Animator myAnim;
     public float t;
     public float speed;
 
     void Start()
     {
-        
+        myAnim = GetComponentInChildren<Animator>();
     }
 
     void FixedUpdate()
     {
-        if(arrive) Arrive();
+        if(arrive)
+        {
+            Arrive();
+        }
     }
 
     void Arrive()
@@ -26,6 +30,5 @@ public class Cube : MonoBehaviour
         Vector2 desired = b - a;
 
         transform.position = Vector2.MoveTowards(a, Vector2.Lerp(a, b, t), speed);
-
     }
 }

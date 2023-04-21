@@ -50,7 +50,6 @@ public class Boomerang_Attack : Attack_Type
     {
         player.myAnim.SetBool("isAttacking", true);
         myAttack.AttackCube(false);
-        yield return new WaitForSeconds(timeToAttack / 2.5f);
         isAttacking = true;
         myBoomerang.gameObject.SetActive(true);
         myBoomerang.Flip();
@@ -58,7 +57,7 @@ public class Boomerang_Attack : Attack_Type
         myBoomerang.isBacking = false;
         myBoomerang.transform.position = transform.position;
         player.myAnim.SetTrigger("primaryBoomerang");
-        yield return new WaitForSeconds(timeToAttack / 2);
+        yield return new WaitForSeconds(timeToAttack);
         player.myAnim.SetBool("isAttacking", false);
     }
 

@@ -44,11 +44,11 @@ public class Melee_Attack : Attack_Type
 
     public override void SecondaryAttack()
     {
-        if(!isAttacking)
-        {
-            isAttacking = true;
-            StartCoroutine(SecondaryPreparation());
-        }
+        //if(!isAttacking)
+        //{
+        //    isAttacking = true;
+        //    StartCoroutine(SecondaryPreparation());
+        //}
     }
 
     public override void Setup()
