@@ -10,6 +10,7 @@ public class Character_Attack : MonoBehaviour
     public bool canAttack = true;
 
     //Attack system
+    public int firstWeapon;
     public Cube myCubePrefab;
     public Cube myCube;
     public Transform cubeTransform;
@@ -55,7 +56,7 @@ public class Character_Attack : MonoBehaviour
         CreateCube();
         player = GetComponent<Character_Movement>();
         currentTime = timeToShuffle;
-        currentAttack = myAttacks[3];// myAttacks[Random.Range(0, myAttacks.Length)];
+        currentAttack = myAttacks[firstWeapon];// myAttacks[Random.Range(0, myAttacks.Length)];
         uiImage.sprite = currentAttack.myImage;
     }
 
