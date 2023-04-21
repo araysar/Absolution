@@ -51,12 +51,11 @@ public class Bomb_Attack : Attack_Type
         isAttacking = true;
         player.myAnim.SetBool("isAttacking", true);
         player.myAnim.SetTrigger("primaryBomb");
-        yield return new WaitForSeconds(timeToAttack / 2);
         myBomb.transform.position = transform.position;
         myBomb.gameObject.SetActive(true);
         myBomb.Flip();
         myBomb.Preparation();
-        yield return new WaitForSeconds(timeToAttack / 2);
+        yield return new WaitForSeconds(timeToAttack);
         player.myAnim.SetBool("isAttacking", false);
     }
     public override void Setup()
