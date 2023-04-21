@@ -58,6 +58,7 @@ public class Bomb_Attack : Attack_Type
         yield return new WaitForSeconds(timeToAttack);
         player.myAnim.SetBool("isAttacking", false);
     }
+
     public override void Setup()
     {
         myBomb.myAttack = this;

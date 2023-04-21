@@ -60,6 +60,11 @@ public class Character_Attack : MonoBehaviour
         uiImage.sprite = currentAttack.myImage;
     }
 
+    public void EndAttackAnimation()
+    {
+        player.myAnim.SetBool("isAttacking", false);
+    }
+
     public void CreateCube()
     {
         if(myCube == null)
