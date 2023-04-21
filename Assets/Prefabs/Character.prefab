@@ -14946,7 +14946,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 495556900}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.048, y: -0.53, z: 0}
+  m_LocalPosition: {x: -0.15, y: -0.53, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3284561371220175783}
@@ -45734,7 +45734,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 4.8, y: 4.66}
+  m_Size: {x: 1.6, y: 1.5533333}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -45798,7 +45798,7 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 1.6, y: 1.5533333}
-    newSize: {x: 4.8, y: 4.66}
+    newSize: {x: 1.6, y: 1.5533333}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -45836,7 +45836,7 @@ MonoBehaviour:
   energyDoubleJump: 5
   jumpCooldown: 0.25
   doubleJumpEffect: {fileID: 1887410149660417860, guid: 88b3c9f1cd262a14481060b9786c75bc, type: 3}
-  groundCheckRadius: 0.226
+  groundCheckRadius: 0.175
   groundMask:
     serializedVersion: 2
     m_Bits: 8
@@ -46011,7 +46011,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3479042150096677959}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.194, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3284561371220175783}
