@@ -140,6 +140,7 @@ public class Character_Attack : MonoBehaviour
     public void AddShard(int number)
     {
         myShards.Add(number);
+        currentShards++;
         shardsSystem.uiShards.text = currentShards.ToString();
     }
 }
