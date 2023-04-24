@@ -64,5 +64,6 @@ public class Boomerang_Attack : Attack_Type
     public override void Setup()
     {
         myBoomerang.myAttack = this;
+        myBoomerang.gameObject.SetActive(false);
     }
 }
