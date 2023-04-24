@@ -13,8 +13,7 @@ public class Boomerang : MonoBehaviour
     {
         if(!isBacking)
         {
-            transform.Translate(new Vector2(isFacingRight? myAttack.primarySpeed * Time.deltaTime :
-                -myAttack.primarySpeed * Time.deltaTime, 0));
+            transform.Translate(new Vector2(myAttack.primarySpeed * Time.deltaTime, 0));
         }
         else
         {
@@ -45,12 +44,12 @@ public class Boomerang : MonoBehaviour
     {
         if (myAttack.player.isFacingRight)
         {
-            transform.rotation = new Quaternion(0, 180, 0, 0);
+            transform.rotation = new Quaternion(0, 0, 0, 0);
             isFacingRight = true;
         }
         else
         {
-            transform.rotation = new Quaternion(0, 0, 0, 0);
+            transform.rotation = new Quaternion(0, 180, 0, 0);
             isFacingRight = false;
         }
     }
@@ -69,6 +68,7 @@ public class Boomerang : MonoBehaviour
         else if(collision.gameObject.layer == 3 && !isBacking)
         {
             isBacking = true;
+            myTargets.Clear();
         }
     }
 }
