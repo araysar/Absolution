@@ -20,9 +20,11 @@ public class Character_Attack : MonoBehaviour
     public float timeToShuffle = 30;
     public float currentTime;
     public bool shuffleActivated = true;
-    public TMP_Text timerText;
+    public Image timerUI;
     public TMP_Text nameText;
     public Image uiImage;
+    public Color emptyColor;
+    public Color fullColor;
 
     //Upgrades
     public int currentShards = 0;
@@ -61,7 +63,7 @@ public class Character_Attack : MonoBehaviour
         {
             currentAttack.EndAttack();
             currentAttack = myAttacks[nextWeapon];
-            currentTime = timeToShuffle; 
+            currentTime = 0; 
             AttackCube(true);
             uiImage.sprite = currentAttack.myImage;
         }
@@ -93,7 +95,7 @@ public class Character_Attack : MonoBehaviour
         }
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if(!GameManager.instance.onPause)
         {
@@ -116,10 +118,10 @@ public class Character_Attack : MonoBehaviour
             }
             if(shuffleActivated)
             {
-                currentTime -= Time.deltaTime;
+                currentTime += Time.fixedDeltaTime;
                 TimerUI();
             }
-            if(currentTime <= 0 && shuffleActivated)
+            if(currentTime >= timeToShuffle && shuffleActivated)
             {
                 ChangeWeapon();
             }
@@ -134,7 +136,8 @@ public class Character_Attack : MonoBehaviour
 
     private void TimerUI()
     {
-        timerText.text = Mathf.RoundToInt(currentTime).ToString();
+        timerUI.fillAmount = currentTime / timeToShuffle;
+        timerUI.color = Color.Lerp(emptyColor, fullColor, timerUI.fillAmount);
     }
 
     public void AddShard(int number)
