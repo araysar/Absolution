@@ -9,7 +9,8 @@ public class Health : MonoBehaviour, IDamageable
     public bool impactBomb = false;
     public float maxHP = 10;
     public float currentHP;
-    public float defense = 0;
+    public bool defenseActive = false;
+    public bool invulnerable = false;
     public float ulti1Stacks = 5;
     [SerializeField] private GameObject damagedEffect;
     [SerializeField] private AudioClip damagedSfx;
@@ -100,8 +101,8 @@ public class Health : MonoBehaviour, IDamageable
     {
         if (recovering || currentHP <= 0) return;
 
-        float totalDamage = dmg - defense;
-        if (totalDamage > 0)
+        float totalDamage = defenseActive? dmg / 2 : dmg;
+        if (!invulnerable)
         {
             currentHP -= totalDamage;
             if (currentHP < 0) currentHP = 0;

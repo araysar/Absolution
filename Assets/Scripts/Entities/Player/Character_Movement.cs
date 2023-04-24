@@ -612,12 +612,12 @@ public class Character_Movement : MonoBehaviour
 
     private void Invulnerability()
     {
-        myHealth.defense = 9999;
+        myHealth.invulnerable = true;
     }
 
     private void Vulnerable()
     {
-        myHealth.defense = 0;
+        myHealth.invulnerable = false;
     }
 
     private void DisablePlayer()

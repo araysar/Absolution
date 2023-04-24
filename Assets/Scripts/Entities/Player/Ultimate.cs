@@ -8,7 +8,6 @@ public class Ultimate: MonoBehaviour
     public bool canUse = true;
     public float chargingTime = 1f;
     public float skillTime = 2.5f;
-    private float defenseBeforeUltimate;
     [SerializeField] private float regenerationDelay = 0.5f;
     [SerializeField] private float regenerationPerTick = 1;
     [SerializeField] private string inputName = "Ultimate1";
@@ -105,8 +104,7 @@ public class Ultimate: MonoBehaviour
     }
     private void ChargingUltimate()
     {
-        defenseBeforeUltimate = myChar.myHealth.defense;
-        myChar.myHealth.defense = 9999;
+        myChar.myHealth.invulnerable = true;
         myChar.ulti1Stacks = 0;
         RefreshStacks(true);
         ultimateAnimator.SetTrigger("notReady");
@@ -125,8 +123,7 @@ public class Ultimate: MonoBehaviour
     private void EndUltimate()
     {
         myChar.isUlting = false;
-
-        myChar.myHealth.defense = defenseBeforeUltimate;
+        myChar.myHealth.invulnerable = false;
         GameManager.instance.TriggerAction(GameManager.ExecuteAction.ResumeMovementEvent);
     }
 }

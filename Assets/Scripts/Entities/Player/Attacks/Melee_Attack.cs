@@ -7,11 +7,18 @@ public class Melee_Attack : Attack_Type
     [Header("Primary Attack")]
     public float radius = 1;
     public float speed;
+    public float primaryAnimationTime = 0.25f;
     public float attackCooldown = 0.5f;
+    public MeleeBounds myBounds;
 
     [Header("Secondary Attack")]
     public Transform secondaryCenter;
     public float preparationTime = 1;
+
+    private void Start()
+    {
+        myBounds.myAttack = this;
+    }
 
     public override void EnteringMode()
     {
@@ -30,15 +37,6 @@ public class Melee_Attack : Attack_Type
         {
             isAttacking = true;
             Setup();
-            Collider2D[] collisions = Physics2D.OverlapCircleAll(transform.position, radius);
-            player.myAnim.SetTrigger("primaryKatana");
-            foreach (Collider2D item in collisions)
-            {
-                if (item.GetComponent<IDamageable>() != null && item.gameObject.layer != player.gameObject.layer)
-                {
-                    item.GetComponent<IDamageable>().TakeDamage(damage);
-                }
-            }
         }
     }
 
@@ -53,19 +51,23 @@ public class Melee_Attack : Attack_Type
 
     public override void Setup()
     {
-        StartCoroutine(AttackDelay());
+        StartCoroutine(PrimaryDelay());
     }
 
-    public IEnumerator AttackDelay()
+    public IEnumerator PrimaryDelay()
     {
-        myAttack.AttackCube(false); 
+        myAttack.AttackCube(false);
+        player.myAnim.SetTrigger("primaryKatana");
         player.myAnim.SetBool("isAttacking", true);
-        yield return new WaitForSeconds(attackCooldown);
-        myAttack.AttackCube(true);
-        isAttacking = false;
+        myBounds.gameObject.SetActive(true);
+        player.DisableFlip();
+        yield return new WaitForSeconds(primaryAnimationTime);
         player.myAnim.SetBool("isAttacking", false);
-        player.ResumeMovement();
+        myAttack.AttackCube(true);
+        myBounds.gameObject.SetActive(false);
         player.EnableFlip();
+        yield return new WaitForSeconds(attackCooldown - primaryAnimationTime);
+        isAttacking = false;
     }
 
     public IEnumerator SecondaryPreparation()
