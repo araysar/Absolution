@@ -201,8 +201,7 @@ public class Health : MonoBehaviour, IDamageable
             switch (myType)
             {
                 case Health.EntityType.common:
-                    if(deathEffect == null) GameManager.instance.ParticleEffect(GameManager.ParticleType.CommonEnemyDeathEffect, gameObject);
-                    else Instantiate(deathEffect, transform.position, Quaternion.identity);
+                    myAnim.SetTrigger("exit");
                     GameManager.instance.EnemyRespawnEvent += RespawnEnemy;
                     gameObject.SetActive(false);
                     break;
@@ -211,8 +210,6 @@ public class Health : MonoBehaviour, IDamageable
                     gameObject.SetActive(false);
                     break;
                 case Health.EntityType.player:
-                    if (deathEffect == null) GameManager.instance.ParticleEffect(GameManager.ParticleType.PlayerDeathEffect, gameObject);
-                    else Instantiate(deathEffect, transform.position, Quaternion.identity);
                     GameManager.instance.Transition(GameManager.EventType.PlayerDeathTransition, 2.5f);
                     break;
                 case EntityType.boss:
@@ -223,8 +220,6 @@ public class Health : MonoBehaviour, IDamageable
                 case EntityType.isDestroyableObject:
                     break;
                 default:
-                    if (deathEffect == null) GameManager.instance.ParticleEffect(GameManager.ParticleType.CommonEnemyDeathEffect, gameObject);
-                    else Instantiate(deathEffect, transform.position, Quaternion.identity);
                     GameManager.instance.EnemyRespawnEvent += RespawnEnemy;
                     gameObject.SetActive(false);
                     break;
@@ -242,7 +237,6 @@ public class Health : MonoBehaviour, IDamageable
 
     private void BossDeathAnimation()
     {
-        GameManager.instance.ParticleEffect(GameManager.ParticleType.BossDeathEffect, gameObject);
         GameManager.instance.EnemyRespawnEvent += RespawnEnemy;
         Instantiate(myDrop, transform.position, Quaternion.identity);
         gameObject.SetActive(false);
@@ -314,6 +308,7 @@ public class Health : MonoBehaviour, IDamageable
         GameManager.instance.HealAllEnemiesEvent += HealEnemy;
         currentHP = maxHP;
         transform.position = initialPosition;
+        myAnim.SetTrigger("exit");
     }
 
     private void HealEnemy()
