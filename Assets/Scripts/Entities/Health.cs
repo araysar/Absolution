@@ -180,17 +180,12 @@ public class Health : MonoBehaviour, IDamageable
         flashCoroutine = null;
         recovering = false;
         myRenderer.material = commonMaterial;
-        commonMaterial.color = Color.white;
+        myAnim.SetTrigger("death");
+    }
 
-        if(disableAfterDeath.Count > 0)
-        {
-            foreach (var item in disableAfterDeath)
-            {
-                item.SetActive(false);
-            }
-        }
-
-        DeathEffect();
+    private void Disable()
+    {
+        gameObject.SetActive(false);
     }
 
     private void DeathEffect()
@@ -309,6 +304,7 @@ public class Health : MonoBehaviour, IDamageable
         currentHP = maxHP;
         transform.position = initialPosition;
         myAnim.SetTrigger("exit");
+        commonMaterial.SetFloat("DeathValue", 0);
     }
 
     private void HealEnemy()
