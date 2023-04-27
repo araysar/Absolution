@@ -143,7 +143,7 @@ public class Character_Movement : MonoBehaviour
         GameManager.instance.PlayerRespawnEvent += RespawnPlayer;
         GameManager.instance.PlayerDisableEvent += StopMovement;
         GameManager.instance.StopPlayerMovementEvent += StopMovement;
-        GameManager.instance.ResumePlayerMovementEvent += ResumeMovement;
+        GameManager.instance.ResumePlayerMovementEvent += EnablePlayer;
         GameManager.instance.ResumePlayerMovementEvent += EnableFlip;
         GameManager.instance.SaveDataEvent += SaveData;
         GameManager.instance.LoadDataEvent += LoadData;
@@ -629,6 +629,13 @@ public class Character_Movement : MonoBehaviour
         rb.bodyType = RigidbodyType2D.Static;
     }
 
+    private void EnablePlayer()
+    {
+        disableInputs = false;
+        GetComponent<Collider2D>().enabled = true;
+        rb.bodyType = RigidbodyType2D.Dynamic;
+    }
+
     private void RespawnPlayer()
     {
         LoadData();
@@ -665,7 +672,6 @@ public class Character_Movement : MonoBehaviour
         PowerUpGrab();
         transform.position = myHealth.initialPosition;
         myHealth.RefreshLifeBar();
-        myEnergy.ReloadEnergy();
         ulti1.RefreshStacks(false);
     }
     #endregion

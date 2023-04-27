@@ -169,7 +169,6 @@ MonoBehaviour:
   invulnerability: 0
   respawnEffect: {fileID: 0}
   deathSfx: {fileID: 8300000, guid: cfc1044b75713c84dab003c18c287ab3, type: 3}
-  deathEffect: {fileID: 0}
   myAnim: {fileID: 1911895411}
   myUIAnim: {fileID: 0}
   initialPosition: {x: 0, y: 0}
@@ -344,7 +343,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2949179946770032628
 Transform:
   m_ObjectHideFlags: 0

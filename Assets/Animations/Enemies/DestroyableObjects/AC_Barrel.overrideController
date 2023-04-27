@@ -1,0 +1,15 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: AC_Barrel
+  m_Controller: {fileID: 9100000, guid: 81bbc0046b01387469b5f848ea50afa5, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: f895a04bb85d68442935d84cbc921f11, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 47537cdf69b6b8540a451bb93e222e76, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 1802b7d5ec5fe1046a4489674a88ef91, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: aaa9ea55203ce5744b0b94d26fa1f719, type: 2}

@@ -4,6 +4,7 @@ public abstract class Attack_Type : MonoBehaviour
 {
     public string weaponName;
     public AudioClip[] soundClips;
+    public Color myColor;
     public float damage;
     public bool isAttacking;
     public Sprite myImage;

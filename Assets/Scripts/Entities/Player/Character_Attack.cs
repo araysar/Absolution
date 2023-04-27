@@ -7,14 +7,17 @@ using System.Collections;
 public class Character_Attack : MonoBehaviour
 {
     private Character_Movement player;
+    public Animator myUIAnim;
     public bool canAttack = true;
     public Cube myCubePrefab;
     public Cube myCube; 
     public List<Transform> animationPositions = new List<Transform>();
 
     //Attack system
-    public int firstWeapon;
+    public AudioClip changeSfx;
+    public ParticleSystem changeVfx;
     public Transform cubeTransform;
+    public int firstWeapon;
     public Attack_Type[] myAttacks;
     public Attack_Type currentAttack;
     public float timeToShuffle = 30;
@@ -65,6 +68,9 @@ public class Character_Attack : MonoBehaviour
             currentAttack = myAttacks[nextWeapon];
             currentTime = 0; 
             AttackCube(true);
+            SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, changeSfx);
+            changeVfx.startColor = currentAttack.myColor;
+            changeVfx.gameObject.SetActive(true);
             uiImage.sprite = currentAttack.myImage;
         }
     }
@@ -73,7 +79,7 @@ public class Character_Attack : MonoBehaviour
     {
         CreateCube();
         player = GetComponent<Character_Movement>();
-        currentTime = timeToShuffle;
+        currentTime = 0;
         currentAttack = myAttacks[firstWeapon];// myAttacks[Random.Range(0, myAttacks.Length)];
         uiImage.sprite = currentAttack.myImage;
         shardsSystem = GetComponentInChildren<Shards_System>();
@@ -138,6 +144,14 @@ public class Character_Attack : MonoBehaviour
     {
         timerUI.fillAmount = currentTime / timeToShuffle;
         timerUI.color = Color.Lerp(emptyColor, fullColor, timerUI.fillAmount);
+        if(currentTime >= timeToShuffle - 5)
+        {
+            myUIAnim.SetBool("loop", true);
+        }
+        else
+        {
+            myUIAnim.SetBool("loop", false);
+        }
     }
 
     public void AddShard(int number)

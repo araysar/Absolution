@@ -18,7 +18,6 @@ public class Health : MonoBehaviour, IDamageable
     private bool recovering = false;
     public GameObject respawnEffect;
     [SerializeField] private AudioClip deathSfx;
-    [SerializeField] private GameObject deathEffect;
     public Animator myAnim;
     public Animator myUIAnim;
     [HideInInspector] public Vector2 initialPosition;
@@ -71,6 +70,7 @@ public class Health : MonoBehaviour, IDamageable
         initialPosition = transform.position;
         if (!invulnerability) flashTimes = 1;
         myRenderer = GetComponent<SpriteRenderer>();
+        if (myAnim == null) myAnim = GetComponent<Animator>();
         commonMaterial = myRenderer.material;
         currentHP = maxHP;
 
@@ -114,7 +114,7 @@ public class Health : MonoBehaviour, IDamageable
 
             if (lifeBar != null || weakPoint != null) RefreshLifeBar();
 
-            if(myAnim != null)
+            if(myAnim.GetBool("damage") == true)
             {
                 myAnim.SetBool("damaged", true);
             }
@@ -180,60 +180,27 @@ public class Health : MonoBehaviour, IDamageable
         flashCoroutine = null;
         recovering = false;
         myRenderer.material = commonMaterial;
-        myAnim.SetTrigger("death");
+
+        myAnim.SetBool("death", true);
+
+        switch (myType)
+        {
+            case Health.EntityType.player:
+                GameManager.instance.Transition(GameManager.EventType.PlayerDeathTransition, 2.5f);
+                break;
+            case EntityType.boss:
+                SoundManager.instance.PlaySound(SoundManager.SoundChannel.Music, null);
+                SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, SoundManager.instance.winMusic);
+                break;
+            default:
+                GameManager.instance.EnemyRespawnEvent += RespawnEnemy;
+                GameManager.instance.HealAllEnemiesEvent -= HealEnemy;
+                break;
+        }
     }
 
     private void Disable()
     {
-        gameObject.SetActive(false);
-    }
-
-    private void DeathEffect()
-    {
-        if (myDrop != null && myType != EntityType.boss) Instantiate(myDrop, transform.position, Quaternion.identity);
-        if (deathEffect == null)
-        {
-            switch (myType)
-            {
-                case Health.EntityType.common:
-                    myAnim.SetTrigger("exit");
-                    GameManager.instance.EnemyRespawnEvent += RespawnEnemy;
-                    gameObject.SetActive(false);
-                    break;
-                case Health.EntityType.special:
-                    GameManager.instance.EnemyRespawnEvent += RespawnEnemy;
-                    gameObject.SetActive(false);
-                    break;
-                case Health.EntityType.player:
-                    GameManager.instance.Transition(GameManager.EventType.PlayerDeathTransition, 2.5f);
-                    break;
-                case EntityType.boss:
-                    myAnim.SetTrigger("death");
-                    SoundManager.instance.PlaySound(SoundManager.SoundChannel.Music, null);
-                    SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, SoundManager.instance.winMusic);
-                    break;
-                case EntityType.isDestroyableObject:
-                    break;
-                default:
-                    GameManager.instance.EnemyRespawnEvent += RespawnEnemy;
-                    gameObject.SetActive(false);
-                    break;
-            }
-        }
-        else
-        {
-            Instantiate(deathEffect, transform.position, Quaternion.identity);
-            GameManager.instance.EnemyRespawnEvent += RespawnEnemy;
-            gameObject.SetActive(false);
-        }
-
-    }
-
-
-    private void BossDeathAnimation()
-    {
-        GameManager.instance.EnemyRespawnEvent += RespawnEnemy;
-        Instantiate(myDrop, transform.position, Quaternion.identity);
         gameObject.SetActive(false);
     }
 
@@ -271,6 +238,7 @@ public class Health : MonoBehaviour, IDamageable
         {
             if (invulnerability) recovering = false;
             flashCoroutine = null;
+            Debug.Log(gameObject.name);
             Death();
             yield break;
         }
@@ -303,7 +271,7 @@ public class Health : MonoBehaviour, IDamageable
         GameManager.instance.HealAllEnemiesEvent += HealEnemy;
         currentHP = maxHP;
         transform.position = initialPosition;
-        myAnim.SetTrigger("exit");
+        myAnim.SetBool("death", false);
         commonMaterial.SetFloat("DeathValue", 0);
     }
 
