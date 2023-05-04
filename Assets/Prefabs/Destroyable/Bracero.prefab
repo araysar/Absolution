@@ -277,6 +277,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 910462292165876680}
     m_Modifications:
+    - target: {fileID: 5524739520687120313, guid: fb460b5f92c0fee429e6a2b4f529d212, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5524739520687120313, guid: fb460b5f92c0fee429e6a2b4f529d212, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8321525319306009220, guid: fb460b5f92c0fee429e6a2b4f529d212, type: 3}
       propertyPath: InitialModule.startSize.scalar
       value: 0.2
@@ -351,7 +359,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8321525319306009222, guid: fb460b5f92c0fee429e6a2b4f529d212, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8321525319306009223, guid: fb460b5f92c0fee429e6a2b4f529d212, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -426,6 +434,22 @@ PrefabInstance:
     - target: {fileID: 6562824149444206228, guid: 3858cda825a9557499aac0339e3c7e38, type: 3}
       propertyPath: m_Name
       value: BraseroLight
+      objectReference: {fileID: 0}
+    - target: {fileID: 6562824149444206230, guid: 3858cda825a9557499aac0339e3c7e38, type: 3}
+      propertyPath: m_Intensity
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6562824149444206230, guid: 3858cda825a9557499aac0339e3c7e38, type: 3}
+      propertyPath: m_LightType
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6562824149444206230, guid: 3858cda825a9557499aac0339e3c7e38, type: 3}
+      propertyPath: m_BlendStyleIndex
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6562824149444206230, guid: 3858cda825a9557499aac0339e3c7e38, type: 3}
+      propertyPath: m_AlphaBlendOnOverlap
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6562824149444206231, guid: 3858cda825a9557499aac0339e3c7e38, type: 3}
       propertyPath: m_Sprite
