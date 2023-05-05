@@ -130,9 +130,13 @@ public class Character_Attack : MonoBehaviour
                 }
                 else if (Input.GetKeyDown(KeyCode.O))
                 {
+                    shardsSystem.cooldownUI.sprite = shardsSystem.cooldownSprite;
                     cooldownUpgrade = true;
+                    shardsSystem.damageUI.sprite = shardsSystem.damageSprite;
                     damageUpgrade = true;
+                    shardsSystem.defenseUI.sprite = shardsSystem.defenseSprite;
                     defenseUpgrade = true;
+                    shardsSystem.reviveUI.sprite = shardsSystem.reviveSprite;
                     reviveUpgrade = true;
                 }
 
