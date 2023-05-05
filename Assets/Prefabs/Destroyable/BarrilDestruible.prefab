@@ -4872,10 +4872,10 @@ GameObject:
   m_Component:
   - component: {fileID: 3511343664607500677}
   - component: {fileID: 3511343664607500674}
-  - component: {fileID: 3511343664607500675}
   - component: {fileID: 3511343664607500676}
   - component: {fileID: 4277043380977932460}
   - component: {fileID: 7589169706648006233}
+  - component: {fileID: 3747101979325294354}
   m_Layer: 3
   m_Name: BarrilDestruible
   m_TagString: NoSlide
@@ -4949,50 +4949,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3511343664607500675
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3511343664607500672}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6df1c950e865c34bad593b5d0a2fb6c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  impactBomb: 0
-  maxHP: 30
-  currentHP: 0
-  defenseActive: 0
-  invulnerable: 0
-  ulti1Stacks: 5
-  damagedEffect: {fileID: 0}
-  damagedSfx: {fileID: 8300000, guid: f6edddb849bf0784da0bf01056510f55, type: 3}
-  invulnerability: 0
-  respawnEffect: {fileID: 0}
-  deathSfx: {fileID: 8300000, guid: f6edddb849bf0784da0bf01056510f55, type: 3}
-  myAnim: {fileID: 7589169706648006233}
-  myUIAnim: {fileID: 0}
-  initialPosition: {x: 0, y: 0}
-  weakPoint: {fileID: 0}
-  fullLifeColor: {r: 0, g: 0, b: 0, a: 0}
-  lowLifeColor: {r: 0, g: 0, b: 0, a: 0}
-  disableAfterDeath: []
-  healVfx: {fileID: 0}
-  healSfx: {fileID: 0}
-  lifeBar: {fileID: 0}
-  fullLifeBarColor: {r: 0, g: 1, b: 0, a: 1}
-  lowLifeBarColor: {r: 1, g: 0, b: 0, a: 1}
-  flashTimes: 1
-  flash1Duration: 0.1
-  paintableMaterial: {fileID: 2100000, guid: dfd3b895dd3408b42a6c1e8f32260bf8, type: 2}
-  commonMaterial: {fileID: 0}
-  flashColor: {r: 1, g: 1, b: 1, a: 1}
-  myRenderer: {fileID: 0}
-  myType: 4
-  myArmor: 0
-  myDrop: {fileID: 0}
 --- !u!61 &3511343664607500676
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5059,6 +5015,35 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &3747101979325294354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3511343664607500672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97b694562506c0044b2d35be13aaa323, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHP: 20
+  currentHP: 0
+  invulnerable: 0
+  myAnim: {fileID: 7589169706648006233}
+  initialPosition: {x: 0, y: 0}
+  disableAfterDeath: []
+  healVfx: {fileID: 0}
+  healSfx: {fileID: 0}
+  deathSfx: {fileID: 8300000, guid: f6edddb849bf0784da0bf01056510f55, type: 3}
+  deathVfx: {fileID: 2296811845485387281}
+  damagedSfx: {fileID: 8300000, guid: f6edddb849bf0784da0bf01056510f55, type: 3}
+  damagedVfx: {fileID: 0}
+  paintableMaterial: {fileID: 2100000, guid: dfd3b895dd3408b42a6c1e8f32260bf8, type: 2}
+  commonMaterial: {fileID: 0}
+  flashColor: {r: 1, g: 1, b: 1, a: 1}
+  myRenderer: {fileID: 0}
+  myDrop: {fileID: 0}
 --- !u!1001 &1529265422
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5120,6 +5105,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a812b47db9d784747ba68c8bcc34255a, type: 3}
+--- !u!1 &2296811845485387281 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2296811844263109407, guid: a812b47db9d784747ba68c8bcc34255a, type: 3}
+  m_PrefabInstance: {fileID: 1529265422}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2296811845485387282 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2296811844263109404, guid: a812b47db9d784747ba68c8bcc34255a, type: 3}
