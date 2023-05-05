@@ -9,6 +9,7 @@ public class Player_Health : Health
     public GameObject playerDeathEffect;
     public AudioClip reviveHealingSfx;
     public AudioClip revivingSfx;
+    public GameObject revivingVfx;
 
     [Space, Header("UI")]
     public Image lifeBar;
@@ -80,7 +81,8 @@ public class Player_Health : Health
 
     public void CheckDeath()
     {
-        if(myPlayerAttack.reviveUpgrade && reviveReady)
+        recovering = false;
+        if (myPlayerAttack.reviveUpgrade && reviveReady)
         {
             myAnim.SetBool("reviveReady", true);
             SoundManager.instance.StopSong();
@@ -95,7 +97,6 @@ public class Player_Health : Health
     public void ReviveHealing()
     {
         SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, reviveHealingSfx);
-        SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, revivingSfx);
     }
 
     public void RespawnTransition()
@@ -116,8 +117,8 @@ public class Player_Health : Health
         GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
         GetComponent<Collider2D>().enabled = true;
         Time.timeScale = 1;
-        respawnEffect.SetActive(true);
-        recovering = false;
+        revivingVfx.SetActive(true);
+        SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, revivingSfx);
         myAnim.updateMode = AnimatorUpdateMode.Normal;
     }
 

@@ -110,7 +110,7 @@ public class Character_Attack : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(!GameManager.instance.onPause)
+        if(!GameManager.instance.onPause && player.myHealth.currentHP > 0)
         {
             if (!player.disableInputs && canAttack)
             {

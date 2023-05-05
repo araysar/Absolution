@@ -30,7 +30,7 @@ AnimationClip:
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
-        time: 3
+        time: 3.3
         value: 0
         inSlope: Infinity
         outSlope: Infinity
@@ -49,47 +49,47 @@ AnimationClip:
   - curve:
     - time: 0
       value: {fileID: 21300000, guid: 00ce8208b68ba1c40be6f1874b35aad7, type: 3}
-    - time: 3
+    - time: 4.25
       value: {fileID: 21300000, guid: 4011c0d5831864042af44820baecbc90, type: 3}
-    - time: 3.1
+    - time: 4.35
       value: {fileID: 21300000, guid: 038f58ba1704e89458abbce1f666fec5, type: 3}
-    - time: 3.2
+    - time: 4.45
       value: {fileID: 21300000, guid: 5431de6437e615e4d8f0e0d3b01b0e16, type: 3}
-    - time: 3.3
+    - time: 4.55
       value: {fileID: 21300000, guid: b742aa3c089264943af3b072929ad145, type: 3}
-    - time: 3.4
+    - time: 4.65
       value: {fileID: 21300000, guid: ffbcc474b64755b4c86e8da5cc5c3520, type: 3}
-    - time: 3.5
+    - time: 4.75
       value: {fileID: 21300000, guid: ca56f388edab4ed43a27ddfd11648b9d, type: 3}
-    - time: 3.6
+    - time: 4.85
       value: {fileID: 21300000, guid: b94ab13e76a528e49ba3ec7f6b13c9d9, type: 3}
-    - time: 3.7
+    - time: 4.95
       value: {fileID: 21300000, guid: 0d794a91b2ac8734ea73d90524e221de, type: 3}
-    - time: 3.8
+    - time: 5.05
       value: {fileID: 21300000, guid: 71e4ca02a04e9a84bace6dc37cec4ffd, type: 3}
-    - time: 3.9
+    - time: 5.15
       value: {fileID: 21300000, guid: 9cdd7672e66821d4dab0e95bb3e9b35a, type: 3}
-    - time: 4
+    - time: 5.25
       value: {fileID: 21300000, guid: 02695903dbbc5e147bd3a871402a1dfd, type: 3}
-    - time: 4.1
+    - time: 5.35
       value: {fileID: 21300000, guid: 28a8409cd7e42d14b9fa39013a0603b8, type: 3}
-    - time: 4.2
+    - time: 5.45
       value: {fileID: 21300000, guid: d2bfdf0a007c7ae45aae7748ea2ec47b, type: 3}
-    - time: 4.3
+    - time: 5.55
       value: {fileID: 21300000, guid: 26527feb491156d448f221e39af41a14, type: 3}
-    - time: 4.4
+    - time: 5.65
       value: {fileID: 21300000, guid: 21493219c9cd76f48aafe7c6916a633d, type: 3}
-    - time: 4.5
+    - time: 5.75
       value: {fileID: 21300000, guid: fea212d4cc3ea5a45895d32590b7a938, type: 3}
-    - time: 4.6
+    - time: 5.85
       value: {fileID: 21300000, guid: 3a35a73ea15dfc4488cec6acc5969a37, type: 3}
-    - time: 4.7
+    - time: 5.95
       value: {fileID: 21300000, guid: 7f650f33e5d5b584298387393adf7499, type: 3}
-    - time: 4.8
+    - time: 6.05
       value: {fileID: 21300000, guid: 64b8b04d37b2932408f83e7cd937f0f0, type: 3}
-    - time: 4.9
+    - time: 6.15
       value: {fileID: 21300000, guid: 45eda5ae6f2b9fb459ff4f3ed5319f7a, type: 3}
-    - time: 5
+    - time: 6.25
       value: {fileID: 21300000, guid: 5b18e4f06a19a3b48b8c3f3fbcc19f6a, type: 3}
     attribute: m_Sprite
     path: 
@@ -144,7 +144,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 5.05
+    m_StopTime: 6.3
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -173,7 +173,7 @@ AnimationClip:
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
-        time: 3
+        time: 3.3
         value: 0
         inSlope: Infinity
         outSlope: Infinity
@@ -192,14 +192,21 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 3
+  - time: 0
+    functionName: ReviveHealing
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 3.3
     functionName: DisableMyCamera
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 5.05
+  - time: 6.25
     functionName: RespawnPlayerHealth
     data: 
     objectReferenceParameter: {fileID: 0}
