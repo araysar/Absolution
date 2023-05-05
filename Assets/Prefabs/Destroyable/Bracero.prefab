@@ -442,6 +442,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: BraseroLight
       objectReference: {fileID: 0}
+    - target: {fileID: 6562824149444206230, guid: 3858cda825a9557499aac0339e3c7e38, type: 3}
+      propertyPath: m_Intensity
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6562824149444206230, guid: 3858cda825a9557499aac0339e3c7e38, type: 3}
+      propertyPath: m_LightType
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6562824149444206230, guid: 3858cda825a9557499aac0339e3c7e38, type: 3}
+      propertyPath: m_BlendStyleIndex
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6562824149444206230, guid: 3858cda825a9557499aac0339e3c7e38, type: 3}
+      propertyPath: m_AlphaBlendOnOverlap
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6562824149444206231, guid: 3858cda825a9557499aac0339e3c7e38, type: 3}
       propertyPath: m_Sprite
       value: 
