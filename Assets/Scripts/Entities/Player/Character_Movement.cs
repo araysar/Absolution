@@ -11,7 +11,7 @@ public class Character_Movement : MonoBehaviour
     public bool disableInputs = false;
     public bool isUlting = false;
     public bool isCharging = false;
-    [HideInInspector] public Health myHealth;
+    [HideInInspector] public Player_Health myHealth;
     [HideInInspector] public Energy myEnergy;
     [HideInInspector] public Character_Attack myShooter;
     public GameObject playerCameraBounds;
@@ -129,7 +129,7 @@ public class Character_Movement : MonoBehaviour
         myShooter = GetComponent<Character_Attack>();
         rb = GetComponent<Rigidbody2D>();
         myAnim = GetComponent<Animator>();
-        myHealth = GetComponent<Health>();
+        myHealth = GetComponent<Player_Health>();
         myEnergy = GetComponent<Energy>();
         ulti1 = GetComponent<Ultimate>();
         currentJumps = maxJumps;

@@ -60,4 +60,9 @@ public class Ray_Attack : Attack_Type
     {
         
     }
+
+    public override void Interrupt()
+    {
+        throw new System.NotImplementedException();
+    }
 }

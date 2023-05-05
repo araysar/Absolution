@@ -154,13 +154,12 @@ public class Boss_Ice : Boss
         canMove = false;
         myAnim.SetTrigger("exit");
         myHealth.currentHP = myHealth.maxHP;
-        myHealth.RefreshLifeBar();
     }
 
     private void BossScream()
     {
         SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, myBossScream);
-        GameManager.instance.ParticleEffect(GameManager.ParticleType.ScreamParticleEffect, myScream);
+        myScream.SetActive(true);
     }
 
     public override void StopMovement()

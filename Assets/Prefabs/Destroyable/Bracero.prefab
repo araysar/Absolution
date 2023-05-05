@@ -83,9 +83,10 @@ GameObject:
   m_Component:
   - component: {fileID: 910462292165876680}
   - component: {fileID: 2433699087043611305}
-  - component: {fileID: 1607162378753597897}
   - component: {fileID: 1747887209}
   - component: {fileID: 2873133131197972688}
+  - component: {fileID: 1636248309}
+  - component: {fileID: 7119217975517561764}
   m_Layer: 3
   m_Name: Bracero
   m_TagString: NoSlide
@@ -161,50 +162,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1607162378753597897
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8555368591124340192}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6df1c950e865c34bad593b5d0a2fb6c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  impactBomb: 0
-  maxHP: 20
-  currentHP: 0
-  defenseActive: 0
-  invulnerable: 0
-  ulti1Stacks: 10
-  damagedEffect: {fileID: 0}
-  damagedSfx: {fileID: 8300000, guid: e0565a7fee5c4bf46ab308d1f57217f8, type: 3}
-  invulnerability: 0
-  respawnEffect: {fileID: 0}
-  deathSfx: {fileID: 8300000, guid: e0565a7fee5c4bf46ab308d1f57217f8, type: 3}
-  myAnim: {fileID: 2873133131197972688}
-  myUIAnim: {fileID: 0}
-  initialPosition: {x: 0, y: 0}
-  weakPoint: {fileID: 0}
-  fullLifeColor: {r: 0, g: 0, b: 0, a: 0}
-  lowLifeColor: {r: 0, g: 0, b: 0, a: 0}
-  disableAfterDeath: []
-  healVfx: {fileID: 0}
-  healSfx: {fileID: 0}
-  lifeBar: {fileID: 0}
-  fullLifeBarColor: {r: 0, g: 1, b: 0, a: 1}
-  lowLifeBarColor: {r: 1, g: 0, b: 0, a: 1}
-  flashTimes: 1
-  flash1Duration: 0.1
-  paintableMaterial: {fileID: 2100000, guid: dfd3b895dd3408b42a6c1e8f32260bf8, type: 2}
-  commonMaterial: {fileID: 0}
-  flashColor: {r: 1, g: 1, b: 1, a: 1}
-  myRenderer: {fileID: 0}
-  myType: 4
-  myArmor: 0
-  myDrop: {fileID: 0}
 --- !u!60 &1747887209
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -270,6 +227,56 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1636248309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8555368591124340192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97b694562506c0044b2d35be13aaa323, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHP: 20
+  currentHP: 0
+  invulnerable: 0
+  myAnim: {fileID: 0}
+  initialPosition: {x: 0, y: 0}
+  disableAfterDeath: []
+  healVfx: {fileID: 0}
+  healSfx: {fileID: 0}
+  deathSfx: {fileID: 0}
+  deathVfx: {fileID: 0}
+  damagedSfx: {fileID: 8300000, guid: e0565a7fee5c4bf46ab308d1f57217f8, type: 3}
+  damagedVfx: {fileID: 0}
+  paintableMaterial: {fileID: 2100000, guid: dfd3b895dd3408b42a6c1e8f32260bf8, type: 2}
+  commonMaterial: {fileID: 2100000, guid: 9e5b24096d093774eaf40d938b547c79, type: 2}
+  flashColor: {r: 1, g: 1, b: 1, a: 1}
+  myRenderer: {fileID: 0}
+  myDrop: {fileID: 0}
+--- !u!50 &7119217975517561764
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8555368591124340192}
+  m_BodyType: 2
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1001 &582098223
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -277,6 +284,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 910462292165876680}
     m_Modifications:
+    - target: {fileID: 5524739520687120313, guid: fb460b5f92c0fee429e6a2b4f529d212, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5524739520687120313, guid: fb460b5f92c0fee429e6a2b4f529d212, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8321525319306009220, guid: fb460b5f92c0fee429e6a2b4f529d212, type: 3}
       propertyPath: InitialModule.startSize.scalar
       value: 0.2
@@ -351,7 +366,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8321525319306009222, guid: fb460b5f92c0fee429e6a2b4f529d212, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8321525319306009223, guid: fb460b5f92c0fee429e6a2b4f529d212, type: 3}
       propertyPath: m_Materials.Array.data[0]

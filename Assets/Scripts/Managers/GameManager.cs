@@ -185,6 +185,8 @@ public class GameManager : MonoBehaviour
                 break;
             case ExecuteAction.PlayerRespawnEvent:
                 PlayerRespawnEvent();
+                player.GetComponent<Player_Health>().myCamera.SetActive(false);
+                player.GetComponent<Character_Attack>().myCube.transform.position = player.GetComponent<Character_Attack>().cubeTransform.position;
                 break;
             case ExecuteAction.SaveData:
                 SaveDataEvent();
@@ -228,28 +230,6 @@ public class GameManager : MonoBehaviour
 
     #region Particle Effects
 
-    public void ParticleEffect(ParticleType myType, GameObject myObject)
-    {
-        switch (myType)
-        {
-            case ParticleType.CommonEnemyDeathEffect:
-                Instantiate(commonEnemyDeathEffect, myObject.transform.position, Quaternion.identity);
-                break;
-            case ParticleType.PlayerDeathEffect:
-                Instantiate(playerDeathEffect, myObject.transform.position, Quaternion.identity);
-                break;
-            case ParticleType.BossDeathEffect:
-                Instantiate(bossDeathEffect, myObject.transform.position, Quaternion.identity);
-                break;
-            case ParticleType.ScreamParticleEffect:
-                Instantiate(screamParticleEffect, myObject.transform.position, Quaternion.identity);
-                break;
-            default:
-                Instantiate(commonEnemyDeathEffect, myObject.transform.position, Quaternion.identity);
-                break;
-        }
-
-    }
 
     public void Sound(AudioClip myClip)
     {

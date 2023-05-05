@@ -49,7 +49,7 @@ public class Bullet : MonoBehaviour
 
         if (target != null && collision.gameObject.layer != myAttack.player.gameObject.layer)
         {
-            target.TakeDamage(myAttack.damage);
+            target.TakeDamage(myAttack.myAttack.damageUpgrade ? myAttack.damage * 1.5f : myAttack.damage);
             OnHit();
         }
         else if (collision.gameObject.layer == 3)

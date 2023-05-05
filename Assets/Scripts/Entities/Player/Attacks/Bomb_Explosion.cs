@@ -22,7 +22,8 @@ public class Bomb_Explosion : MonoBehaviour
         {
             if(!myTargets.Contains(myTarget))
             {
-                myTarget.TakeDamage(myBomb.myAttack.damage);
+                myTarget.TakeDamage(myBomb.myAttack.myAttack.damageUpgrade?
+                    myBomb.myAttack.damage * 1.5f : myBomb.myAttack.damage);
                 myTargets.Add(myTarget);
             }
         }

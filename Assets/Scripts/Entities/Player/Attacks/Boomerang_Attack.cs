@@ -66,4 +66,9 @@ public class Boomerang_Attack : Attack_Type
         myBoomerang.myAttack = this;
         myBoomerang.gameObject.SetActive(false);
     }
+
+    public override void Interrupt()
+    {
+        throw new System.NotImplementedException();
+    }
 }

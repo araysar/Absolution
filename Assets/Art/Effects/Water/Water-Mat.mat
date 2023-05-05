@@ -92,8 +92,8 @@ Material:
     - Vector1_911f3ececa5b40588acf05ff54a5441a: 8.83
     - _AlphaCutoff: 0.5
     - _ColorMask: 15
-    - _Distorsionamount: 0.2
-    - _MinDepth: 0
+    - _Distorsionamount: 0.3
+    - _MinDepth: 1
     - _Scale: 5
     - _Speed: 1
     - _Stencil: 0
@@ -103,14 +103,14 @@ Material:
     - _StencilWriteMask: 255
     - _Step: 0.181
     - _UseUIAlphaClip: 0
-    - _Waterdepth: 1.18
+    - _Waterdepth: 1
     m_Colors:
     - Vector2_ea4f05e7fe404c0182762d9547ec3b64: {r: 1, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Direction: {r: 1, g: 0, b: 0, a: 0}
-    - _DistorsionDir: {r: 0.25, g: 0.25, b: 0, a: 0}
+    - _DistorsionDir: {r: 0, g: -0.25, b: 0, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _MoveImage: {r: 0, g: 0, b: 0, a: 0}
-    - _MoveTexture: {r: 0.25, g: 0, b: 0, a: 0}
+    - _MoveTexture: {r: 0, g: 0, b: 0, a: 0}
     - _Speed: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []

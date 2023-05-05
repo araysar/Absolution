@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 898897232131574743}
   - component: {fileID: 898897232131574736}
   - component: {fileID: 898897232131574741}
-  - component: {fileID: 898897232131574742}
   - component: {fileID: 2777008751910679260}
   - component: {fileID: 7358477265746218483}
+  - component: {fileID: 8906405014335800458}
   m_Layer: 3
   m_Name: Caja
   m_TagString: NoSlide
@@ -113,50 +113,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.8, y: 0.79999995}
   m_EdgeRadius: 0
---- !u!114 &898897232131574742
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 898897232131574737}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6df1c950e865c34bad593b5d0a2fb6c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  impactBomb: 0
-  maxHP: 10
-  currentHP: 0
-  defenseActive: 0
-  invulnerable: 0
-  ulti1Stacks: 5
-  damagedEffect: {fileID: 0}
-  damagedSfx: {fileID: 8300000, guid: e0565a7fee5c4bf46ab308d1f57217f8, type: 3}
-  invulnerability: 0
-  respawnEffect: {fileID: 0}
-  deathSfx: {fileID: 8300000, guid: e0565a7fee5c4bf46ab308d1f57217f8, type: 3}
-  myAnim: {fileID: 7358477265746218483}
-  myUIAnim: {fileID: 0}
-  initialPosition: {x: 0, y: 0}
-  weakPoint: {fileID: 0}
-  fullLifeColor: {r: 0, g: 0, b: 0, a: 0}
-  lowLifeColor: {r: 0, g: 0, b: 0, a: 0}
-  disableAfterDeath: []
-  healVfx: {fileID: 0}
-  healSfx: {fileID: 0}
-  lifeBar: {fileID: 0}
-  fullLifeBarColor: {r: 0, g: 1, b: 0, a: 1}
-  lowLifeBarColor: {r: 1, g: 0, b: 0, a: 1}
-  flashTimes: 1
-  flash1Duration: 0.1
-  paintableMaterial: {fileID: 2100000, guid: dfd3b895dd3408b42a6c1e8f32260bf8, type: 2}
-  commonMaterial: {fileID: 0}
-  flashColor: {r: 1, g: 1, b: 1, a: 1}
-  myRenderer: {fileID: 0}
-  myType: 4
-  myArmor: 0
-  myDrop: {fileID: 0}
 --- !u!50 &2777008751910679260
 Rigidbody2D:
   serializedVersion: 4
@@ -197,6 +153,36 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &8906405014335800458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 898897232131574737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97b694562506c0044b2d35be13aaa323, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  impactBomb: 0
+  maxHP: 10
+  currentHP: 0
+  invulnerable: 0
+  myAnim: {fileID: 7358477265746218483}
+  initialPosition: {x: 0, y: 0}
+  disableAfterDeath: []
+  healVfx: {fileID: 0}
+  healSfx: {fileID: 0}
+  deathSfx: {fileID: 0}
+  deathVfx: {fileID: 2602717613995460336}
+  damagedSfx: {fileID: 8300000, guid: e0565a7fee5c4bf46ab308d1f57217f8, type: 3}
+  damagedVfx: {fileID: 2602717613995460336}
+  paintableMaterial: {fileID: 2100000, guid: dfd3b895dd3408b42a6c1e8f32260bf8, type: 2}
+  commonMaterial: {fileID: 0}
+  flashColor: {r: 1, g: 1, b: 1, a: 1}
+  myRenderer: {fileID: 0}
+  myDrop: {fileID: 0}
 --- !u!1 &5059109274882614991
 GameObject:
   m_ObjectHideFlags: 0
@@ -5140,10 +5126,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8321525319306009222, guid: fb460b5f92c0fee429e6a2b4f529d212, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fb460b5f92c0fee429e6a2b4f529d212, type: 3}
+--- !u!1 &2602717613995460336 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8321525319306009222, guid: fb460b5f92c0fee429e6a2b4f529d212, type: 3}
+  m_PrefabInstance: {fileID: 6297521915833441398}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2602717613995460339 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8321525319306009221, guid: fb460b5f92c0fee429e6a2b4f529d212, type: 3}

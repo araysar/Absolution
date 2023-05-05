@@ -64,5 +64,10 @@ public class Bomb_Attack : Attack_Type
         myBomb.myAttack = this;
         myBomb.gameObject.SetActive(false);
     }
+
+    public override void Interrupt()
+    {
+        throw new System.NotImplementedException();
+    }
 }
 

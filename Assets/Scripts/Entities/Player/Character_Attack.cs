@@ -29,12 +29,19 @@ public class Character_Attack : MonoBehaviour
     public Color emptyColor;
     public Color fullColor;
 
-    //Upgrades
+    [Header("Shards System")]
     public int currentShards = 0;
     public int requiredShards = 4;
     public Shards_System shardsSystem;
     public List<int> myShards = new List<int>();
     public List<Upgrades> myUpgrades = new List<Upgrades>();
+
+    [Header("Upgrades")]
+    public bool cooldownUpgrade = false;
+    public bool damageUpgrade = false;
+    public bool defenseUpgrade = false;
+    public bool reviveUpgrade = false;
+
 
     public enum Upgrades
     {
@@ -121,6 +128,20 @@ public class Character_Attack : MonoBehaviour
                         currentAttack.SecondaryAttack();
                     }
                 }
+                else if (Input.GetKeyDown(KeyCode.O))
+                {
+                    cooldownUpgrade = true;
+                    damageUpgrade = true;
+                    defenseUpgrade = true;
+                    reviveUpgrade = true;
+                }
+
+                {
+                    if (!currentAttack.isAttacking)
+                    {
+                        currentAttack.SecondaryAttack();
+                    }
+                }
             }
             if(shuffleActivated)
             {
@@ -144,6 +165,7 @@ public class Character_Attack : MonoBehaviour
     {
         timerUI.fillAmount = currentTime / timeToShuffle;
         timerUI.color = Color.Lerp(emptyColor, fullColor, timerUI.fillAmount);
+
         if(currentTime >= timeToShuffle - 5)
         {
             myUIAnim.SetBool("loop", true);

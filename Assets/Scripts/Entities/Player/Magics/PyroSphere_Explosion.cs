@@ -43,7 +43,7 @@ public class PyroSphere_Explosion : MonoBehaviour
                 {
                     if (!myChar.ulti1.ultiReady)
                     {
-                        myChar.ulti1Stacks += collision.GetComponent<Health>().ulti1Stacks;
+
                     }
                     myChar.ulti1.RefreshStacks(true);
                 }

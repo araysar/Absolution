@@ -28,9 +28,4 @@ public class Dagger : Projectile
     {
         
     }
-
-    public override void Impact(Health.ArmorType armorType)
-    {
-
-    }
 }

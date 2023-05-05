@@ -5053,7 +5053,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14600554fed6a234d80b61c531bcec55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myHealth: {fileID: 3977316718226632048}
+  myHealth: {fileID: 0}
   noHealth: 0
 --- !u!1 &4775062617257324859
 GameObject:
@@ -9902,8 +9902,8 @@ GameObject:
   - component: {fileID: 7168281197526176743}
   - component: {fileID: 7168281197526176740}
   - component: {fileID: 7168281197526176741}
-  - component: {fileID: 3977316718226632048}
   - component: {fileID: 8997664911696853134}
+  - component: {fileID: 1962066352700727023}
   m_Layer: 7
   m_Name: E_Knight
   m_TagString: Untagged
@@ -10061,50 +10061,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   chargeSfx: {fileID: 8300000, guid: b99fef519dc708840b6b1824f9134b6b, type: 3}
---- !u!114 &3977316718226632048
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7168281197526176738}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6df1c950e865c34bad593b5d0a2fb6c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  impactBomb: 0
-  maxHP: 50
-  currentHP: 0
-  defenseActive: 0
-  invulnerable: 0
-  ulti1Stacks: 5
-  damagedEffect: {fileID: 0}
-  damagedSfx: {fileID: 8300000, guid: 4e144b3a965435141a8c3d9fcb73a157, type: 3}
-  invulnerability: 0
-  respawnEffect: {fileID: 0}
-  deathSfx: {fileID: 8300000, guid: b055046dd484467479983addeed95569, type: 3}
-  myAnim: {fileID: 8997664911696853134}
-  myUIAnim: {fileID: 0}
-  initialPosition: {x: 0, y: 0}
-  weakPoint: {fileID: 0}
-  fullLifeColor: {r: 0, g: 0, b: 0, a: 0}
-  lowLifeColor: {r: 0, g: 0, b: 0, a: 0}
-  disableAfterDeath: []
-  healVfx: {fileID: 0}
-  healSfx: {fileID: 0}
-  lifeBar: {fileID: 0}
-  fullLifeBarColor: {r: 0, g: 1, b: 0, a: 1}
-  lowLifeBarColor: {r: 1, g: 0, b: 0, a: 1}
-  flashTimes: 1
-  flash1Duration: 0.1
-  paintableMaterial: {fileID: 2100000, guid: dfd3b895dd3408b42a6c1e8f32260bf8, type: 2}
-  commonMaterial: {fileID: 0}
-  flashColor: {r: 1, g: 1, b: 1, a: 1}
-  myRenderer: {fileID: 0}
-  myType: 0
-  myArmor: 1
-  myDrop: {fileID: 0}
 --- !u!95 &8997664911696853134
 Animator:
   serializedVersion: 3
@@ -10124,6 +10080,36 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1962066352700727023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7168281197526176738}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9954ff43989b15a4696b16a1403a353c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  impactBomb: 0
+  maxHP: 40
+  currentHP: 0
+  invulnerable: 0
+  myAnim: {fileID: 0}
+  initialPosition: {x: 0, y: 0}
+  weakPoint: {fileID: 0}
+  disableAfterDeath: []
+  healVfx: {fileID: 0}
+  healSfx: {fileID: 0}
+  deathSfx: {fileID: 8300000, guid: b055046dd484467479983addeed95569, type: 3}
+  damagedSfx: {fileID: 8300000, guid: 4e144b3a965435141a8c3d9fcb73a157, type: 3}
+  damagedVfx: {fileID: 0}
+  paintableMaterial: {fileID: 2100000, guid: dfd3b895dd3408b42a6c1e8f32260bf8, type: 2}
+  commonMaterial: {fileID: 2100000, guid: 9e5b24096d093774eaf40d938b547c79, type: 2}
+  flashColor: {r: 1, g: 1, b: 1, a: 1}
+  myRenderer: {fileID: 0}
+  myDrop: {fileID: 0}
 --- !u!1 &7168281197950310450
 GameObject:
   m_ObjectHideFlags: 0

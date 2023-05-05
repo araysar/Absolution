@@ -6,9 +6,9 @@ public class LifePotion : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.GetComponent<Player_Health>() != null)
         {
-            collision.gameObject.GetComponent<Health>().Heal(healAmount);
+            collision.gameObject.GetComponent<Player_Health>().Heal(healAmount);
             GameManager.instance.EnemyRespawnEvent += Respawn;
             gameObject.SetActive(false);
         }

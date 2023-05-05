@@ -69,15 +69,19 @@ public class Shards_System : MonoBehaviour
             {
                 case Character_Attack.Upgrades.Cooldown:
                     cooldownUI.sprite = cooldownSprite;
+                    player.cooldownUpgrade = true;
                     break;
                 case Character_Attack.Upgrades.Damage:
                     damageUI.sprite = damageSprite;
+                    player.damageUpgrade = true;
                     break;
                 case Character_Attack.Upgrades.Defense:
                     defenseUI.sprite = defenseSprite;
+                    player.defenseUpgrade = true;
                     break;
                 case Character_Attack.Upgrades.Revive:
                     reviveUI.sprite = reviveSprite;
+                    player.reviveUpgrade = true;
                     break;
             }
             player.currentShards -= 4;

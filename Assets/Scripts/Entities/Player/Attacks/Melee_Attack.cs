@@ -81,7 +81,7 @@ public class Melee_Attack : Attack_Type
         {
             if (item.GetComponent<IDamageable>() != null && item.gameObject.layer != player.gameObject.layer)
             {
-                item.GetComponent<IDamageable>().TakeDamage(damage);
+                item.GetComponent<IDamageable>().TakeDamage(myAttack.damageUpgrade? damage * 1.5f : damage);
             }
         }
         yield return new WaitForSeconds(0.1f);
@@ -99,5 +99,10 @@ public class Melee_Attack : Attack_Type
 
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube(secondaryCenter.position, new Vector3(3, 0.5f, 0.1f));
+    }
+
+    public override void Interrupt()
+    {
+        throw new System.NotImplementedException();
     }
 }

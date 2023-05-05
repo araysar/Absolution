@@ -61,7 +61,7 @@ public class Boomerang : MonoBehaviour
         {
             if(!myTargets.Contains(target))
             {
-                target.TakeDamage(myAttack.damage);
+                target.TakeDamage(myAttack.myAttack.damageUpgrade ? myAttack.damage * 1.5f : myAttack.damage);
                 myTargets.Add(target);
             }
         }

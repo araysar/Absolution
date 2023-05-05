@@ -76,4 +76,9 @@ public class Rifle_Attack : Attack_Type
         myBullets[myBullets.Count - 1].gameObject.SetActive(true);
         return myBullets[myBullets.Count - 1];
     }
+
+    public override void Interrupt()
+    {
+        throw new System.NotImplementedException();
+    }
 }
