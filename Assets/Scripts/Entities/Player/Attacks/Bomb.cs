@@ -7,6 +7,7 @@ public class Bomb : MonoBehaviour, IProjectile
     public Rigidbody2D myRb;
     public Bomb_Explosion myExplosionPrefab;
     private Bomb_Explosion myExplosion;
+    public AudioClip myClip;
 
     private void Start()
     {
@@ -52,6 +53,7 @@ public class Bomb : MonoBehaviour, IProjectile
     {
         myExplosion.transform.position = transform.position;
         myExplosion.gameObject.SetActive(true);
+        SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, myClip);
         myAttack.myAttack.myCube.transform.position = transform.position;
         gameObject.SetActive(false);
     }

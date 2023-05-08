@@ -9,6 +9,7 @@ public class Rifle_Attack : Attack_Type
     private List<Bullet> myBullets = new List<Bullet>();
     public float primarySpeed;
     public float timeToAttack = 0.5f;
+    public AudioClip myClip;
 
     //[Header("Secondary Attack")]
 
@@ -56,6 +57,7 @@ public class Rifle_Attack : Attack_Type
         player.myAnim.SetTrigger("primaryRifle");
         myAttack.AttackCube(false);
         GetBullet().Iniciate();
+        SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, myClip);
         yield return new WaitForSeconds(myAttack.cooldownUpgrade? timeToAttack / 1.5f : timeToAttack);
         player.myAnim.SetBool("isAttacking", false);
         myAttack.AttackCube(true);
