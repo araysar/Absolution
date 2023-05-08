@@ -162,7 +162,7 @@ MonoBehaviour:
   speed: 100
   timeAfterHit: 1
   wallCheckDistance: 0.6
-  isFacingRight: 0
+  isFacingRight: 1
   isGrounded: 1
   isTouchingWall: 0
   groundCheck: {fileID: 2125584054}
@@ -283,7 +283,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.027889252, y: -0.016069531}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -294,7 +294,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.0948286, y: 0.69906354}
+  m_Size: {x: 1.1, y: 0.7}
   m_EdgeRadius: 0
 --- !u!114 &6995380505746433743
 MonoBehaviour:
@@ -308,8 +308,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52204410bfee9bb4cbbd7afc275b6d69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
-  bounds: {x: 0, y: 0}
+  damage: 20
+  bounds: {x: 1.1, y: 0.7}
   myTargetLayer: 6
 --- !u!1 &7973024100674999220
 GameObject:

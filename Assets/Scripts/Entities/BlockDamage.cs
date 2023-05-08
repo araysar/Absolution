@@ -16,10 +16,10 @@ public class BlockDamage : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Projectile collider = collision.GetComponent<Projectile>();
+        IProjectile collider = collision.GetComponent<IProjectile>();
         if (collider != null && (myHealth.currentHP > 0 || noHealth))
         {
-
+            collider.Return();
         }
     }
 }

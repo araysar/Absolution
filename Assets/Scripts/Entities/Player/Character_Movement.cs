@@ -12,7 +12,6 @@ public class Character_Movement : MonoBehaviour
     public bool isUlting = false;
     public bool isCharging = false;
     [HideInInspector] public Player_Health myHealth;
-    [HideInInspector] public Energy myEnergy;
     [HideInInspector] public Character_Attack myShooter;
     public GameObject playerCameraBounds;
 
@@ -130,7 +129,6 @@ public class Character_Movement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         myAnim = GetComponent<Animator>();
         myHealth = GetComponent<Player_Health>();
-        myEnergy = GetComponent<Energy>();
         ulti1 = GetComponent<Ultimate>();
         currentJumps = maxJumps;
         gravityScale = rb.gravityScale;
@@ -559,7 +557,6 @@ public class Character_Movement : MonoBehaviour
                     break;
                 case PowerUp.Dash:
 
-                    uiDash.SetActive(true);
                     break;
 
                 case PowerUp.Fire:

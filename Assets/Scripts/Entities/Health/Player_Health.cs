@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,6 +11,7 @@ public class Player_Health : Health
     public AudioClip reviveHealingSfx;
     public AudioClip revivingSfx;
     public GameObject revivingVfx;
+    private Coroutine damageAnimCoroutine;
 
     [Space, Header("UI")]
     public Image lifeBar;
@@ -60,21 +62,35 @@ public class Player_Health : Health
 
     public override void TakeDamage(float dmg)
     {
-        float alf = myPlayerAttack.defenseUpgrade? dmg / 2 : dmg;
-        base.TakeDamage(alf);
-        RefreshLifeBar();
-
-        if (currentHP <= 0) Death();
-        else
+        if(recovering == false)
         {
-            if (flashCoroutine == null) flashCoroutine = StartCoroutine(Flashing(3, 0.15f));
+            float alf = myPlayerAttack.defenseUpgrade ? dmg / 2 : dmg;
+            base.TakeDamage(alf);
+            RefreshLifeBar();
+
+            if (currentHP <= 0) Death();
+            else
+            {
+                if (flashCoroutine == null) flashCoroutine = StartCoroutine(Flashing(3, 0.15f));
+                if (damageAnimCoroutine == null) damageAnimCoroutine = StartCoroutine(TakeDamageTimer());
+            }
         }
     }
 
+    IEnumerator TakeDamageTimer()
+    {
+        myAnim.SetBool("damaged", true);
+        yield return new WaitForSeconds(0.35f);
+        myAnim.SetBool("damaged", false);
+        damageAnimCoroutine = null;
+    }
 
     public override void Death()
     {
+        myAnim.SetBool("dead", true);
         base.Death();
+        damageAnimCoroutine = null;
+        myAnim.SetBool("damaged", false);
         myCamera.SetActive(true);
         myAnim.updateMode = AnimatorUpdateMode.UnscaledTime;
     }
@@ -97,8 +113,21 @@ public class Player_Health : Health
     public void ReviveHealing()
     {
         SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, reviveHealingSfx);
+        reviveReady = false;
+        reviveCurrentTime = 0;
+        StartCoroutine(ReviveHealingTimer());
     }
 
+    IEnumerator ReviveHealingTimer()
+    {
+        for (float i = 0; i < 3.5f; i += Time.fixedDeltaTime)
+        {
+            currentHP = (i * maxHP) / 3;
+            lifeBar.fillAmount = currentHP / maxHP;
+            lifeBar.color = Color.Lerp(lowLifeBarColor, fullLifeBarColor, currentHP / maxHP);
+            yield return null;
+        }
+    }
     public void RespawnTransition()
     {
         GameManager.instance.Transition(GameManager.EventType.PlayerDeathTransition, 0);
@@ -112,6 +141,8 @@ public class Player_Health : Health
     public void RespawnPlayerHealth()
     {
         myAnim.SetTrigger("respawn");
+        myAnim.SetBool("dead", false);
+        StartCoroutine(Flashing(10, 0.15f));
         currentHP = maxHP;
         RefreshLifeBar();
         GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;

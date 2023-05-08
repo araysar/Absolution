@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class Dagger : Projectile
+public class Dagger : IProjectile
 {
     [SerializeField] private Animator myAnim;
     private Rigidbody2D myRb;
@@ -11,9 +11,6 @@ public class Dagger : Projectile
 
     private void Awake()
     {
-        myChar = FindObjectOfType<Character_Movement>();
-        myAnim = GetComponent<Animator>();
-        myRb = GetComponent<Rigidbody2D>();
 
     }
 
@@ -27,5 +24,10 @@ public class Dagger : Projectile
     private void OnTriggerEnter2D(Collider2D collision)
     {
         
+    }
+
+    public void Return()
+    {
+        throw new System.NotImplementedException();
     }
 }

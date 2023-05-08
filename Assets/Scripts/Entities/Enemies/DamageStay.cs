@@ -33,7 +33,7 @@ public class DamageStay : MonoBehaviour
                 }
             }
 
-            Collider2D[] allObjectives = Physics2D.OverlapBoxAll(transform.position, bounds, 0);
+            Collider2D[] allObjectives = Physics2D.OverlapBoxAll(GetComponent<BoxCollider2D>().bounds.center, bounds, 0);
             foreach (var item in allObjectives)
             {
                 if (item.GetComponent<IDamageable>() != null && item.gameObject.layer == myTargetLayer)
@@ -62,6 +62,6 @@ public class DamageStay : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireCube(transform.position, bounds);
+        Gizmos.DrawWireCube(GetComponent<BoxCollider2D>().bounds.center, bounds);
     }
 }

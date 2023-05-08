@@ -56,7 +56,7 @@ public class Rifle_Attack : Attack_Type
         player.myAnim.SetTrigger("primaryRifle");
         myAttack.AttackCube(false);
         GetBullet().Iniciate();
-        yield return new WaitForSeconds(timeToAttack);
+        yield return new WaitForSeconds(myAttack.cooldownUpgrade? timeToAttack / 1.5f : timeToAttack);
         player.myAnim.SetBool("isAttacking", false);
         myAttack.AttackCube(true);
         isAttacking = false;

@@ -2,6 +2,8 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System;
+using TMPro;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -40,7 +42,6 @@ public class GameManager : MonoBehaviour
 
     [Header("Save")]
     [SerializeField] private Animator saveAnimator;
-
 
     public enum EventType
     {

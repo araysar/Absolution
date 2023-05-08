@@ -33,10 +33,12 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - PixelSnap: 0
-    - _Noise: 1.5
+    - _Float0: 0
+    - _Noise: 1
     - _ShineWidth: 1.1
+    - _m_Time: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Color0: {r: 1, g: 1, b: 1, a: 1}
-    - _Speed: {r: 1, g: -1, b: 0, a: 0}
+    - _Speed: {r: 0, g: -1, b: 0, a: 0}
   m_BuildTextureStacks: []

@@ -8,6 +8,7 @@ public class SoundManager : MonoBehaviour
 
     public static SoundManager instance;
     public AudioClip winMusic;
+    public AudioClip clickSfx;
 
     public float sfxVolume = 0.2f;
     public float musicVolume = 0.2f;
@@ -33,7 +34,7 @@ public class SoundManager : MonoBehaviour
 
         sfxAudioSource.volume = sfxVolume;
         musicAudioSource.volume = musicVolume;
-        unscalledAudioSource = sfxAudioSource;
+        unscalledAudioSource.volume = sfxVolume;
     }
 
     private void Start()

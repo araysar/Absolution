@@ -4964,8 +4964,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52204410bfee9bb4cbbd7afc275b6d69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
-  bounds: {x: 0, y: 0}
+  damage: 20
+  bounds: {x: 0.8711596, y: 1.386518}
   myTargetLayer: 6
 --- !u!1 &4528228462444741168
 GameObject:
@@ -5038,8 +5038,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52204410bfee9bb4cbbd7afc275b6d69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 25
-  bounds: {x: 0, y: 0}
+  damage: 40
+  bounds: {x: 0.5117879, y: 1.319297}
   myTargetLayer: 6
 --- !u!114 &1352932221819536998
 MonoBehaviour:
@@ -10092,17 +10092,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9954ff43989b15a4696b16a1403a353c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  impactBomb: 0
   maxHP: 40
   currentHP: 0
   invulnerable: 0
   myAnim: {fileID: 0}
   initialPosition: {x: 0, y: 0}
-  weakPoint: {fileID: 0}
   disableAfterDeath: []
   healVfx: {fileID: 0}
   healSfx: {fileID: 0}
   deathSfx: {fileID: 8300000, guid: b055046dd484467479983addeed95569, type: 3}
+  deathVfx: {fileID: 0}
   damagedSfx: {fileID: 8300000, guid: 4e144b3a965435141a8c3d9fcb73a157, type: 3}
   damagedVfx: {fileID: 0}
   paintableMaterial: {fileID: 2100000, guid: dfd3b895dd3408b42a6c1e8f32260bf8, type: 2}

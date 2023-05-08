@@ -13,7 +13,7 @@ public class Character_Attack : MonoBehaviour
     public Cube myCube; 
     public List<Transform> animationPositions = new List<Transform>();
 
-    //Attack system
+    [Header("Attack System")]
     public AudioClip changeSfx;
     public ParticleSystem changeVfx;
     public Transform cubeTransform;
@@ -29,7 +29,9 @@ public class Character_Attack : MonoBehaviour
     public Color emptyColor;
     public Color fullColor;
 
-    [Header("Shards System")]
+    //[Header("Actions")]
+
+    [Header("Talents System")]
     public int currentShards = 0;
     public int requiredShards = 4;
     public Shards_System shardsSystem;
@@ -45,7 +47,7 @@ public class Character_Attack : MonoBehaviour
 
     public enum Upgrades
     {
-        Cooldown,
+        AtkSpeed,
         Damage,
         Defense,
         Revive,
@@ -130,13 +132,13 @@ public class Character_Attack : MonoBehaviour
                 }
                 else if (Input.GetKeyDown(KeyCode.O))
                 {
-                    shardsSystem.cooldownUI.sprite = shardsSystem.cooldownSprite;
+                    shardsSystem.uiButton[0].sprite = shardsSystem.spriteButton[0];
                     cooldownUpgrade = true;
-                    shardsSystem.damageUI.sprite = shardsSystem.damageSprite;
+                    shardsSystem.uiButton[1].sprite = shardsSystem.spriteButton[1];
                     damageUpgrade = true;
-                    shardsSystem.defenseUI.sprite = shardsSystem.defenseSprite;
+                    shardsSystem.uiButton[2].sprite = shardsSystem.spriteButton[2];
                     defenseUpgrade = true;
-                    shardsSystem.reviveUI.sprite = shardsSystem.reviveSprite;
+                    shardsSystem.uiButton[3].sprite = shardsSystem.spriteButton[3];
                     reviveUpgrade = true;
                 }
 

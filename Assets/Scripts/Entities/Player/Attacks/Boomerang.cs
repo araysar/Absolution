@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Boomerang : MonoBehaviour
+public class Boomerang : MonoBehaviour, IProjectile
 {
     public Boomerang_Attack myAttack;
     public bool isBacking = false;
@@ -13,11 +13,13 @@ public class Boomerang : MonoBehaviour
     {
         if(!isBacking)
         {
-            transform.Translate(new Vector2(myAttack.primarySpeed * Time.deltaTime, 0));
+            transform.Translate(new Vector2(myAttack.myAttack.cooldownUpgrade? myAttack.primarySpeed * 1.5f * Time.deltaTime
+                                           : myAttack.primarySpeed * Time.deltaTime, 0));
         }
         else
         {
-            transform.position = Vector2.MoveTowards(transform.position, myAttack.transform.position, myAttack.primarySpeed * Time.deltaTime);
+            transform.position = Vector2.MoveTowards(transform.position, myAttack.transform.position,
+            myAttack.myAttack.cooldownUpgrade ? myAttack.primarySpeed * 1.5f * Time.deltaTime : myAttack.primarySpeed * Time.deltaTime);
             if((myAttack.transform.position - transform.position).magnitude < 0.1f)
             {
                 StopAllCoroutines();
@@ -35,9 +37,8 @@ public class Boomerang : MonoBehaviour
 
     public IEnumerator TimeToBack()
     {
-        yield return new WaitForSeconds(myAttack.backTime);
-        myTargets.Clear();
-        isBacking = true;
+        yield return new WaitForSeconds(myAttack.myAttack.cooldownUpgrade ? myAttack.backTime / 1.5f : myAttack.backTime);
+        Return();
     }
 
     public void Flip()
@@ -67,8 +68,14 @@ public class Boomerang : MonoBehaviour
         }
         else if(collision.gameObject.layer == 3 && !isBacking)
         {
-            isBacking = true;
-            myTargets.Clear();
+            Return();
         }
+    }
+
+    public void Return()
+    {
+        StopAllCoroutines();
+        isBacking = true;
+        myTargets.Clear();
     }
 }

@@ -56,11 +56,6 @@ public class Health : MonoBehaviour, IDamageable
                 damagedVfx.SetActive(true);
             }
 
-            if(myAnim.GetBool("damage") == true)
-            {
-                myAnim.SetBool("damaged", true);
-            }
-
             if(currentHP > 0)
             {
                 if (damagedSfx != null) SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, damagedSfx);
@@ -119,10 +114,8 @@ public class Health : MonoBehaviour, IDamageable
         while(count < times)
         {
             myRenderer.material = paintableMaterial;
-            myRenderer.color = flashColor;
             yield return new WaitForSeconds(duration);
-            myRenderer.material = myMaterial;
-            myRenderer.color = myColor;
+            myRenderer.material = commonMaterial;
             yield return new WaitForSeconds(duration);
             count++;
         }

@@ -1,8 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Bomb : MonoBehaviour
+public class Bomb : MonoBehaviour, IProjectile
 {
     public Bomb_Attack myAttack;
     public Rigidbody2D myRb;
@@ -34,7 +33,7 @@ public class Bomb : MonoBehaviour
     public IEnumerator TimeToExplode()
     {
         yield return new WaitForSeconds(myAttack.explodeTime);
-        Explode();
+        Return();
     }
 
     public void Flip()
@@ -49,7 +48,7 @@ public class Bomb : MonoBehaviour
         }
     }
 
-    public void Explode()
+    public void Return()
     {
         myExplosion.transform.position = transform.position;
         myExplosion.gameObject.SetActive(true);
@@ -62,7 +61,7 @@ public class Bomb : MonoBehaviour
         IDamageable myTarget = collision.gameObject.GetComponent<IDamageable>();
         if (myTarget != null)
         {
-            Explode();
+            Return();
         }
     }
 }
