@@ -55,6 +55,7 @@ public class Bomb : MonoBehaviour, IProjectile
         myExplosion.gameObject.SetActive(true);
         SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, myClip);
         myAttack.myAttack.myCube.transform.position = transform.position;
+        StopAllCoroutines();
         gameObject.SetActive(false);
     }
 
