@@ -14,6 +14,8 @@ public class Destroyable_Health : Health
     {
         gameObject.SetActive(true);
         GameManager.instance.HealAllEnemiesEvent += HealEnemy;
+        GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+        GetComponent<Collider2D>().enabled = false;
         currentHP = maxHP;
         transform.position = initialPosition;
         myAnim.SetBool("death", false);

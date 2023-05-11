@@ -5,6 +5,7 @@ using UnityEngine;
 public class ShardsColectable : MonoBehaviour
 {
     public int myNumber;
+    public AudioClip myClip;
 
     private void Start()
     {
@@ -18,6 +19,7 @@ public class ShardsColectable : MonoBehaviour
         Character_Attack player = collision.GetComponent<Character_Attack>();
         if(player != null)
         {
+            SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, myClip);
             player.AddShard(myNumber);
             gameObject.SetActive(false);
         }

@@ -15262,6 +15262,7 @@ MonoBehaviour:
   primaryAnimationTime: 0.25
   attackCooldown: 0.5
   myBounds: {fileID: 3800701490248441293}
+  myClip: {fileID: 8300000, guid: b0f059af9f8c66642a9246aaea95c465, type: 3}
   secondaryCenter: {fileID: 1559668434}
   preparationTime: 0.5
 --- !u!1 &686824571
@@ -20730,6 +20731,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 4768580105158206522, guid: 449faa973c8060d4d8c95817b0d1abac, type: 3}
   primarySpeed: 10
   timeToAttack: 0.5
+  myClip: {fileID: 8300000, guid: 7c982d2db4811c04d8a08ea44f0b60b4, type: 3}
 --- !u!1 &1451916986
 GameObject:
   m_ObjectHideFlags: 0
@@ -25641,6 +25643,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myAttack: {fileID: 0}
+  myClips:
+  - {fileID: 8300000, guid: 27bfed4000f1d004e9018b4a3f27e8b6, type: 3}
+  - {fileID: 8300000, guid: 9c925d50d32d8e6488c31a5b90f4b787, type: 3}
+  - {fileID: 8300000, guid: 12fd11d90b1a9c24ea01f16dcab80cc7, type: 3}
+  - {fileID: 8300000, guid: 6936b086e3c7dde4f81d2a4a5ca80416, type: 3}
 --- !u!1 &1476328331
 GameObject:
   m_ObjectHideFlags: 0

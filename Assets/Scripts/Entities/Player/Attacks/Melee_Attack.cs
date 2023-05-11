@@ -10,6 +10,7 @@ public class Melee_Attack : Attack_Type
     public float primaryAnimationTime = 0.25f;
     public float attackCooldown = 0.5f;
     public MeleeBounds myBounds;
+    public AudioClip myClip;
 
     [Header("Secondary Attack")]
     public Transform secondaryCenter;
@@ -61,6 +62,7 @@ public class Melee_Attack : Attack_Type
         player.myAnim.SetBool("isAttacking", true);
         myBounds.gameObject.SetActive(true);
         player.DisableFlip();
+        SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, myClip);
         yield return new WaitForSeconds(primaryAnimationTime);
         player.myAnim.SetBool("isAttacking", false);
         myAttack.AttackCube(true);

@@ -637,6 +637,7 @@ public class Character_Movement : MonoBehaviour
     {
         LoadData();
         myHealth.respawnEffect.SetActive(true);
+        myAnim.SetBool("dead", false);
         GetComponent<Collider2D>().enabled = true;
         rb.bodyType = RigidbodyType2D.Dynamic;
         myHealth.myRenderer.enabled = true;
