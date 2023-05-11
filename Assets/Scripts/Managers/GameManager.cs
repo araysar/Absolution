@@ -2,8 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System;
-using TMPro;
-using UnityEngine.UI;
+using Cinemachine;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,6 +11,8 @@ public class GameManager : MonoBehaviour
     private Animator myAnim;
     public bool onPause = false;
     private float gravity;
+    public CinemachineVirtualCamera playerCamera;
+    public CinemachineVirtualCamera normalCamera;
 
     public event Action EnemyRespawnEvent = delegate { };
     public event Action AllwaysRespawnEvent = delegate { };
@@ -224,6 +225,7 @@ public class GameManager : MonoBehaviour
                 break;
             case ExecuteAction.EnterBossDoor:
                 EnterBossDoorEvent();
+
                 break;
         }
 

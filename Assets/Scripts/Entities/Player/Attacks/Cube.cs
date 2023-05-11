@@ -17,6 +17,8 @@ public class Cube : MonoBehaviour
     private void Start()
     {
         if (player == null) player = FindObjectOfType<Character_Movement>();
+        DontDestroyOnLoad(gameObject);
+        GameManager.instance.DestroyEvent += Destroy;
     }
     void FixedUpdate()
     {
@@ -24,6 +26,11 @@ public class Cube : MonoBehaviour
         {
             Move();
         }
+    }
+
+    private void Destroy()
+    {
+        Destroy(gameObject);
     }
 
     void Move()

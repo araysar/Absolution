@@ -7,13 +7,11 @@ public class Character_Movement : MonoBehaviour
 {
     public static Character_Movement instance;
 
-
     public bool disableInputs = false;
     public bool isUlting = false;
     public bool isCharging = false;
     [HideInInspector] public Player_Health myHealth;
     [HideInInspector] public Character_Attack myShooter;
-    public GameObject playerCameraBounds;
 
     [Header("Move")]
     public float speed = 3;
@@ -69,17 +67,6 @@ public class Character_Movement : MonoBehaviour
     [SerializeField] private AudioClip dashSfx;
     public bool canDash = false;
 
-    [Header("Dagger")]
-    public GameObject impactFleshEffect;
-    public AudioClip impactFleshSfx;
-    public GameObject impactMetalEffect;
-    public AudioClip impactMetalSfx;
-    public GameObject impactShieldEffect;
-    public AudioClip impactShieldSfx;
-    public GameObject blockedWallImpactEffect;
-    public AudioClip blockedWallImpactSfx;
-
-
     [Header("Ultimate")]
     public float ulti1Stacks;
     public float ulti1Required;
@@ -97,8 +84,8 @@ public class Character_Movement : MonoBehaviour
     [Header("Save")]
     private float saveUlti1Stacks;
     private float saveCurrentHp;
-    private float saveCurrentEnergy;
     public List<PowerUp> saveMyUpgrades = new List<PowerUp>();
+
     public enum PowerUp
     {
         DoubleJump,

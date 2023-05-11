@@ -1820,7 +1820,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &425271405
@@ -22865,6 +22865,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1607162378753597897, guid: c3fd59bde480997458a02a52d282707e, type: 3}
+    - {fileID: 1636248309, guid: c3fd59bde480997458a02a52d282707e, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: c3fd59bde480997458a02a52d282707e, type: 3}
 --- !u!1 &1519737806
 GameObject:
@@ -27741,6 +27742,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1607162378753597897, guid: c3fd59bde480997458a02a52d282707e, type: 3}
+    - {fileID: 1636248309, guid: c3fd59bde480997458a02a52d282707e, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: c3fd59bde480997458a02a52d282707e, type: 3}
 --- !u!1 &1562939095
 GameObject:

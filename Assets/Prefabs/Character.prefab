@@ -15252,7 +15252,7 @@ MonoBehaviour:
   weaponName: 
   soundClips: []
   myColor: {r: 0.41960788, g: 0, b: 0.59607846, a: 1}
-  damage: 15
+  damage: 25
   isAttacking: 0
   myImage: {fileID: 21300000, guid: 07a7125fec9829d488ad2f53a098e97d, type: 3}
   myAttack: {fileID: 0}
@@ -20729,7 +20729,7 @@ MonoBehaviour:
   myAttack: {fileID: 0}
   player: {fileID: 0}
   bulletPrefab: {fileID: 4768580105158206522, guid: 449faa973c8060d4d8c95817b0d1abac, type: 3}
-  primarySpeed: 10
+  primarySpeed: 8
   timeToAttack: 0.5
   myClip: {fileID: 8300000, guid: 7c982d2db4811c04d8a08ea44f0b60b4, type: 3}
 --- !u!1 &1451916986
@@ -35471,7 +35471,7 @@ MonoBehaviour:
   weaponName: 
   soundClips: []
   myColor: {r: 0.5294118, g: 0.21568629, b: 0, a: 1}
-  damage: 20
+  damage: 30
   isAttacking: 0
   myImage: {fileID: 21300000, guid: d1d483952d94b9146ad169e80c066f4a, type: 3}
   myAttack: {fileID: 0}
@@ -51523,7 +51523,7 @@ Transform:
   m_GameObject: {fileID: 3284561371220175778}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.5155, y: -0.3595, z: 0}
-  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 495556901}
   - {fileID: 7435843892667991056}
@@ -51729,7 +51729,7 @@ MonoBehaviour:
   ulti1: {fileID: 1897431516}
   ulti2Stacks: 0
   ulti2Required: 0
-  myUpgrades: 0100000000000000
+  myUpgrades: 
   uiDash: {fileID: 855846216626910511}
   uiUltimate1: {fileID: 706677130}
   uiFire: {fileID: 2239338129428199565}
@@ -51828,7 +51828,7 @@ MonoBehaviour:
   myAnim: {fileID: 6333780969245736735}
   initialPosition: {x: 0, y: 0}
   disableAfterDeath: []
-  healVfx: {fileID: 0}
+  healVfx: {fileID: 245206140}
   healSfx: {fileID: 8300000, guid: 4f0458ea4fd74f6428299bc824e7f2c5, type: 3}
   deathSfx: {fileID: 8300000, guid: 4fdc1ef77c605e74ca22cfb60deb1803, type: 3}
   deathVfx: {fileID: 0}
