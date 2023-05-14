@@ -98,7 +98,6 @@ public class GameManager : MonoBehaviour
         ResumeMovementEvent += RecoverGravity;
         SaveDataEvent += SavingAnimation;
         myAnim = GetComponent<Animator>();
-
     }
 
     public void EndGameTransition()
@@ -187,7 +186,7 @@ public class GameManager : MonoBehaviour
                 break;
             case ExecuteAction.PlayerRespawnEvent:
                 PlayerRespawnEvent();
-                player.GetComponent<Player_Health>().myCamera.SetActive(false);
+                playerCamera.gameObject.SetActive(false);
                 player.GetComponent<Character_Attack>().myCube.transform.position = player.GetComponent<Character_Attack>().cubeTransform.position;
                 break;
             case ExecuteAction.SaveData:

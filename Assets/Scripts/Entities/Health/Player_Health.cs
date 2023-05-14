@@ -4,7 +4,6 @@ using UnityEngine.UI;
 
 public class Player_Health : Health
 {
-    public GameObject myCamera;
     public Character_Attack myPlayerAttack;
     public GameObject respawnEffect;
     public GameObject playerDeathEffect;
@@ -91,7 +90,7 @@ public class Player_Health : Health
         base.Death();
         damageAnimCoroutine = null;
         myAnim.SetBool("damaged", false);
-        myCamera.SetActive(true);
+        GameManager.instance.playerCamera.gameObject.SetActive(true);
         myAnim.updateMode = AnimatorUpdateMode.UnscaledTime;
     }
 
@@ -135,7 +134,8 @@ public class Player_Health : Health
 
     public void DisableMyCamera()
     {
-        myCamera.gameObject.SetActive(false);
+
+        GameManager.instance.playerCamera.gameObject.SetActive(false);
     }
 
     public void RespawnPlayerHealth()
