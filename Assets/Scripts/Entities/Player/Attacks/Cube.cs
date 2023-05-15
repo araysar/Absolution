@@ -17,7 +17,6 @@ public class Cube : MonoBehaviour
     private void Start()
     {
         if (player == null) player = FindObjectOfType<Character_Movement>();
-        DontDestroyOnLoad(gameObject);
         GameManager.instance.DestroyEvent += Destroy;
     }
     void FixedUpdate()
@@ -40,7 +39,7 @@ public class Cube : MonoBehaviour
         Vector2 desired = b - a;
         if (idleAnimation)
         {
-            if(!player.isMoving)
+            if(Input.GetAxisRaw("Horizontal") == 0)
             {
                 transform.position = Vector2.MoveTowards(a, animationPositions[currentPosition].position, animationSpeed);
                 if ((animationPositions[currentPosition].position - transform.position).magnitude < 0.05f)
@@ -56,7 +55,7 @@ public class Cube : MonoBehaviour
         }
         else
         {
-            if (desired.magnitude < 0.1f && !player.isMoving)
+            if (desired.magnitude < 0.1f && Input.GetAxisRaw("Horizontal") == 1)
             {
                 idleAnimation = true;
                 currentPosition = 0;

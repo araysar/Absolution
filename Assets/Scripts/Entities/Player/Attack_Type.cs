@@ -11,6 +11,7 @@ public abstract class Attack_Type : MonoBehaviour
     public Character_Attack myAttack;
     public Character_Movement player;
     public abstract void Setup();
+    public abstract void CreateResource();
     public abstract void Interrupt();
     public abstract void PrimaryAttack();
     public abstract void SecondaryAttack();

@@ -11,9 +11,11 @@ public class Destroyable_Health : Health
     private void RespawnEnemy()
     {
         gameObject.SetActive(true);
+        if (damagedVfx != null) damagedVfx.SetActive(false);
+        if (deathVfx != null) deathVfx.SetActive(false);
         GameManager.instance.HealAllEnemiesEvent += HealEnemy;
-        GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
-        GetComponent<Collider2D>().enabled = false;
+        GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+        GetComponent<Collider2D>().enabled = true;
         currentHP = maxHP;
         transform.position = initialPosition;
         myAnim.SetBool("death", false);

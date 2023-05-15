@@ -107,4 +107,9 @@ public class Melee_Attack : Attack_Type
     {
         throw new System.NotImplementedException();
     }
+
+    public override void CreateResource()
+    {
+
+    }
 }

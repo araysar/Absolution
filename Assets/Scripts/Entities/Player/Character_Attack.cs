@@ -83,7 +83,7 @@ public class Character_Attack : MonoBehaviour
         }
     }
 
-    private void Awake()
+    private void Start()
     {
         CreateCube();
         player = GetComponent<Character_Movement>();
@@ -91,6 +91,8 @@ public class Character_Attack : MonoBehaviour
         currentAttack = myAttacks[firstWeapon];// myAttacks[Random.Range(0, myAttacks.Length)];
         uiImage.sprite = currentAttack.myImage;
         shardsSystem = GetComponentInChildren<Shards_System>();
+        GameManager.instance.SetupPlayerAttacks += CreateAttacks;
+        GameManager.instance.SetupPlayerAttacks += CreateCube;
     }
 
     public void EndAttackAnimation()
@@ -100,12 +102,17 @@ public class Character_Attack : MonoBehaviour
 
     public void CreateCube()
     {
-        if(myCube == null)
+        myCube = Instantiate(myCubePrefab);
+        myCube.animationPositions = animationPositions;
+        myCube.gameObject.transform.position = cubeTransform.position;
+        myCube.myDestination = cubeTransform;
+    }
+
+    public void CreateAttacks()
+    {
+        for (int i = 0; i < myAttacks.Length; i++)
         {
-            myCube = Instantiate(myCubePrefab);
-            myCube.animationPositions = animationPositions;
-            myCube.gameObject.transform.position = cubeTransform.position;
-            myCube.myDestination = cubeTransform;
+            myAttacks[i].CreateResource();
         }
     }
 

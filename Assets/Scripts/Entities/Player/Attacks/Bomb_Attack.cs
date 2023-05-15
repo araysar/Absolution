@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Bomb_Attack : Attack_Type
@@ -32,11 +31,6 @@ public class Bomb_Attack : Attack_Type
 
     public override void PrimaryAttack()
     {
-        if (myBomb == null)
-        {
-            myBomb = Instantiate(bombPrefab);
-            Setup();
-        }
         StartCoroutine(PrimaryCooldown());
     }
 
@@ -68,6 +62,12 @@ public class Bomb_Attack : Attack_Type
     public override void Interrupt()
     {
         throw new System.NotImplementedException();
+    }
+
+    public override void CreateResource()
+    {
+        myBomb = Instantiate(bombPrefab);
+        Setup();
     }
 }
 

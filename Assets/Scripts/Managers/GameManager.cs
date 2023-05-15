@@ -11,9 +11,8 @@ public class GameManager : MonoBehaviour
     private Animator myAnim;
     public bool onPause = false;
     private float gravity;
-    public CinemachineVirtualCamera normalCamera;
-    public CinemachineVirtualCamera playerCamera;
 
+    public event Action SetupPlayerAttacks = delegate { };
     public event Action EnemyRespawnEvent = delegate { };
     public event Action AllwaysRespawnEvent = delegate { };
     public event Action HealAllEnemiesEvent = delegate { };
@@ -61,6 +60,7 @@ public class GameManager : MonoBehaviour
 
     public enum ExecuteAction
     {
+        SetupPlayerAttacks,
         EnemyRespawnEvent,
         HealAllEnemiesEvent,
         PlayerDisableEvent,
@@ -80,16 +80,17 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if (instance == null)
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
             GameManager.instance.DestroyEvent += Destroy;
         }
-        else
-        {
-            Destroy(gameObject);
-        }
+
         player = FindObjectOfType<Character_Movement>();
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 60;
@@ -120,7 +121,6 @@ public class GameManager : MonoBehaviour
     public void ChangeScene()
     {
         SceneManager.LoadScene(nextScene);
-        Character_Movement.instance.gameObject.transform.position = nextPosition;
     }
 
     public void UnPause()
@@ -174,6 +174,10 @@ public class GameManager : MonoBehaviour
     {
         switch (actions)
         {
+            case ExecuteAction.SetupPlayerAttacks:
+                SetupPlayerAttacks();
+                player.transform.position = nextPosition;
+                break;
             case ExecuteAction.EnemyRespawnEvent:
                 EnemyRespawnEvent();
                 EnemyRespawnEvent = delegate { };
@@ -186,8 +190,8 @@ public class GameManager : MonoBehaviour
                 break;
             case ExecuteAction.PlayerRespawnEvent:
                 PlayerRespawnEvent();
-                playerCamera.gameObject.SetActive(false);
-                player.GetComponent<Character_Attack>().myCube.transform.position = player.GetComponent<Character_Attack>().cubeTransform.position;
+                CameraManager.instance.normalCamera.gameObject.SetActive(true);
+                CameraManager.instance.playerCamera.gameObject.SetActive(false);
                 break;
             case ExecuteAction.SaveData:
                 SaveDataEvent();

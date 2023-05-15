@@ -12,13 +12,13 @@ public class Health : MonoBehaviour, IDamageable
     protected bool recovering = false;
     public Animator myAnim;
     [HideInInspector] public Vector2 initialPosition;
-    [SerializeField] private List<GameObject> disableAfterDeath;
-    [SerializeField] private GameObject healVfx;
-    [SerializeField] private AudioClip healSfx;
-    [SerializeField] private AudioClip deathSfx;
-    [SerializeField] private GameObject deathVfx;
-    [SerializeField] private AudioClip damagedSfx;
-    [SerializeField] private GameObject damagedVfx;
+    [SerializeField] protected List<GameObject> disableAfterDeath;
+    [SerializeField] protected GameObject healVfx;
+    [SerializeField] protected AudioClip healSfx;
+    [SerializeField] protected AudioClip deathSfx;
+    [SerializeField] protected GameObject deathVfx;
+    [SerializeField] protected AudioClip damagedSfx;
+    [SerializeField] protected GameObject damagedVfx;
 
     [Space, Header("Flash")]
     [SerializeField] protected Material paintableMaterial;
@@ -89,7 +89,7 @@ public class Health : MonoBehaviour, IDamageable
     {
         StopAllCoroutines();
         flashCoroutine = null;
-        recovering = true;
+        recovering = false;
         GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
         GetComponent<Collider2D>().enabled = false;
         myRenderer.material = commonMaterial;
@@ -115,15 +115,19 @@ public class Health : MonoBehaviour, IDamageable
         {
             myRenderer.material = paintableMaterial;
             yield return new WaitForSeconds(duration);
+            if (currentHP <= 0)
+            {
+                Death();
+                recovering = false;
+                flashCoroutine = null;
+                myRenderer.material = commonMaterial;
+                yield break;
+            }
             myRenderer.material = commonMaterial;
             yield return new WaitForSeconds(duration);
             count++;
         }
 
-        if (currentHP <= 0)
-        {
-            Death();
-        }
         recovering = false;
         flashCoroutine = null;
     }

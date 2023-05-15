@@ -90,7 +90,8 @@ public class Player_Health : Health
         base.Death();
         damageAnimCoroutine = null;
         myAnim.SetBool("damaged", false);
-        GameManager.instance.playerCamera.gameObject.SetActive(true);
+        CameraManager.instance.normalCamera.gameObject.SetActive(false);
+        CameraManager.instance.playerCamera.gameObject.SetActive(true);
         myAnim.updateMode = AnimatorUpdateMode.UnscaledTime;
     }
 
@@ -134,8 +135,8 @@ public class Player_Health : Health
 
     public void DisableMyCamera()
     {
-
-        GameManager.instance.playerCamera.gameObject.SetActive(false);
+        CameraManager.instance.normalCamera.gameObject.SetActive(true);
+        CameraManager.instance.playerCamera.gameObject.SetActive(false);
     }
 
     public void RespawnPlayerHealth()

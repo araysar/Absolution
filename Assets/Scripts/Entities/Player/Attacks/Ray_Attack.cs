@@ -65,4 +65,9 @@ public class Ray_Attack : Attack_Type
     {
         throw new System.NotImplementedException();
     }
+
+    public override void CreateResource()
+    {
+        throw new System.NotImplementedException();
+    }
 }

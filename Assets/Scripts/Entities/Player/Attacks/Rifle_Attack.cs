@@ -43,6 +43,7 @@ public class Rifle_Attack : Attack_Type
 
     public override void Setup()
     {
+        myBullets = new List<Bullet>();
         for (int i = 0; i < 5; i++)
         {
             Bullet newBullet = Instantiate(bulletPrefab);
@@ -82,5 +83,10 @@ public class Rifle_Attack : Attack_Type
     public override void Interrupt()
     {
         throw new System.NotImplementedException();
+    }
+
+    public override void CreateResource()
+    {
+        Setup();
     }
 }

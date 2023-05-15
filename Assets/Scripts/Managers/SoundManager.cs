@@ -50,6 +50,7 @@ public class SoundManager : MonoBehaviour
                 sfxAudioSource.PlayOneShot(clip);
                 break;
             case SoundChannel.Music:
+                if (clip == musicAudioSource.clip) break;
 
                 musicAudioSource.clip = clip;
                 if (clip == null) musicAudioSource.Stop();

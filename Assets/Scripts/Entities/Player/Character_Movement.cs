@@ -103,14 +103,14 @@ public class Character_Movement : MonoBehaviour
 
     void Awake()
     {
-        if (instance == null)
+        if (instance != null && instance != this)
         {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
+            Destroy(gameObject);
         }
         else
         {
-            Destroy(gameObject);
+            instance = this;
+            DontDestroyOnLoad(gameObject);
         }
         myShooter = GetComponent<Character_Attack>();
         rb = GetComponent<Rigidbody2D>();

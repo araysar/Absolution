@@ -33,11 +33,6 @@ public class Boomerang_Attack : Attack_Type
 
     public override void PrimaryAttack()
     {
-        if(myBoomerang == null)
-        {
-            myBoomerang = Instantiate(boomerangPrefab);
-            Setup();
-        }
         StartCoroutine(PrimaryCooldown());
     }
 
@@ -70,5 +65,11 @@ public class Boomerang_Attack : Attack_Type
     public override void Interrupt()
     {
         throw new System.NotImplementedException();
+    }
+
+    public override void CreateResource()
+    {
+        myBoomerang = Instantiate(boomerangPrefab);
+        Setup();
     }
 }
