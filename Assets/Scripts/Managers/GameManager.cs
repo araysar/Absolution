@@ -11,8 +11,8 @@ public class GameManager : MonoBehaviour
     private Animator myAnim;
     public bool onPause = false;
     private float gravity;
-    public CinemachineVirtualCamera playerCamera;
     public CinemachineVirtualCamera normalCamera;
+    public CinemachineVirtualCamera playerCamera;
 
     public event Action EnemyRespawnEvent = delegate { };
     public event Action AllwaysRespawnEvent = delegate { };
