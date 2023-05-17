@@ -102,10 +102,13 @@ public class Character_Attack : MonoBehaviour
 
     public void CreateCube()
     {
-        myCube = Instantiate(myCubePrefab);
-        myCube.animationPositions = animationPositions;
+        if(myCube == null)
+        {
+            myCube = Instantiate(myCubePrefab);
+            myCube.animationPositions = animationPositions;
+            myCube.myDestination = cubeTransform;
+        }
         myCube.gameObject.transform.position = cubeTransform.position;
-        myCube.myDestination = cubeTransform;
     }
 
     public void CreateAttacks()

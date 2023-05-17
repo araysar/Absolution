@@ -655,7 +655,7 @@ public class Character_Movement : MonoBehaviour
         PowerUpErase();
         myUpgrades = new List<PowerUp>(saveMyUpgrades);
         PowerUpGrab();
-        transform.position = myHealth.initialPosition;
+        transform.position = GameManager.instance.nextPosition;
         myHealth.RefreshLifeBar();
         ulti1.RefreshStacks(false);
     }
