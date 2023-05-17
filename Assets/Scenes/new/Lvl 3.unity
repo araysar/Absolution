@@ -151,7 +151,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 75138063}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 35.273926, y: 16.188822, z: 75.28307}
+  m_LocalPosition: {x: 36.94059, y: 16.188822, z: 75.28307}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 236966753}
@@ -4269,6 +4269,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Talent Statue
       objectReference: {fileID: 0}
+    - target: {fileID: 3628902287750833438, guid: 99369eb176af4004390a76eca3e011f1, type: 3}
+      propertyPath: m_SortingOrder
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 3628902287750833439, guid: 99369eb176af4004390a76eca3e011f1, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -5031,8 +5035,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1530964255}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.11, y: -13.69, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 9.15, y: -13.671, z: 0}
+  m_LocalScale: {x: 0.953, y: 0.953, z: 0.953}
   m_Children:
   - {fileID: 471603880}
   m_Father: {fileID: 0}
