@@ -31,6 +31,7 @@ public class Destroyable_Health : Health
     public override void Death()
     {
         base.Death();
+        deathVfx.SetActive(true);
         GetComponent<Collider2D>().enabled = false;
         GameManager.instance.EnemyRespawnEvent += RespawnEnemy;
         GameManager.instance.HealAllEnemiesEvent -= HealEnemy;
