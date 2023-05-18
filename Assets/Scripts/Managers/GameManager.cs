@@ -92,6 +92,7 @@ public class GameManager : MonoBehaviour
         }
 
         player = FindObjectOfType<Character_Movement>();
+        nextPosition = player.transform.position;
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 60;
         gravity = Physics2D.gravity.y;
@@ -157,6 +158,8 @@ public class GameManager : MonoBehaviour
             case EventType.DoorTransition:
                 yield return new WaitForSeconds(time);
                 StopMovementEvent();
+                HealAllEnemiesEvent = delegate { };
+                EnemyRespawnEvent = delegate { };
                 StopMovementEvent = delegate { };
                 ResumeMovementEvent = delegate { };
                 ResetBossBattleEvent = delegate { };

@@ -44,6 +44,7 @@ public class Destroyable_Health : Health
 
     private void OnDestroy()
     {
+        GameManager.instance.HealAllEnemiesEvent -= HealEnemy;
         GameManager.instance.AllwaysRespawnEvent -= RespawnEnemy;
     }
 }
