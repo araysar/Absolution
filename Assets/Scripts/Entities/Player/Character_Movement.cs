@@ -79,12 +79,10 @@ public class Character_Movement : MonoBehaviour
     [SerializeField] private GameObject uiDash;
     [SerializeField] private GameObject uiUltimate1;
     [SerializeField] private GameObject uiFire;
-    [SerializeField] private GameObject newPowerUpVfx;
+    public GameObject newPowerUpVfx;
 
-    [Header("Save")]
-    private float saveUlti1Stacks;
-    private float saveCurrentHp;
-    public List<PowerUp> saveMyUpgrades = new List<PowerUp>();
+    [Header("UI")]
+    public GameObject ui;
 
     public enum PowerUp
     {
@@ -130,8 +128,6 @@ public class Character_Movement : MonoBehaviour
         GameManager.instance.StopPlayerMovementEvent += StopMovement;
         GameManager.instance.ResumePlayerMovementEvent += EnablePlayer;
         GameManager.instance.ResumePlayerMovementEvent += EnableFlip;
-        GameManager.instance.SaveDataEvent += SaveData;
-        GameManager.instance.LoadDataEvent += LoadData;
         GameManager.instance.DestroyEvent += Destroy;
         GameManager.instance.EndGameEvent += DisableInputs;
         GameManager.instance.EndGameEvent += Invulnerability;
@@ -393,7 +389,7 @@ public class Character_Movement : MonoBehaviour
     }
     public void ResumeMovement()
     {
-        disableInputs = false;
+        if(!GameManager.instance.isBusy) disableInputs = false;
     }
 
     #endregion
@@ -622,7 +618,7 @@ public class Character_Movement : MonoBehaviour
 
     private void RespawnPlayer()
     {
-        LoadData();
+        GameManager.instance.saveManager.LoadData();
         myHealth.respawnEffect.SetActive(true);
         myAnim.SetBool("dead", false);
         GetComponent<Collider2D>().enabled = true;
@@ -640,25 +636,8 @@ public class Character_Movement : MonoBehaviour
         ControlAnimations();
         myAnim.Play("Idle", 0);
     }
-    public void SaveData()
-    {
-        saveCurrentHp = myHealth.maxHP;
-        saveUlti1Stacks = ulti1Stacks;
-        saveMyUpgrades = new List<PowerUp>(myUpgrades);
-        myHealth.initialPosition = transform.position;
-    }
 
-    public void LoadData()
-    {
-        myHealth.currentHP = saveCurrentHp;
-        ulti1Stacks = saveUlti1Stacks;
-        PowerUpErase();
-        myUpgrades = new List<PowerUp>(saveMyUpgrades);
-        PowerUpGrab();
-        transform.position = GameManager.instance.nextPosition;
-        myHealth.RefreshLifeBar();
-        ulti1.RefreshStacks(false);
-    }
+    
     #endregion
 
     private void Destroy()

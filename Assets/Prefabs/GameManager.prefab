@@ -176,6 +176,7 @@ GameObject:
   - component: {fileID: 6045660021848789679}
   - component: {fileID: 6045660021848789678}
   - component: {fileID: 6045660021848789677}
+  - component: {fileID: 299049543}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -210,17 +211,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55e985ed9a619ef46b628ce5f07ffcaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  saveManager: {fileID: 0}
   player: {fileID: 0}
   onPause: 0
-  normalCamera: {fileID: 0}
-  playerCamera: {fileID: 0}
-  commonEnemyDeathEffect: {fileID: 388721792338471567, guid: 1db74b31c0024204db908346edb39621, type: 3}
-  playerDeathEffect: {fileID: 6583231465960820392, guid: 8552b11dbf38b304b8a1f5992f99146e, type: 3}
-  screamParticleEffect: {fileID: 7448874963658846809, guid: 69b69d8b6216a0147bfe584add0fae84, type: 3}
-  bossDeathEffect: {fileID: 7837270429366243444, guid: c7ae14c84730c8e4ba82ed001d3042f7, type: 3}
+  isBusy: 0
   nextScene: 1
   nextPosition: {x: 0, y: 0}
-  saveAnimator: {fileID: 6045660023037136098}
 --- !u!114 &6045660021848789678
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -257,6 +253,22 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &299049543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6045660021848789673}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7c33249d2a7fbb47a4456d6e03cd980, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  saveAnimator: {fileID: 6045660023037136098}
+  playerUpgrades: 
+  shards: 
+  saveShards: 
 --- !u!1 &6045660022007452579
 GameObject:
   m_ObjectHideFlags: 0

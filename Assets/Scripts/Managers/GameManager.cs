@@ -7,9 +7,11 @@ using Cinemachine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+    public SaveManager saveManager;
     public Character_Movement player;
     private Animator myAnim;
     public bool onPause = false;
+    public bool isBusy = false;
     private float gravity;
 
     public event Action SetupPlayerAttacks = delegate { };
@@ -30,18 +32,10 @@ public class GameManager : MonoBehaviour
     public event Action ResetBossBattleEvent = delegate { };
     public event Action EndGameEvent = delegate { };
 
-    [Header("Particles")]
-    [SerializeField] private GameObject commonEnemyDeathEffect;
-    [SerializeField] private GameObject playerDeathEffect;
-    [SerializeField] private GameObject screamParticleEffect;
-    [SerializeField] private GameObject bossDeathEffect;
-
     [Header("NextZone")]
     [HideInInspector] public string nextScene;
     [HideInInspector] public Vector2 nextPosition = Vector2.zero;
 
-    [Header("Save")]
-    [SerializeField] private Animator saveAnimator;
 
     public enum EventType
     {
@@ -88,17 +82,19 @@ public class GameManager : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
-            GameManager.instance.DestroyEvent += Destroy;
+            DestroyEvent += Destroy;
         }
 
+        saveManager = GetComponent<SaveManager>();
         player = FindObjectOfType<Character_Movement>();
         nextPosition = player.transform.position;
+
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 60;
+
         gravity = Physics2D.gravity.y;
         StopMovementEvent += NoGravity;
         ResumeMovementEvent += RecoverGravity;
-        SaveDataEvent += SavingAnimation;
         myAnim = GetComponent<Animator>();
     }
 
@@ -107,10 +103,6 @@ public class GameManager : MonoBehaviour
         nextScene = "EndGame-Words";
     }
 
-    public void SavingAnimation()
-    {
-        saveAnimator.SetTrigger("saving");
-    }
 
     public void Pause()
     {

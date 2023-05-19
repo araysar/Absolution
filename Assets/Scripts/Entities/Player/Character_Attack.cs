@@ -34,8 +34,7 @@ public class Character_Attack : MonoBehaviour
     public int currentShards = 0;
     public int requiredShards = 4;
     public Shards_System shardsSystem;
-    public List<int> myShards = new List<int>();
-    public List<Upgrades> myUpgrades = new List<Upgrades>();
+    public List<Talents> myUpgrades = new List<Talents>();
 
     [Header("Upgrades")]
     public bool cooldownUpgrade = false;
@@ -44,7 +43,7 @@ public class Character_Attack : MonoBehaviour
     public bool reviveUpgrade = false;
 
 
-    public enum Upgrades
+    public enum Talents
     {
         AtkSpeed,
         Damage,
@@ -193,8 +192,7 @@ public class Character_Attack : MonoBehaviour
 
     public void AddShard(int number)
     {
-        myShards.Add(number);
+        GameManager.instance.saveManager.shards.Add(number);
         currentShards++;
-        shardsSystem.uiShards.text = currentShards.ToString();
     }
 }

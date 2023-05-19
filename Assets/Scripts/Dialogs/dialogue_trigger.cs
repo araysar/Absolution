@@ -12,10 +12,12 @@ public class dialogue_trigger : MonoBehaviour
     public Image dialogueImage;
     [TextArea(3, 6)] public string[] dialogueLines;
     public float typingTime = 0.05f;
-    public bool oneTime = false;
     private bool isTalking = false;
     private int lineIndex;
     public Action MyAction = delegate { };
+    public int dialogueNumber = 0;
+    public float timeToTrigger = 0;
+
 
     private void Update()
     {
@@ -60,13 +62,30 @@ public class dialogue_trigger : MonoBehaviour
             isTalking = false;
             dialogueMenu.SetActive(false); 
             GameManager.instance.UnPause();
-            if (oneTime)
-            {
-                gameObject.SetActive(false);
-            }
+            GameManager.instance.isBusy = false;
+            GameManager.instance.player.disableInputs = false;
+            GameManager.instance.player.ui.SetActive(true);
+            GameManager.instance.saveManager.dialogues.Add(dialogueNumber);
+            MyAction = delegate { };
+            GameManager.instance.EnemyRespawnEvent += Respawn;
+            gameObject.SetActive(false);
         }
     }
+    private void Respawn()
+    {
+        gameObject.SetActive(true);
+    }
 
+    IEnumerator Timer()
+    {
+        yield return new WaitForSeconds(timeToTrigger);
+        MyAction = Action;
+
+    }
+    public void EnableDialogue()
+    {
+        GameManager.instance.isBusy = true;
+    }
     IEnumerator ShowLine()
     {
         dialogueText.text = string.Empty;
@@ -81,7 +100,7 @@ public class dialogue_trigger : MonoBehaviour
     {
         if(collision.GetComponent<Character_Attack>() != null)
         {
-            MyAction = Action;
+            StartCoroutine(Timer());
         }
     }
 }

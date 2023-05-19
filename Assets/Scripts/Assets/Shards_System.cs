@@ -98,30 +98,30 @@ public class Shards_System : MonoBehaviour
 
     public void BTN_Upgrade()
     {
-        Character_Attack.Upgrades myUpgrade;
+        Character_Attack.Talents myTalent;
         switch (index)
         {
             case 0:
-                myUpgrade = Character_Attack.Upgrades.AtkSpeed;
+                myTalent = Character_Attack.Talents.AtkSpeed;
                 break;
             case 1:
-                myUpgrade = Character_Attack.Upgrades.Damage;
+                myTalent = Character_Attack.Talents.Damage;
                 break;
             case 2:
-                myUpgrade = Character_Attack.Upgrades.Defense;
+                myTalent = Character_Attack.Talents.Defense;
                 break;
             case 3:
-                myUpgrade = Character_Attack.Upgrades.Revive;
+                myTalent = Character_Attack.Talents.Revive;
                 break;
             default:
-                myUpgrade = Character_Attack.Upgrades.AtkSpeed;
+                myTalent = Character_Attack.Talents.AtkSpeed;
                 break;
         }
         SoundManager.instance.PlaySound(SoundManager.SoundChannel.Unscalled, SoundManager.instance.clickSfx);
-        Upgrade(myUpgrade);
+        Upgrade(myTalent);
     }
 
-    public void Upgrade(Character_Attack.Upgrades upgrade)
+    public void Upgrade(Character_Attack.Talents upgrade)
     {
         if(!player.myUpgrades.Contains(upgrade) && player.currentShards >= 4)
         {
@@ -130,16 +130,16 @@ public class Shards_System : MonoBehaviour
             uiButton[index].sprite = spriteButton[index];
             switch (upgrade)
             {
-                case Character_Attack.Upgrades.AtkSpeed:
+                case Character_Attack.Talents.AtkSpeed:
                     player.cooldownUpgrade = true;
                     break;
-                case Character_Attack.Upgrades.Damage:
+                case Character_Attack.Talents.Damage:
                     player.damageUpgrade = true;
                     break;
-                case Character_Attack.Upgrades.Defense:
+                case Character_Attack.Talents.Defense:
                     player.defenseUpgrade = true;
                     break;
-                case Character_Attack.Upgrades.Revive:
+                case Character_Attack.Talents.Revive:
                     player.reviveUpgrade = true;
                     break;
             }
