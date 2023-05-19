@@ -6,6 +6,8 @@ public class Lvl1_Manager : MonoBehaviour
 {
     Character_Movement player;
     public dialogue_trigger dialogue1;
+    public AudioClip myClip;
+    public GameObject myEffect;
 
     private void Awake()
     {
@@ -19,5 +21,7 @@ public class Lvl1_Manager : MonoBehaviour
         player.ui.SetActive(false);
         GameManager.instance.isBusy = true;
         player.disableInputs = true;
+        myEffect.SetActive(true);
+        SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, myClip);
     }
 }
