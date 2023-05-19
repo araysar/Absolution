@@ -211,7 +211,7 @@ public class Character_Movement : MonoBehaviour
     private void AttemptToDash()
     {
         myAnim.SetTrigger("exit");
-        SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, dashSfx);
+        SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, dashSfx, transform);
         dashCharges--;
         isDashing = true;
         dashTimeLeft = dashTime;
@@ -403,11 +403,11 @@ public class Character_Movement : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             if(myAnim.GetBool("isJumping") || myAnim.GetBool("isFalling")) myAnim.Play("Idle", 0, 0f);
             isFalling = false;
-            SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, voiceJumpSfx);
+            SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, voiceJumpSfx, transform);
             if (currentJumps != maxJumps && myUpgrades.Contains(PowerUp.DoubleJump))
             {
                 if (myAnim.GetBool("isJumping") || myAnim.GetBool("isFalling")) myAnim.Play("Idle", 0, 0f);
-                SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, doubleJumpSfx);
+                SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, doubleJumpSfx, transform);
                 Instantiate(doubleJumpEffect, groundCheck.position, Quaternion.identity);
             }
             timeInAir = 0;
@@ -468,7 +468,7 @@ public class Character_Movement : MonoBehaviour
         {
             if(timeInAir > 0.75f)
             {
-                SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, landingHighJumpSfx);
+                SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, landingHighJumpSfx, transform);
                 Instantiate(highLandingVfx, groundCheck.position, Quaternion.identity);
                 StopMovement();
                 myAnim.Play("Landing", 0);
@@ -476,7 +476,7 @@ public class Character_Movement : MonoBehaviour
             }
             else
             {
-                SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, landingSfx);
+                SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, landingSfx, transform);
             }
         }
         isTouchingWall = Physics2D.Raycast(wallCheck.position, transform.right, wallCheckDistance, groundMask);

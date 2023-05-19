@@ -8,7 +8,7 @@ public class Win_Token : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, myGrabSfx);
+            SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, myGrabSfx, transform);
             GameManager.instance.nextPosition = transform.position;
             GameManager.instance.nextScene = nextScene;
             GameManager.instance.Transition(GameManager.EventType.EndGameTransition, 0);

@@ -20,7 +20,7 @@ public class ShardsCollectable : MonoBehaviour
         Character_Attack player = collision.GetComponent<Character_Attack>();
         if(player != null)
         {
-            SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, myClip);
+            SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, myClip, transform);
             player.AddShard(myNumber);
             GameManager.instance.EnemyRespawnEvent += Respawn;
             gameObject.SetActive(false);

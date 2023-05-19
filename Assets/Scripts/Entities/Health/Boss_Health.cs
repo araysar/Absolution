@@ -25,8 +25,8 @@ public class Boss_Health : Health
     {
         base.Death();
 
-        SoundManager.instance.PlaySound(SoundManager.SoundChannel.Music, null);
-        SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, SoundManager.instance.winMusic);
+        SoundManager.instance.PlaySound(SoundManager.SoundChannel.Music, null, transform);
+        SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, SoundManager.instance.winMusic, transform);
     }
     private void HealEnemy()
     {

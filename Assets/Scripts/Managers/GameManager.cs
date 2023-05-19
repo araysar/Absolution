@@ -234,7 +234,7 @@ public class GameManager : MonoBehaviour
 
     public void Sound(AudioClip myClip)
     {
-        SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, myClip);
+        SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, myClip, transform);
     }
 
     public void Scream()

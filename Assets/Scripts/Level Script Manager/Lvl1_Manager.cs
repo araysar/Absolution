@@ -22,6 +22,6 @@ public class Lvl1_Manager : MonoBehaviour
         GameManager.instance.isBusy = true;
         player.disableInputs = true;
         myEffect.SetActive(true);
-        SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, myClip);
+        SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, myClip, transform);
     }
 }

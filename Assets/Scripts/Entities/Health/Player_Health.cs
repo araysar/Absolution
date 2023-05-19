@@ -112,7 +112,7 @@ public class Player_Health : Health
 
     public void ReviveHealing()
     {
-        SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, reviveHealingSfx);
+        SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, reviveHealingSfx, transform);
         reviveReady = false;
         reviveCurrentTime = 0;
         StartCoroutine(ReviveHealingTimer());
@@ -150,7 +150,7 @@ public class Player_Health : Health
         GetComponent<Collider2D>().enabled = true;
         Time.timeScale = 1;
         revivingVfx.SetActive(true);
-        SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, revivingSfx);
+        SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, revivingSfx, transform);
         myAnim.updateMode = AnimatorUpdateMode.Normal;
     }
 

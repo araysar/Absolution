@@ -6,6 +6,6 @@ public class PlaySound : MonoBehaviour
 
     public void Sound()
     {
-        SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, myClip);
+        SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, myClip, transform);
     }
 }

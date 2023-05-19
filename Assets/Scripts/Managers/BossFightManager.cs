@@ -36,7 +36,7 @@ public class BossFightManager : MonoBehaviour
 
     private void ChangeMusic()
     {
-        SoundManager.instance.PlaySound(SoundManager.SoundChannel.Music, myMusic);
+        SoundManager.instance.PlaySound(SoundManager.SoundChannel.Music, myMusic, transform);
     }
 
     public void EnteringBossDoor()

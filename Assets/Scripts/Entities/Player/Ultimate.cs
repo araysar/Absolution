@@ -109,13 +109,13 @@ public class Ultimate: MonoBehaviour
         RefreshStacks(true);
         ultimateAnimator.SetTrigger("notReady");
         readyText.SetActive(false);
-        if (chargeSfx != null) SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, chargeSfx);
-        if (castVoice != null) SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, castVoice);
+        if (chargeSfx != null) SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, chargeSfx, transform);
+        if (castVoice != null) SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, castVoice, transform);
     }
     private void UsingUltimate()
     {
-        if (launchSfx != null) SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, launchSfx);
-        if (castVoice != null) SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, launchVoice);
+        if (launchSfx != null) SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, launchSfx, transform);
+        if (castVoice != null) SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, launchVoice, transform);
         myChar.isCharging = false;
         myChar.isUlting = true;
         myChar.ControlAnimations();

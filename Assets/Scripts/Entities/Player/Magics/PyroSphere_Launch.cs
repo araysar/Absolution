@@ -46,7 +46,7 @@ public class PyroSphere_Launch : MonoBehaviour
     {
         if ((collision.GetComponent<IDamageable>() != null && collision.tag != "Player") || collision.gameObject.layer == 3 || collision.gameObject.layer == 11)
         {
-            SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, explosionSound);
+            SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, explosionSound, transform);
             if(myExplosion == null)
             {
                 myExplosion = Instantiate(explosion);

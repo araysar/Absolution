@@ -22,7 +22,7 @@ public class WeaponObstacle : MonoBehaviour
     public void Destroy()
     {
         if (destroyEffect != null) Instantiate(destroyEffect, transform.position, Quaternion.identity);
-        if (destroySfx != null) SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, destroySfx);
+        if (destroySfx != null) SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, destroySfx, transform);
 
         gameObject.SetActive(false);
     }

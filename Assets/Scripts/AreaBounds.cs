@@ -12,7 +12,7 @@ public class AreaBounds : MonoBehaviour
         {
             if(changeMusic)
             {
-                SoundManager.instance.PlaySound(SoundManager.SoundChannel.Music, music);
+                SoundManager.instance.PlaySound(SoundManager.SoundChannel.Music, music, transform);
             }
         }
     }

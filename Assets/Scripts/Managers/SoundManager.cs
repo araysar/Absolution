@@ -42,13 +42,17 @@ public class SoundManager : MonoBehaviour
         GameManager.instance.DestroyEvent += Destroy;
         GameManager.instance.EndGameEvent += StopSong;
     }
-    public void PlaySound(SoundManager.SoundChannel channel, AudioClip clip)
+    public void PlaySound(SoundChannel channel, AudioClip clip, Transform position)
     {
         switch (channel)
         {
             case SoundChannel.SFX:
-                sfxAudioSource.PlayOneShot(clip);
-                break;
+                if (Vector2.Distance(position.position, GameManager.instance.player.transform.position) < 8)
+                {
+                    sfxAudioSource.PlayOneShot(clip);
+                    break;
+                }
+                else break;
             case SoundChannel.Music:
                 if (clip == musicAudioSource.clip) break;
 

@@ -58,7 +58,7 @@ public class Rifle_Attack : Attack_Type
         player.myAnim.SetTrigger("primaryRifle");
         myAttack.AttackCube(false);
         GetBullet().Iniciate();
-        SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, myClip);
+        SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, myClip, transform);
         yield return new WaitForSeconds(myAttack.cooldownUpgrade? timeToAttack / 1.5f : timeToAttack);
         player.myAnim.SetBool("isAttacking", false);
         myAttack.AttackCube(true);

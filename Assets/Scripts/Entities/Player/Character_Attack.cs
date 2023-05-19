@@ -75,7 +75,7 @@ public class Character_Attack : MonoBehaviour
             currentAttack = myAttacks[nextWeapon];
             currentTime = 0; 
             AttackCube(true);
-            SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, changeSfx);
+            SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, changeSfx, transform);
             changeVfx.startColor = currentAttack.myColor;
             changeVfx.gameObject.SetActive(true);
             uiImage.sprite = currentAttack.myImage;

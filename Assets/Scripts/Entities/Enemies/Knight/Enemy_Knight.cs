@@ -203,7 +203,7 @@ public class Enemy_Knight : MonoBehaviour
                 if(!isChasing)
                 {
                     isChasing = true;
-                    SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, chargeSfx);
+                    SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, chargeSfx, transform);
                 }
                 return true;
             }

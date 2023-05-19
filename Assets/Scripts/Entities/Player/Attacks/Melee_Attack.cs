@@ -62,7 +62,7 @@ public class Melee_Attack : Attack_Type
         player.myAnim.SetBool("isAttacking", true);
         myBounds.gameObject.SetActive(true);
         player.DisableFlip();
-        SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, myClip);
+        SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, myClip, transform);
         yield return new WaitForSeconds(primaryAnimationTime);
         player.myAnim.SetBool("isAttacking", false);
         myAttack.AttackCube(true);

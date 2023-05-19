@@ -55,7 +55,7 @@ public class IceSpikes : MonoBehaviour
             if(collision.GetComponent<Health>() != null)
                 collision.GetComponent<Health>().TakeDamage(myDamage);
 
-            if(destroySfx != null) SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, destroySfx);
+            if(destroySfx != null) SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, destroySfx, transform);
             Instantiate(impactEffect, transform.position, Quaternion.identity);
             gameObject.SetActive(false);
         }

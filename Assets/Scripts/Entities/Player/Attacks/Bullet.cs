@@ -64,6 +64,6 @@ public class Bullet : MonoBehaviour, IProjectile
         myCollider.enabled = false;
         myRb.velocity = Vector2.zero;
         body.SetActive(false);
-        if (hitSFX != null) SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, hitSFX);
+        if (hitSFX != null) SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, hitSFX, transform);
     }
 }

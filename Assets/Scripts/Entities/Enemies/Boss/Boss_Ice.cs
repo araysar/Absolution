@@ -158,7 +158,7 @@ public class Boss_Ice : Boss
 
     private void BossScream()
     {
-        SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, myBossScream);
+        SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, myBossScream, transform);
         myScream.SetActive(true);
     }
 

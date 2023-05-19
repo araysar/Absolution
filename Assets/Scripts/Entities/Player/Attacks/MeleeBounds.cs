@@ -21,7 +21,7 @@ public class MeleeBounds : MonoBehaviour
             if(collision.gameObject.layer != myAttack.player.gameObject.layer && !myTargets.Contains(myTarget))
             {
                 myTargets.Add(myTarget);
-                SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, myClips[Random.Range(0, myClips.Length)]);
+                SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, myClips[Random.Range(0, myClips.Length)], transform);
                 myTarget.TakeDamage(myAttack.damage);
             }
         }

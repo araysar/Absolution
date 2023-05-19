@@ -58,11 +58,11 @@ public class Health : MonoBehaviour, IDamageable
 
             if(currentHP > 0)
             {
-                if (damagedSfx != null) SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, damagedSfx);
+                if (damagedSfx != null) SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, damagedSfx, transform);
             }
             else
             {
-                if (deathSfx != null) SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, deathSfx);
+                if (deathSfx != null) SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, deathSfx, transform);
             }
         }
         else
@@ -80,7 +80,7 @@ public class Health : MonoBehaviour, IDamageable
     {
         currentHP += amount;
         if (currentHP > maxHP) currentHP = maxHP;
-        SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, healSfx);
+        SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, healSfx, transform);
         healVfx.SetActive(false);
         healVfx.SetActive(true);
     }

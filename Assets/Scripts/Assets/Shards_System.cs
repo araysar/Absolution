@@ -30,7 +30,7 @@ public class Shards_System : MonoBehaviour
         uiShards.text = "Shards: " + player.currentShards.ToString();
         currentMusic = SoundManager.instance.CurrentSong();
         learnButton.SetActive(false);
-        SoundManager.instance.PlaySound(SoundManager.SoundChannel.Music, music);
+        SoundManager.instance.PlaySound(SoundManager.SoundChannel.Music, music, transform);
         talentPanel.SetActive(true);
     }
 
@@ -43,8 +43,8 @@ public class Shards_System : MonoBehaviour
             uiButton[i].color = Color.white;
         }
         learnButton.SetActive(false);
-        SoundManager.instance.PlaySound(SoundManager.SoundChannel.Unscalled, SoundManager.instance.clickSfx);
-        SoundManager.instance.PlaySound(SoundManager.SoundChannel.Music, currentMusic); 
+        SoundManager.instance.PlaySound(SoundManager.SoundChannel.Unscalled, SoundManager.instance.clickSfx, transform);
+        SoundManager.instance.PlaySound(SoundManager.SoundChannel.Music, currentMusic, transform); 
         GameManager.instance.onPause = false;
         Time.timeScale = 1;
         talentPanel.SetActive(false);
@@ -52,7 +52,7 @@ public class Shards_System : MonoBehaviour
 
     public void ActiveInfo()
     {
-        SoundManager.instance.PlaySound(SoundManager.SoundChannel.Unscalled, SoundManager.instance.clickSfx);
+        SoundManager.instance.PlaySound(SoundManager.SoundChannel.Unscalled, SoundManager.instance.clickSfx, transform);
         if (!learnButton.activeSelf)
         {
             learnButton.SetActive(true);
@@ -117,7 +117,7 @@ public class Shards_System : MonoBehaviour
                 myTalent = Character_Attack.Talents.AtkSpeed;
                 break;
         }
-        SoundManager.instance.PlaySound(SoundManager.SoundChannel.Unscalled, SoundManager.instance.clickSfx);
+        SoundManager.instance.PlaySound(SoundManager.SoundChannel.Unscalled, SoundManager.instance.clickSfx, transform);
         Upgrade(myTalent);
     }
 
@@ -125,7 +125,7 @@ public class Shards_System : MonoBehaviour
     {
         if(!player.myUpgrades.Contains(upgrade) && player.currentShards >= 4)
         {
-            SoundManager.instance.PlaySound(SoundManager.SoundChannel.Unscalled, learnSfx);
+            SoundManager.instance.PlaySound(SoundManager.SoundChannel.Unscalled, learnSfx, transform);
             player.myUpgrades.Add(upgrade);
             uiButton[index].sprite = spriteButton[index];
             switch (upgrade)
