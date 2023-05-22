@@ -178,15 +178,16 @@ public class Character_Attack : MonoBehaviour
     private void TimerUI()
     {
         timerUI.fillAmount = currentTime / timeToShuffle;
-        timerUI.color = Color.Lerp(emptyColor, fullColor, timerUI.fillAmount);
 
         if(currentTime >= timeToShuffle - 5)
         {
             myUIAnim.SetBool("loop", true);
+            timerUI.color = fullColor;
         }
         else
         {
             myUIAnim.SetBool("loop", false);
+            timerUI.color = emptyColor;
         }
     }
 
