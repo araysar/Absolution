@@ -513,7 +513,7 @@ GameObject:
   - component: {fileID: 232396242}
   - component: {fileID: 232396244}
   m_Layer: 0
-  m_Name: ChangeZone lvl 2
+  m_Name: ChangeZone lvl 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -571,7 +571,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69e4642f353161f45a18e8570ada197d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextScene: Lvl 2
+  nextScene: Lvl 1
   nextPosition: {x: -13.5, y: -9.5}
 --- !u!1 &237604077
 GameObject:
@@ -838,7 +838,7 @@ GameObject:
   - component: {fileID: 340389646}
   - component: {fileID: 340389645}
   m_Layer: 0
-  m_Name: ChangeZone lvl 5
+  m_Name: ChangeZone lvl 6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -870,7 +870,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69e4642f353161f45a18e8570ada197d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextScene: Lvl 5
+  nextScene: Lvl 6
   nextPosition: {x: -14.5, y: -33.5}
 --- !u!61 &340389646
 BoxCollider2D:
