@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,10 +14,13 @@ public class Player_Health : Health
     private Coroutine damageAnimCoroutine;
 
     [Space, Header("UI")]
+    public Slider lifeSlider;
     public Image lifeBar;
+    public GameObject handle;
     public Animator myUIAnim;
     [SerializeField] private Color fullLifeBarColor = Color.green;
     [SerializeField] private Color lowLifeBarColor = Color.red;
+    Action LifeBarEffect = delegate { };
 
     [Space, Header("Revive System")]
     public bool reviveReady = true;
@@ -26,6 +30,7 @@ public class Player_Health : Health
     void Start()
     {
         myPlayerAttack = GetComponent<Character_Attack>();
+        lifeBar.color = fullLifeBarColor;
     }
 
     void Update()
@@ -42,19 +47,36 @@ public class Player_Health : Health
             }
         }
     }
+    private void FixedUpdate()
+    {
+        LifeBarEffect();
+    }
+    float currentVelocity = 0;
 
+    private void LifeBarAnimation()
+    {
+        handle.SetActive(true);
+        lifeSlider.value = Mathf.SmoothDamp(lifeSlider.value, currentHP / maxHP, ref currentVelocity, 0.25f, 400 * Time.fixedDeltaTime);
+        if (lifeSlider.value < currentHP / maxHP + 0.002f)
+        {
+            lifeSlider.value = currentHP / maxHP;
+            handle.SetActive(false);
+            LifeBarEffect = delegate { };
+        }
+    }
     public void RefreshLifeBar()
     {
+        LifeBarEffect = LifeBarAnimation;
 
-        lifeBar.fillAmount = currentHP / maxHP;
-        lifeBar.color = Color.Lerp(lowLifeBarColor, fullLifeBarColor, currentHP / maxHP);
-
-        if (currentHP / maxHP <= 0.225f && currentHP > 0)
+        if (currentHP / maxHP <= 0.225f)
         {
+            lifeBar.color = lowLifeBarColor; 
             myUIAnim.SetBool("onDanger", true);
+            if (currentHP == 0) myUIAnim.SetBool("onDanger", false);
         }
         else
         {
+            lifeBar.color = fullLifeBarColor;
             myUIAnim.SetBool("onDanger", false);
         }
     }
