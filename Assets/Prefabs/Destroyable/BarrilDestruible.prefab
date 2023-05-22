@@ -4874,7 +4874,6 @@ GameObject:
   - component: {fileID: 3511343664607500674}
   - component: {fileID: 3511343664607500676}
   - component: {fileID: 4277043380977932460}
-  - component: {fileID: 7589169706648006233}
   - component: {fileID: 3747101979325294354}
   m_Layer: 3
   m_Name: BarrilDestruible
@@ -4996,25 +4995,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 5
---- !u!95 &7589169706648006233
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3511343664607500672}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 22100000, guid: 94c037af42022934f82d353d9536f681, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &3747101979325294354
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5030,7 +5010,7 @@ MonoBehaviour:
   maxHP: 20
   currentHP: 0
   invulnerable: 0
-  myAnim: {fileID: 7589169706648006233}
+  myAnim: {fileID: 0}
   initialPosition: {x: 0, y: 0}
   disableAfterDeath: []
   healVfx: {fileID: 0}

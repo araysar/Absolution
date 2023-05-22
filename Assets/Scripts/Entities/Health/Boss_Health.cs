@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Boss_Health : Health
 {
-    // Start is called before the first frame update
+    public Animator myAnim;
     void Start()
     {
         GameManager.instance.ResetBossBattleEvent += HealEnemy;
@@ -24,7 +24,7 @@ public class Boss_Health : Health
     public override void Death()
     {
         base.Death();
-
+        myAnim.SetTrigger("death");
         SoundManager.instance.PlaySound(SoundManager.SoundChannel.Music, null, transform);
         SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, SoundManager.instance.winMusic, transform);
     }

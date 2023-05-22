@@ -10,7 +10,6 @@ public class Health : MonoBehaviour, IDamageable
     public float currentHP;
     public bool invulnerable = false;
     protected bool recovering = false;
-    public Animator myAnim;
     [HideInInspector] public Vector2 initialPosition;
     [SerializeField] protected List<GameObject> disableAfterDeath;
     [SerializeField] protected GameObject healVfx;
@@ -35,7 +34,6 @@ public class Health : MonoBehaviour, IDamageable
     {
         initialPosition = transform.position;
         myRenderer = GetComponent<SpriteRenderer>();
-        if (myAnim == null) myAnim = GetComponent<Animator>();
         commonMaterial = myRenderer.material;
         currentHP = maxHP;
     }
@@ -93,7 +91,6 @@ public class Health : MonoBehaviour, IDamageable
         GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
         GetComponent<Collider2D>().enabled = false;
         myRenderer.material = commonMaterial;
-        myAnim.SetTrigger("death");
     }
 
     protected void Disable()

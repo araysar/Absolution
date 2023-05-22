@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 898897232131574736}
   - component: {fileID: 898897232131574741}
   - component: {fileID: 2777008751910679260}
-  - component: {fileID: 7358477265746218483}
   - component: {fileID: 8906405014335800458}
   m_Layer: 3
   m_Name: Caja
@@ -134,25 +133,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 5
---- !u!95 &7358477265746218483
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 898897232131574737}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 81bbc0046b01387469b5f848ea50afa5, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &8906405014335800458
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,7 +148,6 @@ MonoBehaviour:
   maxHP: 10
   currentHP: 0
   invulnerable: 0
-  myAnim: {fileID: 7358477265746218483}
   initialPosition: {x: 0, y: 0}
   disableAfterDeath: []
   healVfx: {fileID: 0}
@@ -5053,6 +5032,10 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5524739520687120313, guid: fb460b5f92c0fee429e6a2b4f529d212, type: 3}
       propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8321525319306009220, guid: fb460b5f92c0fee429e6a2b4f529d212, type: 3}
+      propertyPath: stopAction
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8321525319306009220, guid: fb460b5f92c0fee429e6a2b4f529d212, type: 3}

@@ -26,11 +26,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7845742606404165030}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.056, y: 0.38, z: 0}
-  m_LocalScale: {x: 3.506083, y: 3.2402864, z: 1}
+  m_LocalPosition: {x: -0.0071729603, y: -0.17293143, z: 0}
+  m_LocalScale: {x: 0.3104905, y: 1.0901741, z: 1}
   m_Children: []
-  m_Father: {fileID: 910462292165876680}
-  m_RootOrder: 1
+  m_Father: {fileID: 6562824148486199619}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3525869747462762316
 MonoBehaviour:
@@ -84,7 +84,6 @@ GameObject:
   - component: {fileID: 910462292165876680}
   - component: {fileID: 2433699087043611305}
   - component: {fileID: 1747887209}
-  - component: {fileID: 2873133131197972688}
   - component: {fileID: 1636248309}
   - component: {fileID: 7119217975517561764}
   m_Layer: 3
@@ -106,7 +105,6 @@ Transform:
   m_LocalScale: {x: 0.26377016, y: 0.28525257, z: 1}
   m_Children:
   - {fileID: 6562824148486199619}
-  - {fileID: 7179328683227016115}
   - {fileID: 8321525319799752618}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -208,25 +206,6 @@ PolygonCollider2D:
       - {x: 0.685, y: -0.32}
       - {x: 0.935, y: -0.26}
       - {x: 1.125, y: -0.19}
---- !u!95 &2873133131197972688
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8555368591124340192}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 22100000, guid: d9508726313b74a4fabd18f1b65ccc22, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &1636248309
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -242,13 +221,12 @@ MonoBehaviour:
   maxHP: 20
   currentHP: 0
   invulnerable: 0
-  myAnim: {fileID: 0}
   initialPosition: {x: 0, y: 0}
   disableAfterDeath: []
   healVfx: {fileID: 0}
   healSfx: {fileID: 0}
-  deathSfx: {fileID: 0}
-  deathVfx: {fileID: 0}
+  deathSfx: {fileID: 8300000, guid: e0565a7fee5c4bf46ab308d1f57217f8, type: 3}
+  deathVfx: {fileID: 8321525319799752617}
   damagedSfx: {fileID: 8300000, guid: e0565a7fee5c4bf46ab308d1f57217f8, type: 3}
   damagedVfx: {fileID: 0}
   paintableMaterial: {fileID: 2100000, guid: dfd3b895dd3408b42a6c1e8f32260bf8, type: 2}
@@ -256,6 +234,8 @@ MonoBehaviour:
   flashColor: {r: 1, g: 1, b: 1, a: 1}
   myRenderer: {fileID: 0}
   myDrop: {fileID: 0}
+  disableBody: {fileID: 6562824148486199646}
+  isStatic: 1
 --- !u!50 &7119217975517561764
 Rigidbody2D:
   serializedVersion: 4
@@ -293,6 +273,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8321525319306009220, guid: fb460b5f92c0fee429e6a2b4f529d212, type: 3}
+      propertyPath: stopAction
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8321525319306009220, guid: fb460b5f92c0fee429e6a2b4f529d212, type: 3}
       propertyPath: InitialModule.startSize.scalar
       value: 0.2
       objectReference: {fileID: 0}
@@ -306,7 +290,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8321525319306009221, guid: fb460b5f92c0fee429e6a2b4f529d212, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8321525319306009221, guid: fb460b5f92c0fee429e6a2b4f529d212, type: 3}
       propertyPath: m_LocalScale.x
@@ -362,11 +346,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8321525319306009222, guid: fb460b5f92c0fee429e6a2b4f529d212, type: 3}
       propertyPath: m_Name
-      value: BoxDestro (1)
+      value: BoxDestro
       objectReference: {fileID: 0}
     - target: {fileID: 8321525319306009222, guid: fb460b5f92c0fee429e6a2b4f529d212, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8321525319306009223, guid: fb460b5f92c0fee429e6a2b4f529d212, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -374,6 +358,11 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 420678bdc98f3f3419985d5b84aaae30, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fb460b5f92c0fee429e6a2b4f529d212, type: 3}
+--- !u!1 &8321525319799752617 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8321525319306009222, guid: fb460b5f92c0fee429e6a2b4f529d212, type: 3}
+  m_PrefabInstance: {fileID: 582098223}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8321525319799752618 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8321525319306009221, guid: fb460b5f92c0fee429e6a2b4f529d212, type: 3}

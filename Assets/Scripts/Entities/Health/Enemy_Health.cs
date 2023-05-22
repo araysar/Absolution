@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy_Health : Health
 {
-    // Start is called before the first frame update
+    public Animator myAnim;
     void Start()
     {
         GameManager.instance.HealAllEnemiesEvent += HealEnemy;
@@ -30,7 +28,8 @@ public class Enemy_Health : Health
 
     public override void Death()
     {
-        base.Death();
+        base.Death(); 
+        myAnim.SetTrigger("death");
         GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
         GetComponent<Collider2D>().enabled = false;
         GameManager.instance.EnemyRespawnEvent += RespawnEnemy;
