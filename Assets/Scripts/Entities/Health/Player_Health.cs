@@ -120,6 +120,7 @@ public class Player_Health : Health
     public void CheckDeath()
     {
         recovering = false;
+        GetComponent<Character_Movement>().DisableFlip();
         if (myPlayerAttack.reviveUpgrade && reviveReady)
         {
             myAnim.SetBool("reviveReady", true);
@@ -153,6 +154,7 @@ public class Player_Health : Health
     public void RespawnTransition()
     {
         GameManager.instance.Transition(GameManager.EventType.PlayerDeathTransition, 0);
+        GetComponent<Character_Movement>().EnableFlip();
     }
 
     public void DisableMyCamera()
@@ -165,6 +167,7 @@ public class Player_Health : Health
     {
         myAnim.SetTrigger("respawn");
         myAnim.SetBool("dead", false);
+        GetComponent<Character_Movement>().EnableFlip();
         StartCoroutine(Flashing(10, 0.15f));
         currentHP = maxHP;
         RefreshLifeBar();

@@ -683,7 +683,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69e4642f353161f45a18e8570ada197d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextScene: Lvl 2
+  nextScene: Lvl 3
   nextPosition: {x: -10.5, y: -33.5}
 --- !u!1 &237604077
 GameObject:
@@ -2699,7 +2699,8 @@ MonoBehaviour:
   - 'Heroe: Voy a tener que adaptarme a sus cambios. Nada va a detener que encuentre
     al culpable de corromper mi hogar.'
   typingTime: 0.05
-  oneTime: 1
+  dialogueNumber: 0
+  timeToTrigger: 0
 --- !u!4 &609369352
 Transform:
   m_ObjectHideFlags: 0
@@ -5799,7 +5800,8 @@ MonoBehaviour:
   - 'Heroe: Tal vez si aplico fragmentos de alma en su estatua pueda pedir su ayuda
     en el cielo'
   typingTime: 0.05
-  oneTime: 1
+  dialogueNumber: 0
+  timeToTrigger: 0
 --- !u!4 &1160271448
 Transform:
   m_ObjectHideFlags: 0
