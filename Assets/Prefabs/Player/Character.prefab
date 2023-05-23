@@ -52125,7 +52125,6 @@ MonoBehaviour:
   maxHP: 100
   currentHP: 0
   invulnerable: 0
-  myAnim: {fileID: 6333780969245736735}
   initialPosition: {x: 0, y: 0}
   disableAfterDeath: []
   healVfx: {fileID: 245206140}
@@ -52139,6 +52138,7 @@ MonoBehaviour:
   flashColor: {r: 1, g: 1, b: 1, a: 1}
   myRenderer: {fileID: 0}
   myDrop: {fileID: 0}
+  myAnim: {fileID: 6333780969245736735}
   myPlayerAttack: {fileID: 3647580896632792794}
   respawnEffect: {fileID: 5012458389926280109}
   playerDeathEffect: {fileID: 0}
