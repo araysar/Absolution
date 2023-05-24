@@ -285,6 +285,10 @@ PrefabInstance:
       value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 8321525319306009220, guid: fb460b5f92c0fee429e6a2b4f529d212, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 100000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8321525319306009220, guid: fb460b5f92c0fee429e6a2b4f529d212, type: 3}
       propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.scalar
       value: 10
       objectReference: {fileID: 0}
@@ -350,6 +354,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8321525319306009222, guid: fb460b5f92c0fee429e6a2b4f529d212, type: 3}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8321525319306009223, guid: fb460b5f92c0fee429e6a2b4f529d212, type: 3}
+      propertyPath: m_SortingLayer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8321525319306009223, guid: fb460b5f92c0fee429e6a2b4f529d212, type: 3}
+      propertyPath: m_SortingOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8321525319306009223, guid: fb460b5f92c0fee429e6a2b4f529d212, type: 3}
+      propertyPath: m_SortingLayerID
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8321525319306009223, guid: fb460b5f92c0fee429e6a2b4f529d212, type: 3}

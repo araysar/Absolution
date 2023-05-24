@@ -5010,7 +5010,6 @@ MonoBehaviour:
   maxHP: 20
   currentHP: 0
   invulnerable: 0
-  myAnim: {fileID: 0}
   initialPosition: {x: 0, y: 0}
   disableAfterDeath: []
   healVfx: {fileID: 0}
@@ -5024,6 +5023,8 @@ MonoBehaviour:
   flashColor: {r: 1, g: 1, b: 1, a: 1}
   myRenderer: {fileID: 0}
   myDrop: {fileID: 0}
+  disableBody: {fileID: 0}
+  isStatic: 0
 --- !u!1001 &1529265422
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5078,6 +5079,22 @@ PrefabInstance:
     - target: {fileID: 2296811844263109405, guid: a812b47db9d784747ba68c8bcc34255a, type: 3}
       propertyPath: stopAction
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2296811844263109405, guid: a812b47db9d784747ba68c8bcc34255a, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 100000
+      objectReference: {fileID: 0}
+    - target: {fileID: 2296811844263109406, guid: a812b47db9d784747ba68c8bcc34255a, type: 3}
+      propertyPath: m_SortingLayer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2296811844263109406, guid: a812b47db9d784747ba68c8bcc34255a, type: 3}
+      propertyPath: m_SortingOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2296811844263109406, guid: a812b47db9d784747ba68c8bcc34255a, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2296811844263109407, guid: a812b47db9d784747ba68c8bcc34255a, type: 3}
       propertyPath: m_Name
