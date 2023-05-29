@@ -89,7 +89,7 @@ public class GameManager : MonoBehaviour
         player = FindObjectOfType<Character_Movement>();
         nextPosition = player.transform.position;
 
-        QualitySettings.vSyncCount = 0;
+        QualitySettings.vSyncCount = 1;
         Application.targetFrameRate = 60;
 
         gravity = Physics2D.gravity.y;

@@ -136,6 +136,13 @@ public class Enemy_Knight : MonoBehaviour
                         myRb.velocity = new Vector2((isFacingRight ? (1 * chasingSpeed) : (-1 * chasingSpeed)) * Time.fixedDeltaTime, myRb.velocity.y);
                     }
 
+                    else if(!isGrounded || isTouchingWall)
+                    {
+                        Flip();
+                        isChasing = false;
+                        lastPlayerPosition = Vector2.zero;
+                    }
+
                     if(isFacingRight?(lastPlayerPosition.x - transform.position.x) < 0.2f : (lastPlayerPosition.x - transform.position.x) > 0.2f)
                     {
                         isChasing = false;
