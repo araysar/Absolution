@@ -571,7 +571,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69e4642f353161f45a18e8570ada197d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextScene: Lvl 1
+  nextScene: 1-Catacombs
   nextPosition: {x: -13.5, y: -9.5}
 --- !u!1 &237604077
 GameObject:
@@ -870,7 +870,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69e4642f353161f45a18e8570ada197d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextScene: Lvl 6
+  nextScene: 6-Catacombs
   nextPosition: {x: -14.5, y: -33.5}
 --- !u!61 &340389646
 BoxCollider2D:
@@ -1003,7 +1003,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69e4642f353161f45a18e8570ada197d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextScene: Lvl 4
+  nextScene: 4-Catacombs
   nextPosition: {x: 4.5, y: -17.5}
 --- !u!61 &395147360
 BoxCollider2D:
