@@ -10095,7 +10095,6 @@ MonoBehaviour:
   maxHP: 60
   currentHP: 0
   invulnerable: 0
-  myAnim: {fileID: 0}
   initialPosition: {x: 0, y: 0}
   disableAfterDeath: []
   healVfx: {fileID: 0}
@@ -10109,6 +10108,7 @@ MonoBehaviour:
   flashColor: {r: 1, g: 1, b: 1, a: 1}
   myRenderer: {fileID: 0}
   myDrop: {fileID: 0}
+  myAnim: {fileID: 8997664911696853134}
 --- !u!1 &7168281197950310450
 GameObject:
   m_ObjectHideFlags: 0

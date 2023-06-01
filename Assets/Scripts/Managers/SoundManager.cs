@@ -1,14 +1,16 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
     public AudioSource sfxAudioSource, musicAudioSource, unscalledAudioSource;
+    [HideInInspector] public List<AudioSource> audioSources = new List<AudioSource>();
 
     public static SoundManager instance;
     public AudioClip winMusic;
     public AudioClip clickSfx;
+    public AudioClip openCommonDoor;
+    public AudioClip closeCommonDoor;
 
     public float sfxVolume = 0.2f;
     public float musicVolume = 0.2f;
@@ -53,6 +55,7 @@ public class SoundManager : MonoBehaviour
                     break;
                 }
                 else break;
+
             case SoundChannel.Music:
                 if (clip == musicAudioSource.clip) break;
 
@@ -60,6 +63,7 @@ public class SoundManager : MonoBehaviour
                 if (clip == null) musicAudioSource.Stop();
                 else musicAudioSource.Play();
                 break;
+
             case SoundChannel.Unscalled:
                 unscalledAudioSource.PlayOneShot(clip);
                 break;
@@ -69,6 +73,10 @@ public class SoundManager : MonoBehaviour
     public void StopSong()
     {
         musicAudioSource.Stop();
+        for (int i = 0; i < audioSources.Count; i++)
+        {
+            audioSources[i].Stop();
+        }
     }
 
     public AudioClip CurrentSong()

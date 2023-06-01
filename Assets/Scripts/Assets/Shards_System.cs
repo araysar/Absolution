@@ -14,11 +14,11 @@ public class Shards_System : MonoBehaviour
     public AudioClip music;
     private AudioClip currentMusic;
 
+
     [Header("Talents UI")]
     public Image[] uiButton;
     public Sprite[] spriteButton;
-    public GameObject[] texts;
-    public GameObject learnButton;
+    public GameObject[] uiPannels;
 
     [HideInInspector] public int index;
 
@@ -27,11 +27,14 @@ public class Shards_System : MonoBehaviour
 
         GameManager.instance.onPause = true;
         Time.timeScale = 0;
-        uiShards.text = "Shards: " + player.currentShards.ToString();
+        uiShards.text = "x " + player.currentShards.ToString();
         currentMusic = SoundManager.instance.CurrentSong();
-        learnButton.SetActive(false);
         SoundManager.instance.PlaySound(SoundManager.SoundChannel.Music, music, transform);
         talentPanel.SetActive(true);
+        for (int i = 0; i < 4; i++)
+        {
+            uiPannels[i].SetActive(false);
+        }
     }
 
     public void BTN_TalentExit()
@@ -39,10 +42,8 @@ public class Shards_System : MonoBehaviour
         GameManager.instance.UnPause();
         for (int i = 0; i < 4; i++)
         {
-            texts[i].SetActive(false);
-            uiButton[i].color = Color.white;
+            uiPannels[i].SetActive(false);
         }
-        learnButton.SetActive(false);
         SoundManager.instance.PlaySound(SoundManager.SoundChannel.Unscalled, SoundManager.instance.clickSfx, transform);
         SoundManager.instance.PlaySound(SoundManager.SoundChannel.Music, currentMusic, transform); 
         GameManager.instance.onPause = false;
@@ -50,80 +51,55 @@ public class Shards_System : MonoBehaviour
         talentPanel.SetActive(false);
     }
 
-    public void ActiveInfo()
+    public void ActiveInfo(int indexUI)
     {
+        index = indexUI;
         SoundManager.instance.PlaySound(SoundManager.SoundChannel.Unscalled, SoundManager.instance.clickSfx, transform);
-        if (!learnButton.activeSelf)
+
+        for (int i = 0; i < uiPannels.Length; i++)
         {
-            learnButton.SetActive(true);
-        }
-        for (int i = 0; i < 4; i++)
-        {
-            if (i != index)
+            if (i != indexUI)
             {
-                texts[i].SetActive(false);
-                uiButton[i].color = Color.white;
+                uiPannels[i].SetActive(false);
             }
             else
             {
-                texts[i].SetActive(true);
-                uiButton[i].color = Color.yellow;
+                if(uiPannels[i].activeSelf)
+                {
+                    uiPannels[i].SetActive(false);
+                }
+                else
+                {
+                    uiPannels[i].SetActive(true);
+                }
             }
         }
     }
 
-    public void BTN_AtkSpeed()
+    public void BTN_CheckUpdate(int myUpgrade)
     {
-        index = 0;
-        ActiveInfo();
-    }
-
-    public void BTN_Damage()
-    {
-        index = 1;
-        ActiveInfo();
-    }
-
-    public void BTN_Defense()
-    {
-        index = 2;
-        ActiveInfo();
-    }
-
-    public void BTN_Revive()
-    {
-        index = 3;
-        ActiveInfo();
-    }
-
-    public void BTN_Upgrade()
-    {
-        Character_Attack.Talents myTalent;
-        switch (index)
+        switch(myUpgrade)
         {
             case 0:
-                myTalent = Character_Attack.Talents.AtkSpeed;
+                Upgrade(Character_Attack.Talents.AtkSpeed);
                 break;
             case 1:
-                myTalent = Character_Attack.Talents.Damage;
+                Upgrade(Character_Attack.Talents.Damage);
                 break;
             case 2:
-                myTalent = Character_Attack.Talents.Defense;
+                Upgrade(Character_Attack.Talents.Defense);
                 break;
             case 3:
-                myTalent = Character_Attack.Talents.Revive;
+                Upgrade(Character_Attack.Talents.Revive);
                 break;
             default:
-                myTalent = Character_Attack.Talents.AtkSpeed;
                 break;
         }
-        SoundManager.instance.PlaySound(SoundManager.SoundChannel.Unscalled, SoundManager.instance.clickSfx, transform);
-        Upgrade(myTalent);
     }
 
     public void Upgrade(Character_Attack.Talents upgrade)
     {
-        if(!player.myUpgrades.Contains(upgrade) && player.currentShards >= 4)
+        if (!player.myUpgrades.Contains(upgrade) && player.currentShards >= 4)
         {
             SoundManager.instance.PlaySound(SoundManager.SoundChannel.Unscalled, learnSfx, transform);
             player.myUpgrades.Add(upgrade);
@@ -144,7 +120,7 @@ public class Shards_System : MonoBehaviour
                     break;
             }
             player.currentShards -= 4;
-            uiShards.text = "Shards: " + player.currentShards.ToString();
+            uiShards.text = "x " + player.currentShards.ToString();
             uiButton[index].color = Color.white;
         }
     }

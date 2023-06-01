@@ -63,7 +63,7 @@ public class Character_Movement : MonoBehaviour
     public float distanceBetweenImages;
     public float dashCooldown;
     public int dashCharges = 1;
-    [SerializeField] private float energyDash = 15;
+
     [SerializeField] private AudioClip dashSfx;
     public bool canDash = false;
 

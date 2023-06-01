@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviour
         PlayerDeathTransition,
         DoorTransition,
         EndGameTransition,
+        InstantDoorTransition,
     };
 
     public enum ParticleType

@@ -2,9 +2,12 @@ using UnityEngine;
 
 public class Enemy_Health : Health
 {
+    [Header("Health"), Space]
     public Animator myAnim;
+
     void Start()
     {
+        myAnim = GetComponent<Animator>();
         GameManager.instance.HealAllEnemiesEvent += HealEnemy;
     }
 
