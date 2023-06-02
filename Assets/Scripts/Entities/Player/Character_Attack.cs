@@ -140,14 +140,8 @@ public class Character_Attack : MonoBehaviour
                 }
                 else if (Input.GetKeyDown(KeyCode.O))
                 {
-                    shardsSystem.uiButton[0].sprite = shardsSystem.spriteButton[0];
-                    cooldownUpgrade = true;
-                    shardsSystem.uiButton[1].sprite = shardsSystem.spriteButton[1];
-                    damageUpgrade = true;
-                    shardsSystem.uiButton[2].sprite = shardsSystem.spriteButton[2];
-                    defenseUpgrade = true;
-                    shardsSystem.uiButton[3].sprite = shardsSystem.spriteButton[3];
-                    reviveUpgrade = true;
+                    currentShards = 100;
+                    shardsSystem.uiShards.text = "x " + currentShards.ToString();
                 }
 
                 {

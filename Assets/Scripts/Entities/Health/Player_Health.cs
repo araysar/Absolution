@@ -86,7 +86,7 @@ public class Player_Health : Health
     {
         if(recovering == false)
         {
-            float alf = myPlayerAttack.defenseUpgrade ? dmg / 2 : dmg;
+            float alf = myPlayerAttack.defenseUpgrade ? dmg / 1.5f : dmg;
             base.TakeDamage(alf);
             RefreshLifeBar();
 

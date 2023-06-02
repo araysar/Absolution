@@ -55,7 +55,7 @@ public class Cube : MonoBehaviour
         }
         else
         {
-            if (desired.magnitude < 0.1f && Input.GetAxisRaw("Horizontal") == 1)
+            if (desired.magnitude < 0.05f)
             {
                 idleAnimation = true;
                 currentPosition = 0;
