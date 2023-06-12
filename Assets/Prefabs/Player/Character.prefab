@@ -51835,9 +51835,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: 46a2559e39c822b43ae035698c9df7e0, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 0.69803923}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
+  m_Maskable: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -52418,6 +52418,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myUIAnim: {fileID: 6747265596286212827}
   canAttack: 1
+  uiOvercharged: {fileID: 2588270808678393116}
   myCubePrefab: {fileID: -1588686627454867838, guid: d749fb8fc9e460c428708d80b0678f91, type: 3}
   myCube: {fileID: 0}
   animationPositions:

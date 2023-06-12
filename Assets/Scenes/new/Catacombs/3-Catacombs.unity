@@ -580,6 +580,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8129089693342622, guid: 3b1e5a2d437f7a3449103bc3d9751d25, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 0.19508722
+      objectReference: {fileID: 0}
+    - target: {fileID: 8129089693342622, guid: 3b1e5a2d437f7a3449103bc3d9751d25, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0.24848701
+      objectReference: {fileID: 0}
+    - target: {fileID: 8129089693342622, guid: 3b1e5a2d437f7a3449103bc3d9751d25, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0.3018868
+      objectReference: {fileID: 0}
     - target: {fileID: 432567819131807053, guid: 3b1e5a2d437f7a3449103bc3d9751d25, type: 3}
       propertyPath: m_Name
       value: Dust

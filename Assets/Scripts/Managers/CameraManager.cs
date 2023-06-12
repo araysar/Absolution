@@ -20,7 +20,7 @@ public class CameraManager : MonoBehaviour
 
     private void Start()
     {
-        playerCamera.Follow = GameObject.FindGameObjectWithTag("Player").transform;
-        normalCamera.Follow = playerCamera.Follow;
+        if(playerCamera != null) playerCamera.Follow = GameObject.FindGameObjectWithTag("Player").transform;
+        if(normalCamera != null) normalCamera.Follow = GameObject.FindGameObjectWithTag("Player").transform;
     }
 }

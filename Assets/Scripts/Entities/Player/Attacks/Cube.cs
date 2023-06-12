@@ -5,6 +5,7 @@ using UnityEngine;
 public class Cube : MonoBehaviour
 {
     public bool move = true;
+    public GameObject overchargeEffect;
     public Transform myDestination;
     [HideInInspector] public List<Transform> animationPositions = new List<Transform>();
     private int currentPosition = 0;

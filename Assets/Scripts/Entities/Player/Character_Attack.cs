@@ -8,8 +8,10 @@ public class Character_Attack : MonoBehaviour
     private Character_Movement player;
     public Animator myUIAnim;
     public bool canAttack = true;
+    public GameObject uiOvercharged;
+    private bool overcharged;
     public Cube myCubePrefab;
-    public Cube myCube; 
+    public Cube myCube;
     public List<Transform> animationPositions = new List<Transform>();
 
     [Header("Attack System")]
@@ -73,8 +75,13 @@ public class Character_Attack : MonoBehaviour
         {
             currentAttack.EndAttack();
             currentAttack = myAttacks[nextWeapon];
-            currentTime = 0; 
+            currentTime = 0;
             AttackCube(true);
+            overcharged = false;
+            myUIAnim.SetBool("loop", false);
+            timerUI.color = emptyColor;
+            uiOvercharged.SetActive(false);
+            myCube.overchargeEffect.SetActive(false);
             SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, changeSfx, transform);
             changeVfx.startColor = currentAttack.myColor;
             changeVfx.gameObject.SetActive(true);
@@ -86,8 +93,17 @@ public class Character_Attack : MonoBehaviour
     {
         CreateCube();
         player = GetComponent<Character_Movement>();
+
         currentTime = 0;
-        currentAttack = myAttacks[firstWeapon];// myAttacks[Random.Range(0, myAttacks.Length)];
+        //currentAttack = myAttacks[firstWeapon];
+        currentAttack = myAttacks[Random.Range(0, myAttacks.Length)];
+        AttackCube(true);
+        overcharged = false;
+        myUIAnim.SetBool("loop", false);
+        uiOvercharged.SetActive(false);
+        timerUI.color = emptyColor;
+        myCube.overchargeEffect.SetActive(false);
+
         uiImage.sprite = currentAttack.myImage;
         shardsSystem = GetComponentInChildren<Shards_System>();
         GameManager.instance.SetupPlayerAttacks += CreateAttacks;
@@ -104,6 +120,8 @@ public class Character_Attack : MonoBehaviour
         if(myCube == null)
         {
             myCube = Instantiate(myCubePrefab);
+            overcharged = false; 
+            myCube.overchargeEffect.SetActive(false);
             myCube.animationPositions = animationPositions;
             myCube.myDestination = cubeTransform;
         }
@@ -172,16 +190,17 @@ public class Character_Attack : MonoBehaviour
     private void TimerUI()
     {
         timerUI.fillAmount = currentTime / timeToShuffle;
-
-        if(currentTime >= timeToShuffle - 5)
+        
+        if(!overcharged)
         {
-            myUIAnim.SetBool("loop", true);
-            timerUI.color = fullColor;
-        }
-        else
-        {
-            myUIAnim.SetBool("loop", false);
-            timerUI.color = emptyColor;
+            if (currentTime >= timeToShuffle - 5)
+            {
+                myCube.overchargeEffect.SetActive(true);
+                uiOvercharged.SetActive(true);
+                overcharged = true;
+                myUIAnim.SetBool("loop", true);
+                timerUI.color = fullColor;
+            }
         }
     }
 
@@ -189,5 +208,24 @@ public class Character_Attack : MonoBehaviour
     {
         GameManager.instance.saveManager.shards.Add(number);
         currentShards++;
+    }
+
+    public void OverchargeEffect(bool ui)
+    {
+        if(ui)
+        {
+
+        }
+        else
+        {
+            if(myCube == null)
+            {
+                CreateCube();
+            }
+            else
+            {
+
+            }
+        }
     }
 }
