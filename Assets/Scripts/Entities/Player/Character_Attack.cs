@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-using System.Collections;
 
 public class Character_Attack : MonoBehaviour
 {
@@ -30,7 +29,6 @@ public class Character_Attack : MonoBehaviour
     public Image uiImage;
     public Color emptyColor;
     public Color fullColor;
-    private Coroutine overchargeCoroutine;
 
     //[Header("Actions")]
 
@@ -200,28 +198,10 @@ public class Character_Attack : MonoBehaviour
                 myCube.overchargeEffect.SetActive(true);
                 uiOvercharged.SetActive(true);
                 overcharged = true;
-                overchargeCoroutine = StartCoroutine(OverchargeEffect());
                 myUIAnim.SetBool("loop", true);
                 timerUI.color = fullColor;
             }
         }
-    }
-
-    private IEnumerator OverchargeEffect()
-    {
-        float count = 0;
-        Material alf = uiOvercharged.GetComponent<Image>().material;
-        alf.SetFloat("_FullScreenIntensity", 0);
-
-        for (float i = 0; i < 3; i += Time.deltaTime)
-        {
-            count = i / 3;
-            alf.SetFloat("_FullScreenIntensity", count);
-            yield return null;
-        }
-
-        alf.SetFloat("_FullScreenIntensity", 1);
-        yield return null;
     }
 
     public void AddShard(int number)
