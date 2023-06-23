@@ -65,6 +65,13 @@ public class Player_Health : Health
             LifeBarEffect = delegate { };
         }
     }
+
+    public override void Heal(float amount)
+    {
+        base.Heal(amount);
+        RefreshLifeBar();
+    }
+
     public void RefreshLifeBar()
     {
         LifeBarEffect = LifeBarAnimation;

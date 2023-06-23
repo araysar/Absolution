@@ -6,11 +6,12 @@ using UnityEngine;
 public class BossFightManager : MonoBehaviour
 {
     [SerializeField] private TriggerBossDoor myTrigger;
-    [SerializeField] private GameObject myCamera;
-    [SerializeField] private GameObject bossDamageBounds;
+    [SerializeField] private GameObject normalCamera;
+    [SerializeField] private GameObject bossCamera;
     [SerializeField] private AudioClip myMusic;
-    [SerializeField] private GameObject myBoss;
+    [SerializeField] private Boss_Ice myBoss;
     [SerializeField] private Coroutine myCoroutine;
+    private Collider2D myCollider;
     
 
     [SerializeField] private CinemachineBlendDefinition.Style myTransitionEffect;
@@ -24,6 +25,7 @@ public class BossFightManager : MonoBehaviour
 
     void Start()
     {
+        myCollider = GetComponent<Collider2D>();
         myCameraBrain = FindObjectOfType<CinemachineBrain>();
         EnteringBossDoorEvent += SoundManager.instance.StopSong;
         EnteringBossDoorEvent += Character_Movement.instance.StopMovement;
@@ -49,13 +51,13 @@ public class BossFightManager : MonoBehaviour
     {
         EnteringBossDoorEvent();
         GameManager.instance.TriggerAction(GameManager.ExecuteAction.EnterBossDoor);
-        bossDamageBounds.SetActive(true);
         yield return new WaitForSeconds(1);
         myCameraBrain.m_DefaultBlend.m_Style = myTransitionEffect;
         myCameraBrain.m_DefaultBlend.m_Time = myCameraTransitionDuration;
-        myCamera.SetActive(true);
+        bossCamera.SetActive(true);
+        normalCamera.SetActive(false);
         yield return new WaitForSeconds(myCameraTransitionDuration);
-        myBoss.GetComponent<Animator>().SetTrigger("preparation");
+        myBoss.myAnim.SetTrigger("preparation");
         yield return new WaitForSeconds(myBossWarcryTime);
         TriggerBattle();
     }
@@ -68,7 +70,15 @@ public class BossFightManager : MonoBehaviour
     public void ResetBattle()
     {
         myCameraBrain.m_DefaultBlend.m_Style = CinemachineBlendDefinition.Style.Cut;
-        bossDamageBounds.SetActive(false);
-        myCamera.SetActive(false);
+        bossCamera.SetActive(false);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.tag == "Player")
+        {
+            myCollider.enabled = false;
+            EnteringBossDoor();
+        }
     }
 }

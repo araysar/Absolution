@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class Boss : MonoBehaviour
 {
-    protected Animator myAnim;
+    public Animator myAnim;
     protected Rigidbody2D myRb;
     [SerializeField] protected Health myHealth;
     protected BossFightManager myManager;

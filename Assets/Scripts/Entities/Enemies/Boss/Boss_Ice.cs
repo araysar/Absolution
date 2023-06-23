@@ -15,7 +15,6 @@ public class Boss_Ice : Boss
     [SerializeField] private List<IceSpikes> roofSpikes;
     [SerializeField] private List<IceSpikes> topSpikes;
     [SerializeField] private List<IceSpikes> botSpikes;
-    [SerializeField] private AudioSource myVoice;
     [SerializeField] private AudioClip myBossScream;
     [SerializeField] private GameObject myScream;
     [SerializeField] private GameObject myEyes;
@@ -31,7 +30,6 @@ public class Boss_Ice : Boss
     void Start()
     {
         myManager.StartFightEvent += StartingFight;
-        myVoice = gameObject.AddComponent<AudioSource>();
 
         GameManager.instance.AllwaysRespawnEvent += Respawn;
         GameManager.instance.StopMovementEvent += StopMovement;
@@ -158,7 +156,7 @@ public class Boss_Ice : Boss
 
     private void BossScream()
     {
-        SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, myBossScream, transform);
+        SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, myBossScream, GameManager.instance.player.transform);
         myScream.SetActive(true);
     }
 
