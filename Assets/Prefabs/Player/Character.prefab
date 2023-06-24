@@ -14945,7 +14945,7 @@ MonoBehaviour:
   weaponName: 
   soundClips: []
   myColor: {r: 0, g: 0.3254902, b: 0.4156863, a: 1}
-  damage: 10
+  damage: 12
   isAttacking: 0
   myImage: {fileID: 21300000, guid: af137155f4b1c9248a2ebf44302e792b, type: 3}
   myAttack: {fileID: 0}
@@ -40606,6 +40606,7 @@ RectTransform:
   m_Children:
   - {fileID: 5727038106883843537}
   - {fileID: 2907441452189910334}
+  - {fileID: 231820115053618606}
   m_Father: {fileID: 5586616737592089515}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -46451,6 +46452,81 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1524747782260057756}
   m_CullTransparentMesh: 1
+--- !u!1 &1665745122246072835
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 231820115053618606}
+  - component: {fileID: 7005617265262001391}
+  - component: {fileID: 3420966651099600287}
+  m_Layer: 5
+  m_Name: Frozen texture
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &231820115053618606
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1665745122246072835}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5887856801700227022}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &7005617265262001391
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1665745122246072835}
+  m_CullTransparentMesh: 1
+--- !u!114 &3420966651099600287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1665745122246072835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 2100000, guid: 80c882651b881be44b99ebe70b91736e, type: 2}
+  m_Color: {r: 0.3537736, g: 0.948982, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 7d0998aceaa6d0341a1840d81c81fa61, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &1714050628786115242
 GameObject:
   m_ObjectHideFlags: 0
@@ -52285,6 +52361,7 @@ MonoBehaviour:
   isCharging: 0
   myHealth: {fileID: 0}
   myShooter: {fileID: 0}
+  unstableAreaCleared: 
   speed: 200
   rb: {fileID: 0}
   isFacingRight: 1
@@ -52375,6 +52452,9 @@ MonoBehaviour:
   uiImage: {fileID: 2758162664771152323}
   emptyColor: {r: 0.7019608, g: 0.3254902, b: 1, a: 1}
   fullColor: {r: 1, g: 0, b: 0, a: 1}
+  weaponFrozen: 0
+  freezeUI: {fileID: 1665745122246072835}
+  freezeWeaponSfx: {fileID: 0}
   currentShards: 0
   requiredShards: 4
   shardsSystem: {fileID: 6464655643592790927}
@@ -58961,7 +59041,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 4455549558672369815}
   m_HandleRect: {fileID: 3409568348245773690}

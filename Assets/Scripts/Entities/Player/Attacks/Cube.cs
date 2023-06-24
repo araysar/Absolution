@@ -13,7 +13,7 @@ public class Cube : MonoBehaviour
     public float t;
     public float speed;
     public float animationSpeed;
-    private bool idleAnimation = false;
+    private bool idleAnimation = true;
 
     private void Start()
     {
@@ -33,6 +33,10 @@ public class Cube : MonoBehaviour
         Destroy(gameObject);
     }
 
+    private void OnDestroy()
+    {
+        GameManager.instance.DestroyEvent -= Destroy;
+    }
     void Move()
     {
         Vector2 a = transform.position;

@@ -32,7 +32,11 @@ public class Character_Attack : MonoBehaviour
     public Color fullColor;
     private Coroutine overchargeCoroutine;
 
-    //[Header("Actions")]
+
+    [Header("Freeze Charge")]
+    public bool weaponFrozen;
+    public GameObject freezeUI;
+    public AudioClip freezeWeaponSfx;
 
     [Header("Talents System")]
     public int currentShards = 0;
@@ -63,6 +67,24 @@ public class Character_Attack : MonoBehaviour
     public void DisableShuffle()
     {
         shuffleActivated = false;
+    }
+
+    public void FreezeWeapon()
+    {
+        ChangeWeapon();
+        freezeUI.SetActive(true);
+        weaponFrozen = true;
+        SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, freezeWeaponSfx, transform);
+    }
+
+    public void UnFreezeWeapon()
+    {
+        if(weaponFrozen)
+        {
+            ChangeWeapon();
+            freezeUI.SetActive(false);
+            weaponFrozen = false;
+        }
     }
 
     public void ChangeWeapon()
@@ -171,14 +193,17 @@ public class Character_Attack : MonoBehaviour
                     }
                 }
             }
-            if(shuffleActivated)
+            if(!weaponFrozen)
             {
-                currentTime += Time.fixedDeltaTime;
-                TimerUI();
-            }
-            if(currentTime >= timeToShuffle && shuffleActivated)
-            {
-                ChangeWeapon();
+                if (shuffleActivated)
+                {
+                    currentTime += Time.fixedDeltaTime;
+                    TimerUI();
+                }
+                if (currentTime >= timeToShuffle && shuffleActivated)
+                {
+                    ChangeWeapon();
+                }
             }
         }
     }

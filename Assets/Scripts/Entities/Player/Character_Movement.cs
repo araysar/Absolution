@@ -12,6 +12,7 @@ public class Character_Movement : MonoBehaviour
     public bool isCharging = false;
     [HideInInspector] public Player_Health myHealth;
     [HideInInspector] public Character_Attack myShooter;
+    [HideInInspector] public List<int> unstableAreaCleared;
 
     [Header("Move")]
     public float speed = 3;
@@ -377,6 +378,7 @@ public class Character_Movement : MonoBehaviour
         isFalling = false;
         disableInputs = true;
         isMoving = false;
+        myShooter.shuffleActivated = false;
         rb.velocity = new Vector2(0, 0);
         ControlAnimations();
         myAnim.Play("idle", 0, 0);
@@ -389,7 +391,11 @@ public class Character_Movement : MonoBehaviour
     }
     public void ResumeMovement()
     {
-        if(!GameManager.instance.isBusy) disableInputs = false;
+        if(!GameManager.instance.isBusy)
+        {
+            disableInputs = false;
+            myShooter.shuffleActivated = true;
+        }
     }
 
     #endregion

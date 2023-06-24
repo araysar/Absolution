@@ -7,7 +7,6 @@ public class PowerUp : MonoBehaviour
     [SerializeField] private GameObject uiMessage;
     [SerializeField] private AudioClip getSound;
     [SerializeField] private Animator myAnim;
-    private Transform playerTransform;
     [SerializeField] private Color myColor;
     [SerializeField] private AudioClip myGetSound;
 
@@ -41,6 +40,7 @@ public class PowerUp : MonoBehaviour
     {
         isGrabed = false;
         gameObject.SetActive(true);
+        GameManager.instance.EnemyRespawnEvent += Respawn;
         myAnim.SetBool("exit", false);
         myAnim.SetBool("enter", false);
     }

@@ -25068,6 +25068,7 @@ GameObject:
   - component: {fileID: 1611845250}
   - component: {fileID: 1611845252}
   - component: {fileID: 1611845251}
+  - component: {fileID: 1611845253}
   m_Layer: 0
   m_Name: Entrance
   m_TagString: Untagged
@@ -25135,6 +25136,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   changeMusic: 1
   music: {fileID: 8300000, guid: 2e64d5ef20d8d5546aa4ef462987662c, type: 3}
+--- !u!114 &1611845253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1611845249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77e29691e6ad2844891ca28661850c10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1631640894 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4857895199567552295, guid: f7f2e082e56640b49bcbd345ca7014bd, type: 3}
