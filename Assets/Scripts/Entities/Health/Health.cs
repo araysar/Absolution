@@ -23,17 +23,17 @@ public class Health : MonoBehaviour, IDamageable
     [SerializeField] protected Material paintableMaterial;
     [SerializeField] protected Material commonMaterial;
     [SerializeField] private Color flashColor = Color.white;
-    [HideInInspector] public SpriteRenderer myRenderer;
+    public SpriteRenderer myRenderer;
     protected Coroutine flashCoroutine;
 
     [Space, Header("Drop")]
-    [SerializeField] private GameObject myDrop;
+    [SerializeField] protected GameObject myDrop;
 
 
     private void Awake()
     {
         initialPosition = transform.position;
-        myRenderer = GetComponent<SpriteRenderer>();
+        if(myRenderer == null) myRenderer = GetComponent<SpriteRenderer>();
         commonMaterial = myRenderer.material;
         currentHP = maxHP;
     }

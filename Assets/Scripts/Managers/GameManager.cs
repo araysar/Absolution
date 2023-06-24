@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System;
 using Cinemachine;
+using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class GameManager : MonoBehaviour
     public bool onPause = false;
     public bool isBusy = false;
     private float gravity;
+    public bool iceBossDead = false;
 
     public event Action SetupPlayerAttacks = delegate { };
     public event Action EnemyRespawnEvent = delegate { };

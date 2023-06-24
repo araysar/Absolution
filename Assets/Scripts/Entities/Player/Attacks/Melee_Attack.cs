@@ -68,7 +68,7 @@ public class Melee_Attack : Attack_Type
         myAttack.AttackCube(true);
         myBounds.gameObject.SetActive(false);
         player.EnableFlip();
-        yield return new WaitForSeconds(attackCooldown - primaryAnimationTime);
+        yield return new WaitForSeconds(attackCooldown - (myAttack.cooldownUpgrade ? primaryAnimationTime * 1.5f : primaryAnimationTime));
         isAttacking = false;
     }
 

@@ -18,7 +18,7 @@ public class Boss_Ice : Boss
     [SerializeField] private AudioClip myBossScream;
     [SerializeField] private GameObject myScream;
     [SerializeField] private GameObject myEyes;
-
+    
     public enum IceBossAttacks
     {
         IceSpikes,
@@ -31,7 +31,7 @@ public class Boss_Ice : Boss
     {
         myManager.StartFightEvent += StartingFight;
 
-        GameManager.instance.AllwaysRespawnEvent += Respawn;
+        GameManager.instance.PlayerRespawnEvent += Respawn;
         GameManager.instance.StopMovementEvent += StopMovement;
         GameManager.instance.ResumeMovementEvent += ResumeMovement;
     }
@@ -146,7 +146,7 @@ public class Boss_Ice : Boss
     
     public override void Respawn()
     {
-        isResting = false;
+        isResting = true;
         canAttack = false;
         isFighting = false;
         canMove = false;

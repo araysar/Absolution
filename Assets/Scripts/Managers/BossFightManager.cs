@@ -25,6 +25,12 @@ public class BossFightManager : MonoBehaviour
 
     void Start()
     {
+        if (GameManager.instance.iceBossDead)
+        {
+            myBoss.gameObject.SetActive(false);
+            gameObject.SetActive(false);
+        }
+
         myCollider = GetComponent<Collider2D>();
         myCameraBrain = FindObjectOfType<CinemachineBrain>();
         EnteringBossDoorEvent += SoundManager.instance.StopSong;
@@ -70,6 +76,7 @@ public class BossFightManager : MonoBehaviour
     public void ResetBattle()
     {
         myCameraBrain.m_DefaultBlend.m_Style = CinemachineBlendDefinition.Style.Cut;
+        normalCamera.SetActive(true);
         bossCamera.SetActive(false);
     }
 

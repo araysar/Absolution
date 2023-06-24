@@ -9,6 +9,7 @@ TagManager:
   - NoSlide
   - PlayerCameraBounds
   - GroundCheck
+  - Boss
   layers:
   - Default
   - TransparentFX
@@ -23,13 +24,13 @@ TagManager:
   - PlayerCameraBounds
   - WeaponObstacle
   - Destroyable
-  - BossBounds
+  - Boss
   - Collectable
   - Trap
   - PlayerBomb
   - Minimap Ref
   - Camera
-  - 
+  - BossBounds
   - 
   - 
   - 

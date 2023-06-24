@@ -67,4 +67,13 @@ public class Bomb : MonoBehaviour, IProjectile
             Return();
         }
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Boss_Health myTarget = collision.gameObject.GetComponent<Boss_Health>();
+        if (myTarget != null)
+        {
+            Return();
+        }
+    }
 }
