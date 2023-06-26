@@ -8,6 +8,7 @@ public class Player_Credits : MonoBehaviour
     private Action action = delegate { };
     private Animator myAnim;
     [SerializeField] private float speed;
+    public CubeCredits myCube;
 
     void Start()
     {

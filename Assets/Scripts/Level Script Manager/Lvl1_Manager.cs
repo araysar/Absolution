@@ -11,9 +11,15 @@ public class Lvl1_Manager : MonoBehaviour
 
     private void Awake()
     {
+        
         player = FindObjectOfType<Character_Movement>();
 
         dialogue1.timeToTrigger = 1;
+    }
+
+    private void Start()
+    {
+        
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

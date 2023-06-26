@@ -15,10 +15,17 @@ public class dialogue_trigger : MonoBehaviour
     private bool isTalking = false;
     private int lineIndex;
     public Action MyAction = delegate { };
-    public int dialogueNumber = 0;
     public float timeToTrigger = 0;
+    public int dialogueNumber = 0;
 
+    private void Start()
+    {
+        if (GameManager.instance.saveManager.dialogues.Contains(dialogueNumber))
+        {
+            gameObject.SetActive(false);
+        }
 
+    }
     private void Update()
     {
         MyAction();
@@ -71,6 +78,7 @@ public class dialogue_trigger : MonoBehaviour
             gameObject.SetActive(false);
         }
     }
+
     private void Respawn()
     {
         gameObject.SetActive(true);
