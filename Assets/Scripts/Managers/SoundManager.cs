@@ -5,12 +5,12 @@ public class SoundManager : MonoBehaviour
 {
     public AudioSource sfxAudioSource, musicAudioSource, unscalledAudioSource;
     [HideInInspector] public List<AudioSource> audioSources = new List<AudioSource>();
-
+    [HideInInspector] public List<AudioSource> exAudioSources = new List<AudioSource>();
     public static SoundManager instance;
     public AudioClip winMusic;
     public AudioClip clickSfx;
     public AudioClip openCommonDoor;
-    public AudioClip closeCommonDoor;
+    public AudioClip bossDoor;
 
     public float sfxVolume = 0.2f;
     public float musicVolume = 0.2f;
@@ -88,12 +88,22 @@ public class SoundManager : MonoBehaviour
     {
         sfxAudioSource.volume = sfxVolume / 4;
         musicAudioSource.volume = musicVolume / 4;
+        for (int i = 0; i < exAudioSources.Count; i++)
+        {
+            audioSources[i].volume = sfxVolume / 4;
+        }
     }
 
     public void UnPauseChannels()
     {
         sfxAudioSource.volume = sfxVolume;
         musicAudioSource.volume = musicVolume;
+
+        for (int i = 0; i < exAudioSources.Count; i++)
+        {
+            if(audioSources[i].gameObject.activeInHierarchy)
+                audioSources[i].volume = sfxVolume;
+        }
     }
 
     private void Destroy()

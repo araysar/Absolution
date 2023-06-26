@@ -9,10 +9,17 @@ public class Boomerang : MonoBehaviour, IProjectile
     public bool isFacingRight = true;
     private List<IDamageable> myTargets = new List<IDamageable>();
     private Collider2D myCollider;
+    public AudioSource myAudio;
 
-    private void Start()
+    private void Awake()
     {
         myCollider = GetComponent<Collider2D>();
+        myAudio = GetComponent<AudioSource>();
+    }
+    private void Start()
+    {
+        myAudio.volume = SoundManager.instance.sfxVolume;
+        SoundManager.instance.exAudioSources.Add(myAudio);
     }
 
     void Update()
@@ -39,6 +46,7 @@ public class Boomerang : MonoBehaviour, IProjectile
     public void Timer()
     {
         StartCoroutine(TimeToBack());
+        myAudio.Play();
     }
 
     public IEnumerator TimeToBack()
@@ -85,5 +93,7 @@ public class Boomerang : MonoBehaviour, IProjectile
         myTargets.Clear();
         myCollider.enabled = false;
         myCollider.enabled = true;
+        myAudio.Stop();
+        myAudio.Play();
     }
 }

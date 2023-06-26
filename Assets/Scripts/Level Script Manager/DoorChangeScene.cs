@@ -6,6 +6,7 @@ public class DoorChangeScene : MonoBehaviour
     private bool onRange = false;
     [SerializeField] private string nextScene;
     [SerializeField] private Vector2 nextPosition;
+    public bool bossDoor = false;
 
     void Update()
     {
@@ -44,7 +45,10 @@ public class DoorChangeScene : MonoBehaviour
     {
         GameManager.instance.nextPosition = nextPosition;
         GameManager.instance.nextScene = nextScene;
-        SoundManager.instance.PlaySound(SoundManager.SoundChannel.Unscalled, SoundManager.instance.openCommonDoor, transform);
+        if(bossDoor)
+            SoundManager.instance.PlaySound(SoundManager.SoundChannel.Unscalled, SoundManager.instance.openCommonDoor, transform);
+        else
+            SoundManager.instance.PlaySound(SoundManager.SoundChannel.Unscalled, SoundManager.instance.bossDoor, transform);
         GameManager.instance.Transition(GameManager.EventType.DoorTransition, 0);
     }
 }

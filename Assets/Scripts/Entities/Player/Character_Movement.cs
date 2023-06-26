@@ -378,6 +378,7 @@ public class Character_Movement : MonoBehaviour
         isFalling = false;
         disableInputs = true;
         isMoving = false;
+        myShooter.shuffleActivated = false;
         rb.velocity = new Vector2(0, 0);
         ControlAnimations();
         myAnim.Play("idle", 0, 0);
