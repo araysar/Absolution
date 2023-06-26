@@ -72,6 +72,7 @@ public class dialogue_trigger : MonoBehaviour
             GameManager.instance.isBusy = false;
             GameManager.instance.player.disableInputs = false;
             GameManager.instance.player.ui.SetActive(true);
+            GameManager.instance.player.ResumeMovement();
             GameManager.instance.saveManager.dialogues.Add(dialogueNumber);
             MyAction = delegate { };
             GameManager.instance.EnemyRespawnEvent += Respawn;
