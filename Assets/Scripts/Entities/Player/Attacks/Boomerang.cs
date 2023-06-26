@@ -19,7 +19,6 @@ public class Boomerang : MonoBehaviour, IProjectile
     private void Start()
     {
         myAudio.volume = SoundManager.instance.sfxVolume;
-        SoundManager.instance.exAudioSources.Add(myAudio);
     }
 
     void Update()

@@ -88,22 +88,12 @@ public class SoundManager : MonoBehaviour
     {
         sfxAudioSource.volume = sfxVolume / 4;
         musicAudioSource.volume = musicVolume / 4;
-        for (int i = 0; i < exAudioSources.Count; i++)
-        {
-            audioSources[i].volume = sfxVolume / 4;
-        }
     }
 
     public void UnPauseChannels()
     {
         sfxAudioSource.volume = sfxVolume;
         musicAudioSource.volume = musicVolume;
-
-        for (int i = 0; i < exAudioSources.Count; i++)
-        {
-            if(audioSources[i].gameObject.activeInHierarchy)
-                audioSources[i].volume = sfxVolume;
-        }
     }
 
     private void Destroy()

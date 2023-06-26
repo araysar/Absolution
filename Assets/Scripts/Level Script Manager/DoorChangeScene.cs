@@ -16,6 +16,10 @@ public class DoorChangeScene : MonoBehaviour
             {
                 GameManager.instance.nextPosition = nextPosition;
                 GameManager.instance.nextScene = nextScene;
+                if (!bossDoor)
+                    SoundManager.instance.PlaySound(SoundManager.SoundChannel.Unscalled, SoundManager.instance.openCommonDoor, transform);
+                else
+                    SoundManager.instance.PlaySound(SoundManager.SoundChannel.Unscalled, SoundManager.instance.bossDoor, transform);
                 GameManager.instance.Transition(GameManager.EventType.DoorTransition, 0);
                 onRange = false;
                 actionButton.SetActive(false);
@@ -45,10 +49,6 @@ public class DoorChangeScene : MonoBehaviour
     {
         GameManager.instance.nextPosition = nextPosition;
         GameManager.instance.nextScene = nextScene;
-        if(bossDoor)
-            SoundManager.instance.PlaySound(SoundManager.SoundChannel.Unscalled, SoundManager.instance.openCommonDoor, transform);
-        else
-            SoundManager.instance.PlaySound(SoundManager.SoundChannel.Unscalled, SoundManager.instance.bossDoor, transform);
         GameManager.instance.Transition(GameManager.EventType.DoorTransition, 0);
     }
 }
