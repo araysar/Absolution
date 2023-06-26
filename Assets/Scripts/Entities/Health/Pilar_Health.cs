@@ -10,8 +10,8 @@ public class Pilar_Health : Health
     {
         if(GameManager.instance.pilarDestroyed.Contains(myNumber))
         {
-            myObstacle.gameObject.SetActive(false);
             myObstacle.myDoor.SetActive(true);
+            myObstacle.gameObject.SetActive(false);
             gameObject.SetActive(true);
         }
         GameManager.instance.AllwaysRespawnEvent += RespawnEnemy;
