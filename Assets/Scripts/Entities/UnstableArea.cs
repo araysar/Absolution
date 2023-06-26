@@ -16,7 +16,7 @@ public class UnstableArea : MonoBehaviour
         Character_Attack player = collision.GetComponent<Character_Attack>();
         if(collision.GetComponent<Character_Attack>() != null)
         {
-            if(!player.weaponFrozen && !triggered)
+            if(!triggered)
             {
                 triggered = true;
                 StartCoroutine(FreezeWeapon(player));
