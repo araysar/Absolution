@@ -49,7 +49,7 @@ public class SoundManager : MonoBehaviour
         switch (channel)
         {
             case SoundChannel.SFX:
-                if (Vector2.Distance(position.position, GameManager.instance.player.transform.position) < 8)
+                if (Vector2.Distance(position.position, GameManager.instance.player.transform.position) < 8 || GameManager.instance.fightingBoss)
                 {
                     sfxAudioSource.PlayOneShot(clip);
                     break;

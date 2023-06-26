@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
     public bool isBusy = false;
     private float gravity;
     public bool iceBossDead = false;
+    public bool fightingBoss = false;
+    public List<int> pilarDestroyed = new List<int>();
 
     public event Action SetupPlayerAttacks = delegate { };
     public event Action EnemyRespawnEvent = delegate { };
@@ -222,9 +224,11 @@ public class GameManager : MonoBehaviour
                 EndGameEvent();
                 break;
             case ExecuteAction.ResetBossBattle:
+                fightingBoss = false;
                 ResetBossBattleEvent();
                 break;
             case ExecuteAction.EnterBossDoor:
+                fightingBoss = true;
                 EnterBossDoorEvent();
 
                 break;

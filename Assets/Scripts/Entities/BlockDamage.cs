@@ -7,6 +7,8 @@ public class BlockDamage : MonoBehaviour
 {
     [SerializeField] private Health myHealth;
     [SerializeField] private bool noHealth = false;
+    public GameObject myVfx;
+    public AudioClip blockSfx;
     private void Start()
     {
         if (myHealth == null)
@@ -19,6 +21,9 @@ public class BlockDamage : MonoBehaviour
         IProjectile collider = collision.GetComponent<IProjectile>();
         if (collider != null && (myHealth.currentHP > 0 || noHealth))
         {
+            myVfx.SetActive(false);
+            myVfx.SetActive(true);
+            SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, blockSfx, transform);
             collider.Return();
         }
     }

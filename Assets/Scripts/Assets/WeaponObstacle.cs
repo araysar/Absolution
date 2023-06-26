@@ -1,22 +1,34 @@
 using UnityEngine;
 
-public class WeaponObstacle : MonoBehaviour
+public class WeaponObstacle : IObstacle
 {
-
     [SerializeField] private GameObject destroyEffect;
     [SerializeField] private AudioClip destroySfx;
-    [SerializeField] private DamageStay myDamage;
+    public int myNumber;
+    public GameObject myDoor;
 
-    private void Enable()
+    public void Enable()
     {
         gameObject.SetActive(true);
+        if(myDoor != null) myDoor.SetActive(false);
+        destroyEffect.SetActive(false);
     }
 
-    public void Destroy()
+    public void Disable()
     {
-        if (destroyEffect != null) Instantiate(destroyEffect, transform.position, Quaternion.identity);
-        if (destroySfx != null) SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, destroySfx, transform);
-
+        destroyEffect.SetActive(false);
+        destroyEffect.transform.position = transform.position;
+        destroyEffect.SetActive(true);
+        SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, destroySfx, transform);
+        if(myDoor != null) myDoor.SetActive(true);
         gameObject.SetActive(false);
+    }
+
+    public override void Trigger(int number)
+    {
+        if(number == myNumber)
+        {
+            Disable();
+        }
     }
 }

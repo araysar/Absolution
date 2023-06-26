@@ -4,6 +4,7 @@ public class Enemy_Health : Health
 {
     [Header("Health"), Space]
     public Animator myAnim;
+    public GameObject myBody;
 
     void Start()
     {

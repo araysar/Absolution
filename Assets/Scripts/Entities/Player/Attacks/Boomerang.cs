@@ -8,6 +8,12 @@ public class Boomerang : MonoBehaviour, IProjectile
     public bool isBacking = false;
     public bool isFacingRight = true;
     private List<IDamageable> myTargets = new List<IDamageable>();
+    private Collider2D myCollider;
+
+    private void Start()
+    {
+        myCollider = GetComponent<Collider2D>();
+    }
 
     void Update()
     {
@@ -77,5 +83,7 @@ public class Boomerang : MonoBehaviour, IProjectile
         StopAllCoroutines();
         isBacking = true;
         myTargets.Clear();
+        myCollider.enabled = false;
+        myCollider.enabled = true;
     }
 }
