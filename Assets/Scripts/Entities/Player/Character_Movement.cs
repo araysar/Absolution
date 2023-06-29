@@ -151,7 +151,15 @@ public class Character_Movement : MonoBehaviour
                 CheckIfWallSliding();
                 CheckDash();
             }
-            
+            if(Input.GetKeyDown(KeyCode.F9))
+            {
+                myUpgrades.Add(PowerUp.DoubleJump);
+                myUpgrades.Add(PowerUp.Dash);
+                PowerUpGrab();
+                GameManager.instance.nextScene = "Boss-Ice";
+                GameManager.instance.nextPosition = new Vector2(-37.59f, -13.47172f);
+                GameManager.instance.Transition(GameManager.EventType.DoorTransition, 0);
+            }
         }
     }
 

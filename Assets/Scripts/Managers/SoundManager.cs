@@ -41,8 +41,11 @@ public class SoundManager : MonoBehaviour
 
     private void Start()
     {
-        GameManager.instance.DestroyEvent += Destroy;
-        GameManager.instance.EndGameEvent += StopSong;
+        if(FindObjectOfType<GameManager>() != null)
+        {
+            GameManager.instance.DestroyEvent += Destroy;
+            GameManager.instance.EndGameEvent += StopSong;
+        }
     }
     public void PlaySound(SoundChannel channel, AudioClip clip, Transform position)
     {

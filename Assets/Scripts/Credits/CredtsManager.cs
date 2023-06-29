@@ -10,6 +10,13 @@ public class CredtsManager : MonoBehaviour
     [SerializeField] private AudioSource chargeSfx;
     [SerializeField] private AudioSource musicChannel;
 
+    private void Update()
+    {
+        if(Input.GetButtonDown("Fire1") || Input.GetButtonDown("Cancel") || Input.GetButtonDown("Submit"))
+        {
+            SceneManager.LoadScene(0);
+        }
+    }
     public void MovePlayer()
     {
         myPlayer.PlayMovement();
