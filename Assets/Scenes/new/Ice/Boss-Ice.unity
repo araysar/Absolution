@@ -12671,8 +12671,8 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -16542937
+  m_SortingLayer: 7
   m_SortingOrder: 4
   m_RenderMode: 0
   m_SortMode: 0
@@ -23535,6 +23535,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6295968071889712955, guid: b901ff85f4f5f934f96a9599d31657ab, type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b901ff85f4f5f934f96a9599d31657ab, type: 3}
 --- !u!1 &960995111
@@ -24450,8 +24454,8 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -16542937
+  m_SortingLayer: 7
   m_SortingOrder: 12
   m_RenderMode: 0
   m_SortMode: 0
@@ -34295,7 +34299,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1336877198}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.7876072, y: -14.1, z: -10}
+  m_LocalPosition: {x: -2.7862263, y: -14.1, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 582370173}
