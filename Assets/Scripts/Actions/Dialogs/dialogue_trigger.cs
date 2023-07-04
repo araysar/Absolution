@@ -82,6 +82,7 @@ public class dialogue_trigger : MonoBehaviour
 
     private void Respawn()
     {
+        GameManager.instance.saveManager.dialogues.Remove(dialogueNumber);
         gameObject.SetActive(true);
     }
 

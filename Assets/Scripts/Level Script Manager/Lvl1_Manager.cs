@@ -17,17 +17,18 @@ public class Lvl1_Manager : MonoBehaviour
         dialogue1.timeToTrigger = 1;
     }
 
-    private void Start()
-    {
-        
-    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         player.ui.SetActive(false);
-        GameManager.instance.isBusy = true;
-        player.disableInputs = true;
         myEffect.SetActive(true);
         SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, myClip, transform);
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+
+        GameManager.instance.isBusy = true;
+        player.disableInputs = true;
     }
 }
