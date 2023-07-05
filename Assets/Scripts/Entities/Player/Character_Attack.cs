@@ -210,6 +210,7 @@ public class Character_Attack : MonoBehaviour
 
     public void AttackCube(bool value)
     {
+
         myCube.gameObject.SetActive(value);
         myCube.transform.position = cubeTransform.position;
     }

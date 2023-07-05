@@ -23,6 +23,7 @@ public class Character_Movement : MonoBehaviour
     private bool canFlip = true;
 
     [Space, Header("Jump")]
+    private bool isDoubleJumping = false;
     public float jumpForce = 5;
     [SerializeField] private Transform groundCheck;
     public int maxJumps = 1;
@@ -192,6 +193,15 @@ public class Character_Movement : MonoBehaviour
         if (Input.GetButtonDown("Jump"))
         {
             Jump();
+        }
+        else if(Input.GetButtonUp("Jump"))
+        {
+            canJump = true;
+
+            if (rb.velocity.y > 0 && !isDoubleJumping)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y / 2f);
+            }
         }
 
         if (Input.GetButtonDown("Dash"))
@@ -419,13 +429,13 @@ public class Character_Movement : MonoBehaviour
             if (currentJumps != maxJumps && myUpgrades.Contains(PowerUp.DoubleJump))
             {
                 if (myAnim.GetBool("isJumping") || myAnim.GetBool("isFalling")) myAnim.Play("Idle", 0, 0f);
+                isDoubleJumping = true;
                 SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, doubleJumpSfx, transform);
                 Instantiate(doubleJumpEffect, groundCheck.position, Quaternion.identity);
             }
             timeInAir = 0;
             currentJumps--;
-
-            StartCoroutine(JumpTimer());
+            canJump = false;
         }
     }
 
@@ -440,6 +450,7 @@ public class Character_Movement : MonoBehaviour
         if (isGrounded && rb.velocity.y <= 0.1f || (isWallSliding && rb.velocity.y <= 0))
         {
             currentJumps = maxJumps;
+            isDoubleJumping = false;
             jumpTimer = null;
         }
         else if(!isGrounded && rb.velocity.y <= 0.1f && !isWallSliding && currentJumps == maxJumps)
@@ -460,12 +471,6 @@ public class Character_Movement : MonoBehaviour
         }
     }
 
-    private IEnumerator JumpTimer()
-    {
-        canJump = false;
-        yield return new WaitForSeconds(jumpCooldown);
-        canJump = true;
-    }
 
     #endregion
 
