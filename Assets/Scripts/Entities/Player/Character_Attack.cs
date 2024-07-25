@@ -160,7 +160,7 @@ public class Character_Attack : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         if(!GameManager.instance.onPause && player.myHealth.currentHP > 0)
         {
@@ -197,7 +197,7 @@ public class Character_Attack : MonoBehaviour
             {
                 if (shuffleActivated)
                 {
-                    currentTime += Time.fixedDeltaTime;
+                    currentTime += Time.deltaTime;
                     TimerUI();
                 }
                 if (currentTime >= timeToShuffle && shuffleActivated)

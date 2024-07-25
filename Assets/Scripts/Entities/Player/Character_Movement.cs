@@ -478,7 +478,6 @@ public class Character_Movement : MonoBehaviour
     private void CheckSurroundings()
     {
         bool wasGrounded = isGrounded;
-        float alf = rb.velocity.y;
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundMask);
 
         if (isGrounded == true && wasGrounded == false)

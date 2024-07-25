@@ -2,7 +2,6 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System;
-using Cinemachine;
 using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
