@@ -8,7 +8,6 @@ public class BossFightManager : MonoBehaviour
     [SerializeField] private TriggerBossDoor myTrigger;
     [SerializeField] private GameObject normalCamera;
     [SerializeField] private GameObject bossCamera;
-    [SerializeField] private AudioClip myMusic;
     [SerializeField] private Boss_Ice myBoss;
     [SerializeField] private Coroutine myCoroutine;
     private Collider2D myCollider;
@@ -44,7 +43,7 @@ public class BossFightManager : MonoBehaviour
 
     private void ChangeMusic()
     {
-        SoundManager.instance.PlaySound(SoundManager.SoundChannel.Music, myMusic, transform);
+        SoundManager.instance.PlaySound(SoundManager.SoundChannel.Music, SoundManager.instance.bossFightMusic, transform);
     }
 
     public void EnteringBossDoor()

@@ -12,7 +12,14 @@ public class AreaBounds : MonoBehaviour
         {
             if(changeMusic)
             {
-                SoundManager.instance.PlaySound(SoundManager.SoundChannel.Music, music, transform);
+                if(FindObjectOfType<BossFightManager>() != null && GameManager.instance.fightingBoss)
+                {
+                    SoundManager.instance.PlaySound(SoundManager.SoundChannel.Music, SoundManager.instance.bossFightMusic, transform);
+                }
+                else
+                {
+                    SoundManager.instance.PlaySound(SoundManager.SoundChannel.Music, music, transform);
+                }
             }
         }
     }

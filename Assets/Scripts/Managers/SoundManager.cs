@@ -7,6 +7,7 @@ public class SoundManager : MonoBehaviour
     [HideInInspector] public List<AudioSource> audioSources = new List<AudioSource>();
     [HideInInspector] public List<AudioSource> exAudioSources = new List<AudioSource>();
     public static SoundManager instance;
+    public AudioClip bossFightMusic;
     public AudioClip winMusic;
     public AudioClip clickSfx;
     public AudioClip openCommonDoor;
@@ -60,7 +61,7 @@ public class SoundManager : MonoBehaviour
                 else break;
 
             case SoundChannel.Music:
-                if (clip == musicAudioSource.clip) break;
+                if (clip == musicAudioSource.clip && musicAudioSource.isPlaying) break;
 
                 musicAudioSource.clip = clip;
                 if (clip == null) musicAudioSource.Stop();
