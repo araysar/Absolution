@@ -28,12 +28,15 @@ public class Ray_Attack : Attack_Type
 
     public override void EnteringMode()
     {
-        throw new System.NotImplementedException();
+
     }
 
     public override void PrimaryAttack()
     {
         ySpeed = player.rb.velocity.y;
+        player.myAnim.ResetTrigger("primaryRayEnd");
+        player.myAnim.SetBool("isAttacking", true);
+        player.myAnim.SetTrigger("primaryRay");
         if (ySpeed > 0) ySpeed = 0;
         player.rb.velocity = Vector2.zero;
         player.rb.gravityScale = 0;
@@ -72,6 +75,13 @@ public class Ray_Attack : Attack_Type
         isAttacking = false;
         player.isChanneling = false;
         targets.Clear();
+        player.myAnim.SetTrigger("primaryRayEnd");
+        player.myAnim.SetBool("isAttacking", false); 
+        
+        if (player.rb.velocity.y < -player.jumpForce)
+        {
+            player.rb.velocity = new Vector2(player.rb.velocity.x, -player.jumpForce);
+        }
         maxVFX.gameObject.SetActive(false);
         myVFX.gameObject.SetActive(false);
     }
