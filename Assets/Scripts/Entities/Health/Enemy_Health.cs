@@ -27,7 +27,7 @@ public class Enemy_Health : Health
     public override void TakeDamage(float dmg)
     {
         base.TakeDamage(dmg);
-        if (flashCoroutine == null) flashCoroutine = StartCoroutine(Flashing(1, 0.10f));
+        if (flashCoroutine == null) flashCoroutine = StartCoroutine(Flashing(1, 0.075f));
     }
 
     public override void Death()

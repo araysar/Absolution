@@ -13,8 +13,10 @@ public class SoundManager : MonoBehaviour
     public AudioClip openCommonDoor;
     public AudioClip bossDoor;
 
-    public float sfxVolume = 0.2f;
-    public float musicVolume = 0.2f;
+    public float sfxVolume = 0.1f;
+    public float musicVolume = 0.05f;
+
+    public List<AudioSource> externalSounds = new List<AudioSource>();
 
     public enum SoundChannel
     {
@@ -48,6 +50,26 @@ public class SoundManager : MonoBehaviour
             GameManager.instance.EndGameEvent += StopSong;
         }
     }
+
+    public void ChangeSFXVolume(float value)
+    {
+        sfxAudioSource.volume = value;
+        foreach(AudioSource source in externalSounds)
+        {
+            source.volume = value;  
+        }
+    }
+
+    public void ChangeMusicVolume(float value)
+    {
+        musicAudioSource.volume = value;
+    }
+
+    public void ChangeUnscalledVolume(float value)
+    {
+        unscalledAudioSource.volume = value;
+    }
+
     public void PlaySound(SoundChannel channel, AudioClip clip, Transform position)
     {
         switch (channel)

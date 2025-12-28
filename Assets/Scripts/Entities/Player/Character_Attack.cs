@@ -90,8 +90,7 @@ public class Character_Attack : MonoBehaviour
     public void ChangeWeapon()
     {
         int nextWeapon = Random.Range(0, myAttacks.Length);
-
-        if (myAttacks[nextWeapon] == currentAttack)
+        if (myAttacks[nextWeapon] == currentAttack && myAttacks.Length > 1)
         {
             ChangeWeapon();
         }
@@ -119,7 +118,6 @@ public class Character_Attack : MonoBehaviour
         player = GetComponent<Character_Movement>();
 
         currentTime = 0;
-        //currentAttack = myAttacks[firstWeapon];
         currentAttack = myAttacks[Random.Range(0, myAttacks.Length)];
         AttackCube(true);
         overcharged = false;
@@ -173,24 +171,17 @@ public class Character_Attack : MonoBehaviour
                         currentAttack.PrimaryAttack();
                     }
                 }
-                else if (Input.GetButtonDown("Fire2"))
+                if (Input.GetButtonUp("Fire1"))
                 {
-                    if (!currentAttack.isAttacking)
+                    if (currentAttack.isAttacking)
                     {
-                        currentAttack.SecondaryAttack();
+                        currentAttack.Interrupt();
                     }
                 }
-                else if (Input.GetKeyDown(KeyCode.O))
+                if (Input.GetKeyDown(KeyCode.O))
                 {
                     currentShards = 100;
                     shardsSystem.uiShards.text = "x " + currentShards.ToString();
-                }
-
-                {
-                    if (!currentAttack.isAttacking)
-                    {
-                        currentAttack.SecondaryAttack();
-                    }
                 }
             }
             if(!weaponFrozen)

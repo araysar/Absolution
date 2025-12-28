@@ -19,8 +19,9 @@ public class Character_Movement : MonoBehaviour
     [HideInInspector] public Rigidbody2D rb;
     public bool isFacingRight = true;
     public bool isMoving;
-    private bool canMove = true;
+    public bool canMove = true;
     private bool canFlip = true;
+    public bool isChanneling = false;
 
     [Space, Header("Jump")]
     private bool isDoubleJumping = false;
@@ -192,10 +193,12 @@ public class Character_Movement : MonoBehaviour
 
         if (Input.GetButtonDown("Jump"))
         {
-            Jump();
+            if (!isChanneling) Jump();
         }
         else if(Input.GetButtonUp("Jump"))
         {
+            if (isChanneling) return;
+
             canJump = true;
 
             if (rb.velocity.y > 0 && !isDoubleJumping)
@@ -206,7 +209,7 @@ public class Character_Movement : MonoBehaviour
 
         if (Input.GetButtonDown("Dash"))
         {
-            if(myUpgrades.Contains(PowerUp.Dash))
+            if(myUpgrades.Contains(PowerUp.Dash) && !isChanneling)
             {
                 if (canDash)
                 {
@@ -220,7 +223,7 @@ public class Character_Movement : MonoBehaviour
 
         if (Input.GetButtonDown("Ultimate1"))
         {
-            if (myUpgrades.Contains(PowerUp.Ulti1) && ulti1Stacks == ulti1Required)
+            if (myUpgrades.Contains(PowerUp.Ulti1) && ulti1Stacks == ulti1Required && !isChanneling)
                 ulti1.ActivateUltimate();
         }
     }
@@ -300,7 +303,7 @@ public class Character_Movement : MonoBehaviour
 
     private void Flip()
     {
-        if(canFlip && !disableInputs)
+        if(canFlip && !disableInputs && !isChanneling)
         {
             if (!isFacingRight)
             {
@@ -348,7 +351,7 @@ public class Character_Movement : MonoBehaviour
             input = 0;
         }
 
-        if (canMove)
+        if (canMove && !isChanneling)
         {
             rb.velocity = new Vector2(input * speed * Time.deltaTime, rb.velocity.y);
 
@@ -394,6 +397,7 @@ public class Character_Movement : MonoBehaviour
         StopDash();
         isJumping = false;
         isFalling = false;
+        myShooter.currentAttack.Interrupt();
         disableInputs = true;
         isMoving = false;
         rb.velocity = new Vector2(0, 0);
@@ -404,6 +408,7 @@ public class Character_Movement : MonoBehaviour
     public void DisableInputs()
     {
         StopDash();
+        myShooter.currentAttack.Interrupt();
         disableInputs = true;
     }
     public void ResumeMovement()

@@ -1,17 +1,28 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class Ray_Attack : Attack_Type
 {
-    public float preparationTime;
-    public float castingTime;
-    public float endDamage;
-    private bool isCasting = false;
+
+    List<IDamageable> targets = new List<IDamageable>();
+    public float maxTime;
+    public float timeSinceStart;
+    public float maxDamage;
+    public ParticleSystem myVFX;
+    public ParticleSystem maxVFX;
+    private float currentGravity;
+    public float rayWidth;
+    public float rayheight;
+    private float ySpeed;
+    private Collider2D myCollider;
+    public AudioSource normalLoopSFX, maxLoopSFX;
 
     public override void EndAttack()
     {
-        isCasting = false;
-        isAttacking = false;
+        if (isAttacking) Interrupt();
+        targets.Clear();
         StopAllCoroutines();
     }
 
@@ -22,52 +33,94 @@ public class Ray_Attack : Attack_Type
 
     public override void PrimaryAttack()
     {
-        if(!isCasting)
-        {
-            isAttacking = true;
-            //StartCoroutine(());
-        }
-        else if(isCasting && !Input.GetButton("Fire1"))
-        {
-            EndAttack();
-        }
-    }
-
-    private IEnumerator AttackTimer()
-    {
-        player.myAnim.SetTrigger("primaryRayPreparation");
-        yield return new WaitForSeconds(preparationTime);
-
+        ySpeed = player.rb.velocity.y;
+        if (ySpeed > 0) ySpeed = 0;
+        player.rb.velocity = Vector2.zero;
+        player.rb.gravityScale = 0;
+        player.isChanneling = true;
+        isAttacking = true;
+        timeSinceStart = 0;
+        myCollider.enabled = false;
+        myCollider.enabled = true;
+        myVFX.gameObject.SetActive(true);
+        maxVFX.gameObject.SetActive(false);
     }
     public override void SecondaryAttack()
     {
-        throw new System.NotImplementedException();
+
     }
 
     public override void Setup()
     {
-        throw new System.NotImplementedException();
+
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        myVFX.gameObject.SetActive(false);
+        currentGravity = player.rb.gravityScale;
+        myCollider = GetComponent<Collider2D>();
+        SoundManager.instance.externalSounds.Add(normalLoopSFX);
+        SoundManager.instance.externalSounds.Add(maxLoopSFX);
     }
 
     public override void Interrupt()
     {
-        throw new System.NotImplementedException();
+        player.rb.velocity = new Vector2(0, ySpeed);
+        player.rb.gravityScale = currentGravity;
+        isAttacking = false;
+        player.isChanneling = false;
+        targets.Clear();
+        maxVFX.gameObject.SetActive(false);
+        myVFX.gameObject.SetActive(false);
     }
 
     public override void CreateResource()
     {
-        throw new System.NotImplementedException();
+
+    }
+
+    private void Update()
+    {
+        if (isAttacking)
+        {
+            if (timeSinceStart < maxTime)
+            {
+                timeSinceStart += Time.deltaTime;
+            }
+            else if (timeSinceStart > maxTime)
+            {
+                timeSinceStart = maxTime;
+                maxVFX.gameObject.SetActive(true);
+            }
+
+            if (targets.Count > 0)
+            {
+                foreach (var target in targets)
+                {
+                    Debug.Log(timeSinceStart == maxTime ? maxDamage * Time.deltaTime : damage * Time.deltaTime);
+                    target.TakeDamage(timeSinceStart == maxTime ? maxDamage * Time.deltaTime : damage * Time.deltaTime);
+                }
+            }
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        IDamageable newTarget = collision.GetComponent<IDamageable>();
+        if (newTarget != null && collision.gameObject.layer != player.gameObject.layer)
+        {
+            if (!targets.Contains(newTarget)) targets.Add(newTarget);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        IDamageable newTarget = collision.GetComponent<IDamageable>();
+        if (newTarget != null && collision.gameObject.layer != player.gameObject.layer)
+        {
+            if (targets.Contains(newTarget)) targets.Remove(newTarget);
+        }
     }
 }

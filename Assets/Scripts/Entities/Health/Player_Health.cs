@@ -96,7 +96,6 @@ public class Player_Health : Health
             float alf = myPlayerAttack.defenseUpgrade ? dmg / 1.5f : dmg;
             base.TakeDamage(alf);
             RefreshLifeBar();
-
             if (currentHP <= 0) Death();
             else
             {

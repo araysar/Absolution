@@ -61,7 +61,7 @@ public class Bomb_Attack : Attack_Type
 
     public override void Interrupt()
     {
-        throw new System.NotImplementedException();
+
     }
 
     public override void CreateResource()
