@@ -34,6 +34,7 @@ public class Ray_Attack : Attack_Type
     public override void PrimaryAttack()
     {
         ySpeed = player.rb.velocity.y;
+        myAttack.AttackCube(false);
         player.myAnim.ResetTrigger("primaryRayEnd");
         player.myAnim.SetBool("isAttacking", true);
         player.myAnim.SetTrigger("primaryRay");
@@ -70,6 +71,7 @@ public class Ray_Attack : Attack_Type
 
     public override void Interrupt()
     {
+        myAttack.AttackCube(true);
         player.rb.velocity = new Vector2(0, ySpeed);
         player.rb.gravityScale = currentGravity;
         isAttacking = false;
