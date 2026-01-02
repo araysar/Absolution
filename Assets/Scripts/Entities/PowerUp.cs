@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PowerUp : MonoBehaviour
 {
@@ -9,7 +10,6 @@ public class PowerUp : MonoBehaviour
     [SerializeField] private Animator myAnim;
     [SerializeField] private Color myColor;
     [SerializeField] private AudioClip myGetSound;
-
 
     private void Start()
     {

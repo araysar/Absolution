@@ -20,7 +20,7 @@ public class Rifle_Attack : Attack_Type
 
     public override void EnteringMode()
     {
-        throw new System.NotImplementedException();
+
     }
 
     public override void EndAttack()

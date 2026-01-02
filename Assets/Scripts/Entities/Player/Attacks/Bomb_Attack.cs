@@ -15,8 +15,7 @@ public class Bomb_Attack : Attack_Type
 
     private void Start()
     {
-        myBomb = Instantiate(bombPrefab);
-        Setup();
+        CreateResource();
     }
 
     public override void EnteringMode()
@@ -27,10 +26,13 @@ public class Bomb_Attack : Attack_Type
     public override void EndAttack()
     {
         isAttacking = false;
+        StopAllCoroutines();
     }
 
     public override void PrimaryAttack()
     {
+        if(myBomb == null) CreateResource();
+
         StartCoroutine(PrimaryCooldown());
     }
 

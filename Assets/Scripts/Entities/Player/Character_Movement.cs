@@ -165,6 +165,7 @@ public class Character_Movement : MonoBehaviour
         }
     }
 
+
     void LateUpdate()
     {
         if (!GameManager.instance.onPause)
@@ -190,15 +191,13 @@ public class Character_Movement : MonoBehaviour
 
     private void Inputs()
     {
-
+        if (isChanneling) return;
         if (Input.GetButtonDown("Jump"))
         {
-            if (!isChanneling) Jump();
+            Jump();
         }
         else if(Input.GetButtonUp("Jump"))
         {
-            if (isChanneling) return;
-
             canJump = true;
 
             if (rb.velocity.y > 0 && !isDoubleJumping)
@@ -307,12 +306,12 @@ public class Character_Movement : MonoBehaviour
         {
             if (!isFacingRight)
             {
-                transform.rotation = new Quaternion(0, 0, 0, 0);
+                transform.rotation = Quaternion.Euler(0, 0, 0);
                 isFacingRight = true;
             }
             else
             {
-                transform.rotation = new Quaternion(0, 180, 0, 0);
+                transform.rotation = Quaternion.Euler(0, 180, 0);
                 isFacingRight = false;
             }
         }

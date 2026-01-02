@@ -18,6 +18,8 @@ public class Bomb : MonoBehaviour, IProjectile
 
     public void Preparation()
     {
+        if(myExplosion == null) myExplosion = Instantiate(myExplosionPrefab);
+
         if(!myAttack.player.isMoving)
         {
             myRb.AddForce(myAttack.player.isFacingRight? myAttack.addForce :

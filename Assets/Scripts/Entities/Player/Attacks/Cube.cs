@@ -20,7 +20,7 @@ public class Cube : MonoBehaviour
         if (player == null) player = FindObjectOfType<Character_Movement>();
         GameManager.instance.DestroyEvent += Destroy;
     }
-    void FixedUpdate()
+    void Update()
     {
         if(move)
         {
@@ -44,7 +44,7 @@ public class Cube : MonoBehaviour
         Vector2 desired = b - a;
         if (idleAnimation)
         {
-            if(Input.GetAxisRaw("Horizontal") == 0)
+            if(player.rb.velocity.magnitude == 0)
             {
                 transform.position = Vector2.MoveTowards(a, animationPositions[currentPosition].position, animationSpeed);
                 if ((animationPositions[currentPosition].position - transform.position).magnitude < 0.05f)

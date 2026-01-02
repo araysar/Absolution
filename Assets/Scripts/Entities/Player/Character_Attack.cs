@@ -105,6 +105,7 @@ public class Character_Attack : MonoBehaviour
             timerUI.color = emptyColor;
             uiOvercharged.SetActive(false);
             myCube.overchargeEffect.SetActive(false);
+            currentAttack.EnteringMode();
             SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, changeSfx, transform);
             changeVfx.startColor = currentAttack.myColor;
             changeVfx.gameObject.SetActive(true);
@@ -120,6 +121,7 @@ public class Character_Attack : MonoBehaviour
         currentTime = 0;
         currentAttack = myAttacks[Random.Range(0, myAttacks.Length)];
         AttackCube(true);
+        currentAttack.EnteringMode();
         overcharged = false;
         myUIAnim.SetBool("loop", false);
         uiOvercharged.SetActive(false);
