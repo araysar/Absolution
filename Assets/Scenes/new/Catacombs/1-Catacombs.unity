@@ -117002,9 +117002,21 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 664230564, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
+      propertyPath: damage
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 664230564, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
       propertyPath: attackCooldown
       value: 0.33
       objectReference: {fileID: 0}
+    - target: {fileID: 1442397609, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
+      propertyPath: damage
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1442397609, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
+      propertyPath: myClip
+      value: 
+      objectReference: {fileID: 8300000, guid: faa3585be8fd4d14e87834e5e600ca37, type: 3}
     - target: {fileID: 3284561371220175778, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
       propertyPath: m_Name
       value: Character
