@@ -8,7 +8,7 @@ public class Enemy_Health : Health
 
     void Start()
     {
-        myAnim = GetComponent<Animator>();
+        myAnim = GetComponentInChildren<Animator>();
         GameManager.instance.HealAllEnemiesEvent += HealEnemy;
     }
 

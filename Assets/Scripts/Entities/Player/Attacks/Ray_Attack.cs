@@ -6,7 +6,7 @@ using UnityEngine.Rendering;
 public class Ray_Attack : Attack_Type
 {
 
-    List<IDamageable> targets = new List<IDamageable>();
+    List<Health> targets = new List<Health>();
     public float maxTime;
     public float timeSinceStart;
     public float maxDamage;
@@ -18,6 +18,7 @@ public class Ray_Attack : Attack_Type
     private float ySpeed;
     private Collider2D myCollider;
     public AudioSource normalLoopSFX, maxLoopSFX;
+    public LayerMask flyType;
 
     public override void EndAttack()
     {
@@ -112,7 +113,10 @@ public class Ray_Attack : Attack_Type
                 foreach (var target in targets)
                 {
                     Debug.Log(timeSinceStart == maxTime ? maxDamage * Time.deltaTime : damage * Time.deltaTime);
-                    target.TakeDamage(timeSinceStart == maxTime ? maxDamage * Time.deltaTime : damage * Time.deltaTime);
+                    if(target.type == flyType)
+                        target.TakeDamage(timeSinceStart == maxTime ? maxDamage * Time.deltaTime : damage * Time.deltaTime * 2);
+                    else
+                        target.TakeDamage(timeSinceStart == maxTime ? maxDamage * Time.deltaTime : damage * Time.deltaTime);
                 }
             }
         }
@@ -120,7 +124,7 @@ public class Ray_Attack : Attack_Type
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        IDamageable newTarget = collision.GetComponent<IDamageable>();
+        Health newTarget = collision.GetComponent<Health>();
         if (newTarget != null && collision.gameObject.layer != player.gameObject.layer)
         {
             if (!targets.Contains(newTarget)) targets.Add(newTarget);
@@ -129,7 +133,7 @@ public class Ray_Attack : Attack_Type
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        IDamageable newTarget = collision.GetComponent<IDamageable>();
+        Health newTarget = collision.GetComponent<Health>();
         if (newTarget != null && collision.gameObject.layer != player.gameObject.layer)
         {
             if (targets.Contains(newTarget)) targets.Remove(newTarget);

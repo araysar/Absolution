@@ -111,6 +111,7 @@ public class Shards_System : MonoBehaviour
                     break;
                 case Character_Attack.Talents.Damage:
                     player.damageUpgrade = true;
+                    if (player.currentAttack.weaponName == "AstralBall") player.currentAttack.EnteringMode();
                     break;
                 case Character_Attack.Talents.Defense:
                     player.defenseUpgrade = true;

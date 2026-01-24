@@ -10,13 +10,14 @@ GameObject:
   m_Component:
   - component: {fileID: 8376027663085467254}
   - component: {fileID: 4365588442921813982}
+  - component: {fileID: 1178095398817197421}
   m_Layer: 6
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8376027663085467254
 Transform:
   m_ObjectHideFlags: 0
@@ -82,6 +83,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1178095398817197421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1654135990562758389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88d0852090dac3d40a082a54fe51ae89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: {x: 0, y: 0, z: 30}
 --- !u!1 &2551659110214014099
 GameObject:
   m_ObjectHideFlags: 0
@@ -505,7 +519,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.4
+      scalar: 0.8
       minScalar: 1
       maxCurve:
         serializedVersion: 2

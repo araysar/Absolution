@@ -7,10 +7,14 @@ public class Player_Health : Health
 {
     public Animator myAnim;
     public Character_Attack myPlayerAttack;
+    public GameObject protectionAuraVfx;
+    public GameObject protectionHitPrefab;
+    public GameObject myProtectionHitVfx;
     public GameObject respawnEffect;
     public GameObject playerDeathEffect;
     public AudioClip reviveHealingSfx;
     public AudioClip revivingSfx;
+    public AudioClip protectionHitClip;
     public GameObject revivingVfx;
     private Coroutine damageAnimCoroutine;
 
@@ -30,7 +34,10 @@ public class Player_Health : Health
 
     void Start()
     {
+        myProtectionHitVfx = Instantiate(protectionHitPrefab);
         myPlayerAttack = GetComponent<Character_Attack>();
+        if (myPlayerAttack.defenseUpgrade)
+            myProtectionHitVfx.SetActive(true);
         lifeBar.color = fullLifeBarColor;
     }
 
@@ -99,6 +106,15 @@ public class Player_Health : Health
             if (currentHP <= 0) Death();
             else
             {
+                if(myPlayerAttack.defenseUpgrade)
+                {
+                    if (myProtectionHitVfx == null) myProtectionHitVfx = Instantiate(protectionHitPrefab);
+                    myProtectionHitVfx.transform.position = transform.position;
+                    myProtectionHitVfx.SetActive(false);
+                    myProtectionHitVfx.SetActive(true);
+                    if(protectionHitClip != null) SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX , protectionHitClip, transform);
+                }
+
                 if (flashCoroutine == null) flashCoroutine = StartCoroutine(Flashing(3, 0.15f));
                 if (damageAnimCoroutine == null) damageAnimCoroutine = StartCoroutine(TakeDamageTimer());
             }
@@ -117,6 +133,7 @@ public class Player_Health : Health
     {
         myAnim.SetBool("dead", true);
         base.Death();
+        myProtectionHitVfx.SetActive(false);
         myAnim.SetTrigger("death");
         damageAnimCoroutine = null;
         myAnim.SetBool("damaged", false);
@@ -175,6 +192,8 @@ public class Player_Health : Health
     {
         myAnim.SetTrigger("respawn");
         myAnim.SetBool("dead", false);
+        if(myPlayerAttack.defenseUpgrade)
+            myProtectionHitVfx.SetActive(true);
         GetComponent<Character_Movement>().EnableFlip();
         StartCoroutine(Flashing(10, 0.15f));
         currentHP = maxHP;

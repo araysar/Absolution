@@ -1,15 +1,14 @@
-using System.Collections.Generic;
-using UnityEngine;
-using TMPro;
-using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
 
 public class Character_Attack : MonoBehaviour
 {
     private Character_Movement player;
     public Animator myUIAnim;
     public bool canAttack = true;
-    public GameObject uiOvercharged;
     private bool overcharged;
     public Cube myCubePrefab;
     public Cube myCube;
@@ -50,6 +49,11 @@ public class Character_Attack : MonoBehaviour
     public bool defenseUpgrade = false;
     public bool reviveUpgrade = false;
 
+    [Header("Count Animation")]
+    public TMP_Text countdownNumber;
+    private Coroutine _currentRoutine;
+    public int secondsToChange = 4;
+    private bool isCountingDown = false;
 
     public enum Talents
     {
@@ -103,8 +107,6 @@ public class Character_Attack : MonoBehaviour
             overcharged = false;
             myUIAnim.SetBool("loop", false);
             timerUI.color = emptyColor;
-            uiOvercharged.SetActive(false);
-            myCube.overchargeEffect.SetActive(false);
             currentAttack.EnteringMode();
             SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, changeSfx, transform);
             changeVfx.startColor = currentAttack.myColor;
@@ -117,16 +119,15 @@ public class Character_Attack : MonoBehaviour
     {
         CreateCube();
         player = GetComponent<Character_Movement>();
-
+        if (countdownNumber) countdownNumber.gameObject.SetActive(false);
         currentTime = 0;
         currentAttack = myAttacks[Random.Range(0, myAttacks.Length)];
         AttackCube(true);
+        if (damageUpgrade) myCube.overchargeEffect.SetActive(true);
         currentAttack.EnteringMode();
         overcharged = false;
         myUIAnim.SetBool("loop", false);
-        uiOvercharged.SetActive(false);
         timerUI.color = emptyColor;
-        myCube.overchargeEffect.SetActive(false);
 
         uiImage.sprite = currentAttack.myImage;
         shardsSystem = GetComponentInChildren<Shards_System>();
@@ -134,6 +135,22 @@ public class Character_Attack : MonoBehaviour
         GameManager.instance.SetupPlayerAttacks += CreateCube;
     }
 
+    IEnumerator CountdownSequence()
+    {
+        countdownNumber.gameObject.SetActive(true);
+
+        for (int i = secondsToChange; i > 0; i--)
+        {
+            countdownNumber.text = i.ToString();
+            // Opcional: Aquí podrías reproducir un pequeño sonido "tic"
+            yield return new WaitForSeconds(1f);
+        }
+        ChangeWeapon();
+
+        // ¡Cambio! Apagamos el texto.
+        countdownNumber.gameObject.SetActive(false);
+        isCountingDown = false;
+    }
     public void EndAttackAnimation()
     {
         player.myAnim.SetBool("isAttacking", false);
@@ -145,7 +162,6 @@ public class Character_Attack : MonoBehaviour
         {
             myCube = Instantiate(myCubePrefab);
             overcharged = false; 
-            myCube.overchargeEffect.SetActive(false);
             myCube.animationPositions = animationPositions;
             myCube.myDestination = cubeTransform;
         }
@@ -191,11 +207,13 @@ public class Character_Attack : MonoBehaviour
                 if (shuffleActivated)
                 {
                     currentTime += Time.deltaTime;
+                    if (timeToShuffle - currentTime <= secondsToChange && !isCountingDown)
+                    {
+                        isCountingDown = true;
+                        StartCoroutine(CountdownSequence());
+                    }
+
                     TimerUI();
-                }
-                if (currentTime >= timeToShuffle && shuffleActivated)
-                {
-                    ChangeWeapon();
                 }
             }
         }
@@ -216,31 +234,11 @@ public class Character_Attack : MonoBehaviour
         {
             if (currentTime >= timeToShuffle - 5)
             {
-                myCube.overchargeEffect.SetActive(true);
-                uiOvercharged.SetActive(true);
                 overcharged = true;
-                overchargeCoroutine = StartCoroutine(OverchargeEffect());
                 myUIAnim.SetBool("loop", true);
                 timerUI.color = fullColor;
             }
         }
-    }
-
-    private IEnumerator OverchargeEffect()
-    {
-        float count = 0;
-        Material alf = uiOvercharged.GetComponent<Image>().material;
-        alf.SetFloat("_FullScreenIntensity", 0);
-
-        for (float i = 0; i < 3; i += Time.deltaTime)
-        {
-            count = i / 3;
-            alf.SetFloat("_FullScreenIntensity", count);
-            yield return null;
-        }
-
-        alf.SetFloat("_FullScreenIntensity", 1);
-        yield return null;
     }
 
     public void AddShard(int number)

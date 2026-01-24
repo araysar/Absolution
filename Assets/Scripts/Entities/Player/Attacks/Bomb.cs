@@ -9,16 +9,9 @@ public class Bomb : MonoBehaviour, IProjectile
     private Bomb_Explosion myExplosion;
     public AudioClip myClip;
 
-    private void Start()
-    {
-        myExplosion = Instantiate(myExplosionPrefab);
-        myExplosion.myBomb = this;
-        myExplosion.gameObject.SetActive(false);
-    }
-
     public void Preparation()
     {
-        if(myExplosion == null) myExplosion = Instantiate(myExplosionPrefab);
+        if (myExplosion == null) Setup();
 
         if(!myAttack.player.isMoving)
         {
@@ -31,6 +24,13 @@ public class Bomb : MonoBehaviour, IProjectile
                 new Vector2(-myAttack.addMovingForce.x, myAttack.addMovingForce.y), ForceMode2D.Impulse);
         }
         StartCoroutine(TimeToExplode());
+    }
+
+    void Setup()
+    {
+        myExplosion = Instantiate(myExplosionPrefab);
+        myExplosion.myBomb = this;
+        myExplosion.gameObject.SetActive(false);
     }
 
     public IEnumerator TimeToExplode()
@@ -65,6 +65,10 @@ public class Bomb : MonoBehaviour, IProjectile
     {
         IDamageable myTarget = collision.gameObject.GetComponent<IDamageable>();
         if (myTarget != null)
+        {
+            Return();
+        }
+        if(collision.gameObject.GetComponent<Enemy_Bat>() != null)
         {
             Return();
         }

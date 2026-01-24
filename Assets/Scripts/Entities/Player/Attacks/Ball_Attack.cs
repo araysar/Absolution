@@ -7,6 +7,7 @@ public class Ball_Attack : Attack_Type
     public Ball_Explosion myExplosion;
     public Ball_Explosion ballPrefab;
     public GameObject ballPoint;
+    public GameObject overchargeVfx;
 
     public float rotateSpeed; // Qué tan rápido da vueltas en círculos
     public float radius = 3; // Distancia desde el jugador
@@ -29,6 +30,7 @@ public class Ball_Attack : Attack_Type
     public override void EnteringMode()
     {
         if(myExplosion == null) CreateResource();
+        if (myAttack.damageUpgrade) overchargeVfx.SetActive(true);
         myAttack.myCube.gameObject.SetActive(false);
         ballPoint.SetActive(true);
     }
@@ -55,7 +57,7 @@ public class Ball_Attack : Attack_Type
     {
 
     } 
-    void Start()
+    void Awake()
     {
         ballPoint.SetActive(false);
     }

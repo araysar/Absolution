@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour, IProjectile
+public class Rifle_Shot : MonoBehaviour, IProjectile
 {
     public Rifle_Attack myAttack;
     public GameObject body;

@@ -5,8 +5,8 @@ using UnityEngine;
 public class Rifle_Attack : Attack_Type
 {
     [Header("Primary Attack")]
-    public Bullet bulletPrefab;
-    private List<Bullet> myBullets = new List<Bullet>();
+    public Rifle_Shot bulletPrefab;
+    private List<Rifle_Shot> myBullets = new List<Rifle_Shot>();
     public float primarySpeed;
     public float timeToAttack = 0.5f;
     public AudioClip myClip;
@@ -43,10 +43,10 @@ public class Rifle_Attack : Attack_Type
 
     public override void Setup()
     {
-        myBullets = new List<Bullet>();
+        myBullets = new List<Rifle_Shot>();
         for (int i = 0; i < 5; i++)
         {
-            Bullet newBullet = Instantiate(bulletPrefab);
+            Rifle_Shot newBullet = Instantiate(bulletPrefab);
             newBullet.myAttack = this;
             newBullet.gameObject.SetActive(false);
             myBullets.Add(newBullet);
@@ -65,7 +65,7 @@ public class Rifle_Attack : Attack_Type
         isAttacking = false;
     }
 
-    public Bullet GetBullet()
+    public Rifle_Shot GetBullet()
     {
         for (int i = 0; i < myBullets.Count; i++)
         {

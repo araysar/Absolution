@@ -10,8 +10,10 @@ public class dialogue_trigger : MonoBehaviour
     public GameObject dialogueMenu;
     public TMP_Text dialogueText;
     public Image dialogueImage;
+    public AudioSource myAudio;
     [TextArea(3, 6)] public string[] dialogueLines;
     public float typingTime = 0.05f;
+    public int charsToPlaySound = 6;
     private bool isTalking = false;
     private int lineIndex;
     public Action MyAction = delegate { };
@@ -20,6 +22,9 @@ public class dialogue_trigger : MonoBehaviour
 
     private void Start()
     {
+        myAudio = GetComponent<AudioSource>();
+        SoundManager.instance.audioSources.Add(myAudio);
+        myAudio.volume = SoundManager.instance.sfxVolume;
         if (GameManager.instance.saveManager.dialogues.Contains(dialogueNumber))
         {
             gameObject.SetActive(false);
@@ -99,10 +104,13 @@ public class dialogue_trigger : MonoBehaviour
     IEnumerator ShowLine()
     {
         dialogueText.text = string.Empty;
+        int charIndex = 0;
 
         foreach (char ch in dialogueLines[lineIndex])
         {
             dialogueText.text += ch;
+            if(charIndex % charsToPlaySound == 0) myAudio.Play();
+            charIndex++;
             yield return new WaitForSecondsRealtime(typingTime);
         }
     }

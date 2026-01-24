@@ -9,6 +9,7 @@ public class Health : MonoBehaviour, IDamageable
     public float maxHP = 10;
     public float currentHP;
     public bool invulnerable = false;
+    public LayerMask type;
     protected bool recovering = false;
     [HideInInspector] public Vector2 initialPosition;
     [SerializeField] protected List<GameObject> disableAfterDeath;
@@ -33,7 +34,7 @@ public class Health : MonoBehaviour, IDamageable
     private void Awake()
     {
         initialPosition = transform.position;
-        if(myRenderer == null) myRenderer = GetComponent<SpriteRenderer>();
+        if(myRenderer == null) myRenderer = GetComponentInChildren<SpriteRenderer>();
         commonMaterial = myRenderer.material;
         currentHP = maxHP;
     }

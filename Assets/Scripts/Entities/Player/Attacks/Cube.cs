@@ -22,10 +22,15 @@ public class Cube : MonoBehaviour
     }
     void Update()
     {
-        if(move)
+        if(move && Time.timeScale > 0)
         {
             Move();
         }
+    }
+
+    public void EmpoweredCube(bool isActivated)
+    {
+        overchargeEffect.SetActive(isActivated);
     }
 
     private void Destroy()
