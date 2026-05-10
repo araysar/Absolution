@@ -11,6 +11,7 @@ public class dialogue_trigger : MonoBehaviour
     public TMP_Text dialogueText;
     public Image dialogueImage;
     public AudioSource myAudio;
+    public AudioClip dialogueEnd;
     [TextArea(3, 6)] public string[] dialogueLines;
     public float typingTime = 0.05f;
     public int charsToPlaySound = 6;
@@ -23,8 +24,6 @@ public class dialogue_trigger : MonoBehaviour
     private void Start()
     {
         myAudio = GetComponent<AudioSource>();
-        SoundManager.instance.audioSources.Add(myAudio);
-        myAudio.volume = SoundManager.instance.sfxVolume;
         if (GameManager.instance.saveManager.dialogues.Contains(dialogueNumber))
         {
             gameObject.SetActive(false);
@@ -50,6 +49,7 @@ public class dialogue_trigger : MonoBehaviour
         {
             StopAllCoroutines();
             dialogueText.text = dialogueLines[lineIndex];
+            myAudio.PlayOneShot(dialogueEnd);
         }
     }
 
@@ -113,6 +113,7 @@ public class dialogue_trigger : MonoBehaviour
             charIndex++;
             yield return new WaitForSecondsRealtime(typingTime);
         }
+        myAudio.PlayOneShot(dialogueEnd);
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

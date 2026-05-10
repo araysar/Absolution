@@ -9,7 +9,7 @@ public class Cross : MonoBehaviour
 
     private void Start()
     {
-        SoundManager.instance.audioSources.Add(GetComponent<AudioSource>());
+
     }
     private void OnEnable()
     {

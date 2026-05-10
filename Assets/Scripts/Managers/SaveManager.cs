@@ -52,6 +52,7 @@ public class SaveManager : MonoBehaviour
         gM.player.GetComponent<Character_Attack>().currentShards = currentShards;
         shards = new List<int>(saveShards);
         dialogues = new List<int>(savedDialogues);
+        gM.player.TalentCheck();
     }
 
     public void SavingAnimation()

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class MenuUI : MonoBehaviour
 {
     private Animator myAnim;
-    private AudioSource mySound;
+    public AudioSource mySound;
     public AudioClip selectSfx;
     public AudioClip highlightSfx;
     public AudioClip startGameSfx;

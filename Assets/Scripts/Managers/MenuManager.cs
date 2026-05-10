@@ -1,6 +1,7 @@
-using UnityEngine;
-using UnityEngine.UI;
 using System.Collections;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class MenuManager : MonoBehaviour
 
     [Tooltip("La imagen negra que cubre toda la pantalla y tiene el material con el Shader.")]
     public Image transitionImage;
-
+    public GameObject firstIcon;
     [Header("Configuración")]
     [Tooltip("Qué tan rápido se mueven los rombos.")]
     public float transitionSpeed = 3f;
@@ -44,11 +45,17 @@ public class MenuManager : MonoBehaviour
         // Si ya estamos animando, ignoramos cualquier input
         if (_isAnimating) return;
 
-        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.I))
+        if (Input.GetButtonDown("Menu") || Input.GetKeyDown(KeyCode.I))
         {
             if (_isPaused) StartCoroutine(CloseMenuRoutine());
             else StartCoroutine(OpenMenuRoutine());
         }
+    }
+
+    public void Exit()
+    {
+        if (_isAnimating) return;
+        if (_isPaused) StartCoroutine(CloseMenuRoutine());
     }
 
     // --- RUTINA DE APERTURA (Juego -> Menú) ---
@@ -57,6 +64,8 @@ public class MenuManager : MonoBehaviour
         _isAnimating = true;
 
         // 1. PAUSA INMEDIATA: Congelamos el juego antes de que empiece a taparse la pantalla
+
+        GameManager.instance.onPause = true;
         Time.timeScale = 0;
         _isPaused = true;
 
@@ -65,6 +74,9 @@ public class MenuManager : MonoBehaviour
 
         // 3. CAMBIO DE ESCENA (Detrás del telón)
         if (menuContainer != null) menuContainer.SetActive(true); // Prendemos el menú visualmente
+
+        EventSystem.current.SetSelectedGameObject(null); // Limpiamos selección anterior
+        EventSystem.current.SetSelectedGameObject(firstIcon);
 
         // Esperamos un frame real para asegurar que la UI se dibuje antes de destapar
         yield return new WaitForSecondsRealtime(0.02f);
@@ -94,7 +106,8 @@ public class MenuManager : MonoBehaviour
         // 4. DESPAUSA FINAL: Ahora que la pantalla está limpia y el jugador ve dónde está...
         Time.timeScale = 1;
         _isPaused = false;
-
+        GameManager.instance.UnPause();
+        GameManager.instance.onPause = false;
         _isAnimating = false;
     }
 

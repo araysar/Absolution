@@ -13,7 +13,6 @@ public class IceSpikes : MonoBehaviour
     private Rigidbody2D myRb;
     public Animator myAnim;
     [HideInInspector] public Vector2 initialPosition;
-    [SerializeField] private AudioClip destroySfx;
 
 
     void Start()
@@ -55,7 +54,8 @@ public class IceSpikes : MonoBehaviour
             if(collision.GetComponent<Health>() != null)
                 collision.GetComponent<Health>().TakeDamage(myDamage);
 
-            if(destroySfx != null) SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, destroySfx, transform);
+            GetComponentInParent<ImpactSoundLimiter>().PlaySound();
+                
             Instantiate(impactEffect, transform.position, Quaternion.identity);
             gameObject.SetActive(false);
         }

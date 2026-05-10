@@ -45,8 +45,6 @@ public class Enemy_Bat : MonoBehaviour
         myHealth = GetComponentInChildren<Enemy_Health>();
         damageBoxSize = GetComponent<BoxCollider2D>().size * 0.25f;
         rageSfx = GetComponent<AudioSource>();
-        rageSfx.volume = SoundManager.instance.sfxVolume;
-        SoundManager.instance.audioSources.Add(rageSfx);
         _rb.gravityScale = 0; // Evita que caiga por gravedad
     }
 

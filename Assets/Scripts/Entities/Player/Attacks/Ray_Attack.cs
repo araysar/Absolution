@@ -66,8 +66,6 @@ public class Ray_Attack : Attack_Type
         myVFX.gameObject.SetActive(false);
         currentGravity = player.rb.gravityScale;
         myCollider = GetComponent<Collider2D>();
-        SoundManager.instance.externalSounds.Add(normalLoopSFX);
-        SoundManager.instance.externalSounds.Add(maxLoopSFX);
     }
 
     public override void Interrupt()

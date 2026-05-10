@@ -19,7 +19,6 @@ public class Energy : MonoBehaviour
 
     void Start()
     {
-        mySound.volume = SoundManager.instance.sfxVolume;
         EnergyRegen = Regeneration;
     }
 

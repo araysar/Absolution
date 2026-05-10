@@ -94,7 +94,6 @@ public class GameManager : MonoBehaviour
         nextPosition = player.transform.position;
 
         QualitySettings.vSyncCount = 1;
-        Application.targetFrameRate = 60;
 
         gravity = Physics2D.gravity.y;
         StopMovementEvent += NoGravity;

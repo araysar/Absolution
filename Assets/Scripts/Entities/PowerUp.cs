@@ -30,7 +30,7 @@ public class PowerUp : MonoBehaviour
             if(!isGrabed) isGrabed = true;
 
             GameManager.instance.Pause();
-            SoundManager.instance.PlaySound(SoundManager.SoundChannel.Unscalled, getSound, transform);
+            SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, getSound, transform);
             uiMessage.SetActive(true);
             myAnim.SetBool("enter", true);
         }
@@ -58,7 +58,7 @@ public class PowerUp : MonoBehaviour
         Character_Movement.instance.PowerUpGrab();
         GameManager.instance.EnemyRespawnEvent += Respawn;
         Character_Movement.instance.NewPowerUpEffect(myColor);
-        SoundManager.instance.PlaySound(SoundManager.SoundChannel.Unscalled, myGetSound, transform);
+        SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, myGetSound, transform);
         uiMessage.SetActive(false);
         gameObject.SetActive(false);
     }

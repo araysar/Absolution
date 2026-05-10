@@ -57,7 +57,6 @@ public class Character_Attack : MonoBehaviour
 
     public enum Talents
     {
-        AtkSpeed,
         Damage,
         Defense,
         Revive,
@@ -133,6 +132,8 @@ public class Character_Attack : MonoBehaviour
         shardsSystem = GetComponentInChildren<Shards_System>();
         GameManager.instance.SetupPlayerAttacks += CreateAttacks;
         GameManager.instance.SetupPlayerAttacks += CreateCube;
+        GameManager.instance.ResumeMovementEvent += ResumeTimer;
+        GameManager.instance.StopMovementEvent += StopTimer;
     }
 
     IEnumerator CountdownSequence()
@@ -217,6 +218,16 @@ public class Character_Attack : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void StopTimer()
+    {
+        weaponFrozen = true;
+    }
+
+    public void ResumeTimer()
+    {
+        weaponFrozen = false;
     }
 
     public void AttackCube(bool value)

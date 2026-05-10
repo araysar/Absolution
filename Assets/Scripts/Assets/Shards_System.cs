@@ -2,78 +2,59 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class Shards_System : MonoBehaviour
 {
     public Character_Attack player;
-    public GameObject talentPanel;
-    public Button talentBTN;
     public TMP_Text uiShards;
     public AudioClip learnSfx;
     public AudioClip music;
     private AudioClip currentMusic;
-
+    public GameObject firstIcon;
 
     [Header("Talents UI")]
     public Image[] uiButton;
     public Sprite[] spriteButton;
-    public GameObject[] uiPannels;
-
+    public GameObject[] despertarPanels;
+    public GameObject talentPanel;
     [HideInInspector] public int index;
+
+    private void FirstIcon()
+    {
+        EventSystem.current.SetSelectedGameObject(null); // Limpiamos selección anterior
+        EventSystem.current.SetSelectedGameObject(firstIcon);
+    }
 
     public void BTN_TalentEntry()
     {
 
         GameManager.instance.onPause = true;
         Time.timeScale = 0;
-        uiShards.text = "x " + player.currentShards.ToString();
+        FirstIcon();
+        talentPanel.SetActive(true);
+        uiShards.text = player.currentShards.ToString();
         currentMusic = SoundManager.instance.CurrentSong();
         SoundManager.instance.PlaySound(SoundManager.SoundChannel.Music, music, transform);
-        talentPanel.SetActive(true);
-        for (int i = 0; i < 4; i++)
-        {
-            uiPannels[i].SetActive(false);
-        }
     }
 
     public void BTN_TalentExit()
     {
         GameManager.instance.UnPause();
-        for (int i = 0; i < 4; i++)
-        {
-            uiPannels[i].SetActive(false);
-        }
-        SoundManager.instance.PlaySound(SoundManager.SoundChannel.Unscalled, SoundManager.instance.clickSfx, transform);
+        talentPanel.gameObject.SetActive(false); 
+        SoundManager.instance.sfxAudioSource.PlayOneShot(SoundManager.instance.clickSfx);
         SoundManager.instance.PlaySound(SoundManager.SoundChannel.Music, currentMusic, transform); 
         GameManager.instance.onPause = false;
         Time.timeScale = 1;
-        talentPanel.SetActive(false);
     }
 
     public void ActiveInfo(int indexUI)
     {
         index = indexUI;
-        SoundManager.instance.PlaySound(SoundManager.SoundChannel.Unscalled, SoundManager.instance.clickSfx, transform);
+        SoundManager.instance.sfxAudioSource.PlayOneShot(SoundManager.instance.clickSfx);
 
-        for (int i = 0; i < uiPannels.Length; i++)
-        {
-            if (i != indexUI)
-            {
-                uiPannels[i].SetActive(false);
-            }
-            else
-            {
-                if(uiPannels[i].activeSelf)
-                {
-                    uiPannels[i].SetActive(false);
-                }
-                else
-                {
-                    uiPannels[i].SetActive(true);
-                }
-            }
-        }
+        BTN_CheckUpdate(indexUI);
     }
 
     public void BTN_CheckUpdate(int myUpgrade)
@@ -81,15 +62,12 @@ public class Shards_System : MonoBehaviour
         switch(myUpgrade)
         {
             case 0:
-                Upgrade(Character_Attack.Talents.AtkSpeed);
-                break;
-            case 1:
                 Upgrade(Character_Attack.Talents.Damage);
                 break;
-            case 2:
+            case 1:
                 Upgrade(Character_Attack.Talents.Defense);
                 break;
-            case 3:
+            case 2:
                 Upgrade(Character_Attack.Talents.Revive);
                 break;
             default:
@@ -101,14 +79,12 @@ public class Shards_System : MonoBehaviour
     {
         if (!player.myUpgrades.Contains(upgrade) && player.currentShards >= 4)
         {
-            SoundManager.instance.PlaySound(SoundManager.SoundChannel.Unscalled, learnSfx, transform);
+            SoundManager.instance.sfxAudioSource.PlayOneShot(learnSfx);
             player.myUpgrades.Add(upgrade);
             uiButton[index].sprite = spriteButton[index];
+            despertarPanels[index].gameObject.SetActive(false);
             switch (upgrade)
             {
-                case Character_Attack.Talents.AtkSpeed:
-                    player.cooldownUpgrade = true;
-                    break;
                 case Character_Attack.Talents.Damage:
                     player.damageUpgrade = true;
                     if (player.currentAttack.weaponName == "AstralBall") player.currentAttack.EnteringMode();
@@ -123,6 +99,9 @@ public class Shards_System : MonoBehaviour
             player.currentShards -= 4;
             uiShards.text = "x " + player.currentShards.ToString();
             uiButton[index].color = Color.white;
+            Character_Movement.instance.TalentCheck();
         }
     }
+
+
 }

@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Character_Movement : MonoBehaviour
 {
@@ -81,11 +83,18 @@ public class Character_Movement : MonoBehaviour
     public List<PowerUp> myUpgrades = new List<PowerUp>();
     [SerializeField] private GameObject uiDash;
     [SerializeField] private GameObject uiUltimate1;
-    [SerializeField] private GameObject uiFire;
+    [SerializeField] private GameObject uiResu;
     public GameObject newPowerUpVfx;
 
     [Header("UI")]
     public GameObject ui;
+    public Image[] abilitiesImage = new Image[3];
+    public Image[] talentImage = new Image[3];
+    public Sprite[] abilitiesDisabled = new Sprite[3];
+    public Sprite[] talentDisabled = new Sprite[3];
+    public Sprite[] abilitiesReady = new Sprite[3];
+    public Sprite[] talentReady = new Sprite[3];
+
 
     public enum PowerUp
     {
@@ -134,6 +143,8 @@ public class Character_Movement : MonoBehaviour
         GameManager.instance.DestroyEvent += Destroy;
         GameManager.instance.EndGameEvent += DisableInputs;
         GameManager.instance.EndGameEvent += Invulnerability;
+        TalentCheck();
+        AbilityCheck();
         GameManager.instance.TriggerAction(GameManager.ExecuteAction.SaveData);
     }
 
@@ -557,14 +568,13 @@ public class Character_Movement : MonoBehaviour
                     {
                         maxJumps = 2;
                     }
+                    abilitiesImage[0].sprite = abilitiesReady[0];
                     break;
                 case PowerUp.Dash:
-
+                    abilitiesImage[1].sprite = abilitiesReady[1];
                     break;
 
                 case PowerUp.Fire:
-
-                    uiFire.SetActive(true);
                     break;
                 case PowerUp.Ice:
 
@@ -572,7 +582,10 @@ public class Character_Movement : MonoBehaviour
                 case PowerUp.Water:
                     break;
                 case PowerUp.Ulti1:
+                    abilitiesImage[2].sprite = abilitiesReady[2];
                     uiUltimate1.SetActive(true);
+                    ulti1Stacks = ulti1Required;
+                    ulti1.Check();
                     break;
                 case PowerUp.Ulti2:
                     break;
@@ -588,9 +601,11 @@ public class Character_Movement : MonoBehaviour
             {
                 case PowerUp.DoubleJump:
                     maxJumps = 1;
+                    abilitiesImage[0].sprite = abilitiesDisabled[0];
                     break;
                 case PowerUp.Dash:
                     uiDash.SetActive(false);
+                    abilitiesImage[1].sprite = abilitiesDisabled[1];
                     break;
                 case PowerUp.Fire:
                     break;
@@ -599,6 +614,7 @@ public class Character_Movement : MonoBehaviour
                 case PowerUp.Water:
                     break;
                 case PowerUp.Ulti1:
+                    abilitiesImage[2].sprite = abilitiesDisabled[2];
                     uiUltimate1.SetActive(false);
                     break;
                 case PowerUp.Ulti2:
@@ -606,6 +622,47 @@ public class Character_Movement : MonoBehaviour
             }
         }
     }
+
+    public void TalentCheck()
+    {
+        if(myShooter.myUpgrades.Contains(Character_Attack.Talents.Damage)) talentImage[0].sprite = talentReady[0];
+        else talentImage[0].sprite = talentDisabled[0];
+
+        if (myShooter.myUpgrades.Contains(Character_Attack.Talents.Defense)) talentImage[1].sprite = talentReady[1];
+        else talentImage[1].sprite = talentDisabled[1];
+
+        if (myShooter.myUpgrades.Contains(Character_Attack.Talents.Revive))
+        {
+            talentImage[2].sprite = talentReady[2]; 
+            uiResu.SetActive(true);
+        }
+        else
+        {
+            talentImage[2].sprite = talentDisabled[2];
+            uiResu.SetActive(false);
+        }
+    }
+
+    public void AbilityCheck()
+    {
+        if (myUpgrades.Contains(PowerUp.DoubleJump)) abilitiesImage[0].sprite = abilitiesReady[0];
+        else abilitiesImage[0].sprite = abilitiesDisabled[0];
+
+        if (myUpgrades.Contains(PowerUp.DoubleJump)) abilitiesImage[1].sprite = abilitiesReady[1];
+        else abilitiesImage[1].sprite = abilitiesDisabled[1];
+
+        if (myUpgrades.Contains(PowerUp.Ulti1))
+        {
+            abilitiesImage[2].sprite = abilitiesReady[2];
+            uiUltimate1.SetActive(true);
+        }
+        else
+        {
+            abilitiesImage[2].sprite = abilitiesDisabled[2];
+            uiUltimate1.SetActive(false);
+        }
+    }
+
     #endregion
 
     #region Respawn

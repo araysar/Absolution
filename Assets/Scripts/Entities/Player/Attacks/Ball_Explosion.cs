@@ -11,7 +11,7 @@ public class Ball_Explosion : MonoBehaviour
 
     private void Start()
     {
-        SoundManager.instance.audioSources.Add(myAudio);
+
     }
 
     private void OnEnable()
