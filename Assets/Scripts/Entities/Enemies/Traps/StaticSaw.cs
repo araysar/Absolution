@@ -33,6 +33,7 @@ public class StaticSaw : MonoBehaviour
     void Update()
     {
         if (visualTransform == null) return;
+        if (Character_Movement.instance.pauseTraps == true) return;
 
         // Calculamos el temblor errático usando Perlin Noise
         // Multiplicamos por 2 y restamos 1 para que el valor vaya de -1 a 1 (y no de 0 a 1)

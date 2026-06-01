@@ -4,22 +4,16 @@ using UnityEngine;
 public class UnstableArea : MonoBehaviour
 {
     bool triggered = false;
-    public int myArea;
-
-    private void Start()
-    {
-        if (Character_Movement.instance.unstableAreaCleared.Contains(myArea)) gameObject.SetActive(false);
-    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Character_Attack player = collision.GetComponent<Character_Attack>();
-        if(collision.GetComponent<Character_Attack>() != null)
+        Character_Attack myPlayer = collision.GetComponent<Character_Attack>();
+        if(myPlayer != null && !Character_Movement.instance.isBusy)
         {
             if(!triggered)
             {
                 triggered = true;
-                StartCoroutine(FreezeWeapon(player));
+                StartCoroutine(FreezeWeapon(myPlayer));
             }
         }
     }

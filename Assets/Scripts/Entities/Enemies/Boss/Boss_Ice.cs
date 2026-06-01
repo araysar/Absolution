@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,27 +11,38 @@ public class Boss_Ice : Boss
     [SerializeField] private bool isResting = false;
     [SerializeField] private bool isFighting = false;
     [SerializeField] private bool canMove = true;
-    [SerializeField] private bool enrage = false;
-    [SerializeField] private IceBossAttacks currentAttack = IceBossAttacks.TopTornado;
+    public bool enrage = false;
+    [SerializeField] private IceBossAttacks currentAttack = IceBossAttacks.TopSpikes;
     [SerializeField] private List<IceSpikes> roofSpikes;
     [SerializeField] private List<IceSpikes> topSpikes;
     [SerializeField] private List<IceSpikes> botSpikes;
     [SerializeField] private AudioClip myBossScream;
     [SerializeField] private GameObject myScream;
     [SerializeField] private GameObject myEyes;
-    
+
+    public GameObject midPreparation;
+    public GameObject midExplosion;
+    public float timePreparation = 1.5f;
+    public float timeExplosion = 1.5f;
+    public AudioClip midExplosionClip;
+
+    [SerializeField] private List<GameObject> floorSpikesPreparation;
+    [SerializeField] private AudioClip floorPreparationSFX;
+    [SerializeField] private AudioClip floorSpikesSFX;
+    [SerializeField] private List<GameObject> floorSpikes;
+
     public enum IceBossAttacks
     {
         IceSpikes,
-        TopTornado,
-        BotAttack,
-        AoEAttack,
+        TopSpikes,
+        BotSpikes,
+        MidAttack,
+        FloorSpikes
     };
 
     void Start()
     {
         myManager.StartFightEvent += StartingFight;
-
         GameManager.instance.PlayerRespawnEvent += Respawn;
         GameManager.instance.StopMovementEvent += StopMovement;
         GameManager.instance.ResumeMovementEvent += ResumeMovement;
@@ -49,15 +61,18 @@ public class Boss_Ice : Boss
                     case IceBossAttacks.IceSpikes:
                         myAnim.SetTrigger("iceSpikes");
                         break;
-                    case IceBossAttacks.TopTornado:
+                    case IceBossAttacks.TopSpikes:
                         myAnim.SetTrigger("topAttack");
                         break;
-                    case IceBossAttacks.BotAttack:
+                    case IceBossAttacks.BotSpikes:
                         myAnim.SetTrigger("botAttack");
                         break;
-                    case IceBossAttacks.AoEAttack:
-                        if (enrage) myAnim.SetTrigger("attackAoEAttack");
-                        else SelectAttack();
+                    case IceBossAttacks.MidAttack:
+                        midPreparation.SetActive(false);
+                        myAnim.SetTrigger("midAttack");
+                        break;
+                    case IceBossAttacks.FloorSpikes:
+                        myAnim.SetTrigger("floorSpikes");
                         break;
                     default:
                         myAnim.SetTrigger("iceSpikes");
@@ -118,9 +133,45 @@ public class Boss_Ice : Boss
         myAnim.SetTrigger("exit");
     }
 
-    public void AoEAttack()
+    IEnumerator FloorSpikes()
     {
+        FinishAttack(3);
+        myAnim.SetTrigger("exit");
+        int random = UnityEngine.Random.Range(0, 5);
+        int i = 0;
+        foreach (var item in floorSpikesPreparation)
+        {
+            if(random != i)  item.gameObject.SetActive(true);
+            i++;
+        }
+        i = 0;
+        yield return new WaitForSeconds(1.3f);
+        SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, floorSpikesSFX, Character_Movement.instance.transform);
+        foreach (var item in floorSpikes)
+        {
+            if(random != i) item.gameObject.SetActive(true);
+            i++;
+        }
+        yield return new WaitForSeconds(1.5f);
+        foreach (var item in floorSpikes)
+        {
+            item.gameObject.SetActive(false);
+        }
+    }
 
+    public void MidAttack()
+    {
+        StartCoroutine(MidTimer());
+    }
+
+    IEnumerator MidTimer()
+    {
+        FinishAttack(timeExplosion);
+        midPreparation.SetActive(true);
+        myAnim.SetTrigger("exit");
+        yield return new WaitForSeconds(timePreparation); 
+        midExplosion.SetActive(true);
+        SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX,midExplosionClip, Character_Movement.instance.transform);
     }
 
     #endregion
@@ -133,15 +184,15 @@ public class Boss_Ice : Boss
     {
         isResting = true;
         canAttack = false;
-        currentTimer = delayAttacks + time;
+        currentTimer = enrage? delayAttacks / 3.5f : delayAttacks + time;
     }
 
     public override void StartingFight()
     {
         isFighting = true;
         canMove = true;
-        canAttack = true;
         isResting = false;
+        SelectAttack();
     }
     
     public override void Respawn()
@@ -151,7 +202,10 @@ public class Boss_Ice : Boss
         isFighting = false;
         canMove = false;
         myAnim.SetTrigger("exit");
+        StopAllCoroutines();
         myHealth.currentHP = myHealth.maxHP;
+        GetComponent<Boss_Health>().WeakPointColor();
+        SoundManager.instance.PlaySound(SoundManager.SoundChannel.Music, SoundManager.instance.bossFightMusic, transform);
     }
 
     private void BossScream()

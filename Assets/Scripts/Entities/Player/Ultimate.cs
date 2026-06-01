@@ -91,6 +91,7 @@ public class Ultimate: MonoBehaviour
         if(canUse && ultiReady)
         {
             Character_Movement.instance.isCharging = true;
+            Character_Movement.instance.pauseTraps = true;
             ultiReady = false;
             GameManager.instance.TriggerAction(GameManager.ExecuteAction.StopMovementEvent);
             Character_Movement.instance.ControlAnimations();
@@ -131,9 +132,10 @@ public class Ultimate: MonoBehaviour
     }
     private void EndUltimate()
     {
-        Character_Movement.instance.isUlting = false;
+        Character_Movement.instance.pauseTraps = false;
         Character_Movement.instance.myHealth.invulnerable = false;
         GameManager.instance.TriggerAction(GameManager.ExecuteAction.ResumeMovementEvent);
+        Character_Movement.instance.isUlting = false;
     }
     
     // Esta función se llama en el frame exacto de la animación donde explota

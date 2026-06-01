@@ -48,6 +48,7 @@ public class Character_Attack : MonoBehaviour
     public bool damageUpgrade = false;
     public bool defenseUpgrade = false;
     public bool reviveUpgrade = false;
+    public GameObject defenseVFX;
 
     [Header("Count Animation")]
     public TMP_Text countdownNumber;
@@ -227,7 +228,7 @@ public class Character_Attack : MonoBehaviour
 
     public void ResumeTimer()
     {
-        weaponFrozen = false;
+        if(!player.isUlting) weaponFrozen = false;
     }
 
     public void AttackCube(bool value)

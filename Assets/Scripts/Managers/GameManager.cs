@@ -187,6 +187,7 @@ public class GameManager : MonoBehaviour
                 PlayerDisableEvent();
                 break;
             case ExecuteAction.PlayerRespawnEvent:
+                fightingBoss = false;
                 PlayerRespawnEvent();
                 CameraManager.instance.normalCamera.gameObject.SetActive(true);
                 CameraManager.instance.playerCamera.gameObject.SetActive(false);
@@ -227,7 +228,6 @@ public class GameManager : MonoBehaviour
                 break;
             case ExecuteAction.EnterBossDoor:
                 fightingBoss = true;
-                EnterBossDoorEvent();
 
                 break;
         }

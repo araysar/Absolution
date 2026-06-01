@@ -48,10 +48,14 @@ public class Player_Health : Health
             if(reviveCurrentTime >= reviveCooldown && !reviveReady)
             {
                 reviveReady = true;
+                Character_Movement.instance.uiResuCD.fillAmount = 1;
+                Character_Movement.instance.uiResuLoop.SetActive(true);
+                Character_Movement.instance.uiResuReady.SetActive(true);
             }
             else if(reviveCurrentTime < reviveCooldown && !reviveReady)
             {
                 reviveCurrentTime += Time.deltaTime;
+                Character_Movement.instance.uiResuCD.fillAmount = reviveCurrentTime / reviveCooldown;
             }
         }
     }
@@ -131,6 +135,7 @@ public class Player_Health : Health
 
     public override void Death()
     {
+        Character_Movement.instance.isBusy = true;
         myAnim.SetBool("dead", true);
         base.Death();
         myProtectionHitVfx.SetActive(false);

@@ -11,7 +11,9 @@ public class Character_Movement : MonoBehaviour
 
     public bool disableInputs = false;
     public bool isUlting = false;
+    public bool pauseTraps = false;
     public bool isCharging = false;
+    public bool isBusy = false;
     [HideInInspector] public Player_Health myHealth;
     [HideInInspector] public Character_Attack myShooter;
     [HideInInspector] public List<int> unstableAreaCleared;
@@ -84,6 +86,9 @@ public class Character_Movement : MonoBehaviour
     [SerializeField] private GameObject uiDash;
     [SerializeField] private GameObject uiUltimate1;
     [SerializeField] private GameObject uiResu;
+    public Image uiResuCD;
+    public GameObject uiResuLoop;
+    public GameObject uiResuReady;
     public GameObject newPowerUpVfx;
 
     [Header("UI")]
@@ -168,10 +173,16 @@ public class Character_Movement : MonoBehaviour
             {
                 myUpgrades.Add(PowerUp.DoubleJump);
                 myUpgrades.Add(PowerUp.Dash);
+                myUpgrades.Add(PowerUp.Ulti1);
                 PowerUpGrab();
                 GameManager.instance.nextScene = "Boss-Ice";
                 GameManager.instance.nextPosition = new Vector2(-37.59f, -13.47172f);
                 GameManager.instance.Transition(GameManager.EventType.DoorTransition, 0);
+            }
+            if (Input.GetKeyDown(KeyCode.F12))
+            {
+                GameManager.instance.Transition(GameManager.EventType.PlayerDeathTransition, 0);
+                EnableFlip();
             }
         }
     }
@@ -625,11 +636,28 @@ public class Character_Movement : MonoBehaviour
 
     public void TalentCheck()
     {
-        if(myShooter.myUpgrades.Contains(Character_Attack.Talents.Damage)) talentImage[0].sprite = talentReady[0];
-        else talentImage[0].sprite = talentDisabled[0];
+        if (myShooter.myUpgrades.Contains(Character_Attack.Talents.Damage))
+        {
+            talentImage[0].sprite = talentReady[0];
+            myShooter.myCube.EmpoweredCube(true);
+        }
+        else
+        {
+            talentImage[0].sprite = talentDisabled[0];
+            myShooter.myCube.EmpoweredCube(false);
+        }
 
-        if (myShooter.myUpgrades.Contains(Character_Attack.Talents.Defense)) talentImage[1].sprite = talentReady[1];
-        else talentImage[1].sprite = talentDisabled[1];
+
+        if (myShooter.myUpgrades.Contains(Character_Attack.Talents.Defense))
+        {
+            talentImage[1].sprite = talentReady[1];
+            myShooter.defenseVFX.SetActive(true);
+        }
+        else
+        {
+            talentImage[1].sprite = talentDisabled[1];
+            myShooter.defenseVFX.SetActive(false);
+        }
 
         if (myShooter.myUpgrades.Contains(Character_Attack.Talents.Revive))
         {
@@ -712,6 +740,7 @@ public class Character_Movement : MonoBehaviour
         isFalling = false;
         ControlAnimations();
         myAnim.Play("Idle", 0);
+        isBusy = false;
     }
 
     

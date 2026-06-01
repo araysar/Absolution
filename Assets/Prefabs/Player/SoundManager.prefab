@@ -40,7 +40,7 @@ AudioSource:
   m_GameObject: {fileID: 2130556889856577022}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 24300002, guid: 7a77e8707740c2b469c0ca57474125c3, type: 2}
+  OutputAudioMixerGroup: {fileID: -5504237446929539425, guid: 7a77e8707740c2b469c0ca57474125c3, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -306,6 +306,4 @@ MonoBehaviour:
   clickSfx: {fileID: 8300000, guid: 187fc7ffe3d66fa4eb13ebcf3159ca78, type: 3}
   openCommonDoor: {fileID: 8300000, guid: 29d68a222f8111b4f979716bb150b34d, type: 3}
   bossDoor: {fileID: 8300000, guid: a15a3b47904d8c74ea543d9b28bce1ad, type: 3}
-  sfxVolume: 0.1
-  musicVolume: 0.05
   mainMixer: {fileID: 24100000, guid: 7a77e8707740c2b469c0ca57474125c3, type: 2}

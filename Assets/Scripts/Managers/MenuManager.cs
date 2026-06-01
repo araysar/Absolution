@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using TMPro;
 
 public class MenuManager : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class MenuManager : MonoBehaviour
     private Material _transMaterial;
     private bool _isPaused = false;
     private bool _isAnimating = false; // Bloqueo para no romper la animación
+    public TMP_Text shards;
 
     void Start()
     {
@@ -62,7 +64,7 @@ public class MenuManager : MonoBehaviour
     IEnumerator OpenMenuRoutine()
     {
         _isAnimating = true;
-
+        shards.text = Character_Movement.instance.myShooter.currentShards.ToString();
         // 1. PAUSA INMEDIATA: Congelamos el juego antes de que empiece a taparse la pantalla
 
         GameManager.instance.onPause = true;

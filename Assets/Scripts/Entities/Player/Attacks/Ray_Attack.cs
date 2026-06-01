@@ -19,6 +19,7 @@ public class Ray_Attack : Attack_Type
     private Collider2D myCollider;
     public AudioSource normalLoopSFX, maxLoopSFX;
     public LayerMask flyType;
+    public LayerMask bossType;
 
     public override void EndAttack()
     {
@@ -113,6 +114,8 @@ public class Ray_Attack : Attack_Type
                     Debug.Log(timeSinceStart == maxTime ? maxDamage * Time.deltaTime : damage * Time.deltaTime);
                     if(target.type == flyType)
                         target.TakeDamage(timeSinceStart == maxTime ? maxDamage * Time.deltaTime : damage * Time.deltaTime * 2);
+                    if(target.type == bossType)
+                        target.TakeDamage(timeSinceStart == maxTime ? maxDamage * Time.deltaTime : damage * Time.deltaTime / 1.75f);
                     else
                         target.TakeDamage(timeSinceStart == maxTime ? maxDamage * Time.deltaTime : damage * Time.deltaTime);
                 }

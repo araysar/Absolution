@@ -10,7 +10,6 @@ public class BossFightManager : MonoBehaviour
     [SerializeField] private GameObject bossCamera;
     [SerializeField] private Boss_Ice myBoss;
     [SerializeField] private Coroutine myCoroutine;
-    private Collider2D myCollider;
     
 
     [SerializeField] private CinemachineBlendDefinition.Style myTransitionEffect;
@@ -30,7 +29,6 @@ public class BossFightManager : MonoBehaviour
             gameObject.SetActive(false);
         }
 
-        myCollider = GetComponent<Collider2D>();
         myCameraBrain = FindObjectOfType<CinemachineBrain>();
         EnteringBossDoorEvent += SoundManager.instance.StopSong;
         EnteringBossDoorEvent += Character_Movement.instance.StopMovement;
@@ -77,14 +75,7 @@ public class BossFightManager : MonoBehaviour
         myCameraBrain.m_DefaultBlend.m_Style = CinemachineBlendDefinition.Style.Cut;
         normalCamera.SetActive(true);
         bossCamera.SetActive(false);
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.gameObject.tag == "Player")
-        {
-            myCollider.enabled = false;
-            EnteringBossDoor();
-        }
+        myBoss.myAnim.Rebind();
+        GameManager.instance.fightingBoss = false;
     }
 }
