@@ -32,7 +32,7 @@ public class Bomb_Attack : Attack_Type
     public override void PrimaryAttack()
     {
         if(myBomb == null) CreateResource();
-
+        base.PrimaryAttack();
         StartCoroutine(PrimaryCooldown());
     }
 

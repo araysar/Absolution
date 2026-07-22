@@ -17,7 +17,6 @@ public class Ray_Attack : Attack_Type
     public float rayheight;
     private float ySpeed;
     private Collider2D myCollider;
-    public AudioSource normalLoopSFX, maxLoopSFX;
     public LayerMask flyType;
     public LayerMask bossType;
 
@@ -95,6 +94,7 @@ public class Ray_Attack : Attack_Type
 
     private void Update()
     {
+        base.Update();
         if (isAttacking)
         {
             if (timeSinceStart < maxTime)
@@ -107,17 +107,22 @@ public class Ray_Attack : Attack_Type
                 maxVFX.gameObject.SetActive(true);
             }
 
+            currentEnergy -= energyPerShot * Time.deltaTime;
+
+            float energyPercentage = currentEnergy / maxEnergy;
+
+            float outputDamage = Mathf.Lerp(damage / 4f, damage * 1.25f, energyPercentage);
+
             if (targets.Count > 0)
             {
                 foreach (var target in targets)
                 {
-                    Debug.Log(timeSinceStart == maxTime ? maxDamage * Time.deltaTime : damage * Time.deltaTime);
                     if(target.type == flyType)
-                        target.TakeDamage(timeSinceStart == maxTime ? maxDamage * Time.deltaTime : damage * Time.deltaTime * 2);
+                        target.TakeDamage(timeSinceStart == maxTime ? maxDamage * Time.deltaTime * 1.5f: outputDamage * Time.deltaTime * 2);
                     if(target.type == bossType)
-                        target.TakeDamage(timeSinceStart == maxTime ? maxDamage * Time.deltaTime : damage * Time.deltaTime / 1.75f);
+                        target.TakeDamage(timeSinceStart == maxTime ? maxDamage * Time.deltaTime / 1.5f : outputDamage * Time.deltaTime / 1.5f);
                     else
-                        target.TakeDamage(timeSinceStart == maxTime ? maxDamage * Time.deltaTime : damage * Time.deltaTime);
+                        target.TakeDamage(timeSinceStart == maxTime ? maxDamage * Time.deltaTime : outputDamage * Time.deltaTime);
                 }
             }
         }

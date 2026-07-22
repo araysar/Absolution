@@ -75,7 +75,11 @@ public class Boomerang : MonoBehaviour, IProjectile
         {
             if(!myTargets.Contains(target))
             {
-                target.TakeDamage(myAttack.myAttack.damageUpgrade ? myAttack.damage * 1.5f : myAttack.damage);
+                float energyPercentage = myAttack.currentEnergy / myAttack.maxEnergy;
+
+                float outputDamage = Mathf.Lerp(myAttack.damage / 4f, myAttack.damage * 1.25f, energyPercentage);
+
+                target.TakeDamage(myAttack.myAttack.damageUpgrade ? outputDamage * 1.5f : outputDamage);
                 myTargets.Add(target);
             }
         }

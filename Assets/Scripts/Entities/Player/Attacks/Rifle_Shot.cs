@@ -43,7 +43,11 @@ public class Rifle_Shot : MonoBehaviour, IProjectile
         }
         else if (target != null && collision.gameObject.layer != myAttack.player.gameObject.layer)
         {
-            target.TakeDamage(myAttack.myAttack.damageUpgrade ? myAttack.damage * 1.5f : myAttack.damage);
+            float energyPercentage = myAttack.currentEnergy / myAttack.maxEnergy;
+
+            float outputDamage = Mathf.Lerp(myAttack.damage / 4f, myAttack.damage * 1.25f, energyPercentage);
+
+            target.TakeDamage(myAttack.myAttack.damageUpgrade ? outputDamage * 1.5f : outputDamage);
             Return();
         }
         else if (collision.gameObject.layer == 3)

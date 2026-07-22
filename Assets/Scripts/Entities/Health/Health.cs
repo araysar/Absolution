@@ -29,6 +29,7 @@ public class Health : MonoBehaviour, IDamageable
 
     [Space, Header("Drop")]
     [SerializeField] protected GameObject myDrop;
+    [SerializeField] protected float dropChance = 15;
 
 
     private void Awake()
@@ -89,6 +90,16 @@ public class Health : MonoBehaviour, IDamageable
         StopAllCoroutines();
         flashCoroutine = null;
         recovering = false;
+        if(myDrop != null)
+        {
+            float random = Random.Range(1, 101);
+            if (random <= dropChance) 
+            {
+                GameObject alf = Instantiate(myDrop, transform.position, Quaternion.identity);
+                alf.GetComponent<LifePotion>().Destroy();
+            }
+
+        }
         GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
         GetComponent<Collider2D>().enabled = false;
         myRenderer.material = commonMaterial;

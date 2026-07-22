@@ -27,6 +27,16 @@ public class CredtsManager : MonoBehaviour
         myPlayer.StopMovement();
     }
 
+    public void ClosePortal()
+    {
+        myPlayer.ClosePortal();
+    }
+
+    public void ClosePortalEnd()
+    {
+        myPlayer.ClosePortalEnd();
+    }
+
     public void ChangeToScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);

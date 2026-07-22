@@ -21,6 +21,7 @@ public class Character_Attack : MonoBehaviour
     public int firstWeapon;
     public Attack_Type[] myAttacks;
     public Attack_Type currentAttack;
+    private int attackPosition = 0;
     public float timeToShuffle = 30;
     public float currentTime;
     public bool shuffleActivated = true;
@@ -93,14 +94,24 @@ public class Character_Attack : MonoBehaviour
 
     public void ChangeWeapon()
     {
-        int nextWeapon = Random.Range(0, myAttacks.Length);
+        currentAttack.EndAttack();
+        AttackCube(true);
+        SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, changeSfx, transform);
+        changeVfx.startColor = currentAttack.myColor;
+        changeVfx.gameObject.SetActive(true);
+        uiImage.sprite = currentAttack.myImage;
+        timerUI.color = currentAttack.myColor;
+        currentAttack.EnteringMode();
+
+        #region old
+        /*int nextWeapon = Random.Range(0, myAttacks.Length);
         if (myAttacks[nextWeapon] == currentAttack && myAttacks.Length > 1)
         {
             ChangeWeapon();
         }
         else
         {
-            currentAttack.EndAttack();
+           currentAttack.EndAttack();
             currentAttack = myAttacks[nextWeapon];
             currentTime = 0;
             AttackCube(true);
@@ -112,22 +123,27 @@ public class Character_Attack : MonoBehaviour
             changeVfx.startColor = currentAttack.myColor;
             changeVfx.gameObject.SetActive(true);
             uiImage.sprite = currentAttack.myImage;
-        }
+        }*/
+        #endregion
     }
 
+    public void EnergyUI()
+    {
+        timerUI.fillAmount = currentAttack.currentEnergy / currentAttack.maxEnergy;
+    }
     private void Start()
     {
         CreateCube();
         player = GetComponent<Character_Movement>();
         if (countdownNumber) countdownNumber.gameObject.SetActive(false);
         currentTime = 0;
-        currentAttack = myAttacks[Random.Range(0, myAttacks.Length)];
+        currentAttack = myAttacks[0];
         AttackCube(true);
         if (damageUpgrade) myCube.overchargeEffect.SetActive(true);
         currentAttack.EnteringMode();
         overcharged = false;
         myUIAnim.SetBool("loop", false);
-        timerUI.color = emptyColor;
+        timerUI.color = currentAttack.myColor;
 
         uiImage.sprite = currentAttack.myImage;
         shardsSystem = GetComponentInChildren<Shards_System>();
@@ -203,8 +219,36 @@ public class Character_Attack : MonoBehaviour
                     currentShards = 100;
                     shardsSystem.uiShards.text = "x " + currentShards.ToString();
                 }
+                if (Input.GetButtonDown("ChangeLeft"))
+                {
+                    if (currentAttack.isAttacking) return;
+
+                    attackPosition -= 1;
+
+                    if (attackPosition < 0) attackPosition = myAttacks.Length - 1;
+
+                    currentAttack = myAttacks[attackPosition];
+                    ChangeWeapon();
+                    Debug.Log(attackPosition);
+                }
+
+                if (Input.GetButtonDown("ChangeRight"))
+                {
+                    if (currentAttack.isAttacking) return;
+
+                    attackPosition += 1;
+
+                    if (attackPosition >= myAttacks.Length) attackPosition = 0;
+
+                    currentAttack = myAttacks[attackPosition];
+                    ChangeWeapon();
+                    Debug.Log(attackPosition);
+                }
             }
-            if(!weaponFrozen)
+
+            EnergyUI();
+
+            /*if(!weaponFrozen)
             {
                 if (shuffleActivated)
                 {
@@ -217,7 +261,7 @@ public class Character_Attack : MonoBehaviour
 
                     TimerUI();
                 }
-            }
+            }*/
         }
     }
 

@@ -31,6 +31,7 @@ public class Rifle_Attack : Attack_Type
 
     public override void PrimaryAttack()
     {
+        currentEnergy -= energyPerShot;
         isAttacking = true;
         player.myAnim.SetBool("isAttacking", true);
         StartCoroutine(PrimaryCooldown());

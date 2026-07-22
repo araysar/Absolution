@@ -60,8 +60,8 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Texture:
-        m_Texture: {fileID: 2800000, guid: f0a2aa5a6d8487c4f86a74f3544e79ce, type: 3}
-        m_Scale: {x: 0.75, y: 0.75}
+        m_Texture: {fileID: 2800000, guid: 150cfa1422e87bf4193c61258e2e70b1, type: 3}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Texture0:
         m_Texture: {fileID: 0}
@@ -93,9 +93,9 @@ Material:
     - _AlphaCutoff: 0.5
     - _ColorMask: 15
     - _Distorsionamount: 0.5
-    - _MinDepth: 0.7
+    - _MinDepth: 0.834
     - _Scale: 5
-    - _Speed: 1
+    - _Speed: 0.5
     - _Stencil: 0
     - _StencilComp: 8
     - _StencilOp: 0
@@ -108,9 +108,9 @@ Material:
     - Vector2_ea4f05e7fe404c0182762d9547ec3b64: {r: 1, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Direction: {r: 1, g: 0, b: 0, a: 0}
-    - _DistorsionDir: {r: 0, g: 0.3, b: 0, a: 0}
+    - _DistorsionDir: {r: -0.5, g: -1, b: 0, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _MoveImage: {r: 0, g: 0, b: 0, a: 0}
-    - _MoveTexture: {r: 1, g: 0, b: 0, a: 0}
+    - _MoveTexture: {r: 0.5, g: 0, b: 0, a: 0}
     - _Speed: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []

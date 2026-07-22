@@ -33,7 +33,8 @@ public class Ball_Attack : Attack_Type
 
     public override void PrimaryAttack()
     {
-        if(myExplosion == null) CreateResource();
+        base.PrimaryAttack();
+        if (myExplosion == null) CreateResource();
         myExplosion.transform.position = myAttack.myCube.transform.position;
         myExplosion.gameObject.SetActive(true);
         isAttacking = true;

@@ -18,12 +18,15 @@ public class Bomb_Explosion : MonoBehaviour
     {
         IDamageable myTarget = collision.GetComponent<IDamageable>();
 
-        if(myTarget != null && collision.gameObject.layer != myBomb.myAttack.player.gameObject.layer)
+        float energyPercentage = myBomb.myAttack.currentEnergy / myBomb.myAttack.maxEnergy;
+
+        float outputDamage = Mathf.Lerp(myBomb.myAttack.damage / 4f, myBomb.myAttack.damage * 1.25f, energyPercentage);
+
+        if (myTarget != null && collision.gameObject.layer != myBomb.myAttack.player.gameObject.layer)
         {
             if(!myTargets.Contains(myTarget))
             {
-                myTarget.TakeDamage(myBomb.myAttack.myAttack.damageUpgrade?
-                    myBomb.myAttack.damage * 1.5f : myBomb.myAttack.damage);
+                myTarget.TakeDamage(myBomb.myAttack.myAttack.damageUpgrade? outputDamage * 1.5f : outputDamage);
                 myTargets.Add(myTarget);
             }
         }

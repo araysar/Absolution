@@ -43,6 +43,7 @@ public class Boomerang_Attack : Attack_Type
 
     private IEnumerator PrimaryCooldown()
     {
+        currentEnergy -= energyPerShot;
         player.myAnim.SetBool("isAttacking", true);
         myAttack.AttackCube(false);
         isAttacking = true;

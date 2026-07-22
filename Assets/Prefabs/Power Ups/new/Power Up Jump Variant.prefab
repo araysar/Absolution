@@ -9,7 +9,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1725955059437682224, guid: aac59e23ba2137c42ae2e47e953cc03c, type: 3}
       propertyPath: m_text
-      value: You can jump twice
+      value: "Pod\xE9s saltar nuevamente en el aire"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1725955059437682224, guid: aac59e23ba2137c42ae2e47e953cc03c, type: 3}
+      propertyPath: m_fontStyle
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2132735290450270199, guid: aac59e23ba2137c42ae2e47e953cc03c, type: 3}
       propertyPath: m_Sprite

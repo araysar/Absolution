@@ -23,8 +23,11 @@ public class Cross : MonoBehaviour
         {
             if(!myTargets.Contains(newTarget) && collision.gameObject.tag != "Player")
             {
+                float energyPercentage = myAttack.currentEnergy / myAttack.maxEnergy;
+
+                float outputDamage = Mathf.Lerp(myAttack.damage / 4f, myAttack.damage * 1.25f, energyPercentage);
                 myTargets.Add(newTarget);
-                newTarget.TakeDamage(myAttack.damage);
+                newTarget.TakeDamage(outputDamage);
             }
         }
     }

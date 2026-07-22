@@ -103,7 +103,7 @@ public class GameManager : MonoBehaviour
 
     public void EndGameTransition()
     {
-        nextScene = "EndGame-Words";
+        nextScene = "EndGame-Run";
     }
 
 

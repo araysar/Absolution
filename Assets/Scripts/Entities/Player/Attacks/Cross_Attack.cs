@@ -39,6 +39,7 @@ public class Cross_Attack : Attack_Type
 
     public override void PrimaryAttack()
     {
+        base.PrimaryAttack();
         StartCoroutine(PrimaryCooldown());
     }
 

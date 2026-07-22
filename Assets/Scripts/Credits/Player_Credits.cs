@@ -34,6 +34,17 @@ public class Player_Credits : MonoBehaviour
         myAnim.SetBool("isMoving", true);
     }
 
+    public void ClosePortal()
+    {
+        action = delegate { };
+        myAnim.SetBool("isClosingPortal", true);
+    }
+
+    public void ClosePortalEnd()
+    {
+        myAnim.SetBool("isClosingPortal", false);
+    }
+
     private void Move()
     {
         transform.position -= new Vector3(speed * Time.deltaTime, 0, 0);
