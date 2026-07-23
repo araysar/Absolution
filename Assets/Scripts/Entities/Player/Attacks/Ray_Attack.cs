@@ -76,7 +76,7 @@ public class Ray_Attack : Attack_Type
         isAttacking = false;
         player.isChanneling = false;
         targets.Clear();
-        player.myAnim.SetTrigger("primaryRayEnd");
+        if(player.myHealth.currentHP <= 0) player.myAnim.SetTrigger("primaryRayEnd");
         player.myAnim.SetBool("isAttacking", false); 
         
         if (player.rb.velocity.y < -player.jumpForce)
@@ -124,6 +124,19 @@ public class Ray_Attack : Attack_Type
                     else
                         target.TakeDamage(timeSinceStart == maxTime ? maxDamage * Time.deltaTime : outputDamage * Time.deltaTime);
                 }
+            }
+
+            if (player.myHealth.currentHP <= 0)
+            {
+                player.myHealth.CheckDeath();
+
+                myAttack.AttackCube(true);
+                isAttacking = false;
+                player.isChanneling = false;
+                targets.Clear();
+                player.myAnim.SetBool("isAttacking", false);
+                maxVFX.gameObject.SetActive(false);
+                myVFX.gameObject.SetActive(false);
             }
         }
     }

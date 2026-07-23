@@ -135,6 +135,7 @@ public class Player_Health : Health
 
     public override void Death()
     {
+        Character_Movement.instance.myShooter.currentAttack.Interrupt();
         Character_Movement.instance.isBusy = true;
         myAnim.SetBool("dead", true);
         base.Death();

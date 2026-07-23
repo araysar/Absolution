@@ -18,6 +18,12 @@ public class Cross_Attack : Attack_Type
         currentGravity = player.rb.gravityScale;
     }
 
+    private void Update()
+    {
+        base.Update();
+        if (player.myHealth.currentHP <= 0) Interrupt();
+    }
+
     public override void EnteringMode()
     {
 
@@ -69,13 +75,16 @@ public class Cross_Attack : Attack_Type
         yield return new WaitForSeconds(explodeTime / 2);
         myCross.myTargets.Clear();
         yield return new WaitForSeconds(explodeTime / 2);
-        player.rb.velocity = new Vector2(0, ySpeed);
-        player.rb.gravityScale = currentGravity;
-        player.myAnim.SetBool("isAttacking", false);
-        player.myAnim.SetBool("primaryCross", false);
-        myCross.gameObject.SetActive(false);
-        player.isChanneling = false;
-        myAttack.myCube.move = true;
+        if(player.myHealth.currentHP > 0)
+        {
+            player.myAnim.SetBool("isAttacking", false);
+            player.myAnim.SetBool("primaryCross", false);
+            player.rb.velocity = new Vector2(0, ySpeed);
+            player.rb.gravityScale = currentGravity;
+            myCross.gameObject.SetActive(false);
+            player.isChanneling = false;
+            myAttack.myCube.move = true;
+        }
         yield return new WaitForSeconds(timeToAttack - explodeTime);
         isAttacking = false;
     }
@@ -87,7 +96,18 @@ public class Cross_Attack : Attack_Type
 
     public override void Interrupt()
     {
-
+        if(player.myHealth.currentHP <= 0)
+        {
+            player.rb.velocity = new Vector2(0, ySpeed);
+            player.rb.gravityScale = currentGravity;
+            player.myAnim.SetBool("isAttacking", false);
+            player.myAnim.SetBool("primaryCross", false);
+            myCross.gameObject.SetActive(false);
+            player.isChanneling = false;
+            myAttack.myCube.move = true;
+            isAttacking = false;
+            player.myHealth.CheckDeath();
+        }
     }
 
     public override void CreateResource()

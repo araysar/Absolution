@@ -15058,8 +15058,8 @@ MonoBehaviour:
   energyPerShot: 10
   weaponName: 
   soundClips: []
-  myColor: {r: 0.6374238, g: 0.5499288, b: 0.6981132, a: 1}
-  damage: 12
+  myColor: {r: 1, g: 0.9667433, b: 0.11792451, a: 1}
+  damage: 12.5
   isAttacking: 0
   myImage: {fileID: 21300000, guid: af137155f4b1c9248a2ebf44302e792b, type: 3}
   myAttack: {fileID: 0}
@@ -15231,7 +15231,7 @@ MonoBehaviour:
   currentEnergy: 100
   maxEnergy: 100
   regenEnergyRate: 1
-  energyPerShot: 10
+  energyPerShot: 12.5
   weaponName: 
   soundClips: []
   myColor: {r: 0.58292437, g: 0.17443931, b: 0.754717, a: 1}
@@ -20712,7 +20712,7 @@ MonoBehaviour:
   currentEnergy: 100
   maxEnergy: 100
   regenEnergyRate: 1
-  energyPerShot: 10
+  energyPerShot: 8
   weaponName: 
   soundClips: []
   myColor: {r: 0.46828267, g: 0.6603774, b: 0.17132434, a: 1}
@@ -30661,7 +30661,7 @@ MonoBehaviour:
   currentEnergy: 100
   maxEnergy: 100
   regenEnergyRate: 1
-  energyPerShot: 10
+  energyPerShot: 25
   weaponName: 
   soundClips: []
   myColor: {r: 0.7924528, g: 0.054236963, b: 0, a: 1}
@@ -47332,7 +47332,7 @@ MonoBehaviour:
   currentEnergy: 100
   maxEnergy: 100
   regenEnergyRate: 1
-  energyPerShot: 10
+  energyPerShot: 20
   weaponName: 
   soundClips: []
   myColor: {r: 0.12156863, g: 0.65882355, b: 0.5137255, a: 1}
@@ -78266,7 +78266,7 @@ MonoBehaviour:
   currentEnergy: 100
   maxEnergy: 100
   regenEnergyRate: 1
-  energyPerShot: 8
+  energyPerShot: 25
   weaponName: AstralBall
   soundClips: []
   myColor: {r: 0.35933605, g: 0.6388739, b: 0.8962264, a: 1}
@@ -78882,18 +78882,18 @@ MonoBehaviour:
   animationPositions:
   - {fileID: 1829343231}
   - {fileID: 1476328332}
-  changeSfx: {fileID: 8300000, guid: 942f6aa37d5e85f4bae42546dcdf83b9, type: 3}
+  changeSfx: {fileID: 8300000, guid: 8c2e136581e90f544b96344ed461c059, type: 3}
   changeVfx: {fileID: 3205509845433305848}
   cubeTransform: {fileID: 2663591587055736085}
   firstWeapon: 2
   myAttacks:
-  - {fileID: 998061080381183542}
+  - {fileID: 664230564}
   - {fileID: 546582208}
   - {fileID: 2084073466}
   - {fileID: 1442397609}
   - {fileID: 7296568328309559216}
   - {fileID: 569879695626691616}
-  - {fileID: 664230564}
+  - {fileID: 998061080381183542}
   currentAttack: {fileID: 0}
   timeToShuffle: 15
   currentTime: 0
@@ -78903,6 +78903,7 @@ MonoBehaviour:
   uiImage: {fileID: 2758162664771152323}
   emptyColor: {r: 0.5758982, g: 0.44535422, b: 0.6792453, a: 1}
   fullColor: {r: 1, g: 0.28357804, b: 0, a: 1}
+  delayChangeWeapon: 0.75
   weaponFrozen: 0
   freezeUI: {fileID: 1665745122246072835}
   freezeWeaponSfx: {fileID: 0}
@@ -78981,6 +78982,7 @@ MonoBehaviour:
   flashColor: {r: 1, g: 1, b: 1, a: 1}
   myRenderer: {fileID: 0}
   myDrop: {fileID: 0}
+  dropChance: 15
   myAnim: {fileID: 6333780969245736735}
   myPlayerAttack: {fileID: 3647580896632792794}
   protectionAuraVfx: {fileID: 9148937670810403478}
@@ -94398,7 +94400,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &3535214856594064077
 Transform:
   m_ObjectHideFlags: 0
@@ -94421,7 +94423,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4683175098386231566}
   serializedVersion: 7
-  lengthInSec: 1
+  lengthInSec: 0.5
   simulationSpeed: 1
   stopAction: 1
   cullingMode: 0
@@ -94496,7 +94498,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 0.5
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -95406,8 +95408,8 @@ ParticleSystem:
           m_PreInfinity: 2
           m_PostInfinity: 2
           m_RotationOrder: 4
-      cycleCount: 3
-      repeatInterval: 0.15
+      cycleCount: 2
+      repeatInterval: 0.25
       probability: 1
   SizeModule:
     enabled: 1
@@ -105304,11 +105306,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentEnergy: 100
   maxEnergy: 100
-  regenEnergyRate: 1
-  energyPerShot: 10
+  regenEnergyRate: 0.85
+  energyPerShot: 8
   weaponName: 
   soundClips: []
-  myColor: {r: 0.8018868, g: 0.7828751, b: 0.19290671, a: 1}
+  myColor: {r: 1, g: 0.3443396, b: 0.81967366, a: 1}
   damage: 50
   isAttacking: 0
   myImage: {fileID: 21300000, guid: 245094911457ee14eb71c673dbbed589, type: 3}

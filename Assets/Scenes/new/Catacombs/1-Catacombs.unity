@@ -117368,44 +117368,36 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 546582208, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
-      propertyPath: damage
-      value: 12.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 546582208, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
-      propertyPath: myColor.b
-      value: 0.6886792
-      objectReference: {fileID: 0}
-    - target: {fileID: 546582208, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
-      propertyPath: myColor.g
-      value: 0.6886792
-      objectReference: {fileID: 0}
-    - target: {fileID: 546582208, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
-      propertyPath: myColor.r
-      value: 0.6886792
-      objectReference: {fileID: 0}
-    - target: {fileID: 546582208, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
       propertyPath: energyPerShot
-      value: 10
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 546582208, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
+      propertyPath: regenEnergyRate
+      value: 1.25
       objectReference: {fileID: 0}
     - target: {fileID: 664230564, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
       propertyPath: energyPerShot
-      value: 12.5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1442397609, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
       propertyPath: energyPerShot
-      value: 8
+      value: 7.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1442397609, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
+      propertyPath: regenEnergyRate
+      value: 0.9
       objectReference: {fileID: 0}
     - target: {fileID: 2084073466, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
-      propertyPath: energyPerShot
-      value: 25
+      propertyPath: regenEnergyRate
+      value: 1.25
       objectReference: {fileID: 0}
     - target: {fileID: 569879695626691616, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
       propertyPath: energyPerShot
-      value: 20
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 998061080381183542, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
-      propertyPath: energyPerShot
-      value: 25
+      propertyPath: regenEnergyRate
+      value: 0.9
       objectReference: {fileID: 0}
     - target: {fileID: 3284561371220175778, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
       propertyPath: m_Name
@@ -117455,6 +117447,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3647580896632792794, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
+      propertyPath: changeSfx
+      value: 
+      objectReference: {fileID: 8300000, guid: 49b78d722c20e4046b606dca62d85eac, type: 3}
     - target: {fileID: 4455549558672369815, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -117473,7 +117469,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7296568328309559216, guid: 07cfaf6f85993e34192920678ec55814, type: 3}
       propertyPath: energyPerShot
-      value: 8
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 07cfaf6f85993e34192920678ec55814, type: 3}

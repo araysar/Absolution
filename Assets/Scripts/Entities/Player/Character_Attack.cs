@@ -31,6 +31,8 @@ public class Character_Attack : MonoBehaviour
     public Color emptyColor;
     public Color fullColor;
     private Coroutine overchargeCoroutine;
+    public float delayChangeWeapon = 0.5f;
+    private Coroutine delayCoroutine;
 
 
     [Header("Freeze Charge")]
@@ -64,6 +66,12 @@ public class Character_Attack : MonoBehaviour
         Revive,
     };
 
+    IEnumerator DelayChangeWeapon()
+    {
+        yield return new WaitForSeconds(delayChangeWeapon);
+        delayCoroutine = null;
+    }
+
     public void ActivateShuffle()
     {
         shuffleActivated = true;
@@ -94,14 +102,12 @@ public class Character_Attack : MonoBehaviour
 
     public void ChangeWeapon()
     {
-        currentAttack.EndAttack();
         AttackCube(true);
         SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, changeSfx, transform);
         changeVfx.startColor = currentAttack.myColor;
         changeVfx.gameObject.SetActive(true);
         uiImage.sprite = currentAttack.myImage;
         timerUI.color = currentAttack.myColor;
-        currentAttack.EnteringMode();
 
         #region old
         /*int nextWeapon = Random.Range(0, myAttacks.Length);
@@ -222,27 +228,33 @@ public class Character_Attack : MonoBehaviour
                 if (Input.GetButtonDown("ChangeLeft"))
                 {
                     if (currentAttack.isAttacking) return;
+                    if (delayCoroutine != null) return;
 
+                    delayCoroutine = StartCoroutine(DelayChangeWeapon());
                     attackPosition -= 1;
 
                     if (attackPosition < 0) attackPosition = myAttacks.Length - 1;
 
+                    currentAttack.EndAttack();
                     currentAttack = myAttacks[attackPosition];
                     ChangeWeapon();
-                    Debug.Log(attackPosition);
+                    currentAttack.EnteringMode();
                 }
 
                 if (Input.GetButtonDown("ChangeRight"))
                 {
                     if (currentAttack.isAttacking) return;
+                    if (delayCoroutine != null) return;
 
+                    delayCoroutine = StartCoroutine(DelayChangeWeapon());
                     attackPosition += 1;
 
                     if (attackPosition >= myAttacks.Length) attackPosition = 0;
 
+                    currentAttack.EndAttack();
                     currentAttack = myAttacks[attackPosition];
                     ChangeWeapon();
-                    Debug.Log(attackPosition);
+                    currentAttack.EnteringMode();
                 }
             }
 
