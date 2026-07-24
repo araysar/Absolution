@@ -11,7 +11,7 @@ public class Trap_CircularSaw : MonoBehaviour
     private void OnTriggerStay2D(Collider2D other)
     {
         // INTENTAMOS OBTENER LA INTERFAZ IDAMAGEABLE
-        if (other.TryGetComponent<IDamageable>(out IDamageable target))
+        if (other.TryGetComponent<Player_Health>(out Player_Health target))
         {
             // APLICAMOS EL DAÑO FIJO DE UNA SOLA VEZ
             target.TakeDamage(damageAmount);
