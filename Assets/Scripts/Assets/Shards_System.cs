@@ -21,6 +21,13 @@ public class Shards_System : MonoBehaviour
     public GameObject talentPanel;
     [HideInInspector] public int index;
 
+    private void Update()
+    {
+        if(Input.GetButtonDown("Menu") && GameManager.instance.onShards && GameManager.instance.onPause == true)
+        {
+            Exit();
+        }
+    }
     private void FirstIcon()
     {
         EventSystem.current.SetSelectedGameObject(null); // Limpiamos selección anterior
@@ -31,6 +38,7 @@ public class Shards_System : MonoBehaviour
     {
 
         GameManager.instance.onPause = true;
+        GameManager.instance.onShards = true;
         Time.timeScale = 0;
         FirstIcon();
         talentPanel.SetActive(true);
@@ -39,16 +47,27 @@ public class Shards_System : MonoBehaviour
         SoundManager.instance.PlaySound(SoundManager.SoundChannel.Music, music, transform);
     }
 
-    public void BTN_TalentExit()
+    public void Exit()
     {
         GameManager.instance.UnPause();
-        talentPanel.gameObject.SetActive(false); 
-        SoundManager.instance.sfxAudioSource.PlayOneShot(SoundManager.instance.clickSfx);
-        SoundManager.instance.PlaySound(SoundManager.SoundChannel.Music, currentMusic, transform); 
+        StartCoroutine(DelayExit());
+        talentPanel.gameObject.SetActive(false);
+        SoundManager.instance.PlaySound(SoundManager.SoundChannel.Music, currentMusic, transform);
         GameManager.instance.onPause = false;
         Time.timeScale = 1;
     }
 
+    public void BTN_TalentExit()
+    {
+        SoundManager.instance.sfxAudioSource.PlayOneShot(SoundManager.instance.clickSfx);
+        Exit();
+    }
+
+    IEnumerator DelayExit()
+    {
+        yield return new WaitForSeconds(0.5f);
+        GameManager.instance.onShards = false;
+    }
     public void ActiveInfo(int indexUI)
     {
         index = indexUI;

@@ -45,10 +45,13 @@ public class MenuManager : MonoBehaviour
     void Update()
     {
         // Si ya estamos animando, ignoramos cualquier input
-        if (_isAnimating) return;
 
-        if (Input.GetButtonDown("Menu") || Input.GetKeyDown(KeyCode.I))
+        if (_isAnimating) return;
+        if (!GameManager.instance.onInventory && GameManager.instance.onPause) return;
+
+        if (Input.GetButtonDown("Menu") && !GameManager.instance.onShards)
         {
+
             if (_isPaused) StartCoroutine(CloseMenuRoutine());
             else StartCoroutine(OpenMenuRoutine());
         }
@@ -64,6 +67,7 @@ public class MenuManager : MonoBehaviour
     IEnumerator OpenMenuRoutine()
     {
         _isAnimating = true;
+        GameManager.instance.onInventory = true;
         shards.text = Character_Movement.instance.myShooter.currentShards.ToString();
         // 1. PAUSA INMEDIATA: Congelamos el juego antes de que empiece a taparse la pantalla
 
@@ -111,6 +115,7 @@ public class MenuManager : MonoBehaviour
         GameManager.instance.UnPause();
         GameManager.instance.onPause = false;
         _isAnimating = false;
+        GameManager.instance.onInventory = false;
     }
 
     // --- HELPER PARA ANIMAR EL SHADER ---

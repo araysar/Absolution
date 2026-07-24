@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
     private Animator myAnim;
     public bool onPause = false;
     public bool isBusy = false;
+    public bool onInventory = false;
+    public bool onShards = false;
     private float gravity;
     public bool iceBossDead = false;
     public bool fightingBoss = false;
