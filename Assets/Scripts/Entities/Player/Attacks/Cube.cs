@@ -31,6 +31,8 @@ public class Cube : MonoBehaviour
         GameManager.instance.DestroyEvent += Destroy;
         GameManager.instance.StopMovementEvent += StopMove;
         GameManager.instance.ResumeMovementEvent += ResumeMove;
+        if (player.GetComponent<Character_Attack>().currentAttack.GetComponent<Ball_Attack>() == true) astralBallActivated = true;
+        if (player.GetComponent<Character_Attack>().damageUpgrade == true) overchargeEffect.SetActive(true);
     }
 
     void Update()
