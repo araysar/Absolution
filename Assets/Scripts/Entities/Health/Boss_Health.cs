@@ -41,7 +41,7 @@ public class Boss_Health : Health
     {
         base.TakeDamage(dmg);
         WeakPointColor();
-        if (currentHP <= maxHP / 2.5f && !myBoss.enrage) StartEnrage();
+        if (currentHP <= maxHP / 1.5f && !myBoss.enrage) StartEnrage();
         if (flashCoroutine == null) flashCoroutine = StartCoroutine(Flashing(1, 0.10f));
     }
 

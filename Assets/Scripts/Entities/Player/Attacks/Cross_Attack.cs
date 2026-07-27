@@ -33,13 +33,16 @@ public class Cross_Attack : Attack_Type
     {
         Return();
         myAttack.myCube.move = true;
-        isAttacking = false;
-        player.rb.velocity = new Vector2(0, ySpeed);
-        player.rb.gravityScale = currentGravity;
-        player.isChanneling = false;
-        myCross.gameObject.SetActive(false);
-        player.myAnim.SetBool("isAttacking", false);
-        player.myAnim.SetBool("primaryCross", false);
+        if(isAttacking)
+        {
+            isAttacking = false;
+            player.rb.velocity = new Vector2(0, ySpeed);
+            player.rb.gravityScale = currentGravity;
+            player.isChanneling = false;
+            myCross.gameObject.SetActive(false);
+            player.myAnim.SetBool("isAttacking", false);
+            player.myAnim.SetBool("primaryCross", false);
+        }
         StopAllCoroutines();
     }
 

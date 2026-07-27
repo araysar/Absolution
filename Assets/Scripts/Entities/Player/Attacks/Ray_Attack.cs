@@ -22,9 +22,9 @@ public class Ray_Attack : Attack_Type
 
     public override void EndAttack()
     {
+        StopAllCoroutines();
         if (isAttacking) Interrupt();
         targets.Clear();
-        StopAllCoroutines();
     }
 
     public override void EnteringMode()
@@ -76,13 +76,8 @@ public class Ray_Attack : Attack_Type
         isAttacking = false;
         player.isChanneling = false;
         targets.Clear();
-        if(player.myHealth.currentHP <= 0) player.myAnim.SetTrigger("primaryRayEnd");
+        player.myAnim.SetTrigger("primaryRayEnd");
         player.myAnim.SetBool("isAttacking", false); 
-        
-        if (player.rb.velocity.y < -player.jumpForce)
-        {
-            player.rb.velocity = new Vector2(player.rb.velocity.x, -player.jumpForce);
-        }
         maxVFX.gameObject.SetActive(false);
         myVFX.gameObject.SetActive(false);
     }

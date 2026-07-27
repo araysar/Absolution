@@ -54398,7 +54398,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 175, y: 0}
+  m_SizeDelta: {x: 440, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &1374086031
 Animator:
@@ -62725,7 +62725,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 250, y: 0}
+  m_SizeDelta: {x: 440, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &1923769143
 Animator:
@@ -77723,6 +77723,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: OptionsMenu_Panel
       objectReference: {fileID: 0}
+    - target: {fileID: 2926790136017636008, guid: 964e767294206f1449a00feb68f06c2e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2926790136017636009, guid: 964e767294206f1449a00feb68f06c2e, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -77965,6 +77969,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2926790137091363949, guid: 964e767294206f1449a00feb68f06c2e, type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6938440428371662492, guid: 964e767294206f1449a00feb68f06c2e, type: 3}
+      propertyPath: m_Alpha
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

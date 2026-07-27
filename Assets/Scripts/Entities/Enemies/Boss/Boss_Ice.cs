@@ -182,9 +182,14 @@ public class Boss_Ice : Boss
     }
     public override void FinishAttack(float time)
     {
+        float enrageThresholdHP = myHealth.maxHP / 1.5f;
+        float t = 1f - (myHealth.currentHP / enrageThresholdHP);
+        t = Mathf.Clamp01(t);
+        float dynamicDivisor = Mathf.Lerp(3.0f, 4.5f, t);
+
         isResting = true;
         canAttack = false;
-        currentTimer = enrage? delayAttacks / 3.5f : delayAttacks + time;
+        currentTimer = enrage? delayAttacks / dynamicDivisor : delayAttacks + time;
     }
 
     public override void StartingFight()

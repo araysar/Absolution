@@ -15230,12 +15230,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentEnergy: 100
   maxEnergy: 100
-  regenEnergyRate: 1
+  regenEnergyRate: 1.5
   energyPerShot: 12.5
   weaponName: 
   soundClips: []
   myColor: {r: 0.58292437, g: 0.17443931, b: 0.754717, a: 1}
-  damage: 18
+  damage: 15
   isAttacking: 0
   myImage: {fileID: 21300000, guid: e7d699221b09716408ec562d1edb69fe, type: 3}
   myAttack: {fileID: 0}
@@ -30661,7 +30661,7 @@ MonoBehaviour:
   currentEnergy: 100
   maxEnergy: 100
   regenEnergyRate: 1
-  energyPerShot: 25
+  energyPerShot: 30
   weaponName: 
   soundClips: []
   myColor: {r: 0.7924528, g: 0.054236963, b: 0, a: 1}
@@ -78266,11 +78266,11 @@ MonoBehaviour:
   currentEnergy: 100
   maxEnergy: 100
   regenEnergyRate: 1
-  energyPerShot: 25
+  energyPerShot: 15
   weaponName: AstralBall
   soundClips: []
   myColor: {r: 0.35933605, g: 0.6388739, b: 0.8962264, a: 1}
-  damage: 30
+  damage: 22.5
   isAttacking: 0
   myImage: {fileID: 21300000, guid: ba2b05685ee2f2e40890dcb4ac62b304, type: 3}
   myAttack: {fileID: 3647580896632792794}
