@@ -80,14 +80,15 @@ public class Melee_Attack : Attack_Type
         myAttack.AttackCube(false);
         yield return new WaitForSeconds(0.55f);
         Collider2D[] collisions = Physics2D.OverlapBoxAll(secondaryCenter.position, new Vector2(3, 0.5f), 0);
-        float energyPercentage = currentEnergy / maxEnergy;
-
-        float outputDamage = Mathf.Lerp(damage / 4f, damage * 1.25f, energyPercentage);
+        
 
         foreach (Collider2D item in collisions)
         {
             if (item.GetComponent<IDamageable>() != null && item.gameObject.layer != player.gameObject.layer)
             {
+                float energyPercentage = currentEnergy / maxEnergy;
+
+                float outputDamage = Mathf.Lerp(damage / 4f, damage * 1.25f, energyPercentage);
                 item.GetComponent<IDamageable>().TakeDamage(myAttack.damageUpgrade? outputDamage * 1.5f : outputDamage);
             }
         }

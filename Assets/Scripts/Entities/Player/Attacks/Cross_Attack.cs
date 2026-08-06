@@ -109,7 +109,6 @@ public class Cross_Attack : Attack_Type
             player.isChanneling = false;
             myAttack.myCube.move = true;
             isAttacking = false;
-            player.myHealth.CheckDeath();
         }
     }
 

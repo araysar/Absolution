@@ -23,12 +23,11 @@ public class MeleeBounds : MonoBehaviour
                 myTargets.Add(myTarget);
                 SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, myClips[Random.Range(0, myClips.Length)], transform);
                 float totalDamage = 0;
-                if (myAttack.myAttack.damageUpgrade) totalDamage = myAttack.damage * 1.5f;
-                else totalDamage += myAttack.damage;
+                float energyPercentage = myAttack.currentEnergy / myAttack.maxEnergy;
 
-                if (collision.gameObject.tag == "Boss") totalDamage += 10;
+                float outputDamage = Mathf.Lerp(myAttack.damage / 4f, myAttack.damage * 1.25f, energyPercentage);
 
-                myTarget.TakeDamage(totalDamage);
+                myTarget.TakeDamage(myAttack.myAttack.damageUpgrade ? outputDamage * 1.5f : outputDamage);
             }
         }
     }

@@ -15055,7 +15055,7 @@ MonoBehaviour:
   currentEnergy: 100
   maxEnergy: 100
   regenEnergyRate: 1
-  energyPerShot: 9
+  energyPerShot: 10
   weaponName: 
   soundClips: []
   myColor: {r: 1, g: 0.9667433, b: 0.11792451, a: 1}
@@ -15230,8 +15230,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentEnergy: 100
   maxEnergy: 100
-  regenEnergyRate: 1.25
-  energyPerShot: 10
+  regenEnergyRate: 1
+  energyPerShot: 8
   weaponName: 
   soundClips: []
   myColor: {r: 0.58292437, g: 0.17443931, b: 0.754717, a: 1}
@@ -30665,7 +30665,7 @@ MonoBehaviour:
   weaponName: 
   soundClips: []
   myColor: {r: 0.7924528, g: 0.054236963, b: 0, a: 1}
-  damage: 40
+  damage: 35
   isAttacking: 0
   myImage: {fileID: 21300000, guid: d0946e9f1e8fc6d48b2135c5ef56f32f, type: 3}
   myAttack: {fileID: 0}
@@ -105311,7 +105311,7 @@ MonoBehaviour:
   weaponName: 
   soundClips: []
   myColor: {r: 1, g: 0.3443396, b: 0.81967366, a: 1}
-  damage: 60
+  damage: 50
   isAttacking: 0
   myImage: {fileID: 21300000, guid: 245094911457ee14eb71c673dbbed589, type: 3}
   myAttack: {fileID: 3647580896632792794}
