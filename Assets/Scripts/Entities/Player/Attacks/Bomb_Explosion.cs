@@ -20,7 +20,7 @@ public class Bomb_Explosion : MonoBehaviour
 
         float energyPercentage = myBomb.myAttack.currentEnergy / myBomb.myAttack.maxEnergy;
 
-        float outputDamage = Mathf.Lerp(myBomb.myAttack.damage / 4f, myBomb.myAttack.damage * 1.25f, energyPercentage);
+        float outputDamage = Mathf.Lerp(myBomb.myAttack.damage / 3f, myBomb.myAttack.damage * 1.25f, energyPercentage);
 
         if (myTarget != null && collision.gameObject.layer != myBomb.myAttack.player.gameObject.layer)
         {

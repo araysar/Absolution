@@ -14,7 +14,6 @@ public class MenuUI : MonoBehaviour
     private void Start()
     {
         myAnim = GetComponent<Animator>();
-        mySound = GetComponent<AudioSource>();
     }
 
     public void DisableButtons()

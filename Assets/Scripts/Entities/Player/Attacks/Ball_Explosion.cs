@@ -33,7 +33,7 @@ public class Ball_Explosion : MonoBehaviour
 
             float energyPercentage = myAttack.currentEnergy / myAttack.maxEnergy;
 
-            float outputDamage = Mathf.Lerp(myAttack.damage / 4f, myAttack.damage * 1.25f, energyPercentage);
+            float outputDamage = Mathf.Lerp(myAttack.damage / 3f, myAttack.damage * 1.25f, energyPercentage);
 
             myTargets.Add(myTarget);
             myTarget.TakeDamage(outputDamage);

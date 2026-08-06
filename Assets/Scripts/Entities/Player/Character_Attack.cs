@@ -105,6 +105,7 @@ public class Character_Attack : MonoBehaviour
         AttackCube(true);
         SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, changeSfx, transform);
         changeVfx.startColor = currentAttack.myColor;
+        changeVfx.gameObject.SetActive(false);
         changeVfx.gameObject.SetActive(true);
         uiImage.sprite = currentAttack.myImage;
         timerUI.color = currentAttack.myColor;
@@ -137,9 +138,13 @@ public class Character_Attack : MonoBehaviour
     {
         timerUI.fillAmount = currentAttack.currentEnergy / currentAttack.maxEnergy;
     }
-    private void Start()
+
+    private void Awake()
     {
         CreateCube();
+    }
+    private void Start()
+    {
         player = GetComponent<Character_Movement>();
         if (countdownNumber) countdownNumber.gameObject.SetActive(false);
         currentTime = 0;

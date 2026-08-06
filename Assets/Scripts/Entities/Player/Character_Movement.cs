@@ -421,7 +421,7 @@ public class Character_Movement : MonoBehaviour
         myShooter.currentAttack.Interrupt();
         disableInputs = true;
         isMoving = false;
-        rb.velocity = new Vector2(0, 0);
+        if(rb.bodyType != RigidbodyType2D.Static) rb.velocity = new Vector2(0, 0);
         ControlAnimations();
         myAnim.Play("idle", 0, 0);
     }
@@ -726,6 +726,8 @@ public class Character_Movement : MonoBehaviour
         GameManager.instance.saveManager.LoadData();
         myHealth.respawnEffect.SetActive(true);
         myAnim.SetBool("dead", false);
+        myHealth.currentHP = myHealth.maxHP;
+        myHealth.RefreshLifeBar();
         GetComponent<Collider2D>().enabled = true;
         rb.bodyType = RigidbodyType2D.Dynamic;
         myHealth.myRenderer.enabled = true;
@@ -739,7 +741,7 @@ public class Character_Movement : MonoBehaviour
         isDashing = false;
         isFalling = false;
         ControlAnimations();
-        myAnim.Play("Idle", 0);
+        myAnim.Play("Idle");
         isBusy = false;
     }
 

@@ -31,6 +31,7 @@ public class Player_Health : Health
     public bool reviveReady = true;
     public float reviveCooldown = 300f;
     public float reviveCurrentTime = 0;
+    float currentVelocity = 0;
 
     void Start()
     {
@@ -43,6 +44,12 @@ public class Player_Health : Health
 
     void Update()
     {
+        
+        if(Input.GetKeyDown(KeyCode.F10))
+        {
+            Heal(100);
+        }
+
         if (myPlayerAttack.reviveUpgrade)
         {
             if(reviveCurrentTime >= reviveCooldown && !reviveReady)
@@ -63,7 +70,7 @@ public class Player_Health : Health
     {
         LifeBarEffect();
     }
-    float currentVelocity = 0;
+    
 
     private void LifeBarAnimation()
     {
@@ -137,21 +144,28 @@ public class Player_Health : Health
     {
         Character_Movement.instance.myShooter.currentAttack.Interrupt();
         Character_Movement.instance.isBusy = true;
-        myAnim.SetBool("dead", true);
         base.Death();
-        myProtectionHitVfx.SetActive(false);
+        if(myPlayerAttack.defenseUpgrade) myProtectionHitVfx.SetActive(false);
+        myAnim.SetBool("damaged", false);
+        myAnim.SetBool("dead", true);
         myAnim.SetTrigger("death");
         damageAnimCoroutine = null;
-        myAnim.SetBool("damaged", false);
         CameraManager.instance.normalCamera.gameObject.SetActive(false);
         CameraManager.instance.playerCamera.gameObject.SetActive(true);
         myAnim.updateMode = AnimatorUpdateMode.UnscaledTime;
+        StartCoroutine(DeathTimer());
     }
-
+    
+    IEnumerator DeathTimer()
+    {
+        yield return new WaitForSeconds(2.5f);
+        CheckDeath();
+    }
     public void CheckDeath()
     {
         recovering = false;
         GetComponent<Character_Movement>().DisableFlip();
+        myAnim.SetTrigger("checkDeath");
         if (myPlayerAttack.reviveUpgrade && reviveReady)
         {
             myAnim.SetBool("reviveReady", true);
@@ -168,7 +182,9 @@ public class Player_Health : Health
     {
         SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, reviveHealingSfx, transform);
         reviveReady = false;
-        reviveCurrentTime = 0;
+        reviveCurrentTime = 0; 
+        Character_Movement.instance.uiResuLoop.SetActive(false);
+        Character_Movement.instance.uiResuReady.SetActive(false);
         StartCoroutine(ReviveHealingTimer());
     }
 
@@ -185,7 +201,7 @@ public class Player_Health : Health
     public void RespawnTransition()
     {
         GameManager.instance.Transition(GameManager.EventType.PlayerDeathTransition, 0);
-        GetComponent<Character_Movement>().EnableFlip();
+        Character_Movement.instance.EnableFlip();
     }
 
     public void DisableMyCamera()
@@ -200,7 +216,7 @@ public class Player_Health : Health
         myAnim.SetBool("dead", false);
         if(myPlayerAttack.defenseUpgrade)
             myProtectionHitVfx.SetActive(true);
-        GetComponent<Character_Movement>().EnableFlip();
+        Character_Movement.instance.EnableFlip();
         StartCoroutine(Flashing(10, 0.15f));
         currentHP = maxHP;
         RefreshLifeBar();

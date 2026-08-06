@@ -87,7 +87,7 @@ public class Ray_Attack : Attack_Type
 
     }
 
-    private void Update()
+    protected void Update()
     {
         base.Update();
         if (isAttacking)
@@ -107,31 +107,22 @@ public class Ray_Attack : Attack_Type
             float energyPercentage = currentEnergy / maxEnergy;
 
             float outputDamage = Mathf.Lerp(damage / 4f, damage * 1.25f, energyPercentage);
+            if (myAttack.damageUpgrade) outputDamage *= 1.5f;
+
+            float outputDamageMax = Mathf.Lerp(maxDamage / 4f, maxDamage * 1.25f, energyPercentage);
+            if (myAttack.damageUpgrade) outputDamageMax *= 1.5f;
 
             if (targets.Count > 0)
             {
                 foreach (var target in targets)
                 {
                     if(target.type == flyType)
-                        target.TakeDamage(timeSinceStart == maxTime ? maxDamage * Time.deltaTime * 1.5f: outputDamage * Time.deltaTime * 2);
+                        target.TakeDamage(timeSinceStart == maxTime ? outputDamageMax * Time.deltaTime * 1.5f: outputDamage * Time.deltaTime * 2);
                     if(target.type == bossType)
-                        target.TakeDamage(timeSinceStart == maxTime ? maxDamage * Time.deltaTime / 1.5f : outputDamage * Time.deltaTime / 1.5f);
+                        target.TakeDamage(timeSinceStart == maxTime ? outputDamageMax * Time.deltaTime / 1.5f : outputDamage * Time.deltaTime / 2f);
                     else
-                        target.TakeDamage(timeSinceStart == maxTime ? maxDamage * Time.deltaTime : outputDamage * Time.deltaTime);
+                        target.TakeDamage(timeSinceStart == maxTime ? outputDamageMax * Time.deltaTime : outputDamage * Time.deltaTime);
                 }
-            }
-
-            if (player.myHealth.currentHP <= 0)
-            {
-                player.myHealth.CheckDeath();
-
-                myAttack.AttackCube(true);
-                isAttacking = false;
-                player.isChanneling = false;
-                targets.Clear();
-                player.myAnim.SetBool("isAttacking", false);
-                maxVFX.gameObject.SetActive(false);
-                myVFX.gameObject.SetActive(false);
             }
         }
     }

@@ -92,8 +92,7 @@ public class GameManager : MonoBehaviour
         }
 
         saveManager = GetComponent<SaveManager>();
-        player = FindObjectOfType<Character_Movement>();
-        nextPosition = player.transform.position;
+        
 
         QualitySettings.vSyncCount = 1;
 
@@ -102,7 +101,11 @@ public class GameManager : MonoBehaviour
         ResumeMovementEvent += RecoverGravity;
         myAnim = GetComponent<Animator>();
     }
-
+    private void Start()
+    {
+        player = Character_Movement.instance;
+        nextPosition = player.transform.position;
+    }
     public void EndGameTransition()
     {
         nextScene = "EndGame-Run";

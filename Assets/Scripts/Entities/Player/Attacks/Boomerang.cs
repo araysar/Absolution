@@ -16,10 +16,6 @@ public class Boomerang : MonoBehaviour, IProjectile
         myCollider = GetComponent<Collider2D>();
         myAudio = GetComponent<AudioSource>();
     }
-    private void Start()
-    {
-
-    }
 
     void Update()
     {

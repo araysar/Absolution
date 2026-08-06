@@ -83,11 +83,12 @@ public class Melee_Attack : Attack_Type
         float energyPercentage = currentEnergy / maxEnergy;
 
         float outputDamage = Mathf.Lerp(damage / 4f, damage * 1.25f, energyPercentage);
+
         foreach (Collider2D item in collisions)
         {
             if (item.GetComponent<IDamageable>() != null && item.gameObject.layer != player.gameObject.layer)
             {
-                item.GetComponent<IDamageable>().TakeDamage(myAttack.damageUpgrade? outputDamage * 1.5f : damage);
+                item.GetComponent<IDamageable>().TakeDamage(myAttack.damageUpgrade? outputDamage * 1.5f : outputDamage);
             }
         }
         yield return new WaitForSeconds(0.1f);

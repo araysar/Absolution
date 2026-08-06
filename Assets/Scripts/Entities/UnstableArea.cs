@@ -7,6 +7,8 @@ public class UnstableArea : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        return;
+
         Character_Attack myPlayer = collision.GetComponent<Character_Attack>();
         if(myPlayer != null && !Character_Movement.instance.isBusy)
         {

@@ -81,8 +81,12 @@ public class Health : MonoBehaviour, IDamageable
         currentHP += amount;
         if (currentHP > maxHP) currentHP = maxHP;
         SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, healSfx, transform);
-        healVfx.SetActive(false);
-        healVfx.SetActive(true);
+        if(healVfx != null)
+        {
+            healVfx.SetActive(false);
+            healVfx.SetActive(true);
+        }
+        if(deathVfx != null) deathVfx.SetActive(false);
     }
 
     public virtual void Death()

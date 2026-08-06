@@ -4,6 +4,8 @@ public class NormalArea : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        return; 
+
         Character_Attack player = collision.GetComponent<Character_Attack>();
         if (collision.GetComponent<Character_Attack>() != null)
         {

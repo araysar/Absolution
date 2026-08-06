@@ -36,6 +36,9 @@ public class Enemy_Knight : MonoBehaviour
     private Animator myAnim;
     private Health myHealth;
     private Rigidbody2D myRb;
+
+    private bool canChase = true;
+    private Coroutine CoroutineChase;
     void Start()
     {
         myRb = GetComponent<Rigidbody2D>();
@@ -73,6 +76,7 @@ public class Enemy_Knight : MonoBehaviour
                 if (lastPlayerPosition == Vector2.zero && isChasing)
                 {
                     isChasing = false;
+                    CoroutineChase = StartCoroutine(StopChase());
                     currentDistance -= maxDistance / 2;
                 }
                 else
@@ -81,6 +85,7 @@ public class Enemy_Knight : MonoBehaviour
                     {
                         currentDistance -= maxDistance / 2;
                         isChasing = false;
+                        CoroutineChase = StartCoroutine(StopChase());
                         lastPlayerPosition = Vector2.zero;
                     }
                 }
@@ -104,6 +109,13 @@ public class Enemy_Knight : MonoBehaviour
         }
     }
 
+    IEnumerator StopChase()
+    {
+        canChase = false;
+        yield return new WaitForSeconds(0.5f);
+        canChase = true;
+        CoroutineChase = null;
+    }
     private void FixedUpdate()
     {
         if (myHealth.currentHP > 0 && canMove)
@@ -207,7 +219,7 @@ public class Enemy_Knight : MonoBehaviour
             else
             {
                 lastPlayerPosition = target.transform.position;
-                if(!isChasing)
+                if(!isChasing && canChase)
                 {
                     isChasing = true;
                     SoundManager.instance.PlaySound(SoundManager.SoundChannel.SFX, chargeSfx, transform);

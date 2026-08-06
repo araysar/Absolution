@@ -25,6 +25,13 @@ public class SaveManager : MonoBehaviour
         gM = GetComponent<GameManager>();
         gM.SaveDataEvent += SaveData;
         gM.LoadDataEvent += LoadData;
+        currentHp = gM.player.myHealth.maxHP;
+        ulti1Stacks = gM.player.ulti1Stacks;
+        playerUpgrades = new List<Character_Movement.PowerUp>(gM.player.myUpgrades);
+        gM.player.myHealth.initialPosition = gM.player.transform.position;
+        saveShards = new List<int>(shards);
+        currentShards = gM.player.GetComponent<Character_Attack>().currentShards;
+        savedDialogues = new List<int>(dialogues);
     }
 
     public void SaveData()

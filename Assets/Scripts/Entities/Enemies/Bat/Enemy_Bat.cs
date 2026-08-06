@@ -60,7 +60,6 @@ public class Enemy_Bat : MonoBehaviour
         if (playerHit != null)
         {
             _isChasing = true;
-            myHealth.myRenderer.color = Color.red;
             rageEffect.SetActive(true);
             if(!isRaging)
             {
@@ -75,7 +74,6 @@ public class Enemy_Bat : MonoBehaviour
         {
             isRaging = false;
             rageEffect.SetActive(false);
-            myHealth.myRenderer.color = Color.white;
             _isChasing = false;
         }
 
@@ -84,7 +82,7 @@ public class Enemy_Bat : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (myHealth.currentHP <= 0) return;
+        if (myHealth.currentHP <= 0 || GameManager.instance.onPause) return;
 
         // 1. Determinar el punto hacia donde queremos ir
         if (_isChasing)
