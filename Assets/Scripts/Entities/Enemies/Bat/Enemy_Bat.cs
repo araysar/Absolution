@@ -35,9 +35,11 @@ public class Enemy_Bat : MonoBehaviour
     public AudioClip hitAudioClip;
 
     private Rigidbody2D _rb;
+    public Animator myAnim;
     [HideInInspector] public Enemy_Health myHealth;
     private bool _isChasing = false;
     private Vector2 _targetPosition;
+    private bool canMove = true;
 
     void Awake()
     {
@@ -48,9 +50,29 @@ public class Enemy_Bat : MonoBehaviour
         _rb.gravityScale = 0; // Evita que caiga por gravedad
     }
 
+    private void Start()
+    {
+        GameManager.instance.ResumeMovementEvent += ResumeMovement;
+        GameManager.instance.StopMovementEvent += StopMovement;
+        myAnim = GetComponent<Animator>();
+        ResumeMovement();
+    }
+
+    public void StopMovement()
+    {
+        _rb.velocity = Vector2.zero;
+        myAnim.SetFloat("speed", 0);
+        canMove = false;
+    }
+
+    public void ResumeMovement()
+    {
+        myAnim.SetFloat("speed", 1);
+        canMove = true;
+    }
     void Update()
     {
-        if (myHealth.currentHP <= 0) return;
+        if (myHealth.currentHP <= 0 || !canMove) return;
 
         VerificarAtaqueAlJugador();
 
@@ -83,7 +105,7 @@ public class Enemy_Bat : MonoBehaviour
     void FixedUpdate()
     {
         if (myHealth.currentHP <= 0 || GameManager.instance.onPause) return;
-
+        if (!canMove) return;
         // 1. Determinar el punto hacia donde queremos ir
         if (_isChasing)
         {
