@@ -44,10 +44,15 @@ public class Player_Health : Health
     void Update()
     {
         
-        if (Input.GetKeyDown(KeyCode.F9))
+        if (Input.GetKeyDown(KeyCode.F10))
         {
             Heal(100);
         }
+        if (Input.GetKeyDown(KeyCode.F11))
+        {
+            RespawnPlayerHealth();
+        }
+        
         if (myPlayerAttack.reviveUpgrade)
         {
             if(reviveCurrentTime >= reviveCooldown && !reviveReady)
